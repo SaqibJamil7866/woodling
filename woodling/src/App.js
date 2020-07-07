@@ -4,6 +4,7 @@ import cookie from 'react-cookies';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Navigation } from '../src/components/common/base.component';
 import './App.css';
+import LoginComponent from './components/authenticate/login.component';
 
 function Main(props) {
 
@@ -50,8 +51,8 @@ function App() {
     <>
       <Router>
         <Switch>
-          {/* <Route path={["/", "/login"]} exact component={Login} />
-          <Route path="/signup" exact component={Register} /> */}
+          <Route path={["/", "/login"]} exact component={LoginComponent} />
+          {/* <Route path="/signup" exact component={Register} /> */}
           <Route component={Main}/>
         </Switch>
       </Router>
