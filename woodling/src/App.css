@@ -37,15 +37,40 @@
   }
 }
 
+.shadows {
+  filter: drop-shadow(5px 6px 3px rgba(50, 50, 0, 0.5));
+}
+
+.login {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+  background-color: #ff0000;
+}
 
 .login__title {
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgb(173, 169, 169);
 }
+
+.form-control {
+  border-radius: 1.25rem;
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.signUp {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+  background-color: #ff0000;
+}
+
 .bg-red {
   background-color: #ff0000;
 }
+
 .center {
   margin-left: auto;
   margin-right: auto;
