@@ -150,5 +150,6 @@ html, body, #root {
   position: absolute;
   display: flex;
   top: 36%;
-  margin-right: 50px;
+  justify-content: center;
+  width: 100%;
 }

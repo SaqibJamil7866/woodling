@@ -14,8 +14,8 @@ class LoginComponent extends Component {
               <div className='col-md-8 col-sm-8 col-xs-12 center__item'>
                 <img style={{height: '85%', position: 'relative'}} src={require('../../assets/Phone-Screenshots.svg')} />
                 <div className='playstore__img'>
-                  <img style={{marginLeft: '35px'}} src={require('../../assets/playStore.svg')} />
-                  <img  src={require('../../assets/AppStore.svg')} />
+                  <img style={{width: '185px'}} src={require('../../assets/playStore.svg')} />
+                  <img style={{width: '185px', marginLeft: '25px'}} src={require('../../assets/AppStore.svg')} />
                 </div>
               </div>
               <div className="col-md-4 col-sm-8 col-xs-12 shadows">
