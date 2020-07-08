@@ -1,6 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import 'font-awesome/css/font-awesome.min.css';
+import { ReactComponent as HomeIcon } from '../../assets/home-alt.svg';
+import { ReactComponent as TrendingIcon } from '../../assets/discovery-unselected.svg';
+import { ReactComponent as CallsIcon } from '../../assets/casting-calls-icon.svg';
+import { ReactComponent as SearchIcon } from '../../assets/talent-search.svg';
+import { ReactComponent as MarketplaceIcon } from '../../assets/marketplace-unselected.svg';
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 
 const StyledSideNav = styled.div`   
@@ -21,22 +26,34 @@ class SideNav extends React.Component {
             activePath: props.location.pathname,
             items: [
                 {
-                  path: '/', /* path is used as id to check which NavItem is active basically */
+                  path: '/home', /* path is used as id to check which NavItem is active basically */
                   name: 'Home',
-                  imgsrc: require('../../assets/home-alt.svg'),
+                  imgsrc: (<HomeIcon alt="Home icon" title="Home"/>),
                   key: 1 /* Key is required, else console throws error. Does this please you Mr. Browser?! */
                 },
                 {
                   path: '/about',
-                  name: 'About',
-                  imgsrc: require('../../assets/home-alt.svg'),
+                  name: 'Trending',
+                  imgsrc: (<TrendingIcon alt="Trending icon" title="Trending" />),
                   key: 2
                 },
                 {
-                  path: '/NoMatch',
-                  name: 'NoMatch',
-                  imgsrc: require('../../assets/home-alt.svg'),
+                  path: '/casting_calls',
+                  name: 'Casting Calls',
+                  imgsrc: (<CallsIcon alt="Calls icon" title="Calls" />),
                   key: 3
+                },
+                {
+                  path: '/talent_search',
+                  name: 'Talent Search',
+                  imgsrc: (<SearchIcon alt="Search icon" title="Search" />),
+                  key: 4
+                },
+                {
+                    path: '/NoMatch',
+                    name: 'Market Place',
+                    imgsrc: (<MarketplaceIcon alt="Market icon" title="Marketplace" />),
+                    key: 5
                 },
               ]
         }
@@ -78,12 +95,22 @@ const StyledNavItem = styled.div`
     margin-bottom: 0;   /* Puts space between NavItems */
     a {
         font-size: 2.5em; /* font size of icons*/
-        color: ${(props) => props.active ? "white" : "#9FFFCB"};
         :hover {
             opacity: 0.7;
             text-decoration: none; /* Gets rid of underlining of icons */
-        }  
+        }
+        svg {
+            fill: ${(props) => props.active ? "#FF0000" : "#000"};
+            :hover {
+                fill: #FF000;
+            }
+        }
     }
+    :hover {
+        border-left: 2px solid #FF0000;
+    }
+
+    border-left: ${(props) => props.active ? "2px solid #FF0000" : "none"}
 `;
 
 class NavItem extends React.Component {
@@ -96,16 +123,14 @@ class NavItem extends React.Component {
         const { active } = this.props;
         return(
             <StyledNavItem active={active}>
-                <Link to={this.props.path} className={this.props.css} onClick={this.handleClick}>
-                    <img src={this.props.imgsrc} alt={this.props.name} />
-                    {/* <NavIcon></NavIcson> */}
+                <Link to={this.props.path} onClick={this.handleClick}>
+                    {this.props.imgsrc}
                 </Link>
             </StyledNavItem>
         );
     }
 }
 
-const NavIcon = styled.div``;
 
 export default class Sidebar extends React.Component {
     render() {

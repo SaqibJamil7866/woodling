@@ -153,3 +153,11 @@ html, body, #root {
   justify-content: center;
   width: 100%;
 }
+
+.mt50{
+  margin-top: 50px !important;
+}
+
+.active-icon{
+ 
+}

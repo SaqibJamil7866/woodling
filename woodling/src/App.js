@@ -12,8 +12,7 @@ function Main(props) {
   return <div>
       <Navigation />
       <Sidebar />
-      <div className="container content">
-        This is home screen
+      <div className="container content mt50">
         {/* <SecuredRoute path='/home'  component={Home} /> */}
       </div>
   </div>;
