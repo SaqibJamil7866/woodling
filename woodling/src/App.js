@@ -3,6 +3,7 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Navigation } from '../src/components/common/base.component';
+import Sidebar from '../src/components/common/sidebar.component';
 import './App.css';
 import LoginComponent from './components/authenticate/login.component';
 
@@ -10,6 +11,7 @@ function Main(props) {
 
   return <div>
       <Navigation />
+      <Sidebar />
       <div className="container content">
         This is home screen
         {/* <SecuredRoute path='/home'  component={Home} /> */}
