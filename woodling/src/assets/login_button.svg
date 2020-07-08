@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="115.889" height="77.693" viewBox="0 0 115.889 77.693">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1" y1="0.5" x2="-1.025" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fb0201"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <filter id="Union_1" x="0" y="0" width="115.889" height="77.693" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="button" transform="translate(-1191.311 -986.934)">
+    <g transform="matrix(1, 0, 0, 1, 1191.31, 986.93)" filter="url(#Union_1)">
+      <path id="Union_1-2" data-name="Union 1" d="M42.684,44.531H14.094C6.31,44.531,0,37.956,0,29.846S6.31,15.161,14.094,15.161h28.59C50.128,7.62,59.713,0,68.043,0a29.847,29.847,0,1,1,0,59.693C59.713,59.693,50.128,52.071,42.684,44.531Z" transform="translate(9 6)" fill="url(#linear-gradient)"/>
+    </g>
+    <path id="long-arrow-right" d="M18.111,128.2l-.412.412a.7.7,0,0,0,0,.988l4.887,4.859H.7a.7.7,0,0,0-.7.7v.582a.7.7,0,0,0,.7.7H22.586L17.7,141.3a.7.7,0,0,0,0,.988l.412.412a.7.7,0,0,0,.988,0l6.783-6.754a.7.7,0,0,0,0-.988L19.1,128.2A.7.7,0,0,0,18.111,128.2Z" transform="translate(1255.568 887.327)" fill="#fff"/>
+  </g>
+</svg>

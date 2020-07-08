@@ -37,6 +37,29 @@
   }
 }
 
+html, body, #root {
+  margin: 0;
+  height: 100%;
+}
+
+.logoStyling {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.logoStyling__img {
+  height: 35px;
+}
+
+.loginBacground {
+  background-image: url('./assets/bubbles.svg');
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+}
+
 .shadows {
   filter: drop-shadow(5px 6px 3px rgba(50, 50, 0, 0.5));
 }
@@ -44,17 +67,46 @@
 .login {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
-  background-color: #ff0000;
+  background-color: #FFFFFF;
 }
 
 .login__title {
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgb(173, 169, 169);
+  padding: 5px;
+}
+
+.login__title--heading {
+  font-family: Poppins;
+  font-size: 25px;
+}
+
+.login__welcome-back-img {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.forms {
+  margin-top: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: 10px;
 }
 
 .form-control {
   border-radius: 1.25rem;
+}
+
+.login__btn-div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login__btn {
+  border: none;
+  background-color: #FFFFFF;
 }
 
 .alignCenter {
@@ -62,9 +114,18 @@
 }
 
 .signUp {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
-  background-color: #ff0000;
+  clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
+  background-color: #FFFFFF;
+  padding: 40px;
+  margin-top: -30px;
+  box-shadow: 0px 1px 10px 10px #888888 !important;
+}
+
+.signUp__heading {
+  font-size: 17px;
+  font-family: Poppins;
+  margin-top: 30px;
 }
 
 .bg-red {
@@ -78,4 +139,16 @@
 
 .inline-block{
   display: inline-block;
+}
+
+.center__item {
+  display: flex;
+  justify-content: center;
+}
+
+.playstore__img {
+  position: absolute;
+  display: flex;
+  top: 36%;
+  margin-right: 50px;
 }
