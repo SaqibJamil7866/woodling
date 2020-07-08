@@ -9,7 +9,7 @@ function Navigation(props){
             <Container>
                 <Link to='home' className="center">
                     <img
-                        src="images/logo-white.png"
+                        src={require('../../assets/woodlig.svg')}
                         alt="Woodling"
                     />
                 </Link>

@@ -9,7 +9,7 @@ const StyledSideNav = styled.div`
     width: 60px;     /* Set the width of the sidebar */
     z-index: 1;      /* Stay on top of everything */
     top: 2.6em;      /* Stay at the top */
-    background-color: #000; /* Black */
+    background-color: #fff; /* Black */
     overflow-x: hidden;     /* Disable horizontal scroll */
     padding-top: 10px;
 `;
@@ -23,19 +23,19 @@ class SideNav extends React.Component {
                 {
                   path: '/', /* path is used as id to check which NavItem is active basically */
                   name: 'Home',
-                  css: 'fa fa-fw fa-home',
+                  imgsrc: require('../../assets/home-alt.svg'),
                   key: 1 /* Key is required, else console throws error. Does this please you Mr. Browser?! */
                 },
                 {
                   path: '/about',
                   name: 'About',
-                  css: 'fa fa-fw fa-clock',
+                  imgsrc: require('../../assets/home-alt.svg'),
                   key: 2
                 },
                 {
                   path: '/NoMatch',
                   name: 'NoMatch',
-                  css: 'fas fa-hashtag',
+                  imgsrc: require('../../assets/home-alt.svg'),
                   key: 3
                 },
               ]
@@ -56,7 +56,7 @@ class SideNav extends React.Component {
                             <NavItem 
                                 path={item.path}
                                 name={item.name}
-                                css={item.css}
+                                imgsrc={item.imgsrc}
                                 onItemClick={this.onItemClick}
                                 active={item.path === activePath}
                                 key={item.key}
@@ -97,7 +97,8 @@ class NavItem extends React.Component {
         return(
             <StyledNavItem active={active}>
                 <Link to={this.props.path} className={this.props.css} onClick={this.handleClick}>
-                    <NavIcon></NavIcon>
+                    <img src={this.props.imgsrc} alt={this.props.name} />
+                    {/* <NavIcon></NavIcson> */}
                 </Link>
             </StyledNavItem>
         );
