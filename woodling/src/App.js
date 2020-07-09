@@ -6,14 +6,16 @@ import { Navigation } from '../src/components/common/base.component';
 import Sidebar from '../src/components/common/sidebar.component';
 import './App.css';
 import LoginComponent from './components/authenticate/login.component';
+import SecuredRoute from './components/authenticate/secure.component';
+import Home from './components/home.component';
 
 function Main(props) {
 
-  return <div>
+  return <div className="h100p">
       <Navigation />
       <Sidebar />
-      <div className="container content mt50">
-        {/* <SecuredRoute path='/home'  component={Home} /> */}
+      <div className="container content mt50 h100p p0">
+        <SecuredRoute path='/home'  component={Home} />
       </div>
   </div>;
 }
