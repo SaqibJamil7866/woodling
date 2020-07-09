@@ -86,6 +86,8 @@ html, body, #root {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .forms {
@@ -117,7 +119,7 @@ html, body, #root {
   clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
   -webkit-clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
   background-color: #FFFFFF;
-  padding: 40px;
+  /* padding: 35px; */
   margin-top: -30px;
   box-shadow: 0px 1px 10px 10px #888888 !important;
 }
@@ -126,6 +128,8 @@ html, body, #root {
   font-size: 17px;
   font-family: Poppins;
   margin-top: 30px;
+  padding: 50px;
+  padding-bottom: 0 !important;
 }
 
 .bg-red {
@@ -146,6 +150,13 @@ html, body, #root {
   justify-content: center;
 }
 
+.col-dir {
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+}
+
 .playstore__img {
   position: absolute;
   display: flex;
@@ -154,10 +165,114 @@ html, body, #root {
   width: 100%;
 }
 
+.mt10 {
+  margin-top: -10px !important;
+}
+
 .mt50{
   margin-top: 50px !important;
 }
 
-.active-icon{
- 
+.list {
+  display: flex;
+  list-style: none;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.list__items:not(:first-child) {
+  margin-left: 20px;
+  color: black
+}
+
+.list__items--link {
+  font-family: Poppins;
+  color: #5F6772;
+}
+
+.search-field {
+  width: 60% !important;
+}
+
+.search__text {
+  font-family: Poppins;
+  color: #000000;
+  font-size: 22px;
+}
+
+@media only screen and (min-width: 900px) {
+  .logo {
+    display: none;
+  }
+  .searchDiv {
+    display: none;
+  }
+  .inLine__items {
+    display: none;
+  }
+  .list__items--hidden {
+    display: flex;
+    flex-direction: column; 
+    align-content: center;
+  }
+  html {
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .w800 {
+    display: none;
+  }
+  .wfull {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .p800 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .pd65__800 {
+    padding-left: 65px;
+    padding-right: 65px;
+  }
+  .logoStyling {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+  }
+  .logoStyling__img {
+    height: 60px;
+    margin-bottom: 10px;
+  }
+  .md-12 {
+    max-width: 63.33333% !important;
+  }
+
+  .searchDiv {
+    width: 100%;
+  }
+
+  .search-field {
+    width: 100% !important;
+    margin-top: 15px !important;
+    padding: 10px !important
+  }
+
+  .search__text {
+    font-family: Poppins;
+    color: #000000;
+    font-size: 16px;
+    text-align: center;
+  }
+  .list__items--hidden {
+    display: none;
+  }
+  .inLine__items {
+    display: flex;
+    justify-content: space-between;
+  }
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const LoginForm = () => {
+const LoginForm = (props) => {
     return ( 
         <>
-            <div className="login">
+            <div className="login p800">
                 <div className='login__title'>
                     <h3 className='login__title--heading'><b>Log in</b></h3>
                 </div>
@@ -26,9 +26,9 @@ const LoginForm = () => {
                     </div>
                 </form>
             </div>
-            <div className="signUp">
+            <div className="signUp pd65__800">
                 <h5 className='signUp__heading'><b>Don't have an account yet?</b></h5>
-                <button className='login__btn' type="submit" ><img  src={require('../../assets/signup_btn.svg')} /></button>
+                <button className='login__btn' onClick={() => props.changeComponent()} ><img  src={require('../../assets/signup_btn.svg')} /></button>
             </div>
         </>
     );
