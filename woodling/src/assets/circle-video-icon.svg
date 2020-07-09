@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="59" height="60" viewBox="0 0 59 60">
+  <g id="Group_1783" data-name="Group 1783" transform="translate(-0.333 0.456)">
+    <g id="Ellipse_469" data-name="Ellipse 469" transform="translate(0.333 -0.456)" fill="#fff" stroke="#fb0201" stroke-width="1">
+      <ellipse cx="29.5" cy="30" rx="29.5" ry="30" stroke="none"/>
+      <ellipse cx="29.5" cy="30" rx="29" ry="29.5" fill="none"/>
+    </g>
+    <path id="video-light" d="M16.427,64H2.336A2.335,2.335,0,0,0,0,66.336V80.427a2.336,2.336,0,0,0,2.336,2.336H16.427a2.335,2.335,0,0,0,2.336-2.336V66.336A2.335,2.335,0,0,0,16.427,64Zm9.254,1.842-5.355,3.694v7.691l5.355,3.689a1.567,1.567,0,0,0,2.463-1.261V67.1A1.567,1.567,0,0,0,25.681,65.842Z" transform="translate(15.096 -43.624)" fill="none" stroke="#fb0201" stroke-width="1"/>
+  </g>
+</svg>

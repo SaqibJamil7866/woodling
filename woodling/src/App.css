@@ -40,6 +40,8 @@
 html, body, #root {
   margin: 0;
   height: 100%;
+  background-color: #F2F2F2;
+  font-family: poppins;
 }
 
 .logoStyling {
@@ -128,8 +130,32 @@ html, body, #root {
   margin-top: 30px;
 }
 
+.absolute{
+  position: absolute !important
+}
+.post-image{
+  height: 230px;
+  position: relative;
+  margin-top: -12px;
+  width: 270px;
+}
+
+.card-pics> img{
+  height:50px;
+  width: 50px;
+  margin-right: 10px;
+}
+
 .bg-red {
   background-color: #ff0000;
+}
+
+.red {
+  color: #ff0000;
+}
+
+.navy{
+  color: #6565A0;
 }
 
 .center {
@@ -154,10 +180,126 @@ html, body, #root {
   width: 100%;
 }
 
+.top-content-bar{
+  background-color: #ffffff;
+  box-shadow: 0px 3px 10px 1px #888888 !important;
+  border-radius: 5px;
+}
+
+.h100p{
+  height: 100% !important;
+}
+.h40{
+  height: 40px;
+}
+.br-white{
+  border-right: 2px solid white;
+}
+.vl-sub{
+  vertical-align: sub;
+}
+
+.float-right{
+  float: right;
+}
+
+.profile-icons{
+  display: block;
+  margin-top: 30px;
+}
+
+.wd-58p{
+  width: 58%;
+}
+
+.fixedbutton {
+  position: fixed;
+  bottom: 15px;
+  right: 530px; 
+}
+
+.img-div{
+  height: 230px;
+}
+
+.img-div> img{
+  height: 100%;
+  width: 100%;
+}
+
+.oniline-status-title{
+  margin: 5px 5px;
+}
+
+.p0{
+  padding: 0px !important;
+}
+.pt-6{
+  padding-top: 6px;
+}
+
+.mt3{
+  margin-top: 3px;
+}
+
+.ml10{
+  margin-left: 10px;
+}
+
+.ml18{
+  margin-left: 18px;
+}
+
+.ml200{
+  margin-left: 200px !important;
+}
+
+.mr10{
+  margin-right: 10px;
+}
+
+.mr20{
+  margin-right: 20px;
+}
+
+.ml15{
+  margin-left: 15px !important;
+}
+
+.mt10{
+  margin-top: 10px !important;
+}
+
+.mb10{
+  margin-bottom: 10px !important;
+}
+
+.mt30{
+  margin-top: 30px !important;
+}
+
 .mt50{
   margin-top: 50px !important;
 }
+.mt0{
+  margin-top: 0px !important;
+}
 
-.active-icon{
- 
+.brad-10{
+  border-radius: 10px;
+}
+
+.brad-40{
+  border-radius: 40px;
+}
+.border-top{
+  border-top: 1px solid gray;
+}
+
+.gray{
+  color: #707070;
+}
+
+.p-3-0{
+  padding: 3px 0px!important;
 }
