@@ -126,7 +126,7 @@ function AddEditBuInventory(props) {
                     <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
                 </div>
                 <OnlineStatusCard />
-                <div className="mt10">
+                <div className="mt10 mb10">
                     <ExploreCard />
                 </div>
             </div>

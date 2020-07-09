@@ -5,12 +5,14 @@ function ExploreCard(props) {
     return (
         <div className="card">
             <p class="oniline-status-title gray">EXPLORE | Get Connected <span className="inline-block float-right"><RightIcon /></span></p>
-            <hr className="mt0"/>
-            <p class="title">CEO & Founder, Example</p>
-            <p>Harvard University</p>
-            <a href="#"><i className="fa fa-dribbble"></i></a>
-            <a href="#"><i className="fa fa-twitter"></i></a>
-
+            <hr className="mt0 mb0"/>
+            <ul className='vertical-list p0'>
+                <li>Terms</li>
+                <li>Privacy</li>
+                <li>FAQ</li>
+                <li>Support</li>
+                <li>See More</li>
+            </ul>
         </div>
     );
 }
