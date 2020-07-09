@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85.105" height="85.105" viewBox="0 0 85.105 85.105">
+  <defs>
+    <filter id="bg" x="0" y="0" width="85.105" height="85.105" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-opacity="0.42"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="button" transform="translate(-295.182 -708.181)">
+    <g transform="matrix(1, 0, 0, 1, 295.18, 708.18)" filter="url(#bg)">
+      <rect id="bg-2" data-name="bg" width="55.105" height="55.105" rx="27.553" transform="translate(15 15)" fill="#fff"/>
+    </g>
+    <path id="plus-circle" d="M53.308,37.161v1.446a1.45,1.45,0,0,1-1.446,1.446H40.053V51.862a1.45,1.45,0,0,1-1.446,1.446H37.161a1.45,1.45,0,0,1-1.446-1.446V40.053H23.906a1.45,1.45,0,0,1-1.446-1.446V37.161a1.45,1.45,0,0,1,1.446-1.446H35.715V23.906a1.45,1.45,0,0,1,1.446-1.446h1.446a1.45,1.45,0,0,1,1.446,1.446V35.715H51.862A1.45,1.45,0,0,1,53.308,37.161Zm14.46.723A29.884,29.884,0,1,1,37.884,8,29.879,29.879,0,0,1,67.768,37.884Zm-3.856,0A26.028,26.028,0,1,0,37.884,63.912,26.027,26.027,0,0,0,63.912,37.884Z" transform="translate(299.991 712.991)" fill="#fb0201"/>
+  </g>
+</svg>

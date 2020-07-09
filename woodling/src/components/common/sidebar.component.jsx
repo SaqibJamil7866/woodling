@@ -5,7 +5,7 @@ import { ReactComponent as HomeIcon } from '../../assets/home-alt.svg';
 import { ReactComponent as TrendingIcon } from '../../assets/discovery-unselected.svg';
 import { ReactComponent as CallsIcon } from '../../assets/casting-calls-icon.svg';
 import { ReactComponent as SearchIcon } from '../../assets/talent-search.svg';
-import { ReactComponent as MarketplaceIcon } from '../../assets/marketplace-unselected.svg';
+import { ReactComponent as MarketplaceIcon } from '../../assets/marketplace-naira.svg';
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 
 const StyledSideNav = styled.div`   
@@ -34,7 +34,7 @@ class SideNav extends React.Component {
                 {
                   path: '/about',
                   name: 'Trending',
-                  imgsrc: (<TrendingIcon alt="Trending icon" title="Trending" />),
+                  imgsrc: (<TrendingIcon alt="Trending icon" title="Trending" width="30px" />),
                   key: 2
                 },
                 {
@@ -100,9 +100,9 @@ const StyledNavItem = styled.div`
             text-decoration: none; /* Gets rid of underlining of icons */
         }
         svg {
-            fill: ${(props) => props.active ? "#FF0000" : "#000"};
+            filter: ${(props) => props.active ? "invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%)" : " "};
             :hover {
-                fill: #FF000;
+                filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
             }
         }
     }
