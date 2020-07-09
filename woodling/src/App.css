@@ -39,13 +39,14 @@
 
 html, body, #root {
   margin: 0;
-  height: 100%;
+  height: 100% !important;
 }
 
 .logoStyling {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  height: 8%;
 }
 
 .logoStyling__img {
@@ -56,7 +57,7 @@ html, body, #root {
   background-image: url('./assets/bubbles.svg');
   background-size: cover;
   width: 100%;
-  height: 100%;
+  height: 90%;
   margin: 0 !important;
 }
 
@@ -68,6 +69,7 @@ html, body, #root {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
   background-color: #FFFFFF;
+  width: 80%;
 }
 
 .login__title {
@@ -85,6 +87,8 @@ html, body, #root {
 .login__welcome-back-img {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-top: 10px;
   padding-left: 20px;
   padding-right: 20px;
@@ -119,8 +123,9 @@ html, body, #root {
   clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
   -webkit-clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
   background-color: #FFFFFF;
+  width: 80%;
   /* padding: 35px; */
-  margin-top: -30px;
+  margin-top: -20px;
   box-shadow: 0px 1px 10px 10px #888888 !important;
 }
 
@@ -128,8 +133,8 @@ html, body, #root {
   font-size: 17px;
   font-family: Poppins;
   margin-top: 30px;
-  padding: 50px;
-  padding-bottom: 0 !important;
+  margin-left: 15px;
+  
 }
 
 .bg-red {
@@ -216,8 +221,11 @@ html, body, #root {
     align-content: center;
   }
   html {
-    height: auto;
+    height: 100%;
   }
+  /* body {
+    height: inherit;
+  } */
 }
 
 @media only screen and (max-width: 900px) {
@@ -275,4 +283,106 @@ html, body, #root {
     display: flex;
     justify-content: space-between;
   }
+}
+
+.signupForm {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+  background-color: #FFFFFF;
+  width: 90%;
+}
+
+.signup__account--text {
+  font-size: 18px;
+  text-align: center;
+  font-family: Poppins;
+  margin-top: -5px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.w45 {
+  width: 45%;
+}
+
+.mt-10 {
+  margin-top: -10px;
+}
+
+.mt10 {
+  margin-top: 9px;
+}
+
+.checkBox__clr {
+  background-color: #D1D1D1 !important;
+}
+
+.clr__white {
+  background-color: #FFFFFF;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.checkBox__clr--active {
+  background-color: #FB0201;
+}
+
+.clr__red {
+  color: #FB0201;
+}
+
+.clr__black {
+  color: #000000;
+}
+
+.mb0 {
+  margin-bottom: 0px;
+}
+
+.h30 {
+  height: 30px;
+  border-radius: 10px;
+}
+
+.w60 {
+  width: 60% !important;
+}
+
+.w90 {
+  width: 90%;
+}
+
+.m15 {
+  margin-top: 15px !important;
+}
+
+/* .m-20 {
+  margin-top: -20px !important;
+}
+
+.m-15 {
+  margin-top: -15px;
+} */
+
+.font-25 {
+  font-size: 25px;
+}
+
+.borderLine {
+  margin-top: 10px;
+  border: 1px solid #D1D1D1;
+  display: flex;
+  justify-content: center;
+  width: 20%;
+}
+
+.submit {
+  width: 65px;
+  height: 40px;
 }

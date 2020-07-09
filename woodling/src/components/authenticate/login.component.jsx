@@ -11,6 +11,11 @@ class LoginComponent extends Component {
       this.setState({changeComponent: true})
     }
 
+    openLoginComponent = () => {
+      console.log('Change Component')
+      this.setState({changeComponent: false})
+    }
+
     render() { 
         return ( 
           <div style={{height: '100%'}}>
@@ -19,7 +24,7 @@ class LoginComponent extends Component {
               <img className='logo' src={require('../../assets/logo.svg')} />
             </div>
             <div className='row loginBacground wfull'>
-              <div className='col-md-8 col-sm-8 col-xs-12 center__item col-dir w800'>
+              <div className='col-md-7 col-sm-8 col-xs-12 center__item col-dir w800'>
                 <img style={{height: '70%', position: 'relative', marginBottom: '15px'}} src={require('../../assets/Phone-Screenshots.svg')} />
                 <div className='playstore__img'>
                   <img style={{width: '165px'}} src={require('../../assets/playStore.svg')} />
@@ -32,8 +37,8 @@ class LoginComponent extends Component {
                 />
                 <p className='search__text'><b>keywords: e.g film, dancer, commercial, music</b></p> */}
               </div>
-              <div className="col-md-4 col-sm-8 col-xs-12 shadows center__item col-dir md-12">
-                {this.state.changeComponent === true ? <SignUpFormComponent /> : <LoginForm changeComponent={this.openSignUpComponent} /> }
+              <div className="col-md-5 col-sm-8 col-xs-12 shadows center__item col-dir md-12">
+                {this.state.changeComponent === true ? <SignUpFormComponent openLoginComponent={this.openLoginComponent} /> : <LoginForm openSignUpComponent={this.openSignUpComponent} /> }
                 <div className='searchDiv'>
                   <input
                     type="text"

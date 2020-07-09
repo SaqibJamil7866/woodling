@@ -28,7 +28,7 @@ const LoginForm = (props) => {
             </div>
             <div className="signUp pd65__800">
                 <h5 className='signUp__heading'><b>Don't have an account yet?</b></h5>
-                <button className='login__btn' onClick={() => props.changeComponent()} ><img  src={require('../../assets/signup_btn.svg')} /></button>
+                <button className='login__btn' onClick={() => props.openSignUpComponent()} ><img  src={require('../../assets/signup_btn.svg')} /></button>
             </div>
         </>
     );
