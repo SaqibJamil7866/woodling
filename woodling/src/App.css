@@ -599,11 +599,69 @@ html, body, #root {
   position: relative;
 }
 
+.p-absolute {
+  position: absolute;
+}
 
-/* .left-side{width: 4.5%;  }
-.right-side{ width: 95.3%; margin-left: 4.5%; }
-.left-side, .right-side{
-  position: fixed;
-  min-height: 100%;
-  float: left;
-} */
+.w50 {
+  width: 50%;
+}
+
+.t0{
+  top: 0;
+}
+
+.ml45 {
+  margin-left: 45px;
+}
+
+.mt100 {
+  margin-top: 100px;
+}
+
+.clr-w {
+  color: #FFFFFF;
+}
+
+.fs50 {
+  font-size: 50px;
+}
+
+.border-radius {
+  border-radius: 10px !important;
+}
+
+input[type='search'] {
+  width: 80%;
+  height: 50px;
+  padding-right: 126px;
+  padding-left: 100px;
+  border-top-left-radius: unset !important;
+  border-bottom-left-radius: unset !important;
+}
+
+button[name='searchSubmit'] {
+  margin-left: -125px;
+  padding-right: 35px;
+  padding-left: 35px;
+  /* height: 25px;
+  width: 50px; */
+  background: #FB0201;
+  color: white;
+  border: 0;
+  -webkit-appearance: none;
+}
+
+.pr10 {
+  padding-right: 10px;
+}
+
+.icon {
+  padding: 10px;
+  background: dodgerblue;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
