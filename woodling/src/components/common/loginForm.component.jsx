@@ -11,12 +11,27 @@ const LoginForm = (props) => {
                 <div className='login__welcome-back-img'>
                     <img src={require('../../assets/welcome_back_img.svg')} />
                 </div>
-                <form className='forms'>
+                <form onSubmit={props.handleLogin} className='forms'>
                     <div className="form-group">
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email or Username" />
+                        <input 
+                            type="email" 
+                            name='email' 
+                            value={props.usernameValue}
+                            onChange={props.handleChange}
+                            className="form-control" 
+                            aria-describedby="emailHelp" 
+                            placeholder="Email or Username" />
+                        {props.usernameError && <p className="alert alert-danger error">{props.usernameError}</p>}
                     </div>
                     <div className="form-group">
-                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+                        <input 
+                            type="password" 
+                            name='password' 
+                            value={props.passwordValue}
+                            onChange={props.handleChange}
+                            className="form-control"
+                            placeholder="Password" />
+                        {props.passwordError && <p className="alert alert-danger error">{props.passwordError}</p>}
                     </div>
                     <div className="form-group alignCenter">
                         <Link>Forget Password</Link>

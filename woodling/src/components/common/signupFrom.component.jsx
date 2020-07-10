@@ -26,44 +26,102 @@ const SignUpFormComponent = (props) => {
                 <form className='forms'>
                     <div className="form-row">
                         <div className="form-group col-md-6 col-sm-12">
-                            {check===false ? <input type="text" className="form-control" placeholder="Full Name*" /> : <input type="text" className="form-control" placeholder="Business Name*" />}
+                            {check===false ? 
+                                <input 
+                                    type="text"
+                                    name="fullname"
+                                    value={props.fullNameValue}
+                                    onChange={props.handleChange}
+                                    className="form-control" 
+                                    placeholder="Full Name*" /> 
+                            : 
+                                <input 
+                                    type="text" 
+                                    name="businessname"
+                                    value={props.businessNameValue}
+                                    onChange={props.handleChange}
+                                    className="form-control" 
+                                    placeholder="Business Name*" />
+                            }
+                            {check===false ? props.fnameError && <p className="alert alert-danger error">{props.fnameError}</p> : props.bnameError && <p className="alert alert-danger error">{props.bnameError}</p> }
                         </div>
                         <div className="form-group col-md-6 col-sm-12">
-                            <input type="text" className="form-control" placeholder="Username*" />
+                            <input 
+                                type="text" 
+                                name="username"
+                                value={props.userNameValue}
+                                onChange={props.handleChange}
+                                className="form-control" 
+                                placeholder="Username*" />
+                            {props.usernameError && <p className="alert alert-danger error">{props.usernameError}</p>}
                         </div>
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-6 col-sm-12">
-                            <input type="email" className="form-control" id="inputEmail4" placeholder="Email*" />
+                            <input 
+                                type="email"
+                                name="email" 
+                                value={props.emailValue}
+                                onChange={props.handleChange}
+                                className="form-control" 
+                                id="inputEmail4" 
+                                placeholder="Email*" />
+                            {props.emailError && <p className="alert alert-danger error">{props.emailError}</p>}
                         </div>
                         <div className="form-group col-md-6 col-sm-12">
                         {check===false ? 
-                            <select id="inputState" className="form-control" placeholder='Gender*'>
-                                <option disabled selected hidden>Gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
+                            <select name="gender" value={props.genderValue} onChange={props.handleChange} id="inputState" className="form-control" placeholder='Gender'>
+                                <option value='Gender' disabled hidden>Gender</option>
+                                <option value='Male'>Male</option>
+                                <option value='Female'>Female</option>
                             </select> 
                             :
-                            <input type="text" className="form-control" placeholder="Contact Number*" />
+                            <input 
+                                type="text" 
+                                name="contact"
+                                value={props.contactValue}
+                                onChange={props.handleChange}
+                                className="form-control" 
+                                placeholder="Contact Number" />
                         }
                         </div>
                     </div>
                     <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Address*" />
+                        <input 
+                            type="text" 
+                            name="address"
+                            value={props.addressValue}
+                            onChange={props.handleChange}
+                            className="form-control" 
+                            placeholder="Address" />
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-6 col-sm-12">
-                            <input type="password" className="form-control" placeholder="Password*" />
+                            <input 
+                                type="password" 
+                                name="password"
+                                value={props.passwordValue}
+                                onChange={props.handleChange}
+                                className="form-control" 
+                                placeholder="Password*" />
+                            {props.passwordError && <p className="alert alert-danger error">{props.passwordError}</p>}
                         </div>
                         <div className="form-group col-md-6 col-sm-12">
-                            <input type="password" className="form-control" placeholder="Confirm Password*" />
+                            <input 
+                                type="password" 
+                                name="confirmpassword"
+                                value={props.confirmPasswordValue}
+                                onChange={props.handleChange}
+                                className="form-control" 
+                                placeholder="Confirm Password*" />
+                            {props.confirmPasswordError && <p className="alert alert-danger error">{props.confirmPasswordError}</p>}
                         </div>
                     </div>
                     <p className='signup__account--text'><b>Choose Your Skills</b></p>
                     <div className='center__item'>
-                        <select id="inputState" className="form-control checkBox__clr w60" placeholder='Gender*'>
+                        <select id="inputState1" className="form-control checkBox__clr w60" placeholder='Gender*'>
                             <option disabled selected hidden>Choose a skill</option>
-                            <option className='clr__white'><input class="form-check-input" type="checkbox" /> Male</option>
+                            <option className='clr__white'> Male</option>
                             <option className='clr__white'>Female</option>
                         </select>
                     </div>

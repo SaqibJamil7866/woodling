@@ -549,3 +549,8 @@ html, body, #root {
   width: 65px;
   height: 40px;
 }
+
+.error {
+  font-size: 16px !important;
+  color: #cf211e;
+}
