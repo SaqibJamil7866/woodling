@@ -137,7 +137,7 @@ class LoginComponent extends Component {
       try {
         const params = Object.assign({}, login);;
         params.type = ValidateEmail(login.field) ? 'email' : 'username';
-        axios.post(loginUrl, params).then(res => {debugger
+        axios.post(loginUrl, params).then(res => {
             if (res.data.token) {
               cookie.save('token', res.data.token, { path: '/' });
               cookie.save('currnt_user', res.data.details, { path: '/' });
