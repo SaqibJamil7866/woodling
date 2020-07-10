@@ -9,11 +9,14 @@ function SearchTalent(props) {
     }, []);
 
     return (
-        <div className='h100'>
-            <div className="row">
-                <div className="col-md-12">
-                    <div className="img-div h350 mb10">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="Talent pic"/>
+        <div className='h100 scrolling'>
+            <div className="row m0">
+                <div className="col-md-12 p0">
+                    <div className="img-div h380 mb10 p-relative">
+                        <img src={require('../assets/find-talent-cover.png')}  alt="Talent pic" />
+                    </div>
+                    <div className='w50'>
+                        <h1>Find Talents</h1>
                     </div>
                 </div>
             </div>

@@ -17,7 +17,7 @@ function Main(props) {
       <aside className="left-side">
         <Sidebar />
       </aside>
-      <aside className="right-side h100">
+      <aside className="right-side h90">
         <SecuredRoute path='/home'  component={Home} />
         <SecuredRoute path='/search_talent'  component={SearchTalent} />
       </aside>

@@ -222,8 +222,8 @@ html, body, #root {
 .h230{
   height: 230px;
 }
-.h350{
-  height: 350px;
+.h380{
+  height: 380px;
 }
 .br-white{
   border-right: 2px solid white;
@@ -251,7 +251,6 @@ html, body, #root {
   position: absolute;
   width: 90%;
   align-items: flex-end;
-  height: 50%;
 }
 
 
@@ -269,6 +268,18 @@ html, body, #root {
 }
 .pt-6{
   padding-top: 6px;
+}
+
+.h90 {
+  height: 90% !important;
+}
+
+.h10 {
+  height: 10% !important;
+}
+
+.m0 {
+  margin: 0 !important;
 }
 
 .mt3{
@@ -574,6 +585,21 @@ html, body, #root {
 .scrolling {
   overflow-y: scroll;
 }
+
+.ml3_7 {
+  margin-left: 3.7%;
+}
+
+.bold {
+  font-weight: bold;
+  color: black;
+}
+
+.p-relative {
+  position: relative;
+}
+
+
 /* .left-side{width: 4.5%;  }
 .right-side{ width: 95.3%; margin-left: 4.5%; }
 .left-side, .right-side{
