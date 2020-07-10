@@ -8,15 +8,19 @@ import './App.css';
 import LoginComponent from './components/authenticate/login.component';
 import SecuredRoute from './components/authenticate/secure.component';
 import Home from './components/home.component';
+import SearchTalent from './components/search_talent.component';
 
 function Main(props) {
 
-  return <div className="h100p">
+  return <div>
       <Navigation />
-      <Sidebar />
-      <div className="container content mt50 h100p p0">
+      <aside className="left-side">
+        <Sidebar />
+      </aside>
+      <aside className="right-side mt50">
         <SecuredRoute path='/home'  component={Home} />
-      </div>
+        <SecuredRoute path='/search_talent'  component={SearchTalent} />
+      </aside>
   </div>;
 }
 

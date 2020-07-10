@@ -44,7 +44,7 @@ class SideNav extends React.Component {
                   key: 3
                 },
                 {
-                  path: '/talent_search',
+                  path: '/search_talent',
                   name: 'Talent Search',
                   imgsrc: (<SearchIcon alt="Search icon" title="Search" />),
                   key: 4
