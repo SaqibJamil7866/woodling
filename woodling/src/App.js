@@ -12,12 +12,12 @@ import SearchTalent from './components/search_talent.component';
 
 function Main(props) {
 
-  return <div>
+  return <div className='h100' style={{overflowY: 'hidden'}}>
       <Navigation />
       <aside className="left-side">
         <Sidebar />
       </aside>
-      <aside className="right-side mt50">
+      <aside className="right-side h100">
         <SecuredRoute path='/home'  component={Home} />
         <SecuredRoute path='/search_talent'  component={SearchTalent} />
       </aside>

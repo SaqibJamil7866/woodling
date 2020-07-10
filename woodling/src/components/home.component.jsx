@@ -113,17 +113,17 @@ function Home(props) {
     // };
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-8 br-white">
+        <div className="container h100">
+            <div className="row h100">
+                <div className="col-md-8 br-white scrolling">
                     <TopContentBar />
                     <Post />
                     <div className="fixedbutton">
                         <AddButtonIcon  height="50px" width="50px"/>
                     </div>
                 </div>
-                <div className="col-md-4">
-                    <div className="img-div h230 mt30 mb10">
+                <div className="col-md-4 scrolling">
+                    <div className="img-div h230 mt30 mb10 ">
                         <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
                     </div>
                     <OnlineStatusCard />

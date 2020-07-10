@@ -246,9 +246,12 @@ html, body, #root {
 }
 
 .fixedbutton {
-  position: fixed;
-  bottom: 15px;
-  right: 490px; 
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  width: 90%;
+  align-items: flex-end;
+  height: 50%;
 }
 
 
@@ -352,6 +355,10 @@ html, body, #root {
   padding-bottom: 10px;
   border-bottom: 1px solid #ececec;
   padding-left: 10px;
+}
+
+.h100 {
+  height: 100% !important;
 }
 
 .p-0-8{
@@ -563,10 +570,14 @@ html, body, #root {
   font-size: 16px !important;
   color: #cf211e;
 }
-.left-side{width: 4.5%;  }
+
+.scrolling {
+  overflow-y: scroll;
+}
+/* .left-side{width: 4.5%;  }
 .right-side{ width: 95.3%; margin-left: 4.5%; }
 .left-side, .right-side{
   position: fixed;
   min-height: 100%;
   float: left;
-}
+} */

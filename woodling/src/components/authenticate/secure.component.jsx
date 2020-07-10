@@ -14,7 +14,7 @@ export default function SecuredRoute(props) {
           const token = cookie.load('token') || '';
 
           // if(token) {
-           return <Component />;
+            return <Component />;
           // } else {
           //   return <Redirect to="/login" />;
           // }

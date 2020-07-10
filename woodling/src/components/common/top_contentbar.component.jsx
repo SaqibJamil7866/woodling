@@ -8,7 +8,7 @@ function TopContentBar(props) {
     return (
         <div className="mt30 top-content-bar h40 col-md-10 ml18">
             <span>
-                <span className="inline-block wd-58p pt-6 ml15">What are you up to?</span>
+                <span className="inline-block wd-58p pt-6 ">What are you up to?</span>
                 <span>
                     <CircleImageIcon height="35px" width="35px" className="mr10 mt3"/>
                     <CircleVideoIcon height="35px" width="35px" className="mr10 mt3"/>
