@@ -14,8 +14,8 @@ const LoginForm = (props) => {
                 <form onSubmit={props.handleLogin} className='forms'>
                     <div className="form-group">
                         <input 
-                            type="email" 
-                            name='email' 
+                            type="text" 
+                            name='field' 
                             value={props.usernameValue}
                             onChange={props.handleChange}
                             className="form-control" 

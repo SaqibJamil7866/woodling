@@ -4,12 +4,19 @@ import LoginForm from './../common/loginForm.component';
 import { Link } from 'react-router-dom';
 import SignUpFormComponent from './../common/signupFrom.component';
 import ValidateContact from '../../public/contactValidator';
+import ValidateEmail from '../../public/emailValidator';
+import axios from 'axios';
+import cookie from 'react-cookies';
+import { loginUrl } from '../../public/endpoins';
+import history from '../../public/history';
+import { ToastsStore } from 'react-toasts';
 
 class LoginComponent extends Component {
+  
     state = { 
       changeComponent: false,
       login: {
-        email: "",
+        field: "",
         password: ""
       },
       signUp : {
@@ -26,7 +33,13 @@ class LoginComponent extends Component {
       errors: {}
     }
 
+    loginSchema = {
+      field: Joi.string().required().label("Username/Email"),
+      password: Joi.string().required().label("Password"),
+    }
+
     schema = {
+      field: Joi.string().required().label("Username/Email"),
       email: Joi.string().required().email().label("Email"),
       password: Joi.string().required().label("Password"),
       confirmpassword: Joi.string().required().label("Confirm Password"),
@@ -67,7 +80,6 @@ class LoginComponent extends Component {
       const errors = {...this.state.errors};
       if(e.currentTarget.name!=='gender' && e.currentTarget.name!=='contact' && e.currentTarget.name!=='address'){
         const errorMessage = this.validateProperty(e.currentTarget);
-        console.log('Handle Change validation');
         console.log(errorMessage);
         if(errorMessage) {
           console.log(errorMessage)
@@ -96,16 +108,15 @@ class LoginComponent extends Component {
 
     validateProperty = ({name, value}) => {
       const obj = {[name]: value};
-      const schema = {[name]: this.schema[name]};
+      const schema = {[name]: this.loginSchema[name]};
       const {error} = Joi.validate(obj, schema);
-      console.log('Validate Property')
       console.log(error);
       return error ? error.details[0].message : null;
     }
 
     validation = () => {
       console.log('Validation')
-      const result = Joi.validate(this.state.login, this.schema, {
+      const result = Joi.validate(this.state.login, this.loginSchema, {
         abortEarly: false
       });
       if(!result.error) return null;
@@ -119,15 +130,25 @@ class LoginComponent extends Component {
 
     handleLogin = (event) => {
       event.preventDefault();
-      console.log('Handle Login Button')
       const { login } = this.state;
       const errors = this.validation();
-      console.log('Handle login Function');
-      console.log(errors);
       this.setState({errors: errors || {}});
       if(errors) return;
       try {
-        //API CALL Here
+        const params = Object.assign({}, login);;
+        params.type = ValidateEmail(login.field) ? 'email' : 'username';
+        axios.post(loginUrl, params).then(res => {debugger
+            if (res.data.token) {
+              cookie.save('token', res.data.token, { path: '/' });
+              cookie.save('currnt_user', res.data.details, { path: '/' });
+              history.push('/home');
+            }
+            else if(res.data.status == 'error'){
+              ToastsStore.error(res.data.message);
+            }
+          }).catch(e => {
+            console.log('error after adding bu inventory', e);
+        });
         console.log('Login Correct');
       } catch(ex) {
         const errors = {...this.state.errors};
@@ -188,7 +209,7 @@ class LoginComponent extends Component {
                   : 
                   <LoginForm 
                     openSignUpComponent={this.openSignUpComponent}
-                    usernameValue={this.state.login.email}
+                    usernameValue={this.state.login.field}
                     passwordValue={this.state.login.password}
                     handleChange={this.handleLoginChange}
                     usernameError={this.state.errors.email}
