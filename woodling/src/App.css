@@ -96,6 +96,10 @@ html, body, #root {
   padding-right: 20px;
 }
 
+.flex{
+  display: flex !important;
+}
+
 .forms {
   margin-top: 8px;
   padding-left: 5px;
@@ -206,11 +210,20 @@ html, body, #root {
   border-radius: 5px;
 }
 
+.w100p{
+  width: 100%;
+}
 .h100p{
   height: 100% !important;
 }
 .h40{
   height: 40px;
+}
+.h230{
+  height: 230px;
+}
+.h350{
+  height: 350px;
 }
 .br-white{
   border-right: 2px solid white;
@@ -235,12 +248,9 @@ html, body, #root {
 .fixedbutton {
   position: fixed;
   bottom: 15px;
-  right: 530px; 
+  right: 490px; 
 }
 
-.img-div{
-  height: 230px;
-}
 
 .img-div> img{
   height: 100%;
@@ -300,6 +310,9 @@ html, body, #root {
 
 .mt50{
   margin-top: 50px !important;
+}
+.mt80{
+  margin-top: 80px !important;
 }
 .mt0{
   margin-top: 0px !important;
@@ -548,4 +561,12 @@ html, body, #root {
 .submit {
   width: 65px;
   height: 40px;
+}
+
+.left-side{width: 4.5%;  }
+.right-side{ width: 95.3%; margin-left: 4.5%; }
+.left-side, .right-side{
+  position: fixed;
+  min-height: 100%;
+  float: left;
 }

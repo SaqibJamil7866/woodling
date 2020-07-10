@@ -6,7 +6,7 @@ import { ReactComponent as AddButtonIcon } from '../assets/add-button.svg';
 import OnlineStatusCard from './common/online_status_card.component';
 import ExploreCard from './common/explore_card.component';
 
-function AddEditBuInventory(props) {
+function Home(props) {
     const initialState ={
         _id: "",
         buId: "",
@@ -113,25 +113,27 @@ function AddEditBuInventory(props) {
     // };
 
     return (
-        <div className="row h100p">
-            <div className="col-md-8 br-white">
-                <TopContentBar />
-                <Post />
-                <div className="fixedbutton">
-                    <AddButtonIcon  height="50px" width="50px"/>
+        <div className="container">
+            <div className="row">
+                <div className="col-md-8 br-white">
+                    <TopContentBar />
+                    <Post />
+                    <div className="fixedbutton">
+                        <AddButtonIcon  height="50px" width="50px"/>
+                    </div>
                 </div>
-            </div>
-            <div className="col-md-4">
-                <div className="img-div mt30 mb10">
-                    <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                </div>
-                <OnlineStatusCard />
-                <div className="mt10 mb10">
-                    <ExploreCard />
+                <div className="col-md-4">
+                    <div className="img-div h230 mt30 mb10">
+                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
+                    </div>
+                    <OnlineStatusCard />
+                    <div className="mt10 mb10">
+                        <ExploreCard />
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
 
-export default AddEditBuInventory;
+export default Home;
