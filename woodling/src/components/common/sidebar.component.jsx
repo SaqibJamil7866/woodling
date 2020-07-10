@@ -13,7 +13,7 @@ const StyledSideNav = styled.div`
     height: 100%;
     width: 60px;     /* Set the width of the sidebar */
     z-index: 1;      /* Stay on top of everything */
-    top: 2.6em;      /* Stay at the top */
+    // top: 2.6em;      /* Stay at the top */
     background-color: #fff; /* Black */
     overflow-x: hidden;     /* Disable horizontal scroll */
     padding-top: 10px;

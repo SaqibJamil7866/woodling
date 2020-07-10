@@ -9,7 +9,7 @@ function SearchTalent(props) {
     }, []);
 
     return (
-        <div>
+        <div className='h100'>
             <div className="row">
                 <div className="col-md-12">
                     <div className="img-div h350 mb10">

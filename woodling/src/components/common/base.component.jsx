@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Navigation(props){
 
     return(
-        <Navbar fixed="top" className="bg-red">
+        <Navbar  className="bg-red">
             <Container>
                 <Link to='home' className="center">
                     <img
