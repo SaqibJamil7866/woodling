@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Form } from 'react-bootstrap';
+
 const SignUpFormComponent = (props) => {
     const [check, setCheck] = useState(false);
+    const [options, setOptions] = useState([{name:'item 1', value: 'item_1'},{name:'item 2', value: 'item_2'}])
     return ( 
         <>
             <div className="signupForm p800">
@@ -71,7 +73,7 @@ const SignUpFormComponent = (props) => {
                         <div className="form-group col-md-6 col-sm-12">
                         {check===false ? 
                             <select name="gender" value={props.genderValue} onChange={props.handleChange} id="inputState" className="form-control" placeholder='Gender'>
-                                <option value='Gender' disabled hidden>Gender</option>
+                                <option value=''>Gender</option>
                                 <option value='Male'>Male</option>
                                 <option value='Female'>Female</option>
                             </select> 
@@ -119,11 +121,11 @@ const SignUpFormComponent = (props) => {
                     </div>
                     <p className='signup__account--text'><b>Choose Your Skills</b></p>
                     <div className='center__item'>
-                        <select id="inputState1" className="form-control checkBox__clr w60" placeholder='Gender*'>
+                        {/* <select id="inputState1"  className="form-control checkBox__clr w60" placeholder='Gender*'>
                             <option disabled selected hidden>Choose a skill</option>
                             <option className='clr__white'> Male</option>
                             <option className='clr__white'>Female</option>
-                        </select>
+                        </select> */}
                     </div>
                     <div className='login__btn-div'>
                         <button className='login__btn' type="submit" ><img className='submit' src={require('../../assets/login_button.svg')} /></button>

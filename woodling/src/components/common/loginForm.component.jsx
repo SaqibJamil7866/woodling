@@ -14,8 +14,8 @@ const LoginForm = (props) => {
                 <form onSubmit={props.handleLogin} className='forms'>
                     <div className="form-group">
                         <input 
-                            type="email" 
-                            name='email' 
+                            type="text" 
+                            name='field' 
                             value={props.usernameValue}
                             onChange={props.handleChange}
                             className="form-control" 
@@ -34,7 +34,7 @@ const LoginForm = (props) => {
                         {props.passwordError && <p className="alert alert-danger error">{props.passwordError}</p>}
                     </div>
                     <div className="form-group alignCenter">
-                        <Link>Forget Password</Link>
+                        <Link to="forget_password">Forget Password</Link>
                     </div>
                     <div className='login__btn-div'>
                         <button className='login__btn' type="submit" ><img  src={require('../../assets/login_button.svg')} /></button>
