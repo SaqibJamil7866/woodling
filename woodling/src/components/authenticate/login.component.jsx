@@ -77,6 +77,9 @@ class LoginComponent extends Component {
       }
       if(e.currentTarget.name==='contact'){
         if(e.currentTarget.value.match(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)){
+          const signUp = {...this.state.signUp};
+      signUp[e.currentTarget.name] = e.currentTarget.value;
+      this.setState({signUp, errors})
           return true
         }else {
           alert('message')
