@@ -117,7 +117,7 @@ class LoginComponent extends Component {
       return errors;
     }
 
-    handleLogin = async (event) => {
+    handleLogin = (event) => {
       event.preventDefault();
       console.log('Handle Login Button')
       const { login } = this.state;
@@ -138,7 +138,7 @@ class LoginComponent extends Component {
       }
     }
 
-    handleSignUp = async (event) => {
+    handleSignUp = (event) => {
       event.preventDefault();
       console.log('handle signUp Button')
     }
@@ -207,10 +207,10 @@ class LoginComponent extends Component {
                 <div className='list__items--hidden'>
                   <div className='center__item'>
                     <ul className='list'>
-                      <li className='list__items'><Link className='list__items--link'>Terms</Link></li>
-                      <li className='list__items'><Link className='list__items--link'>Privacy</Link></li>
-                      <li className='list__items'><Link className='list__items--link'>FAQ</Link></li>
-                      <li className='list__items'><Link className='list__items--link'>Support</Link></li>
+                      <li className='list__items'><Link to="terms" className='list__items--link'>Terms</Link></li>
+                      <li className='list__items'><Link to="terms" className='list__items--link'>Privacy</Link></li>
+                      <li className='list__items'><Link to="terms" className='list__items--link'>FAQ</Link></li>
+                      <li className='list__items'><Link to="terms" className='list__items--link'>Support</Link></li>
                     </ul>
                   </div>
                   <img style={{marginTop: '-10px'}} src={require('../../assets/logoTitle.svg')} />
@@ -220,10 +220,10 @@ class LoginComponent extends Component {
                   <div style={{display:'flex', flexDirection:'column', alignContent:'center'}}>
                     <div className='center__item'>
                       <ul className='list'>
-                        <li className='list__items'><Link className='list__items--link'>Terms</Link></li>
-                        <li className='list__items'><Link className='list__items--link'>Privacy</Link></li>
-                        <li className='list__items'><Link className='list__items--link'>FAQ</Link></li>
-                        <li className='list__items'><Link className='list__items--link'>Support</Link></li>
+                        <li className='list__items'><Link to="terms" className='list__items--link'>Terms</Link></li>
+                        <li className='list__items'><Link to="terms" className='list__items--link'>Privacy</Link></li>
+                        <li className='list__items'><Link to="terms" className='list__items--link'>FAQ</Link></li>
+                        <li className='list__items'><Link to="terms" className='list__items--link'>Support</Link></li>
                       </ul>
                     </div>
                     <img src={require('../../assets/logoTitle.svg')} />

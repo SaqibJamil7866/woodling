@@ -34,7 +34,7 @@ const LoginForm = (props) => {
                         {props.passwordError && <p className="alert alert-danger error">{props.passwordError}</p>}
                     </div>
                     <div className="form-group alignCenter">
-                        <Link>Forget Password</Link>
+                        <Link to="forget_password">Forget Password</Link>
                     </div>
                     <div className='login__btn-div'>
                         <button className='login__btn' type="submit" ><img  src={require('../../assets/login_button.svg')} /></button>
