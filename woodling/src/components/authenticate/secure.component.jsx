@@ -8,16 +8,12 @@ export default function SecuredRoute(props) {
       <Route
         path={path}
         render={() => {
-          // document.cookie = 'loggedInUser=';
-
-          // console.log(document.cookie.split('=')[1]);
           const token = cookie.load('token') || '';
-
-          // if(token) {
+          if(token) {
             return <Component />;
-          // } else {
-          //   return <Redirect to="/login" />;
-          // }
+          } else {
+            return <Redirect to="/login" />;
+          }
         }}
       />
     );

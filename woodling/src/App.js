@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import cookie from 'react-cookies';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { Navigation } from '../src/components/common/base.component';
 import Sidebar from '../src/components/common/sidebar.component';
 import './App.css';
@@ -9,6 +9,8 @@ import LoginComponent from './components/authenticate/login.component';
 import SecuredRoute from './components/authenticate/secure.component';
 import Home from './components/home.component';
 import SearchTalent from './components/search_talent.component';
+import { ToastsContainer, ToastsStore } from 'react-toasts';
+import history from './public/history';
 
 function Main(props) {
 
@@ -53,17 +55,18 @@ function App() {
   //   console.log("error: ", error);
   //   return Promise.reject(error);
   // });
+  // cookie.load('current_user')
 
   return (
     <>
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route path={["/", "/login"]} exact component={LoginComponent} />
           {/* <Route path="/signup" exact component={Register} /> */}
           <Route component={Main}/>
         </Switch>
       </Router>
-      {/* <ToastsContainer store={ToastsStore}/> */}
+      <ToastsContainer store={ToastsStore}/>
     </>
   );
 }
