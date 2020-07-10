@@ -7,6 +7,9 @@ export default function ValidateContact(number) {
     ) {
       return true;
     }
+    if(number===''){
+        return true
+    }
     return false;
   }
   

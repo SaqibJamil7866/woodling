@@ -459,7 +459,6 @@ html, body, #root {
   font-size: 18px;
   text-align: center;
   font-family: Poppins;
-  margin-top: -5px;
 }
 
 .flex {
@@ -472,9 +471,6 @@ html, body, #root {
   width: 45%;
 }
 
-.mt-10 {
-  margin-top: -10px;
-}
 
 .mt10 {
   margin-top: 9px;

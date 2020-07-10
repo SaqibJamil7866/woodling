@@ -3,6 +3,7 @@ import  Joi from 'joi-browser'
 import LoginForm from './../common/loginForm.component';
 import { Link } from 'react-router-dom';
 import SignUpFormComponent from './../common/signupFrom.component';
+import ValidateContact from '../../public/contactValidator';
 
 class LoginComponent extends Component {
     state = { 
@@ -46,7 +47,7 @@ class LoginComponent extends Component {
 
     handleLoginChange = (e) => {
        console.log(e.currentTarget.value);
-      const errors = {...this.state.error};
+      const errors = {...this.state.errors};
       const errorMessage = this.validateProperty(e.currentTarget);
       console.log('Handle Change validation');
       console.log(errorMessage);
@@ -63,7 +64,7 @@ class LoginComponent extends Component {
 
     handleSignupChange = (e) => {
       // console.log(e.currentTarget.name)
-      const errors = {...this.state.error};
+      const errors = {...this.state.errors};
       if(e.currentTarget.name!=='gender' && e.currentTarget.name!=='contact' && e.currentTarget.name!=='address'){
         const errorMessage = this.validateProperty(e.currentTarget);
         console.log('Handle Change validation');
@@ -75,20 +76,21 @@ class LoginComponent extends Component {
           delete errors[e.currentTarget.name];
         }
       }
-      if(e.currentTarget.name==='contact'){
-        if(e.currentTarget.value.match(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)){
-          const signUp = {...this.state.signUp};
-      signUp[e.currentTarget.name] = e.currentTarget.value;
-      this.setState({signUp, errors})
-          return true
-        }else {
-          alert('message')
-          return false
-        }
-      }
       const signUp = {...this.state.signUp};
-      signUp[e.currentTarget.name] = e.currentTarget.value;
-      this.setState({signUp, errors})
+      if(e.currentTarget.name==='contact'){ 
+        const a = ValidateContact(e.currentTarget.value)
+        if(a===true){
+          // const signUp = {...this.state.signUp};
+          signUp[e.currentTarget.name] = e.currentTarget.value;
+          this.setState({signUp, errors})
+        }
+        else{
+          this.setState({errors: 'invalude'})
+        }
+      }else
+        
+        signUp[e.currentTarget.name] = e.currentTarget.value;
+        this.setState({signUp, errors})
     }
 
 
@@ -134,6 +136,11 @@ class LoginComponent extends Component {
         console.log(errors)
         this.setState({errors})
       }
+    }
+
+    handleSignUp = async (event) => {
+      event.preventDefault();
+      console.log('handle signUp Button')
     }
 
     render() { 

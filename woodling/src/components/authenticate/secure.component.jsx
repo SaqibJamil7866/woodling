@@ -13,11 +13,11 @@ export default function SecuredRoute(props) {
           // console.log(document.cookie.split('=')[1]);
           const token = cookie.load('token') || '';
 
-          if(token) {
-            return <Component />;
-          } else {
-            return <Redirect to="/login" />;
-          }
+          // if(token) {
+          //   return <Component />;
+          // } else {
+          //   return <Redirect to="/login" />;
+          // }
         }}
       />
     );
