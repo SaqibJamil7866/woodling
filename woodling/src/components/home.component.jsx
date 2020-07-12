@@ -3,17 +3,14 @@ import axios from 'axios';
 import TopContentBar from './common/top_contentbar.component';
 import Post from './common/post.component';
 import { ReactComponent as AddButtonIcon } from '../assets/add-button.svg';
+import { ToastsStore } from 'react-toasts';
 import OnlineStatusCard from './common/online_status_card.component';
 import ExploreCard from './common/explore_card.component';
+import { ActivityStreamService } from '../services/ActivityStreamService';
 
 function Home(props) {
     const initialState ={
-        _id: "",
-        buId: "",
-        itemId: "",
-        qty: "",
-        items:[],
-        businessUnits:[]
+        posts:[]
     }
 
     function reducer(state, { field, value}){
@@ -25,51 +22,25 @@ function Home(props) {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const { _id, buId, itemId, qty, items, businessUnits } = state;
+    const { posts } = state;
 
     const onChangeValue = ((e)=>{ 
         dispatch({field: e.target.name, value: e.target.value});
     });
 
-    function validateForm() {
-        let res = false;
-        if(qty){
-            res = true
-        }
-        return res;
-    }
-
-    const [comingFor, setcomingFor] = useState('');
-    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-
-    const [errorMsg, setErrorMsg] = useState("");
-    const [openNotification, setOpenNotification] = useState(false);
-  
-
-
     useEffect(() => {
-        // setcomingFor(props.history.location.state.comingFor);
-        // const selectedRec = props.history.location.state.selectedItem;
-        // if(selectedRec){
-        //     Object.entries(selectedRec).map(([key,val])=>{
-        //         if (val && typeof val === 'object') {
-        //             dispatch({ field: key, value: val._id });
-        //         } else {
-        //             dispatch({ field: key, value: val });
-        //         }
-        //     })
-        // }
-        // if(props.history.location.state.items) {
-        //     dispatch({ field: 'items', value: props.history.location.state.items });
-        // }
-        // if(props.history.location.state.businessUnit) {
-        //     dispatch({field: 'businessUnits',value: props.history.location.state.businessUnit});
-        // }
+        try {
+            ActivityStreamService.getActivityStreams(1).then(async (res) => {
+              if(res.status != 'error'){
+                dispatch({field: 'posts', value: res.data.data});
+              }else { 
+                ToastsStore.error(res.message); 
+              } 
+           });
+          } catch(e) {
+            console.error("error: "+ e);
+          }
     }, []);
-
-    const handleCancel = () => {
-        props.history.goBack();
-    };
 
 
     // const handleAdd = () => {
@@ -117,7 +88,7 @@ function Home(props) {
             <div className="row h100">
                 <div className="col-md-8 br-white scrolling">
                     <TopContentBar />
-                    <Post />
+                    <Post posts={posts}/>
                     <div className="fixedbutton">
                         <AddButtonIcon  height="50px" width="50px"/>
                     </div>
