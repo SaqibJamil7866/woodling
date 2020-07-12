@@ -321,6 +321,10 @@ html, body, #root {
   margin-bottom: 10px !important;
 }
 
+.mb100{
+  margin-bottom: 100px !important;
+}
+
 .mt30{
   margin-top: 30px !important;
 }
