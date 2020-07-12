@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  Joi from 'joi-browser';
+import  Joi from 'joi-browser'
 import LoginForm from './../common/loginForm.component';
 import { Link } from 'react-router-dom';
 import SignUpFormComponent from './../common/signupFrom.component';
@@ -10,7 +10,6 @@ import cookie from 'react-cookies';
 import { loginUrl } from '../../public/endpoins';
 import history from '../../public/history';
 import { ToastsStore } from 'react-toasts';
-import { AuthService } from '../../services/AuthService';
 
 class LoginComponent extends Component {
   
@@ -136,22 +135,26 @@ class LoginComponent extends Component {
       this.setState({errors: errors || {}});
       if(errors) return;
       try {
-        const params = Object.assign({}, login);
+        const params = Object.assign({}, login);;
         params.type = ValidateEmail(login.field) ? 'email' : 'username';
-        AuthService.login(params).then(async (res) => {
-          if(res.status != 'error'){
-            cookie.save('token', res.data.token, { path: '/' });
-            cookie.save('currnt_user', res.data.details, { path: '/' });debugger
-            history.push('/home');
-            // window.location.href = '/';
-          }else { 
-            ToastsStore.error(res.message); 
-          } 
-       });
+        axios.post(loginUrl, params).then(res => {
+            if (res.data.token) {
+              cookie.save('token', res.data.token, { path: '/' });
+              cookie.save('currnt_user', res.data.details, { path: '/' });
+              history.push('/home');
+            }
+            else if(res.data.status == 'error'){
+              ToastsStore.error(res.data.message);
+            }
+          }).catch(e => {
+            console.log('error after adding bu inventory', e);
+        });
         console.log('Login Correct');
       } catch(ex) {
         const errors = {...this.state.errors};
+        
         errors.username = this.validation();
+        console.log(errors)
         this.setState({errors})
       }
     }

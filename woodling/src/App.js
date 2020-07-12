@@ -27,18 +27,18 @@ function Main(props) {
 }
 
 function App() {
-  axios.interceptors.request.use(function (config) {
-    const token = cookie.load('token');
-    // Do something before request is sent
-    if(token){
-      config.headers.Authorization = 'Bearer '+token;      
-    }
+  // axios.interceptors.request.use(function (config) {
+  //   const token = JSON.parse(localStorage.getItem("token"));
+  //   // Do something before request is sent
+  //   if(token){
+  //     config.headers.Authorization = token;      
+  //   }
 
-    return config;    
-  }, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  });
+  //   return config;    
+  // }, function (error) {
+  //   // Do something with request error
+  //   return Promise.reject(error);
+  // });
 
   // axios.interceptors.response.use(function(response) {
   //   if(response.data.status === 301){
@@ -55,6 +55,7 @@ function App() {
   //   console.log("error: ", error);
   //   return Promise.reject(error);
   // });
+  // cookie.load('current_user')
 
   return (
     <>
