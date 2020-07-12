@@ -3,7 +3,7 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 import { loginUrl } from '../public/endpoins';
 export const AuthService = {
-   login,getUserId
+  login, getUserId, getUserName
 //    , register, registerStep, 
 //    getUSerProfile,
 //     getUSerFollowings,
@@ -146,9 +146,19 @@ function getUserId(){
 	if(user){
 		userId = user.id;
 	}
-  // return userId;
-  return 58;
+  return userId;
+  // return 58;
 }
+
+function getUserName(){
+	var user = cookie.load('currnt_user');
+	let userName = '';
+	if(user){
+		userName = user.username;
+	}
+  return userName;
+}
+
 // function getUserProfileImage(){
 // 	var user = JSON.parse(localStorage.getItem('user'));
 // 	var profile_picture = '';

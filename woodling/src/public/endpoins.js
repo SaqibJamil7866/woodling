@@ -1,6 +1,6 @@
 const baseUrl = 'http://3.133.7.18/woodlig_jwt/controllers/mobile/';
 
-export const imgBaseUrl = 'http://3.133.7.18/woodlig_jwt';
+export const siteUrl = 'http://3.133.7.18/woodlig_jwt/';
 
 // auth endpoints
 export const loginUrl = `${baseUrl}/login.php`;
@@ -14,14 +14,17 @@ export const getPostTaggedUsersUrl = `${baseUrl}/fetch-post-tagged-users.php`;
 export const getUserFollowingUrl = `${baseUrl}/fetch-user-following.php`;
 export const getUserFollowersUrl = `${baseUrl}/fetch-user-followers.php`;
 
+// comments endpoints
+export const getCommentsUrl = `${baseUrl}/fetch-post-comments.php`;
+export const addCommentsUrl = `${baseUrl}/add-post-comment.php`;
+
 
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",
 // UPDATE_USER_SETUP_DETAILS :"update-user-setup-details.php",
 // FETCH_INDIVIDUAL_SKILLS :"fetch-individual-skills.php",
 // FETCH_BUSINESS_SKILLS :"fetch-business-skills.php",
-// FETCH_POST_COMMENTS :"fetch-post-comments.php",
-// ADD_POST_COMMENTS :"add-post-comment.php",
+// ADD_POST_COMMENTS :"",
 // FETCH_USER_BALANCE :"fetch-user-balance.php",
 // FETCH_WALLET_HISTORY :"fetch-wallet-payment-history.php",
 // ADD_AMOUNT_WALLET:"add-amount-in-wallet.php",
