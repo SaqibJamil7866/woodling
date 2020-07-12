@@ -266,6 +266,9 @@ html, body, #root {
 .p0{
   padding: 0px !important;
 }
+.pl5{
+  padding-left: 5px !important;
+}
 .pt-6{
   padding-top: 6px;
 }
@@ -606,6 +609,51 @@ html, body, #root {
   position: relative;
 }
 
+.explore-user-profile img {
+  vertical-align: middle;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.explore-user-profile {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.user-name-follow {
+  margin-left: 11px;
+  width: 160px;
+}
+
+p.explore-user-name {
+  margin: 0px;
+  padding: 0;
+  font-size: 14px;
+  margin-bottom: -8px;
+}
+
+button.explore-follow-btn {
+  margin: auto;
+  padding: 1px 12px;
+  background: #fdb8b8;
+  border-radius: 16px;
+  padding-top: 0px;
+  color: #000;
+  font-size: 12px;
+  border: 0;
+  font-weight: 500;
+}   
+button.explore-following-btn {
+  margin: auto;
+  padding: 1px 12px;
+  background: red;
+  border-radius: 16px;
+  padding-top: 0px;
+  color: #fff;
+  font-size: 12px;
+  border: 0;
+  font-weight: 500;
+}
 
 /* .left-side{width: 4.5%;  }
 .right-side{ width: 95.3%; margin-left: 4.5%; }

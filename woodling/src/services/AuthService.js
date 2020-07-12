@@ -146,7 +146,8 @@ function getUserId(){
 	if(user){
 		userId = user.id;
 	}
-	return userId;
+  // return userId;
+  return 58;
 }
 // function getUserProfileImage(){
 // 	var user = JSON.parse(localStorage.getItem('user'));

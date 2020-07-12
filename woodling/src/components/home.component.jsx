@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import axios from 'axios';
 import TopContentBar from './common/top_contentbar.component';
 import Post from './common/post.component';
 import { ReactComponent as AddButtonIcon } from '../assets/add-button.svg';
@@ -7,10 +6,12 @@ import { ToastsStore } from 'react-toasts';
 import OnlineStatusCard from './common/online_status_card.component';
 import ExploreCard from './common/explore_card.component';
 import { ActivityStreamService } from '../services/ActivityStreamService';
+import { FollowService } from '../services/FollowService';
 
 function Home(props) {
     const initialState ={
-        posts:[]
+        posts:[],
+        followers: []
     }
 
     function reducer(state, { field, value}){
@@ -22,24 +23,28 @@ function Home(props) {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const { posts } = state;
+    const { posts, followers } = state;
 
     const onChangeValue = ((e)=>{ 
         dispatch({field: e.target.name, value: e.target.value});
     });
 
     useEffect(() => {
-        try {
-            ActivityStreamService.getActivityStreams(1).then(async (res) => {
-              if(res.status != 'error'){
-                dispatch({field: 'posts', value: res.data.data});
-              }else { 
-                ToastsStore.error(res.message); 
-              } 
-           });
-          } catch(e) {
-            console.error("error: "+ e);
-          }
+        Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers()])
+        .then((res)=>{
+            if(res[0].status != 'error'){
+                dispatch({field: 'posts', value: res[0].data.data});
+            }else { 
+                ToastsStore.error(res[0].message); 
+            }
+            if(res[1].status != 'error'){debugger
+                dispatch({field: 'followers', value: res[1].data.data});
+            }else { 
+                ToastsStore.error(res[1].message); 
+            }
+        })
+        .catch((e)=>console.error("error: "+ e))
+        .then(() => console.log("Hide loader"));
     }, []);
 
 
@@ -99,70 +104,7 @@ function Home(props) {
                     </div>
                     <OnlineStatusCard />
                     <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
+                        <ExploreCard  followers={followers}/>
                     </div>
                 </div>
             </div>

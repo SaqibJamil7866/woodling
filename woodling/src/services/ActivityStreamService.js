@@ -9,7 +9,6 @@ export const ActivityStreamService = {
 
 function getActivityStreams(page) { 
  return new Promise((resolve, reject) =>{
- 		 
  		const url =  activityStreamUrl+"?page=+"+page+"&user_id="+AuthService.getUserId();
         axios.get(url)
 		.then((res) => {
