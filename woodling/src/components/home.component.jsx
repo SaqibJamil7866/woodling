@@ -1,19 +1,16 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import axios from 'axios';
 import TopContentBar from './common/top_contentbar.component';
 import Post from './common/post.component';
 import { ReactComponent as AddButtonIcon } from '../assets/add-button.svg';
 import OnlineStatusCard from './common/online_status_card.component';
 import ExploreCard from './common/explore_card.component';
+import { ActivityStreamService } from '../services/ActivityStreamService';
+import { FollowService } from '../services/FollowService';
 
 function Home(props) {
     const initialState ={
-        _id: "",
-        buId: "",
-        itemId: "",
-        qty: "",
-        items:[],
-        businessUnits:[]
+        posts:[],
+        followers: []
     }
 
     function reducer(state, { field, value}){
@@ -24,8 +21,7 @@ function Home(props) {
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
-
-    const { _id, buId, itemId, qty, items, businessUnits } = state;
+    const { posts, followers } = state;
 
     const onChangeValue = ((e)=>{ 
         dispatch({field: e.target.name, value: e.target.value});
@@ -48,23 +44,21 @@ function Home(props) {
 
 
     useEffect(() => {
-        // setcomingFor(props.history.location.state.comingFor);
-        // const selectedRec = props.history.location.state.selectedItem;
-        // if(selectedRec){
-        //     Object.entries(selectedRec).map(([key,val])=>{
-        //         if (val && typeof val === 'object') {
-        //             dispatch({ field: key, value: val._id });
-        //         } else {
-        //             dispatch({ field: key, value: val });
-        //         }
-        //     })
-        // }
-        // if(props.history.location.state.items) {
-        //     dispatch({ field: 'items', value: props.history.location.state.items });
-        // }
-        // if(props.history.location.state.businessUnit) {
-        //     dispatch({field: 'businessUnits',value: props.history.location.state.businessUnit});
-        // }
+        Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers()])
+        .then((res)=>{
+            if(res[0].status != 'error'){
+                dispatch({field: 'posts', value: res[0].data.data});
+            }else { 
+                ToastsStore.error(res[0].message); 
+            }
+            if(res[1].status != 'error'){debugger
+                dispatch({field: 'followers', value: res[1].data.data});
+            }else { 
+                ToastsStore.error(res[1].message); 
+            }
+        })
+        .catch((e)=>console.error("error: "+ e))
+        .then(() => console.log("Hide loader"));
     }, []);
 
     const handleCancel = () => {
@@ -128,70 +122,7 @@ function Home(props) {
                     </div>
                     <OnlineStatusCard />
                     <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
-                    </div>
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                    </div>
-                    <OnlineStatusCard />
-                    <div className="mt10 mb10">
-                        <ExploreCard />
+                        <ExploreCard  followers={followers}/>
                     </div>
                 </div>
             </div>
