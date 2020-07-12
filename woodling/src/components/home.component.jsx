@@ -96,7 +96,7 @@ function Home(props) {
             <div className="row h100">
                 <div className="col-md-8 br-white scrolling">
                     <TopContentBar />
-                    <Post />
+                    <Post posts={posts}/>
                     <div className="fixedbutton">
                         <AddButtonIcon  height="50px" width="50px"/>
                     </div>
