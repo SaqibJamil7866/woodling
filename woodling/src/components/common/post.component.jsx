@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ReactComponent as DotCircleIcon } from '../../assets/dot-circle.svg';
 import { ReactComponent as ShareIcon } from '../../assets/share-alt.svg';
 import { ReactComponent as LinkIcon } from '../../assets/link.svg';
+import { Modal, Button } from 'react-bootstrap';
+import PostImageDetailsModelContent from '../../models/post_image_details.model';
+
 function Post(props) {
+    const [postDetailData, setPostDetailData] = useState({showModal:false, postData: 'love', postType: ''});
+
+    function openDetailsModal(postData, type){
+        setPostDetailData({...postDetailData, showModal:true, postData:postData, postType:type });
+    }
+
+    function closeModal(){
+        setPostDetailData({showModal:false, postData: '', postType: '' });
+    }
+
     return (
         <div>
             {props.posts && 
                 props.posts.map((prop, index, arr) => {
                 return (
-                    <div className={`mt30 top-content-bar container row ${arr.length -1 === index ? "": "mb100"}`} style={{width: '700px'}}>
+                    <div onClick={()=>openDetailsModal(prop,'single-image')} className={`mt30 top-content-bar container row ${arr.length -1 === index ? "": "mb100"}`} style={{width: '700px'}}>
                         <div className="col-md-6">
                             <div className="p-3-0">
                                 <img className="brad-40" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
@@ -41,6 +54,29 @@ function Post(props) {
                     </div>
                 )})
             }
+
+
+            <Modal
+                {...props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                show={postDetailData.showModal}
+                closeModal={closeModal}
+            >
+                <Modal.Header closeButton>
+                    {/* <Modal.Title id="contained-modal-title-vcenter">
+                        Modal heading
+                    </Modal.Title> */}
+                </Modal.Header>
+                <Modal.Body>
+                    <PostImageDetailsModelContent postData={postDetailData.postData}/>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={closeModal}>Close</Button>
+                </Modal.Footer>
+            </Modal>
+
         </div>
     );
 }

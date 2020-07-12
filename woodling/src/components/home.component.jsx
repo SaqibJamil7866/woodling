@@ -36,7 +36,7 @@ function Home(props) {
             }else { 
                 ToastsStore.error(res[0].message); 
             }
-            if(res[1].status != 'error'){debugger
+            if(res[1].status != 'error'){
                 dispatch({field: 'followers', value: res[1].data.data});
             }else { 
                 ToastsStore.error(res[1].message); 
