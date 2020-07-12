@@ -6,6 +6,7 @@ import OnlineStatusCard from './common/online_status_card.component';
 import ExploreCard from './common/explore_card.component';
 import { ActivityStreamService } from '../services/ActivityStreamService';
 import { FollowService } from '../services/FollowService';
+import { ToastsStore } from 'react-toasts';
 
 function Home(props) {
     const initialState ={
@@ -26,22 +27,6 @@ function Home(props) {
     const onChangeValue = ((e)=>{ 
         dispatch({field: e.target.name, value: e.target.value});
     });
-
-    function validateForm() {
-        let res = false;
-        if(qty){
-            res = true
-        }
-        return res;
-    }
-
-    const [comingFor, setcomingFor] = useState('');
-    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-
-    const [errorMsg, setErrorMsg] = useState("");
-    const [openNotification, setOpenNotification] = useState(false);
-  
-
 
     useEffect(() => {
         Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers()])
