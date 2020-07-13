@@ -9,38 +9,38 @@ let likedPeople = [
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil',
+        username: '@khan.aqil'
     },
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil',
+        username: '@khan.aqil'
     },
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil',
+        username: '@khan.aqil'
     },
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil',
+        username: '@khan.aqil'
     },
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil',
+        username: '@khan.aqil'
     },
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil',
+        username: '@khan.aqil'
     }
 ]
 
 class SearchTalent extends React.Component {
     state = {
-        likedPeople: {...likedPeople}
+        likedPeople: [...likedPeople]
     }
     render() {
         return (

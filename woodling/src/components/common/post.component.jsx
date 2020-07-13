@@ -63,14 +63,11 @@ function Post(props) {
                 centered
                 show={postDetailData.showModal}
                 closeModal={closeModal}
+                onHide={closeModal}
+                
             >
-                <Modal.Header closeButton>
-                    {/* <Modal.Title id="contained-modal-title-vcenter">
-                        Modal heading
-                    </Modal.Title> */}
-                </Modal.Header>
                 <Modal.Body>
-                    <PostImageDetailsModelContent postData={postDetailData.postData}/>
+                    <PostImageDetailsModelContent postData={postDetailData.postData} closeModal={closeModal}/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={closeModal}>Close</Button>

@@ -1207,6 +1207,30 @@ p.sdate {
 /****************************************************************
                             model header
 *****************************************************************/
+.modal-content .modal-header .close {
+  display: none;
+}
+.fs30 {
+  font-size: 30px;
+}
+.modal-content {
+  border-radius: 40px !important;
+}
+.close-btn {
+  border-radius: 50px !important;
+  margin-bottom: 12px;
+  box-shadow: 0 0 6px 4px #ccc;
+  background: #ffffff;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  padding-top: 0px;
+}
+.close-btn .close {
+  padding: 0px !important;
+  margin: 0;
+  margin-bottom: 0 !important;
+}
 .post-modal-header {
   display: grid;
   margin: auto;
@@ -1216,6 +1240,7 @@ p.sdate {
   position: absolute;
   right: -70px;
   align-items: center;
+  flex-direction: column;
   vertical-align: middle;
   padding: 0;
 }
@@ -1247,14 +1272,20 @@ p.sdate {
   padding-top: 0;
   border-radius: 50%;
 }
-.modal-header.post-modal-header .post-like-top {
+
+.post-like-btn {
+  box-shadow: 0 0 6px 4px #ccc;
+  border-radius: 17px;
+  margin-bottom: 14px;
+  padding: 11px;
+  height: 40px;
+  background: #ffffff;
   display: flex;
-  margin: auto;
-  padding: 0;
-  margin-bottom: 10px;
-  font-size: 37px;
   align-items: center;
   justify-content: center;
+}
+
+.modal-header.post-modal-header .post-like-top {
   color: red;
 }
 .attachment-share {
