@@ -64,7 +64,6 @@ function Post(props) {
                 show={postDetailData.showModal}
                 closeModal={closeModal}
                 onHide={closeModal}
-                
             >
                 <Modal.Body>
                     <PostImageDetailsModelContent postData={postDetailData.postData} closeModal={closeModal}/>
