@@ -28,6 +28,12 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="loading" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0; display: none;">
+      <div style="position: absolute;top: 0;bottom: 0;left: 0;right: 0; background: #fff;z-index: 9999;opacity: .6;"></div>
+      <div style="position: absolute;left: 0;right: 0;bottom: 0;top: 40%;text-align: center;z-index: 10000000;">
+          <img id="loading-image" src="./ajax-loader-main.gif" alt="Loading..." height="100" width="100" />
+      </div>
+    </div>
     <div id="root"></div>
     <!--
       This HTML file is a template.
