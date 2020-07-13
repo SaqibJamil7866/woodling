@@ -1,15 +1,17 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react/jsx-indent */
 import React, { useState } from 'react';
+import { Modal, Button } from 'react-bootstrap';
 import { ReactComponent as DotCircleIcon } from '../../assets/dot-circle.svg';
 import { ReactComponent as ShareIcon } from '../../assets/share-alt.svg';
 import { ReactComponent as LinkIcon } from '../../assets/link.svg';
-import { Modal, Button } from 'react-bootstrap';
 import PostImageDetailsModelContent from '../../models/post_image_details.model';
 
 function Post(props) {
     const [postDetailData, setPostDetailData] = useState({showModal:false, postData: 'love', postType: ''});
 
     function openDetailsModal(postData, type){
-        setPostDetailData({...postDetailData, showModal:true, postData:postData, postType:type });
+        setPostDetailData({...postDetailData, showModal:true, postData, postType:type });
     }
 
     function closeModal(){
@@ -21,7 +23,7 @@ function Post(props) {
             {props.posts && 
                 props.posts.map((prop, index, arr) => {
                 return (
-                    <div onClick={()=>openDetailsModal(prop,'single-image')} className={`mt30 top-content-bar container row ${arr.length -1 === index ? "": "mb100"}`} style={{width: '700px'}}>
+                    <div onClick={()=>openDetailsModal(prop,'single-image')} key={prop.post_id} className={`mt30 top-content-bar container row ${arr.length -1 === index ? "": "mb100"}`} style={{width: '700px'}}>
                         <div className="col-md-6">
                             <div className="p-3-0">
                                 <img className="brad-40" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
@@ -32,11 +34,11 @@ function Post(props) {
                             </div>
                             <div className="border-top">
                                 <span className="mr20 red">
-                                    <i className="fa fa-heart-o" title="Like"></i>
+                                    <i className="fa fa-heart-o" title="Like" />
                                     <span className="badge">{prop.likes}</span>
                                 </span>
                                 <span className="mr20 navy">
-                                    <i className="fa fa-comment-o" title="Comment"></i>
+                                    <i className="fa fa-comment-o" title="Comment" />
                                     <span className="badge  mr20">{prop.comments}</span>
                                 </span>
                             </div>
@@ -57,16 +59,15 @@ function Post(props) {
 
 
             <Modal
-                {...props}
+                // {...props}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 show={postDetailData.showModal}
-                closeModal={closeModal}
                 onHide={closeModal}
             >
                 <Modal.Body>
-                    <PostImageDetailsModelContent postData={postDetailData.postData} closeModal={closeModal}/>
+                    <PostImageDetailsModelContent postData={postDetailData.postData} closeModal={closeModal} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={closeModal}>Close</Button>

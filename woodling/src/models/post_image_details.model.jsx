@@ -1,11 +1,9 @@
 import React from 'react';
 import { ToastsStore } from 'react-toasts';
 import { siteUrl } from '../public/endpoins';
-import Loader from 'react-loader-spinner';
 import { Carousel } from 'react-bootstrap';
 import Moment from 'react-moment';
 import PostCommentComponent from '../components/common/post_comment.component';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { ActivityStreamService } from '../services/ActivityStreamService';
  
 class PostImageDetailsModelContent extends React.Component {
@@ -52,7 +50,7 @@ class PostImageDetailsModelContent extends React.Component {
             return <span>@{tuser.username} </span>;
         });  
         return( 
-            <div class="custom-modal-content">
+            <div className="custom-modal-content">
                 <div class="modal-header post-modal-header">
                     <div onClick={this.props.closeModal} className='modal-content close-btn'>
                         <button type='button' className='close'>
@@ -60,62 +58,52 @@ class PostImageDetailsModelContent extends React.Component {
                         </button>
                     </div>
                     <div className='post-like-btn'>
-                        <a href="" class="post-like-top"><i class="fa fa-heart-o"></i></a>
+                        <a href="" class="post-like-top"><i className="fa fa-heart-o"></i></a>
                     </div>
                     <div class="attachment-share">
                         <div class="more-icon">
-                            <a href="" class="more-optinon"><i class="fa fa-ellipsis-h"></i></a>
+                            <a href="" class="more-optinon"><i className="fa fa-ellipsis-h" /></a>
                         </div>
-                        <div class="share-icon">
-                            <a href="" class="share-optinon"><i class="fa fa-share-alt"></i></a>
+                        <div className="share-icon">
+                            <a href="" className="share-optinon"><i className="fa fa-share-alt" /></a>
                         </div>
-                        <div class="link-icon">
-                            <a href="" class="link-optinon"><i class="fa fa-link"></i></a>
+                        <div className="link-icon">
+                            <a href="" className="link-optinon"><i className="fa fa-link" /></a>
                         </div>
                     </div>
                 </div>
-                <div class="custom-modal-body">
-                    <div class="fullpost-header">
-                    <div class="update_user_profile">
+                <div className="custom-modal-body">
+                    <div className="fullpost-header">
+                    <div className="update_user_profile">
                         <img src={require('../assets/account-circle.png')} alt="" />
                         <p>@{activity && activity.username}</p>
                     </div>
-                    <div class="post-location">
-                        <i class="fa fa-map-marker"></i>
+                    <div className="post-location">
+                        <i className="fa fa-map-marker" />
                         <span>{activity && activity.address}</span>
                     </div>
                     </div>
-                    <div class="full-post-img">
-                        {this.state.sliderLoad &&
-                            <div className="d-flex justify-content-center align-items-center" style={{ height:"100px" }}><Loader
-                                    type="Oval"
-                                    color="#f76b4c"
-                                    height={80}
-                                    width={80} 
-                            /></div>
-                        } 
-                        {!this.state.sliderLoad &&
-                            <Carousel>
-                                <Carousel.Item>
-                                    {postImage}
-                                </Carousel.Item>
-                            </Carousel>
-                        }
+                    <div className="full-post-img">
+                        <Carousel>
+                            <Carousel.Item>
+                                {postImage}
+                            </Carousel.Item>
+                        </Carousel>
                     </div> 
-                    <div class="entry">
+                    <div className="entry">
                         <p>{activity.caption}<span>{taggedUsers}</span></p>
                     </div>
-                    <div class="like_time">
-                    <div class="like-by">
+                    <div className="like_time">
+                    <div className="like-by">
                         <p>Like by</p>  
                         <a href="">
-                        <img src={require('../assets/account-circle.png')} />
-                        <img src={require('../assets/account-circle.png')}/>
-                        <img src={require('../assets/account-circle.png')}/>
-                        <img src={require('../assets/account-circle.png')}/>
+                        <img src={require('../assets/account-circle.png')} alt="avatar" />
+                        <img src={require('../assets/account-circle.png')} alt="avatar" />
+                        <img src={require('../assets/account-circle.png')} alt="avatar" />
+                        <img src={require('../assets/account-circle.png')} alt="avatar" />
                         </a>  
                     </div>
-                    <div class="post-time">                        
+                    <div className="post-time">                        
                         <p>posted <Moment fromNow>{new Date(activity.date_created * 1000)}</Moment></p>
                     </div>    
                     </div>
