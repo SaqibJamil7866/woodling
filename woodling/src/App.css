@@ -817,7 +817,7 @@ button[name='searchSubmit'] {
 }
 
 .border-bottom {
-  border-bottom: 1px solid #707070;
+  border-bottom: 1px solid #F2F2F2;
 }
 
 .h60 {
@@ -1407,4 +1407,102 @@ p.sdate {
   left: 50%;
   /* transform: translate(-109%, 28%); */
   z-index: 10000;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.border-radius-20 {
+  border-radius: 20px;
+}
+
+.p15 {
+  padding: 15px;
+}
+
+.space-evenly {
+  justify-content: space-evenly;
+}
+
+.fs13 {
+  font-size: 13px;
+}
+
+.w80 {
+  width: 80% !important;
+}
+
+.bkgrnd-red {
+  background-color: #ee0202;
+}
+
+.w75 {
+  width: 75%;
+}
+
+.right-bottom-radius {
+  border-bottom-right-radius: 30px;
+}
+
+.clr-white {
+  color: #ffffff;
+}
+
+.right-top-radius {
+  border-top-right-radius: 20px;
+}
+
+.border-bottom-2 {
+  border-bottom: 2px solid #F2F2F2 !important;
+}
+
+.skills-text {
+  margin-top: 14px;
+  padding-left: 35px;
+  padding-right: 35px;
+  border-radius: 16px;
+  padding-top: 0px;
+  border: 3px solid #FB0201 !important;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ff0000;
+  background-color: #FFFFFF;
+}
+
+.ml30 {
+  margin-left: 30px;
+}
+
+.mr--2 {
+  margin-right: 30px !important;
+}
+
+.skills-btn {
+  padding-left: 35px;
+  padding-right: 35px;
+  border-radius: 16px;
+  padding-top: 0px;
+  background-color: #FB0201;
+  border: 3px solid #FB0201 !important;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.pb20 {
+  padding-bottom: 20px;
+}
+
+.plr20 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.mt-15 {
+  margin-top: -15px !important;
+}
+
+.ml20 {
+  margin-left: 20px;
 }

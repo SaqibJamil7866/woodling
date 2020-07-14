@@ -51,7 +51,9 @@ class SearchTalent extends React.Component {
                         <HeaderSearch 
                             img={require('../assets/find-talent-cover.png')} 
                             mainText='Find Talents'
-                            paraText='Explore our talent database<br/>Hunting down the perfect star has never been easier. Try it.'
+                            placeholder='Who are you looking for?'
+                            paraText1='Explore our talent database'
+                            paraText2='Hunting down the perfect star has never been easier. Try it.'
                         />
                     </div>
                 </div>

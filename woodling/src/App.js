@@ -11,6 +11,7 @@ import Home from './components/home.component';
 import SearchTalent from './components/search_talent.component';
 import { ToastsContainer, ToastsStore } from 'react-toasts';
 import history from './public/history';
+import CastingCalls from './components/casting_calls.component';
 
 function Main(props) {
 
@@ -22,6 +23,7 @@ function Main(props) {
       </aside>
       <aside className="right-side h90">
         <SecuredRoute path='/home' component={Home} />
+        <SecuredRoute path='/casting_calls' component={CastingCalls} />
         <SecuredRoute path='/search_talent' component={SearchTalent} />
       </aside>
     </div>
