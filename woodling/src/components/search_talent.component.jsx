@@ -10,39 +10,72 @@ let likedPeople = [
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil'
+        username: '@khan.aqil',
+        created: '07/Jun/20 20:73',
+        lastEdit: '07/Jun/20 20:73'
     },
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil'
+        username: '@khan.aqil',
+        created: '07/Jun/20 20:73',
+        lastEdit: '07/Jun/20 20:73'
     },
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil'
+        username: '@khan.aqil',
+        created: '07/Jun/20 20:73',
+        lastEdit: '07/Jun/20 20:73'
     },
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil'
+        username: '@khan.aqil',
+        created: '07/Jun/20 20:73',
+        lastEdit: '07/Jun/20 20:73'
     },
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil'
+        username: '@khan.aqil',
+        created: '07/Jun/20 20:73',
+        lastEdit: '07/Jun/20 20:73'
     },
     {
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
-        username: '@khan.aqil'
+        username: '@khan.aqil',
+        created: '07/Jun/20 20:73',
+        lastEdit: '07/Jun/20 20:73'
     }
 ]
 
 class SearchTalent extends React.Component {
     state = {
-        likedPeople: [...likedPeople]
+        likedPeople: [...likedPeople],
+        showModel: false,
+        notes:{},
+        openDropdown: false
     }
+
+    handleShowModel = (data) => {
+        console.log(data)
+        this.setState({showModel: true, notes: data});
+    }
+
+    handleHideModel = () => {
+        this.setState({showModel: false});
+    }
+
+    toggleOpen = () => {
+        this.setState({openDropdown: true});
+    }
+
+    toggleClose = () => {
+        this.setState({openDropdown: false});
+    }
+
     render() {
         return (
             <div className='h100 scrolling'>
@@ -57,7 +90,7 @@ class SearchTalent extends React.Component {
                         />
                     </div>
                 </div>
-    
+
                 <div className="row d-flex m0">
                     <div className="col-md-8 br-white pl100">
                         <TalentBar title="Featured Talents of the week"/>
@@ -76,7 +109,16 @@ class SearchTalent extends React.Component {
                     <div className="col-md-4">
                         <div className="img-div h230 mt30 mb10">
                             <div>
-                                <StaredTalent likedPeople={this.state.likedPeople} />
+                                <StaredTalent 
+                                    likedPeople={this.state.likedPeople} 
+                                    showModel={this.state.showModel}
+                                    handleShowModel={this.handleShowModel}
+                                    handleHideModel={this.handleHideModel}
+                                    notes={this.state.notes}
+                                    openDropdown={this.state.openDropdown}
+                                    toggleOpen={this.toggleOpen}
+                                    toggleClose={this.toggleClose}
+                                />
                                 <Filters />
                             </div>
                             <img style={{width: '80%', marginTop: '20px'}} src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>

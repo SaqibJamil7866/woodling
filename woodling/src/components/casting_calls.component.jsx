@@ -53,9 +53,56 @@ const cards = [
         status: 'ACTIVE',
         btn: 'Documeentary'
     },
+    {
+        name: 'IN THE MIND OF AN ARTIST',
+        skill: 'Actor',
+        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
+        country: 'Worldwide',
+        status: 'ACTIVE',
+        btn: 'Documeentary'
+    },
+    {
+        name: 'IN THE MIND OF AN ARTIST',
+        skill: 'Actor',
+        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
+        country: 'Worldwide',
+        status: 'ACTIVE',
+        btn: 'Documeentary'
+    },
+    {
+        name: 'IN THE MIND OF AN ARTIST',
+        skill: 'Actor',
+        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
+        country: 'Worldwide',
+        status: 'ACTIVE',
+        btn: 'Documeentary'
+    },
+    {
+        name: 'IN THE MIND OF AN ARTIST',
+        skill: 'Actor',
+        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
+        country: 'Worldwide',
+        status: 'ACTIVE',
+        btn: 'Documeentary'
+    },
+    {
+        name: 'IN THE MIND OF AN ARTIST',
+        skill: 'Actor',
+        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
+        country: 'Worldwide',
+        status: 'ACTIVE',
+        btn: 'Documeentary'
+    },
 ]
 class CastingCalls extends Component {
-    state = { submissions: false, submissionCard: [...cards] }
+    state = { 
+        submissions: false, 
+        submissionCard: [...cards] ,
+        cardShown: false
+    }
+    showCards = () => {
+        this.setState({cardShown: true})
+    }
     render() { 
         return ( 
             <div className='h100 scrolling'>
@@ -89,6 +136,8 @@ class CastingCalls extends Component {
                                     textlimit={200}
                                     headinglimit={30}
                                     countrylimit={10}
+                                    cardShown={this.state.cardShown}
+                                    showCards={this.showCards}
                                 />
                             </div>
                         </div>

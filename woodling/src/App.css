@@ -792,6 +792,15 @@ button[name='searchSubmit'] {
   vertical-align: center;
 }
 
+.notes-btn:hover {
+  background-color: #FB0201;
+  color: #FFFFFF;
+}
+
+.notes-btn:focus {
+  outline: none
+}
+
 .space-between {
   justify-content: space-between;
 }
@@ -1505,4 +1514,44 @@ p.sdate {
 
 .ml20 {
   margin-left: 20px;
+}
+
+.align-items-start {
+  align-items: flex-start;
+}
+
+.noDisplay {
+  display: none;
+}
+
+.load-btn {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 10px 0px;
+  background: #fdb8b8;
+  border-radius: 10px;
+  color: #000;
+  font-size: 12px;
+  border: 0;
+  width: 60%;
+  font-weight: 500;
+}
+
+.w75 {
+  width: 70%;
+}
+
+.dropDown-btn .dropDown-btn:hover .dropDown-btn:active .dropDown-btn:focus {
+  color: black;
+  background-color: white;
+  border-color: white;
+}
+
+.border-none:focus{
+  outline: none;
+}
+
+.show>.dropdown-menu {
+  display: block;
+  position: absolute;
 }
