@@ -93,11 +93,14 @@ const cards = [
         status: 'ACTIVE',
         btn: 'Documeentary'
     },
-]
+];
+
+const myJob = [];
 class CastingCalls extends Component {
     state = { 
         submissions: false, 
         submissionCard: [...cards] ,
+        myJob: [...myJob],
         cardShown: false
     }
     showCards = () => {
@@ -124,6 +127,7 @@ class CastingCalls extends Component {
                                 <SmallSubmissionCard
                                     Length='2'
                                     Heading='My Posted Jobs'
+                                    jobsClick={() => this.props.history.push("/casting_calls/posted_calls")}
                                 />
                                 <SmallSubmissionCard
                                     Length='2'

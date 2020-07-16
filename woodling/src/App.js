@@ -12,6 +12,7 @@ import SearchTalent from './components/search_talent.component';
 import { ToastsContainer, ToastsStore } from 'react-toasts';
 import history from './public/history';
 import CastingCalls from './components/casting_calls.component';
+import MyJobAndSubscribtion from './components/common/my_job-and-my_subscribtion.compoent';
 
 function Main(props) {
 
@@ -23,7 +24,9 @@ function Main(props) {
       </aside>
       <aside className="right-side h90">
         <SecuredRoute path='/home' component={Home} />
-        <SecuredRoute path='/casting_calls' component={CastingCalls} />
+        <SecuredRoute exact path='/casting_calls' component={CastingCalls} />
+        <SecuredRoute exact path='/casting_calls/posted_calls' component={MyJobAndSubscribtion} />
+        <SecuredRoute exact path='/casting_calls/my_subscription' component={MyJobAndSubscribtion} />
         <SecuredRoute path='/search_talent' component={SearchTalent} />
       </aside>
     </div>

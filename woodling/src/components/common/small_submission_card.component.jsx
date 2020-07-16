@@ -9,7 +9,7 @@ const SmallSubmissionCard = (props) => {
                 <h1 className='fs25 clr__red'>{props.Length}</h1>
                 </div>
                 <div>
-                    <p className="gray pointer"><b>View All </b><span className="inline-block float-right ml-2"> <RightIcon /></span></p>
+                    <p onClick={props.jobsClick} className="gray pointer"><b>View All </b><span className="inline-block float-right ml-2"> <RightIcon /></span></p>
                 </div>
             </div>
             <div>
