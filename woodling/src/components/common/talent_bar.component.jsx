@@ -1,13 +1,15 @@
 import React from 'react';
+import { siteUrl } from '../../public/endpoins';
 
 function TalentBar(props) {
+    const {title, featuredTalents } = props;
     return (
         <div className="card">
-            <p class="oniline-status-title gray bold">{props.title}</p>
+            <p className="oniline-status-title gray bold">{title}</p>
             <div className="card-pics mb10 ml10">
-                <img className="brad-40" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                <img className="brad-40" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                <img className="brad-40" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
+                {featuredTalents && featuredTalents.map((talent)=>{
+                    return <img className="brad-40" key={talent.id} src={siteUrl+""+talent.profile_thumb} alt="avatar" />
+                })}
             </div>
         </div>
     );

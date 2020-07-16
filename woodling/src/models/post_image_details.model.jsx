@@ -1,8 +1,8 @@
 import React from 'react';
 import { ToastsStore } from 'react-toasts';
-import { siteUrl } from '../public/endpoins';
 import { Carousel } from 'react-bootstrap';
 import Moment from 'react-moment';
+import { siteUrl } from '../public/endpoins';
 import PostCommentComponent from '../components/common/post_comment.component';
 import { ActivityStreamService } from '../services/ActivityStreamService';
  
@@ -32,7 +32,8 @@ class PostImageDetailsModelContent extends React.Component {
         })
         .catch((e)=>console.error("error: "+ e))
         .then(() => console.log("Hide loader"));
-    } 
+    }
+
     handlePositionChange = ({ target: { value: dotPosition } }) => this.setState({ dotPosition })
      
     render() {  
@@ -46,8 +47,8 @@ class PostImageDetailsModelContent extends React.Component {
             postImage = <img src={siteUrl+""+this.props.postData.path} />;
         }
 
-        taggedUsers = postTaggedUsers.map((tuser,index)=>{  
-            return <span>@{tuser.username} </span>;
+        taggedUsers = postTaggedUsers.map((tuser)=>{  
+            return <span key={tuser.id}>@{tuser.username} </span>;
         });  
         return( 
             <div className="custom-modal-content">
@@ -107,7 +108,7 @@ class PostImageDetailsModelContent extends React.Component {
                         <p>posted <Moment fromNow>{new Date(activity.date_created * 1000)}</Moment></p>
                     </div>    
                     </div>
-                    <PostCommentComponent postData={activity}/>
+                    <PostCommentComponent postData={activity} />
                 </div> 
             </div> 
         );

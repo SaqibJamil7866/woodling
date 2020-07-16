@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import SkillSelectComponent from './skill_select.component';
 
 const SignUpFormComponent = (props) => {
     const [check, setCheck] = useState(false);
-    const [options, setOptions] = useState([{name:'item 1', value: 'item_1'},{name:'item 2', value: 'item_2'}])
+    const [options, setOptions] = useState([{name:'item 1', value: 'item_1'},{name:'item 2', value: 'item_2'}]);
+
+    const callBackSkillsSelected = (data) =>{debugger
+        // this.setState({
+        //    skill_set:data.toString()
+        // });
+    }
     return ( 
         <>
             <div className="signupForm p800">
@@ -120,13 +126,14 @@ const SignUpFormComponent = (props) => {
                         </div>
                     </div>
                     <p className='signup__account--text'><b>Choose Your Skills</b></p>
-                    <div className='center__item'>
-                        {/* <select id="inputState1"  className="form-control checkBox__clr w60" placeholder='Gender*'>
-                            <option disabled selected hidden>Choose a skill</option>
-                            <option className='clr__white'> Male</option>
-                            <option className='clr__white'>Female</option>
-                        </select> */}
+                    <div className='center__item multiselect'>
+                        <SkillSelectComponent skillType={check ? 'individual' : 'business'} callBackPlaceSelected={callBackSkillsSelected} /> 
                     </div>
+                    {/* <div className="skils-form">
+                    <div className="multiselect"> 
+                        <SkillComponent skillType={this.state.isIndividual} callBackPlaceSelected = {this.callBackSkillsSelected}/> 
+                    </div>
+                    </div> */}
                     <div className='login__btn-div'>
                         <button className='login__btn' type="submit" ><img className='submit' src={require('../../assets/login_button.svg')} /></button>
                     </div>

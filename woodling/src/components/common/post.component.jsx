@@ -18,7 +18,7 @@ function Post(props) {
         setPostDetailData({showModal:false, postData: '', postType: '' });
     }
 
-    return (
+    return(
         <div>
             {props.posts && 
                 props.posts.map((prop, index, arr) => {

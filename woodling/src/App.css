@@ -1555,3 +1555,99 @@ p.sdate {
   display: block;
   position: absolute;
 }
+/***************************************************
+        Skills multi selector
+*****************************************************/
+.multiselect {
+  width: 70%;
+  margin: auto;
+}
+
+.location-list .location-address {
+  display: block;
+  color: #646464;
+  font-family: Poppins;
+  font-size: 17px;
+  align-items: center; 
+  margin: auto;
+  display: flex;
+  margin-bottom: 20px;
+}
+.location-list .location-address i {
+  text-align: right;
+  margin: auto;
+  display: block;
+  align-items: center;
+  margin-right: 0;
+}
+
+.Location-search-title h2 {
+  text-align: center;
+  color: #2b2b2b;
+  font-family: Poppins;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.Location-search-title {
+  margin-top: 35px;
+}
+.input-group.seaarch-box {
+  width: 500px;
+  height: 47px;
+  box-shadow: 0 16px 33px rgba(0, 0, 0, 0.21);
+  border-radius: 10px;
+  margin: auto;
+}
+.seaarch-box  input.form-control{
+  border-radius: 10px;
+}
+.seaarch-box .btn.seaarch-btn {
+  background: transparent !important;
+  border: 1px solid #ccc;
+  border-left: 0;
+}
+
+.search-skill-list {
+  width: 500px; 
+  box-shadow: 0 16px 33px rgba(0, 0, 0, 0.21);
+  border-radius: 10px;
+  margin: auto;
+  padding: 15px;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.select-location {
+  width: 62%;
+  display: block;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.select-location-title p {
+  color: #9a9a9a;
+  font-family: Poppins;
+  font-size: 23px;
+  font-weight: 500;
+}
+
+.location-list a {
+  display: block;
+  color: #646464;
+  font-family: Poppins;
+  font-size: 17px;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.location-list a i {
+  text-align: right;
+  margin: auto;
+  display: block;
+  align-items: center;
+  margin-right: 0;
+}
