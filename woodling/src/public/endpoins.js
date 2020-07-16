@@ -18,12 +18,24 @@ export const getUserFollowersUrl = `${baseUrl}/fetch-user-followers.php`;
 export const getCommentsUrl = `${baseUrl}/fetch-post-comments.php`;
 export const addCommentsUrl = `${baseUrl}/add-post-comment.php`;
 
+// talent endpoints
+export const getFeaturedTalentUrl = `${baseUrl}/fetch-featured-talents.php`;
+export const getAllTalentsUrl = `${baseUrl}/fetch-all-talents.php`;
+export const searchTalentUrl = `${baseUrl}/search-talents.php`;
+export const getTalentDetailsUrl = `${baseUrl}/fetch-talent-details.php`;
+export const getStarredTalentsUrl = `${baseUrl}/fetch-starred-talents.php`;
+export const starTalentUrl = `${baseUrl}/star-talent.php`;
+export const unstartTalentUrl = `${baseUrl}/unstar-talent.php`;
+export const getStarredNotesUrl = `${baseUrl}/fetch-starred-notes.php`;
+export const addStarredNotesUrl = `${baseUrl}/add-starred-notes.php`;
+
+// skills endpoints
+export const getIndividualSkillsUrl = `${baseUrl}/fetch-individual-skills.php`;
+export const addBusinessSkillsNoUrl = `${baseUrl}/fetch-business-skills.php`;
 
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",
 // UPDATE_USER_SETUP_DETAILS :"update-user-setup-details.php",
-// FETCH_INDIVIDUAL_SKILLS :"fetch-individual-skills.php",
-// FETCH_BUSINESS_SKILLS :"fetch-business-skills.php",
 // ADD_POST_COMMENTS :"",
 // FETCH_USER_BALANCE :"fetch-user-balance.php",
 // FETCH_WALLET_HISTORY :"fetch-wallet-payment-history.php",

@@ -1,9 +1,10 @@
   
 import axios from 'axios';
 import cookie from 'react-cookies';
-import { loginUrl } from '../public/endpoins';
+import { loginUrl, getIndividualSkillsUrl, addBusinessSkillsNoUrl } from '../public/endpoins';
+
 export const AuthService = {
-  login, getUserId, getUserName
+  login, getUserId, getUserName, getSkills
 //    , register, registerStep, 
 //    getUSerProfile,
 //     getUSerFollowings,
@@ -21,6 +22,19 @@ function login(params) {
             reject(e);        
         });
 	});
+}
+
+function getSkills(type) {
+  const url = getIndividualSkillsUrl;
+
+  return new Promise((resolve, reject) =>{
+      axios.post(getIndividualSkillsUrl, type)
+      .then(res => {
+          resolve(res);
+        }).catch(e => {
+          reject(e);        
+      });
+});
 }
 
 // function register(userData) { 
@@ -141,8 +155,8 @@ function login(params) {
 // 	return token; 
 // }
 function getUserId(){
-	var user = cookie.load('currnt_user');
-	var userId = 0;
+	const user = cookie.load('currnt_user');
+	let userId = 0;
 	if(user){
 		userId = user.id;
 	}
@@ -151,7 +165,7 @@ function getUserId(){
 }
 
 function getUserName(){
-	var user = cookie.load('currnt_user');
+	const user = cookie.load('currnt_user');
 	let userName = '';
 	if(user){
 		userName = user.username;

@@ -1,15 +1,17 @@
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import  Joi from 'joi-browser'
-import LoginForm from './../common/loginForm.component';
-import { Link } from 'react-router-dom';
-import SignUpFormComponent from './../common/signupFrom.component';
-import ValidateContact from '../../public/contactValidator';
-import ValidateEmail from '../../public/emailValidator';
+import  Joi from 'joi-browser';
 import axios from 'axios';
 import cookie from 'react-cookies';
+import { Link } from 'react-router-dom';
+import { ToastsStore } from 'react-toasts';
+import LoginForm from '../common/loginForm.component';
+import SignUpFormComponent from '../common/signupFrom.component';
+import ValidateContact from '../../public/contactValidator';
+import ValidateEmail from '../../public/emailValidator';
 import { loginUrl } from '../../public/endpoins';
 import history from '../../public/history';
-import { ToastsStore } from 'react-toasts';
 
 class LoginComponent extends Component {
   
@@ -122,7 +124,7 @@ class LoginComponent extends Component {
       if(!result.error) return null;
 
       const errors = {};
-      for(let item of result.error.details) {
+      for(let item of result.error.details){
         errors[item.path[0]] = item.message;
       }
       return errors;
@@ -168,8 +170,8 @@ class LoginComponent extends Component {
         return ( 
           <div style={{height: '100%'}}>
             <div className='logoStyling'>
-              <img className='logoStyling__img' src={require('../../assets/woodling_main_logo.svg')} />
-              <img className='logo' src={require('../../assets/logo.svg')} />
+              <img className='logoStyling__img' src={require('../../assets/woodling_main_logo.svg')} alt="logo" />
+              <img className='logo' src={require('../../assets/logo.svg')} alt="logo" />
             </div>
             <div className='row loginBacground wfull'>
               <div className='col-md-7 col-sm-8 col-xs-12 center__item col-dir w800'>
@@ -234,10 +236,10 @@ class LoginComponent extends Component {
                       <li className='list__items'><Link to="terms" className='list__items--link'>Support</Link></li>
                     </ul>
                   </div>
-                  <img style={{marginTop: '-10px'}} src={require('../../assets/logoTitle.svg')} />
+                  <img style={{marginTop: '-10px'}} src={require('../../assets/logoTitle.svg')} alt="logo title" />
                 </div>
                 <div className='inLine__items'>
-                  <img src={require('../../assets/playStore.svg')} />
+                  <img src={require('../../assets/playStore.svg')} alt="playstore icon" />
                   <div style={{display:'flex', flexDirection:'column', alignContent:'center'}}>
                     <div className='center__item'>
                       <ul className='list'>

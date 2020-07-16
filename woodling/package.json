@@ -11,6 +11,7 @@
     "font-awesome": "^4.7.0",
     "joi-browser": "^13.4.0",
     "moment": "^2.27.0",
+    "rc-if": "0.0.12",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-cookies": "^0.1.1",
