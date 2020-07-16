@@ -4,7 +4,7 @@ const Filters = (props) => {
     return(
         <div className='clr__white wh80 h480 mt30'>
             <div className='liked-talent-title p35'>
-                <p class="oniline-status-title fs25"><b>Filters</b></p>
+                <p className="oniline-status-title fs25"><b>Filters</b></p>
             </div>
             <div className='p35 d-flex flex-dir-col'>
                 <label className='fs20 muli'>Skills</label>
@@ -33,9 +33,9 @@ const Filters = (props) => {
                         </label>
                     </div>
                     <div>
-                        <label for='radio' className="containers">Male
+                        <label htmlFor='radio' className="containers">Male
                             <input type="radio" name="radio" id='radio' />
-                            <span className="checkmark"></span>
+                            <span className="checkmark" />
                         </label>
                         <label className="containers">Rather Not Say
                             <input type="radio" name="radio" />

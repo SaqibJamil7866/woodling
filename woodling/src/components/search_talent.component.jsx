@@ -22,35 +22,6 @@ class SearchTalent extends React.Component {
         this.talentSearch = this.talentSearch.bind(this);
     }
 
-    handleShowModel = (data) => {
-        this.setState({showModel: true, notes: data});
-    }
-
-    handleHideModel = () => {
-        this.setState({showModel: false});
-    }
-
-    unselectStarTalent = (data) => {
-        const unstar = {...this.state.likedPeople};
-        let arr = this.state.likedPeople.map(el=>el.index===data.index ? {...el, starTalent: false}: el)
-        this.setState({likedPeople: arr});
-    }
-
-    toggleOpen = () => {
-        this.setState({openDropdown: true});
-    }
-
-    toggleClose = () => {
-        this.setState({openDropdown: false});
-    }
-
-    copyCodeToClipboard = () => {
-        const el = document.getElementsByClassName('notes')[0].innerHTML;
-        console.log(el)
-        // el.select()
-        //document.exceCommand('copy')
-    }
-
     componentDidMount(){
         showLoader();
         Promise.all([TalentService.getAllTalents(1), TalentService.getStarredTalents(), TalentService.getFeaturedTalents(1)])
@@ -73,6 +44,35 @@ class SearchTalent extends React.Component {
         })
         .catch((e)=>console.error("error: "+ e))
         .then(() => hideLoader());
+    }
+
+    handleShowModel = (data) => {
+        this.setState({showModel: true, notes: data});
+    }
+
+    handleHideModel = () => {
+        this.setState({showModel: false});
+    }
+
+    unselectStarTalent = (data) => {
+        const unstar = {...this.state.starredTalents};
+        let arr = this.state.starredTalents.map(el=>el.index===data.index ? {...el, starTalent: false}: el)
+        this.setState({starredTalents: arr});
+    }
+
+    copyCodeToClipboard = () => {
+        const el = document.getElementsByClassName('notes')[0].innerHTML;
+        console.log(el)
+        // el.select()
+        //document.exceCommand('copy')
+    }
+
+    toggleOpen = () => {
+        this.setState({openDropdown: true});
+    }
+
+    toggleClose = () => {
+        this.setState({openDropdown: false});
     }
 
     talentSearch(keyword){
