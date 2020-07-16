@@ -2,6 +2,7 @@
 import { getUserFollowingUrl, getUserFollowersUrl } from '../public/endpoins';
 import {AuthService} from './AuthService';
 import axios from 'axios';
+
 export const FollowService = {
    getUSerFollowings,getUSerFollowiers 
 }; 

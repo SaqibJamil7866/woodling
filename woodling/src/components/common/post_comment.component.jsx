@@ -101,7 +101,7 @@ class PostCommentComponent extends React.Component {
                         <p>{AuthService.getUserName()}</p>
                     </div>
                     <div className="form-group comment-input">
-                        <input type="text" name="comment" id="comment-text" className="form-control input-sm" placeholder="Say something about this" value={this.state.comment} onChange={this.handleChange} onKeyDown={this.keyPress}/>
+                        <input type="text" name="comment" id="comment-text" className="form-control input-sm" placeholder="Say something about this" value={this.state.comment} onChange={this.handleChange} onKeyDown={this.keyPress} />
                     </div>
                     <div className="comment-list">
                     <ul> 
