@@ -11,6 +11,7 @@ let likedPeople = [
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
+        starTalent: true,
         created: '07/Jun/20 20:73',
         lastEdit: '07/Jun/20 20:73'
     },
@@ -18,6 +19,7 @@ let likedPeople = [
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
+        starTalent: true,
         created: '07/Jun/20 20:73',
         lastEdit: '07/Jun/20 20:73'
     },
@@ -25,6 +27,7 @@ let likedPeople = [
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
+        starTalent: true,
         created: '07/Jun/20 20:73',
         lastEdit: '07/Jun/20 20:73'
     },
@@ -32,6 +35,7 @@ let likedPeople = [
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
+        starTalent: true,
         created: '07/Jun/20 20:73',
         lastEdit: '07/Jun/20 20:73'
     },
@@ -39,6 +43,7 @@ let likedPeople = [
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
+        starTalent: true,
         created: '07/Jun/20 20:73',
         lastEdit: '07/Jun/20 20:73'
     },
@@ -46,17 +51,21 @@ let likedPeople = [
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
+        starTalent: true,
         created: '07/Jun/20 20:73',
         lastEdit: '07/Jun/20 20:73'
     }
-]
+];
+
+const Child = ({ setRef }) => <p className='copy'></p>;
 
 class SearchTalent extends React.Component {
     state = {
         likedPeople: [...likedPeople],
         showModel: false,
         notes:{},
-        openDropdown: false
+        openDropdown: false,
+        starTalent: true
     }
 
     handleShowModel = (data) => {
@@ -68,12 +77,25 @@ class SearchTalent extends React.Component {
         this.setState({showModel: false});
     }
 
+    unselectStarTalent = (data) => {
+        const unstar = {...this.state.likedPeople};
+        console.log(data)
+        this.setState({likedPeople: data, starTalent: false});
+    }
+
     toggleOpen = () => {
         this.setState({openDropdown: true});
     }
 
     toggleClose = () => {
         this.setState({openDropdown: false});
+    }
+
+    copyCodeToClipboard = () => {
+        const el = document.getElementsByClassName('notes')[0].innerHTML;
+        console.log(el)
+        // el.select()
+        //document.exceCommand('copy')
     }
 
     render() {
@@ -114,10 +136,14 @@ class SearchTalent extends React.Component {
                                     showModel={this.state.showModel}
                                     handleShowModel={this.handleShowModel}
                                     handleHideModel={this.handleHideModel}
+                                    starTalent={this.state.starTalent}
+                                    unselectStarTalent={this.unselectStarTalent}
                                     notes={this.state.notes}
                                     openDropdown={this.state.openDropdown}
                                     toggleOpen={this.toggleOpen}
                                     toggleClose={this.toggleClose}
+                                    setCopyRef={this.setCopyRef}
+                                    copyCodeToClipboard={this.copyCodeToClipboard}
                                 />
                                 <Filters />
                             </div>

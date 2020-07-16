@@ -9,21 +9,24 @@ const StaredTalent = (props) => {
                     <p class="oniline-status-title"><b>Talent You've Shared</b></p>
                 </div>
                 {props.likedPeople.map((like)=>{
-                    return<> 
-                    <div className='d-flex space-between mt10 border-bottom'>
-                        <div className='d-flex ml15'>
-                            <img className='border-radius60 h60' src={like.img} alt=""/>
-                        <div className='ml10'>
-                            <p className='m0 mt10'><b>{like.name}</b></p>
-                            <p className='clr-grey fs11'><b>{like.username}</b></p>
+                    if(like.starTalent===props.starTalent){
+                        return<> 
+                        <div className='d-flex space-between mt10 border-bottom'>
+                            <div className='d-flex ml15'>
+                                <img className='border-radius60 h60' src={like.img} alt=""/>
+                            <div className='ml10'>
+                                <p className='m0 mt10'><b>{like.name}</b></p>
+                                <p className='clr-grey fs11'><b>{like.username}</b></p>
+                            </div>
+                            </div>
+                            <div className='d-flex align-item mr15'>
+                                <i className='fa fa-star mr18 fs20 clr__red'></i>
+                                <button onClick={() => props.handleShowModel(like)} className="notes-btn"><b>Notes</b></button>
+                            </div>
                         </div>
-                        </div>
-                        <div className='d-flex align-item mr15'>
-                            <i className='fa fa-star mr18 fs20 clr__red'></i>
-                            <button onClick={() => props.handleShowModel(like)} className="notes-btn"><b>Notes</b></button>
-                        </div>
-                    </div>
-                    </>;
+                        </>;
+                    }
+                  
                 })}
             </div>
             <div>
@@ -36,6 +39,9 @@ const StaredTalent = (props) => {
                         openDropdown={props.openDropdown}
                         toggleOpen={props.toggleOpen}
                         toggleClose={props.toggleClose}
+                        setCopyRef={props.setCopyRef}
+                        copyCodeToClipboard={props.copyCodeToClipboard}
+                        unselectStarTalent={props.unselectStarTalent}
                     /> : null}
             </div>
         </>

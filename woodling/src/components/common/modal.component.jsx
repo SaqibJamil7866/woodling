@@ -22,9 +22,9 @@ const TalentMdoel = (props) => {
                         <div className="dropdown dropleft" onClick={props.toggleOpen}>
                             <button className="fa fa-ellipsis-v border-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                             <div className={menuClass} aria-labelledby="dropdownMenuButton">
-                                <Link className="dropdown-item" href="#"><b>Copy Text</b></Link>
+                                <Link onClick={props.copyCodeToClipboard} className="dropdown-item" href="#"><b>Copy Text</b></Link>
                                 <Link className="dropdown-item" href="#"><b>Clear Text</b></Link>
-                                <Link className="dropdown-item" href="#"><b>Unstar Talent</b></Link>
+                                <Link onClick={() => props.unselectStarTalent(props.notes)} className="dropdown-item" href="#"><b>Unstar Talent</b></Link>
                             </div>
                         </div>
                         
@@ -45,7 +45,7 @@ const TalentMdoel = (props) => {
 
             </Modal.Header>
             <Modal.Body className='scrolling'>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, asperiores dicta provident eveniet ducimus ullam praesentium commodi, ratione id minima tenetur magnam amet aut! Velit cupiditate error eius recusandae placeat.
+                <p className='notes'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, asperiores dicta provident eveniet ducimus ullam praesentium commodi, ratione id minima tenetur magnam amet aut! Velit cupiditate error eius recusandae placeat.
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, asperiores dicta provident eveniet ducimus ullam praesentium commodi, ratione id minima tenetur magnam amet aut! Velit cupiditate error eius recusandae placeat.
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, asperiores dicta provident eveniet ducimus ullam praesentium commodi, ratione id minima tenetur magnam amet aut! Velit cupiditate error eius recusandae placeat.
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur, asperiores dicta provident eveniet ducimus ullam praesentium commodi, ratione id minima tenetur magnam amet aut! Velit cupiditate error eius recusandae placeat.
