@@ -8,6 +8,7 @@ import HeaderSearch from './common/header-searchbar';
 
 let likedPeople = [
     {
+        index: 1,
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
@@ -16,6 +17,7 @@ let likedPeople = [
         lastEdit: '07/Jun/20 20:73'
     },
     {
+        index: 2,
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
@@ -24,6 +26,7 @@ let likedPeople = [
         lastEdit: '07/Jun/20 20:73'
     },
     {
+        index: 3,
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
@@ -32,6 +35,7 @@ let likedPeople = [
         lastEdit: '07/Jun/20 20:73'
     },
     {
+        index: 4,
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
@@ -40,6 +44,7 @@ let likedPeople = [
         lastEdit: '07/Jun/20 20:73'
     },
     {
+        index: 5,
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
@@ -48,6 +53,7 @@ let likedPeople = [
         lastEdit: '07/Jun/20 20:73'
     },
     {
+        index: 6,
         img: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
         name: 'Aqil Khan',
         username: '@khan.aqil',
@@ -57,19 +63,15 @@ let likedPeople = [
     }
 ];
 
-const Child = ({ setRef }) => <p className='copy'></p>;
-
 class SearchTalent extends React.Component {
     state = {
         likedPeople: [...likedPeople],
         showModel: false,
         notes:{},
         openDropdown: false,
-        starTalent: true
     }
 
     handleShowModel = (data) => {
-        console.log(data)
         this.setState({showModel: true, notes: data});
     }
 
@@ -79,8 +81,8 @@ class SearchTalent extends React.Component {
 
     unselectStarTalent = (data) => {
         const unstar = {...this.state.likedPeople};
-        console.log(data)
-        this.setState({likedPeople: data, starTalent: false});
+        let arr = this.state.likedPeople.map(el=>el.index===data.index ? {...el, starTalent: false}: el)
+        this.setState({likedPeople: arr});
     }
 
     toggleOpen = () => {

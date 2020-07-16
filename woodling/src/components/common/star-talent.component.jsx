@@ -9,7 +9,7 @@ const StaredTalent = (props) => {
                     <p class="oniline-status-title"><b>Talent You've Shared</b></p>
                 </div>
                 {props.likedPeople.map((like)=>{
-                    if(like.starTalent===props.starTalent){
+                    if(like.starTalent===true){
                         return<> 
                         <div className='d-flex space-between mt10 border-bottom'>
                             <div className='d-flex ml15'>
