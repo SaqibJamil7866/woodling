@@ -7,6 +7,7 @@ import { ToastsStore } from 'react-toasts';
 import convertToFloat from '../../public/helperFunctions';
 import { siteUrl } from '../../public/endpoins';
 import RatingStar from './rating-stars.component';
+import { ReactComponent as PremiumIcon } from '../../assets/premium-icon.svg';
 import { showLoader, hideLoader } from '../../public/loader';
 import { TalentService } from '../../services/TalentService';
 
@@ -43,22 +44,29 @@ class TalentCard extends Component {
     }
     
     render() {
-        const { talent: { username, full_name, profile_thumb, rating } } = this.props;
+        const { talent: { username, full_name, profile_thumb, rating, followers_count, premium, city } } = this.props;
         return(
             <div className='f-left mt10 ml10'>
-                <Card style={{ width: '19rem', borderRadius: '10px', minHeight:'310px', maxHeight:'310px' }}>
+                <Card style={{ width: '19rem', borderRadius: '10px', minHeight:'320px', maxHeight:'320px' }}>
                     <Card.Img variant="top" src={require('../../assets/card-background.svg')} />
                     <div className='center__item dir-col m-50 p-relative'>
-                        <Card.Img className='border-radius60 w35' src={siteUrl+""+profile_thumb} />
+                        <Card.Img className='border-radius60 w35 h100' src={siteUrl+""+profile_thumb} />
                         <RatingStar rating={convertToFloat(rating)} />
-                            <Card.Title><b>{full_name}</b></Card.Title>
+                            <Card.Title className="mb0"><b>{full_name}</b></Card.Title>
+                            <span>Followers: {followers_count}</span>
                         <i onClick={this.state.starLiked === false ? this.liked : this.unLike} className={this.state.starLiked ? "fa fa-star p-absolute star clr__red" : "fa fa-star-o p-absolute star"} />
                     </div>
                     <Card.Body>
                         <div className='center__item dir-col'>
                             <Card.Text className='clr-grey'>
-                                <b>@{username}</b>
+                                <b>@{username}</b> {convertToFloat(premium) === 1 ? <PremiumIcon /> : null }
                             </Card.Text>
+                            {city &&(
+                                <Card.Text className='alignCenter'>
+                                    <i className="fa fa-map-marker" /> {city}
+                                </Card.Text>
+                            )}
+
                             {/* <Card.Text className='clr-grey alignCenter'>
                                 <b>Actor, Artist, Actor, Artist, Actor, Artist, Actor, Artist</b>
                             </Card.Text>

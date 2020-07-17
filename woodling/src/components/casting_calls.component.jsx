@@ -124,11 +124,14 @@ class CastingCalls extends Component {
     handleHideModel = () => {
         this.setState({showModel: false});
     }
-    render() { 
-        const {submissionCard, cardShown, showModel, popupData} = this.state
+    
+    render() {
+
+        const {submissionCard, cardShown, showModel, popupData} = this.state;
+
         return ( 
             <>
-                <div className='h100 scrolling'>
+                <div className='h100p scrolling'>
                     <div className="row m0">
                         <div className="col-md-12 p0">
                             <HeaderSearch 

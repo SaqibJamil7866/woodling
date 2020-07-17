@@ -5,7 +5,8 @@ import { getAllTalentsUrl, getFeaturedTalentUrl, searchTalentUrl, getTalentDetai
     getStarredTalentsUrl, starTalentUrl, unstartTalentUrl, getStarredNotesUrl, addStarredNotesUrl } from '../public/endpoins';
 
     export const TalentService = {
-        getAllTalents, getStarredTalents, getFeaturedTalents, starTalent, unstarTalent, searchTalent
+        getAllTalents, getStarredTalents, getFeaturedTalents, starTalent, unstarTalent, searchTalent,
+        getStarredTalentNotes, addStarredTalentNotes
     };
 
     function getFeaturedTalents(page) { 
@@ -66,6 +67,28 @@ import { getAllTalentsUrl, getFeaturedTalentUrl, searchTalentUrl, getTalentDetai
     function getStarredTalents() { 
         return new Promise((resolve, reject) =>{
             axios.get(getStarredTalentsUrl+'?user_id='+AuthService.getUserId())
+            .then(res => {
+                resolve(res);
+            }).catch(e => {
+                reject(e);        
+            });
+        });
+    }
+
+    function getStarredTalentNotes(data) { 
+        return new Promise((resolve, reject) =>{
+            axios.get(getStarredNotesUrl+'?user_id='+AuthService.getUserId()+"&starred_user_id="+data.id)
+            .then(res => {
+                resolve(res);
+            }).catch(e => {
+                reject(e);        
+            });
+        });
+    }
+
+    function addStarredTalentNotes(params) { 
+        return new Promise((resolve, reject) =>{
+            axios.post(addStarredNotesUrl, params)
             .then(res => {
                 resolve(res);
             }).catch(e => {
