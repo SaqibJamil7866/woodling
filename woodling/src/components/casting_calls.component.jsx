@@ -1,9 +1,13 @@
+/* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
+import { ToastsStore } from 'react-toasts';
 import HeaderSearch from './common/header-searchbar';
 import Filters from './common/filters.component';
+import { showLoader, hideLoader } from '../public/loader';
 import SmallSubmissionCard from './common/small_submission_card.component';
 import LargeSubmissionCard from './common/large_submission_card.component';
 import CastingCallModal from '../models/casting-call-modal.component';
+import { CastingCallService } from '../services/CastingCallsService';
 
 const cards = [
     {
@@ -121,6 +125,19 @@ class CastingCalls extends Component {
         showModel: false,
         popupData: {},
         applyBtn: false
+    }
+
+    componentDidMount(){
+        showLoader();
+        CastingCallService.getAllCastingCalls(1).then((res)=>{
+            if(res.data.status !== 'error'){debugger
+                ToastsStore.success(res.data.message); 
+            }else{
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=> console.error("error: "+ e))
+        .then(() => hideLoader());
     }
 
     showCards = () => {
