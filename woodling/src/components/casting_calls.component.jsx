@@ -118,6 +118,7 @@ const cards = [
 const myJob = [];
 class CastingCalls extends Component {
     state = { 
+        allCastingCalls: [],
         submissions: false, 
         submissionCard: [...cards] ,
         myJob: [...myJob],
@@ -131,8 +132,8 @@ class CastingCalls extends Component {
     componentDidMount(){
         showLoader();
         CastingCallService.getAllCastingCalls(1).then((res)=>{
-            if(res.data.status !== 'error'){debugger
-                ToastsStore.success(res.data.message); 
+            if(res.data.status !== 'error'){
+                this.setState({allCastingCalls: res.data.data});
             }else{
                 ToastsStore.error(res.message); 
             }
@@ -184,7 +185,7 @@ class CastingCalls extends Component {
     
     render() {
 
-        const {submissionCard, cardShown, showModel, popupData, applyBtn} = this.state;
+        const {allCastingCalls, cardShown, showModel, popupData, applyBtn} = this.state;
         console.log(AuthService.getUserId())
         return ( 
             <>
@@ -217,7 +218,7 @@ class CastingCalls extends Component {
                                 </div>
                                 <div className='mt20'>
                                     <LargeSubmissionCard
-                                        submissionCard={submissionCard}
+                                        allCastingCalls={allCastingCalls}
                                         textlimit={200}
                                         headinglimit={30}
                                         countrylimit={10}
