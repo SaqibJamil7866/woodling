@@ -4,6 +4,7 @@ import { ToastsStore } from 'react-toasts';
 import TalentMdoel from './modal.component';
 import { siteUrl } from '../../public/endpoins';
 import { showLoader, hideLoader } from '../../public/loader';
+import { AuthService } from '../../services/AuthService';
 import { TalentService } from '../../services/TalentService';
 
 const StaredTalent = (props) => {
@@ -26,8 +27,20 @@ const StaredTalent = (props) => {
         setModalData({showModal: false, notes: ''});
     }
 
-    const { starredTalents, setCopyRef
-        , copyCodeToClipboard, unselectStarTalent } = props;
+    const saveNotes = (params) => {
+        const data = { user_id: AuthService.getUserId(), starred_user_id: params.talent.id ,notes: params.notes };
+        TalentService.addStarredTalentNotes(data).then((res)=>{
+            if(res.data.status !== 'error'){
+                ToastsStore.success(res.data.message); 
+            }else{
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=> console.error("error: "+ e))
+        .then(() => hideLoader());
+    }
+
+    const { starredTalents, unselectStarTalent } = props;
     return(
         <>
             <div className='clr__white wh80 scrolling'>
@@ -61,8 +74,7 @@ const StaredTalent = (props) => {
                         modalData={modalData}
                         hideModel={handleHideModel}
                         likedPeople={starredTalents}
-                        setCopyRef={setCopyRef}
-                        copyCodeToClipboard={copyCodeToClipboard}
+                        saveNotes={saveNotes}
                         unselectStarTalent={unselectStarTalent}
                     /> : null}
             </div>

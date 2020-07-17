@@ -6,7 +6,7 @@ import { getAllTalentsUrl, getFeaturedTalentUrl, searchTalentUrl, getTalentDetai
 
     export const TalentService = {
         getAllTalents, getStarredTalents, getFeaturedTalents, starTalent, unstarTalent, searchTalent,
-        getStarredTalentNotes
+        getStarredTalentNotes, addStarredTalentNotes
     };
 
     function getFeaturedTalents(page) { 
@@ -78,6 +78,17 @@ import { getAllTalentsUrl, getFeaturedTalentUrl, searchTalentUrl, getTalentDetai
     function getStarredTalentNotes(data) { 
         return new Promise((resolve, reject) =>{
             axios.get(getStarredNotesUrl+'?user_id='+AuthService.getUserId()+"&starred_user_id="+data.id)
+            .then(res => {
+                resolve(res);
+            }).catch(e => {
+                reject(e);        
+            });
+        });
+    }
+
+    function addStarredTalentNotes(params) { 
+        return new Promise((resolve, reject) =>{
+            axios.post(addStarredNotesUrl, params)
             .then(res => {
                 resolve(res);
             }).catch(e => {

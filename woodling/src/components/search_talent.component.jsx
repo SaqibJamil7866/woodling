@@ -49,13 +49,6 @@ class SearchTalent extends React.Component {
         this.setState({starredTalents: arr});
     }
 
-    copyCodeToClipboard = () => {
-        const el = document.getElementsByClassName('notes')[0].innerHTML;
-        console.log(el)
-        // el.select()
-        //document.exceCommand('copy')
-    }
-
     talentSearch(keyword){
         showLoader();
         TalentService.searchTalent({name:keyword}).then((res)=>{
@@ -103,8 +96,6 @@ class SearchTalent extends React.Component {
                                 <StaredTalent 
                                     starredTalents={starredTalents} 
                                     unselectStarTalent={this.unselectStarTalent}
-                                    setCopyRef={this.setCopyRef}
-                                    copyCodeToClipboard={this.copyCodeToClipboard}
                                 />
                                 <Filters />
                             </div>

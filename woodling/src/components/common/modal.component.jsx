@@ -1,11 +1,14 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import {Modal, Dropdown} from 'react-bootstrap';
+import { copyToClipboard } from '../../public/helperFunctions';
 import { siteUrl } from '../../public/endpoins';
 
 const TalentMdoel = (props) => {
-    const { modalData: {showModal, talent, notes}, hideModel, copyCodeToClipboard } = props;
+    const [editMode, setEditMode] = useState(false);
+    const notesRef = useRef();
+    const { modalData: {showModal, talent, notes}, hideModel, saveNotes } = props;
     return ( 
         <Modal
             size="lg"
@@ -26,9 +29,9 @@ const TalentMdoel = (props) => {
                                 <Dropdown>
                                     <Dropdown.Toggle className='elipsis-dropdown dropDown-btn fa fa-ellipsis-v' />
                                     <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">Copy Text</Dropdown.Item>
+                                        <Dropdown.Item onClick={()=>copyToClipboard(notes)}>Copy Text</Dropdown.Item>
                                         <Dropdown.Item href="#/action-2">Clear Text</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-3">Unstar Talent</Dropdown.Item>
+                                        <Dropdown.Item href="#/action-3" className="red">Unstar Talent</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div>
@@ -36,7 +39,9 @@ const TalentMdoel = (props) => {
                     </Modal.Header>
 
                     <Modal.Body className='scrolling'>
-                        <p>{notes}</p>
+                        <p contentEditable={editMode} onClick={()=>setEditMode(true)} onBlur={()=>saveNotes({talent, notes : notesRef.current.innerHTML })} ref={notesRef}>
+                            {notes}
+                        </p>
                     </Modal.Body>
                     {/* <Modal.Footer>
                         <div className='d-flex space-between w100p'>
