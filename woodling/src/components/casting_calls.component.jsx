@@ -4,6 +4,7 @@ import Filters from './common/filters.component';
 import SmallSubmissionCard from './common/small_submission_card.component';
 import LargeSubmissionCard from './common/large_submission_card.component';
 import CastingCallModal from '../models/casting-call-modal.component';
+import { AuthService } from '../services/AuthService';
 
 const cards = [
     {
@@ -167,7 +168,7 @@ class CastingCalls extends Component {
     render() {
 
         const {submissionCard, cardShown, showModel, popupData, applyBtn} = this.state;
-
+        console.log(AuthService.getUserId())
         return ( 
             <>
                 <div className='h100p scrolling'>
