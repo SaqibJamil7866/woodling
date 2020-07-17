@@ -3,8 +3,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useRef } from 'react';
 import {Modal, Dropdown} from 'react-bootstrap';
-import { copyToClipboard } from '../../public/helperFunctions';
-import { siteUrl } from '../../public/endpoins';
+import { copyToClipboard } from '../public/helperFunctions';
+import { siteUrl } from '../public/endpoins';
 
 const TalentMdoel = (props) => {
    

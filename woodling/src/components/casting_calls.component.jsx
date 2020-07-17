@@ -14,7 +14,23 @@ const cards = [
         country: 'Nigeria',
         status: 'ACTIVE',
         btn: 'Commercial',
-        expiryDate: '7/7/2020'
+        expiryDate: '7/7/2020',
+        location: 'Jose Marti, Asokoro, Cairo,',
+        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.',
+        Roles: [
+            {
+                gender: 'Male',
+                RoleType: 'Lead',
+                AgeRange: '33-50',
+                Detail: 'a suave gentleman with a smoldering gaze ready to propose to the woman he loves; for the second commercial: a guy with swagger ready to show off his custom jewelry, borderline cocky, admiring how he looks with the different jewelry in the store; "feelin himself."'
+            },
+            {
+                gender: 'Female',
+                RoleType: 'Lead',
+                AgeRange: '33-50',
+                Detail: 'a suave gentleman with a smoldering gaze ready to propose to the woman he loves; for the second commercial: a guy with swagger ready to show off his custom jewelry, borderline cocky, admiring how he looks with the different jewelry in the store; "feelin himself."'
+            }
+        ]
     },
     {
         name: 'PORT HARCOURT FASHION RUNAWAY 2019 COMPITITION',
@@ -23,7 +39,9 @@ const cards = [
         country: 'Port Harcourt, Nigeria',
         status: 'ACTIVE',
         btn: 'Runaway Modeling',
-        expiryDate: '7/17/2020'
+        expiryDate: '7/17/2020',
+        location: 'Jose Marti, Asokoro, Cairo,',
+        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
     },
     {
         name: 'IN THE MIND OF AN ARTIST',
@@ -32,7 +50,9 @@ const cards = [
         country: 'Worldwide',
         status: 'ACTIVE',
         btn: 'Documeentary',
-        expiryDate: '7/1/2020'
+        expiryDate: '7/1/2020',
+        location: 'Jose Marti, Asokoro, Cairo,',
+        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
     },
     {
         name: 'CLOSEUP: MAGIC BREATH',
@@ -41,7 +61,9 @@ const cards = [
         country: 'Nigeria',
         status: 'ACTIVE',
         btn: 'Commercial',
-        expiryDate: '7/20/2020'
+        expiryDate: '7/20/2020',
+        location: 'Jose Marti, Asokoro, Cairo,',
+        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
     },
     {
         name: 'PORT HARCOURT FASHION RUNAWAY 2019 COMPITITION',
@@ -50,7 +72,8 @@ const cards = [
         country: 'Port Harcourt, Nigeria',
         status: 'ACTIVE',
         btn: 'Runaway Modeling',
-        expiryDate: '1/7/2020'
+        expiryDate: '1/7/2020',
+        location: 'Jose Marti, Asokoro, Cairo,'
     },
     {
         name: 'IN THE MIND OF AN ARTIST',
@@ -59,7 +82,9 @@ const cards = [
         country: 'Worldwide',
         status: 'ACTIVE',
         btn: 'Documeentary',
-        expiryDate: '1/7/2020'
+        expiryDate: '1/7/2020',
+        location: 'Jose Marti, Asokoro, Cairo,',
+        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
     },
     {
         name: 'IN THE MIND OF AN ARTIST',
@@ -68,7 +93,9 @@ const cards = [
         country: 'Worldwide',
         status: 'ACTIVE',
         btn: 'Documeentary',
-        expiryDate: '1/7/2020'
+        expiryDate: '1/7/2020',
+        location: 'Jose Marti, Asokoro, Cairo,',
+        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
     },
     {
         name: 'IN THE MIND OF AN ARTIST',
@@ -77,7 +104,9 @@ const cards = [
         country: 'Worldwide',
         status: 'ACTIVE',
         btn: 'Documeentary',
-        expiryDate: '1/7/2020'
+        expiryDate: '1/7/2020',
+        location: 'Jose Marti, Asokoro, Cairo,',
+        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
     },
 ];
 
@@ -90,7 +119,8 @@ class CastingCalls extends Component {
         cardShown: false,
         switchScreen: false,
         showModel: false,
-        popupData: {}
+        popupData: {},
+        applyBtn: false
     }
 
     showCards = () => {
@@ -116,7 +146,7 @@ class CastingCalls extends Component {
         });
     }
 
-    handleShowModel = (data) => {
+    handleShowModel = (data,) => {
         console.log(data);
         this.setState({showModel: true, popupData: data});
     }
@@ -124,10 +154,19 @@ class CastingCalls extends Component {
     handleHideModel = () => {
         this.setState({showModel: false});
     }
+
+    cancelApplication = () => {
+        console.log('Cancel Application')
+        this.setState({applyBtn: true})
+    }
+
+    Apply = () => {
+        this.setState({applyBtn: false})
+    }
     
     render() {
 
-        const {submissionCard, cardShown, showModel, popupData} = this.state;
+        const {submissionCard, cardShown, showModel, popupData, applyBtn} = this.state;
 
         return ( 
             <>
@@ -191,6 +230,9 @@ class CastingCalls extends Component {
                                     showModel={this.handleShowModel}
                                     hideModel={this.handleHideModel}
                                     popupData={popupData}
+                                    applyBtn={applyBtn}
+                                    Apply={this.Apply}
+                                    cancelApplication={this.cancelApplication}
                                 /> : 
                                 null
                     }

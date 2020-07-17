@@ -3,7 +3,6 @@ import { ReactComponent as AddButtonIcon } from '../../assets/add-button.svg';
 
 const LargeSubmissionCard = (props) => {
     const today = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'numeric',day: 'numeric'}).format(Date.now())
-    console.log(today)
     return ( 
         <div className='d-flex'>
             <div className='d-flex flex-dir-col'>
