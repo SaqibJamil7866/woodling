@@ -376,7 +376,7 @@ html, body, #root {
 }
 
 .h100 {
-  height: 100% !important;
+  height: 100px !important;
 }
 
 .p-0-8{
@@ -538,20 +538,20 @@ html, body, #root {
   color: #000000;
 }
 
-.mb0 {
-  margin-bottom: 0px;
-}
-
 .h30 {
   height: 30px;
   border-radius: 10px;
 }
 
-.w60 {
+.w60{
+  width: 60px !important;
+}
+
+.w60p {
   width: 60% !important;
 }
 
-.w90 {
+.w90p {
   width: 90%;
 }
 
@@ -1650,4 +1650,26 @@ p.sdate {
   display: block;
   align-items: center;
   margin-right: 0;
+}
+
+/* end */
+.dropdown .elipsis-dropdown{
+  color: #000;
+  background-color: white;
+  border: none;
+}
+.dropdown .elipsis-dropdown.btn-primary, .dropdown .elipsis-dropdown.btn-primary:focus, .dropdown .elipsis-dropdown.btn-primary.dropdown-toggle {
+  background-color: #fff;
+  color: #000;
+  border: 0px;
+}
+.dropdown .elipsis-dropdown.dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
 }

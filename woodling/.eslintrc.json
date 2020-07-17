@@ -25,6 +25,7 @@
     "react/jsx-indent": "off",
     "react/no-unescaped-entities": "off",
     "react/button-has-type": "off",
+    "jsx-a11y/control-has-associated-label": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "eslint-disable-next-line react/jsx-indent": "off"
   }

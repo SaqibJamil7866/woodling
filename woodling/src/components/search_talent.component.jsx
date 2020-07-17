@@ -14,10 +14,7 @@ class SearchTalent extends React.Component {
         this.state = {
             featuredTalents: [],
             allTalents: [],
-            starredTalents: [],
-            showModel: false,
-            notes:{},
-            openDropdown: false
+            starredTalents: []
         }
         this.talentSearch = this.talentSearch.bind(this);
     }
@@ -46,14 +43,6 @@ class SearchTalent extends React.Component {
         .then(() => hideLoader());
     }
 
-    handleShowModel = (data) => {
-        this.setState({showModel: true, notes: data});
-    }
-
-    handleHideModel = () => {
-        this.setState({showModel: false});
-    }
-
     unselectStarTalent = (data) => {
         const unstar = {...this.state.starredTalents};
         let arr = this.state.starredTalents.map(el=>el.index===data.index ? {...el, starTalent: false}: el)
@@ -65,14 +54,6 @@ class SearchTalent extends React.Component {
         console.log(el)
         // el.select()
         //document.exceCommand('copy')
-    }
-
-    toggleOpen = () => {
-        this.setState({openDropdown: true});
-    }
-
-    toggleClose = () => {
-        this.setState({openDropdown: false});
     }
 
     talentSearch(keyword){
@@ -89,9 +70,9 @@ class SearchTalent extends React.Component {
     }
 
     render() {
-        const { allTalents, starredTalents, featuredTalents, showModel, notes, openDropdown } = this.state;
+        const { allTalents, starredTalents, featuredTalents } = this.state;
         return (
-            <div className='h100 scrolling'>
+            <div className='h100p scrolling'>
                 <div className="row m0">
                     <div className="col-md-12 p0">
                         <HeaderSearch 
@@ -121,15 +102,7 @@ class SearchTalent extends React.Component {
                             <div>
                                 <StaredTalent 
                                     starredTalents={starredTalents} 
-                                    showModel={showModel}
-                                    handleShowModel={this.handleShowModel}
-                                    handleHideModel={this.handleHideModel}
-                                    starTalent={this.state.starTalent}
                                     unselectStarTalent={this.unselectStarTalent}
-                                    notes={notes}
-                                    openDropdown={openDropdown}
-                                    toggleOpen={this.toggleOpen}
-                                    toggleClose={this.toggleClose}
                                     setCopyRef={this.setCopyRef}
                                     copyCodeToClipboard={this.copyCodeToClipboard}
                                 />

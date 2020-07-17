@@ -52,18 +52,18 @@ class PostImageDetailsModelContent extends React.Component {
         });  
         return( 
             <div className="custom-modal-content">
-                <div class="modal-header post-modal-header">
+                <div className="modal-header post-modal-header">
                     <div onClick={this.props.closeModal} className='modal-content close-btn'>
                         <button type='button' className='close'>
                             <i aria-hidden="true" className='fa fa-times fs30'></i>
                         </button>
                     </div>
                     <div className='post-like-btn'>
-                        <a href="" class="post-like-top"><i className="fa fa-heart-o"></i></a>
+                        <a href="" className="post-like-top"><i className="fa fa-heart-o"></i></a>
                     </div>
-                    <div class="attachment-share">
-                        <div class="more-icon">
-                            <a href="" class="more-optinon"><i className="fa fa-ellipsis-h" /></a>
+                    <div className="attachment-share">
+                        <div className="more-icon">
+                            <a href="" className="more-optinon"><i className="fa fa-ellipsis-h" /></a>
                         </div>
                         <div className="share-icon">
                             <a href="" className="share-optinon"><i className="fa fa-share-alt" /></a>

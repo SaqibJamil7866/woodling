@@ -1,10 +1,32 @@
 /* eslint-disable react/jsx-wrap-multilines */
-import React from 'react';
+import React, { useState } from 'react';
+import { ToastsStore } from 'react-toasts';
 import TalentMdoel from './modal.component';
 import { siteUrl } from '../../public/endpoins';
+import { showLoader, hideLoader } from '../../public/loader';
+import { TalentService } from '../../services/TalentService';
 
 const StaredTalent = (props) => {
-    const { starredTalents, showModel, handleHideModel, notes, openDropdown, toggleOpen, toggleClose, setCopyRef
+    const [modalData, setModalData] = useState({showModal: false, notes:''});
+
+    const handleShowModel = (data) => {
+        showLoader();
+        TalentService.getStarredTalentNotes(data).then((res)=>{
+            if(res.data.status !== 'error'){
+                setModalData({showModal: true, talent: data, notes: res.data.starred_note.notes})
+            }else{
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=> console.error("error: "+ e))
+        .then(() => hideLoader());
+    }
+
+    const handleHideModel = () => {
+        setModalData({showModal: false, notes: ''});
+    }
+
+    const { starredTalents, setCopyRef
         , copyCodeToClipboard, unselectStarTalent } = props;
     return(
         <>
@@ -25,7 +47,7 @@ const StaredTalent = (props) => {
                             </div>
                             <div className='d-flex align-item mr15'>
                                 <i className='fa fa-star mr18 fs20 clr__red' />                           
-                                <button onClick={() => props.handleShowModel(like)} className="notes-btn"><b>Notes</b></button>
+                                <button onClick={() => handleShowModel(like)} className="notes-btn"><b>Notes</b></button>
                             </div>
                         </div>
                         </>
@@ -34,15 +56,11 @@ const StaredTalent = (props) => {
                 { ((starredTalents && starredTalents.length === 0) || !starredTalents) ? `You didn't star any talent`: '' }
             </div>
             <div>
-                {showModel ?
-                    <TalentMdoel 
-                        showModel={showModel}
+                {modalData.showModal ?
+                    <TalentMdoel
+                        modalData={modalData}
                         hideModel={handleHideModel}
                         likedPeople={starredTalents}
-                        notes={notes}
-                        openDropdown={openDropdown}
-                        toggleOpen={toggleOpen}
-                        toggleClose={toggleClose}
                         setCopyRef={setCopyRef}
                         copyCodeToClipboard={copyCodeToClipboard}
                         unselectStarTalent={unselectStarTalent}
