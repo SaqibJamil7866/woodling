@@ -6,6 +6,7 @@ import StaredTalent from './common/star-talent.component';
 import Filters from './common/filters.component';
 import HeaderSearch from './common/header-searchbar';
 import { showLoader, hideLoader } from '../public/loader';
+import { AuthService } from '../services/AuthService';
 import { TalentService } from '../services/TalentService';
 
 class SearchTalent extends React.Component {
@@ -15,9 +16,7 @@ class SearchTalent extends React.Component {
             featuredTalents: [],
             allTalents: [],
             starredTalents: [],
-            showModel: false,
-            notes:{},
-            openDropdown: false
+            modalData: { showModal: false, notes:''}
         }
         this.talentSearch = this.talentSearch.bind(this);
     }
@@ -47,32 +46,53 @@ class SearchTalent extends React.Component {
     }
 
     handleShowModel = (data) => {
-        this.setState({showModel: true, notes: data});
+        showLoader();
+        TalentService.getStarredTalentNotes(data).then((res)=>{
+            if(res.data.status !== 'error'){
+                this.setState({modalData:{showModal: true, talent: data, notes: res.data.starred_note.notes}});
+                // setModalData({showModal: true, talent: data, notes: res.data.starred_note.notes})
+            }else{
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=> console.error("error: "+ e))
+        .then(() => hideLoader());
     }
 
     handleHideModel = () => {
-        this.setState({showModel: false});
+        this.setState({modalData:{showModal: false, talent: '', notes: ''}});
     }
 
-    unselectStarTalent = (data) => {
-        const unstar = {...this.state.starredTalents};
-        let arr = this.state.starredTalents.map(el=>el.index===data.index ? {...el, starTalent: false}: el)
-        this.setState({starredTalents: arr});
+    saveNotes = (params) => {
+        const data = { user_id: AuthService.getUserId(), starred_user_id: params.talent.id ,notes: params.notes };
+        TalentService.addStarredTalentNotes(data).then((res)=>{
+            if(res.data.status !== 'error'){
+                ToastsStore.success(res.data.message); 
+            }else{
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=> console.error("error: "+ e))
+        .then(() => hideLoader());
     }
 
-    copyCodeToClipboard = () => {
-        const el = document.getElementsByClassName('notes')[0].innerHTML;
-        console.log(el)
-        // el.select()
-        //document.exceCommand('copy')
-    }
-
-    toggleOpen = () => {
-        this.setState({openDropdown: true});
-    }
-
-    toggleClose = () => {
-        this.setState({openDropdown: false});
+    unstarTalent = (data) => {
+        showLoader();
+        TalentService.unstarTalent(data.id).then((res)=>{
+            hideLoader();
+            if(res.data.status !== 'error'){
+                const { starredTalents } = this.state;
+                const filtered = starredTalents.filter(function(obj){
+                    return obj.id !== data.id;
+                });
+                this.setState(({starredTalents: filtered}));
+                this.handleHideModel();
+                ToastsStore.success(res.data.message); 
+            }else {
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=>console.error("error: "+ e))
     }
 
     talentSearch(keyword){
@@ -89,9 +109,9 @@ class SearchTalent extends React.Component {
     }
 
     render() {
-        const { allTalents, starredTalents, featuredTalents, showModel, notes, openDropdown } = this.state;
+        const { allTalents, starredTalents, featuredTalents, modalData } = this.state;
         return (
-            <div className='h100 scrolling'>
+            <div className='h100p scrolling'>
                 <div className="row m0">
                     <div className="col-md-12 p0">
                         <HeaderSearch 
@@ -121,17 +141,11 @@ class SearchTalent extends React.Component {
                             <div>
                                 <StaredTalent 
                                     starredTalents={starredTalents} 
-                                    showModel={showModel}
+                                    unstarTalent={this.unstarTalent}
+                                    saveNotes={this.saveNotes}
                                     handleShowModel={this.handleShowModel}
                                     handleHideModel={this.handleHideModel}
-                                    starTalent={this.state.starTalent}
-                                    unselectStarTalent={this.unselectStarTalent}
-                                    notes={notes}
-                                    openDropdown={openDropdown}
-                                    toggleOpen={this.toggleOpen}
-                                    toggleClose={this.toggleClose}
-                                    setCopyRef={this.setCopyRef}
-                                    copyCodeToClipboard={this.copyCodeToClipboard}
+                                    modalData={modalData}
                                 />
                                 <Filters />
                             </div>

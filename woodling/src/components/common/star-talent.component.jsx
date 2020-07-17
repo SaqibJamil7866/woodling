@@ -4,8 +4,8 @@ import TalentMdoel from '../../models/modal.component';
 import { siteUrl } from '../../public/endpoins';
 
 const StaredTalent = (props) => {
-    const { starredTalents, showModel, handleHideModel, notes, openDropdown, toggleOpen, toggleClose, setCopyRef
-        , copyCodeToClipboard, unselectStarTalent } = props;
+
+    const { starredTalents, unstarTalent, saveNotes, handleShowModel, handleHideModel, modalData } = props;
     return(
         <>
             <div className='clr__white wh80 scrolling'>
@@ -25,7 +25,7 @@ const StaredTalent = (props) => {
                             </div>
                             <div className='d-flex align-item mr15'>
                                 <i className='fa fa-star mr18 fs20 clr__red' />                           
-                                <button onClick={() => props.handleShowModel(like)} className="notes-btn"><b>Notes</b></button>
+                                <button onClick={() => handleShowModel(like)} className="notes-btn"><b>Notes</b></button>
                             </div>
                         </div>
                         </>
@@ -34,18 +34,13 @@ const StaredTalent = (props) => {
                 { ((starredTalents && starredTalents.length === 0) || !starredTalents) ? `You didn't star any talent`: '' }
             </div>
             <div>
-                {showModel ?
-                    <TalentMdoel 
-                        showModel={showModel}
+                {modalData.showModal ?
+                    <TalentMdoel
+                        modalData={modalData}
                         hideModel={handleHideModel}
                         likedPeople={starredTalents}
-                        notes={notes}
-                        openDropdown={openDropdown}
-                        toggleOpen={toggleOpen}
-                        toggleClose={toggleClose}
-                        setCopyRef={setCopyRef}
-                        copyCodeToClipboard={copyCodeToClipboard}
-                        unselectStarTalent={unselectStarTalent}
+                        saveNotes={saveNotes}
+                        unstarTalent={unstarTalent}
                     /> : null}
             </div>
         </>

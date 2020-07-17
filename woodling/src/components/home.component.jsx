@@ -45,8 +45,8 @@ function Home() {
     }, []);
 
     return (
-        <div className="container h100">
-            <div className="row h100">
+        <div className="container h100p">
+            <div className="row h100p">
                 <div className="col-md-8 br-white scrolling">
                     <TopContentBar />
                     <Post posts={posts}/>

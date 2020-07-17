@@ -17,7 +17,7 @@ import PostedCallsAndSubmissions from './components/posted_calls-and-my_submissi
 function Main(props) {
 
   return(
-    <div className='h100' style={{overflowY: 'hidden'}}>
+    <div className='h100p' style={{overflowY: 'hidden'}}>
       <Navigation />
       <aside className="left-side">
         <Sidebar />
