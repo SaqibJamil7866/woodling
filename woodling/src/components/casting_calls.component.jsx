@@ -8,6 +8,7 @@ import CastingCallModal from '../models/casting-call-modal.component';
 const cards = [
     {
         name: 'CLOSEUP: MAGIC BREATH',
+        description: 'The commercial is going to be a really fun 30 second spot with a really cool ‘mysterious’ motif in an elegant, fantasy- like party environment. Our female lead is in the middle of the room, at this elegant party, as she notices a mysterious door on the other side of the space. She goes to the door, and after sharing the pass code ( Glenn Grant) she discovers an inner club of elite glenn grant drinkers.{\n} Please note that this is a spec commercial. However, there is a very high probability for it to get picked up by the brand.',
         skill: 'Dancer',
         details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
         country: 'Nigeria',
