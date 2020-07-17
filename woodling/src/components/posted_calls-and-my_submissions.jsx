@@ -211,8 +211,9 @@ class PostedCallsAndSubmissions extends Component{
     }
     render() {
         const {switchScreen, cardShown, postedCalls, Submission} = this.state
+        console.log(this.state.switchScreen)
         return (
-        <div className='h100 scrolling'>
+        <div className='h100p scrolling'>
                 <div className="row m0">
                     <div className="col-md-12 pl100 pt100">
                       <div className='d-flex align-items-center'>
