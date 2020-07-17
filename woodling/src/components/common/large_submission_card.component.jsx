@@ -2,10 +2,12 @@ import React from 'react';
 import { ReactComponent as AddButtonIcon } from '../../assets/add-button.svg';
 
 const LargeSubmissionCard = (props) => {
+    const today = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'numeric',day: 'numeric'}).format(Date.now())
+    console.log(today)
     return ( 
         <div className='d-flex'>
             <div className='d-flex flex-dir-col'>
-                {props.cardShown===false ? props.submissionCard.map((i, index)=>{
+                {props.cardShown===false ? props.submissionCard.length!==0 ? props.submissionCard.map((i, index)=>{
                     if(index<3){
                         return <div className='clr__white w80 border-radius d-flex flex-dir-col mt10'>
                             <div className='d-flex align-items-center space-between bkgrnd-red right-top-radius'>
@@ -26,17 +28,23 @@ const LargeSubmissionCard = (props) => {
                                         <p>{((i.country).length > props.countrylimit) ?  (((i.country).substring(0,props.countrylimit-3)) + '...') : i.country}</p>
                                     </div>
                                     <div>
-                                        <button href="" className="skills-btn">{i.btn}</button>
+                                        <button onClick={() => props.handleShowModel(i)} className="skills-btn">{i.btn}</button>
                                     </div>
                                     <div>
-                                        <p className='clr__red'><b>ACTIVE</b></p>
+                                        {i.expiryDate >= today ? <p className='clr__red'><b>ACTIVE</b></p> : <p className='clr__red'><b>INACTIVE</b></p>}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     }
                     
-                }) : props.submissionCard.map((i, index)=>{
+                }) : <div className='center__item align-items-center'>
+                    {props.img ? <div>
+                                    <img style={{width: '400px'}} src={props.img} /> <p style={{textAlign: 'center'}}><b>{props.noRecord}</b></p>
+                                </div> : 
+                                <p className='fs20'>{props.noRecord}</p>
+                    }
+                     </div> : props.submissionCard.map((i, index)=>{
                                         return <div className='clr__white w80 border-radius d-flex flex-dir-col mt10'>
                                             <div className='d-flex align-items-center space-between bkgrnd-red right-top-radius'>
                                                 <div className='clr__white right-bottom-radius w75 border-bottom-2'>
@@ -56,10 +64,10 @@ const LargeSubmissionCard = (props) => {
                                                         <p>{((i.country).length > props.countrylimit) ?  (((i.country).substring(0,props.countrylimit-3)) + '...') : i.country}</p>
                                                     </div>
                                                     <div>
-                                                        <button href="" className="skills-btn">{i.btn}</button>
+                                                        <button onClick={() => props.handleShowModel(i)} className="skills-btn">{i.btn}</button>
                                                     </div>
                                                     <div>
-                                                        <p className='clr__red'><b>ACTIVE</b></p>
+                                                    {i.expiryDate >= today ? <p className='clr__red'><b>ACTIVE</b></p> : <p className='clr__red'><b>INACTIVE</b></p>}
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,7 +76,7 @@ const LargeSubmissionCard = (props) => {
                                 }) 
                             }
                 <div className='d-flex justify-content-center w80'>
-                    <button onClick={props.showCards} href="" className={props.cardShown ? 'noDisplay' :'load-btn'}>Load More</button>
+                    {props.submissionCard.length !==0 ? <button onClick={props.showCards} href="" className={props.cardShown ? 'noDisplay' :'load-btn'}>Load More</button> : null}
                 </div>   
             </div>
             <div className='d-flex align-items-start ml20 h10 mr10'>

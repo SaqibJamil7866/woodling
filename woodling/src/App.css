@@ -1499,6 +1499,10 @@ p.sdate {
   color: #ffffff;
 }
 
+.skills-btn:focus {
+  outline: none;
+}
+
 .pb20 {
   padding-bottom: 20px;
 }
@@ -1650,4 +1654,20 @@ p.sdate {
   display: block;
   align-items: center;
   margin-right: 0;
+}
+
+.pt100 {
+  padding-top: 100px;
+}
+
+.fs38 {
+  font-size: 38px;
+}
+
+.half-opacity {
+  opacity: .5;
+}
+
+.mt30 {
+  margin-top: 30px;
 }

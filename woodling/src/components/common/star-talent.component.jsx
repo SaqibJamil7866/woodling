@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React from 'react';
-import TalentMdoel from './modal.component';
+import TalentMdoel from '../../models/modal.component';
 import { siteUrl } from '../../public/endpoins';
 
 const StaredTalent = (props) => {

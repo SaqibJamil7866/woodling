@@ -6,7 +6,7 @@ const SmallSubmissionCard = (props) => {
         <div className='clr__white w45 d-flex flex-dir-col p15 border-radius-20 '>
             <div className='d-flex space-between align-items-center'>
                 <div>
-                <h1 className='fs25 clr__red'>{props.Length}</h1>
+                    <h1 className='fs25 clr__red'>{props.Length}</h1>
                 </div>
                 <div>
                     <p onClick={props.jobsClick} className="gray pointer"><b>View All </b><span className="inline-block float-right ml-2"> <RightIcon /></span></p>
