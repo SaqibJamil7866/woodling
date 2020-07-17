@@ -6,6 +6,7 @@ import StaredTalent from './common/star-talent.component';
 import Filters from './common/filters.component';
 import HeaderSearch from './common/header-searchbar';
 import { showLoader, hideLoader } from '../public/loader';
+import { AuthService } from '../services/AuthService';
 import { TalentService } from '../services/TalentService';
 
 class SearchTalent extends React.Component {
@@ -14,7 +15,8 @@ class SearchTalent extends React.Component {
         this.state = {
             featuredTalents: [],
             allTalents: [],
-            starredTalents: []
+            starredTalents: [],
+            modalData: { showModal: false, notes:''}
         }
         this.talentSearch = this.talentSearch.bind(this);
     }
@@ -43,10 +45,54 @@ class SearchTalent extends React.Component {
         .then(() => hideLoader());
     }
 
-    unselectStarTalent = (data) => {
-        const unstar = {...this.state.starredTalents};
-        let arr = this.state.starredTalents.map(el=>el.index===data.index ? {...el, starTalent: false}: el)
-        this.setState({starredTalents: arr});
+    handleShowModel = (data) => {
+        showLoader();
+        TalentService.getStarredTalentNotes(data).then((res)=>{
+            if(res.data.status !== 'error'){
+                this.setState({modalData:{showModal: true, talent: data, notes: res.data.starred_note.notes}});
+                // setModalData({showModal: true, talent: data, notes: res.data.starred_note.notes})
+            }else{
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=> console.error("error: "+ e))
+        .then(() => hideLoader());
+    }
+
+    handleHideModel = () => {
+        this.setState({modalData:{showModal: false, talent: '', notes: ''}});
+    }
+
+    saveNotes = (params) => {
+        const data = { user_id: AuthService.getUserId(), starred_user_id: params.talent.id ,notes: params.notes };
+        TalentService.addStarredTalentNotes(data).then((res)=>{
+            if(res.data.status !== 'error'){
+                ToastsStore.success(res.data.message); 
+            }else{
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=> console.error("error: "+ e))
+        .then(() => hideLoader());
+    }
+
+    unstarTalent = (data) => {
+        showLoader();
+        TalentService.unstarTalent(data.id).then((res)=>{
+            hideLoader();
+            if(res.data.status !== 'error'){
+                const { starredTalents } = this.state;
+                const filtered = starredTalents.filter(function(obj){
+                    return obj.id !== data.id;
+                });
+                this.setState(({starredTalents: filtered}));
+                this.handleHideModel();
+                ToastsStore.success(res.data.message); 
+            }else {
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=>console.error("error: "+ e))
     }
 
     talentSearch(keyword){
@@ -63,7 +109,7 @@ class SearchTalent extends React.Component {
     }
 
     render() {
-        const { allTalents, starredTalents, featuredTalents } = this.state;
+        const { allTalents, starredTalents, featuredTalents, modalData } = this.state;
         return (
             <div className='h100p scrolling'>
                 <div className="row m0">
@@ -95,7 +141,11 @@ class SearchTalent extends React.Component {
                             <div>
                                 <StaredTalent 
                                     starredTalents={starredTalents} 
-                                    unselectStarTalent={this.unselectStarTalent}
+                                    unstarTalent={this.unstarTalent}
+                                    saveNotes={this.saveNotes}
+                                    handleShowModel={this.handleShowModel}
+                                    handleHideModel={this.handleHideModel}
+                                    modalData={modalData}
                                 />
                                 <Filters />
                             </div>

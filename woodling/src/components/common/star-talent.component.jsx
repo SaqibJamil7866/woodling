@@ -1,46 +1,11 @@
 /* eslint-disable react/jsx-wrap-multilines */
-import React, { useState } from 'react';
-import { ToastsStore } from 'react-toasts';
+import React from 'react';
 import TalentMdoel from './modal.component';
 import { siteUrl } from '../../public/endpoins';
-import { showLoader, hideLoader } from '../../public/loader';
-import { AuthService } from '../../services/AuthService';
-import { TalentService } from '../../services/TalentService';
 
 const StaredTalent = (props) => {
-    const [modalData, setModalData] = useState({showModal: false, notes:''});
 
-    const handleShowModel = (data) => {
-        showLoader();
-        TalentService.getStarredTalentNotes(data).then((res)=>{
-            if(res.data.status !== 'error'){
-                setModalData({showModal: true, talent: data, notes: res.data.starred_note.notes})
-            }else{
-                ToastsStore.error(res.message); 
-            }
-        })
-        .catch((e)=> console.error("error: "+ e))
-        .then(() => hideLoader());
-    }
-
-    const handleHideModel = () => {
-        setModalData({showModal: false, notes: ''});
-    }
-
-    const saveNotes = (params) => {
-        const data = { user_id: AuthService.getUserId(), starred_user_id: params.talent.id ,notes: params.notes };
-        TalentService.addStarredTalentNotes(data).then((res)=>{
-            if(res.data.status !== 'error'){
-                ToastsStore.success(res.data.message); 
-            }else{
-                ToastsStore.error(res.message); 
-            }
-        })
-        .catch((e)=> console.error("error: "+ e))
-        .then(() => hideLoader());
-    }
-
-    const { starredTalents, unselectStarTalent } = props;
+    const { starredTalents, unstarTalent, saveNotes, handleShowModel, handleHideModel, modalData } = props;
     return(
         <>
             <div className='clr__white wh80 scrolling'>
@@ -75,7 +40,7 @@ const StaredTalent = (props) => {
                         hideModel={handleHideModel}
                         likedPeople={starredTalents}
                         saveNotes={saveNotes}
-                        unselectStarTalent={unselectStarTalent}
+                        unstarTalent={unstarTalent}
                     /> : null}
             </div>
         </>

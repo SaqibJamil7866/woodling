@@ -164,7 +164,7 @@ html, body, #root {
 }
 
 .red {
-  color: #ff0000;
+  color: #ff0000 !important;
 }
 
 .navy{
@@ -541,6 +541,9 @@ html, body, #root {
 .h30 {
   height: 30px;
   border-radius: 10px;
+}
+.min-h300{
+  min-height: 300px !important;
 }
 
 .w60{
@@ -1214,14 +1217,14 @@ p.sdate {
 /****************************************************************
                             model header
 *****************************************************************/
-.modal-content .modal-header .close {
+.hide-close-btn .modal-content .modal-header .close {
   display: none;
 }
 .fs30 {
   font-size: 30px;
 }
 .modal-content {
-  border-radius: 40px !important;
+  border-radius: 10px !important;
 }
 .close-btn {
   border-radius: 50px !important;

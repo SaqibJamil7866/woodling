@@ -9,6 +9,7 @@ export default function convertToFloat(number){
 }
 
 export function copyToClipboard(txt){
+    console.log(txt);
     navigator.clipboard.writeText(txt);
     ToastsStore.success("Copied to clipboard.");
 }
