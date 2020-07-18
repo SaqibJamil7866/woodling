@@ -5,11 +5,12 @@ import SmallSubmissionCard from './common/small_submission_card.component';
 import LargeSubmissionCard from './common/large_submission_card.component';
 import CastingCallModal from '../models/casting-call-modal.component';
 import { AuthService } from '../services/AuthService';
+import PostingCallsForm from './posting-calls-form.component';
 
 const cards = [
     {
         name: 'CLOSEUP: MAGIC BREATH',
-        description: 'The commercial is going to be a really fun 30 second spot with a really cool ‘mysterious’ motif in an elegant, fantasy- like party environment. Our female lead is in the middle of the room, at this elegant party, as she notices a mysterious door on the other side of the space. She goes to the door, and after sharing the pass code ( Glenn Grant) she discovers an inner club of elite glenn grant drinkers.{\n} Please note that this is a spec commercial. However, there is a very high probability for it to get picked up by the brand.',
+        description: `The commercial is going to be a really fun 30 second spot with a really cool ‘mysterious’ motif in an elegant, fantasy- like party environment. Our female lead is in the middle of the room, at this elegant party, as she notices a mysterious door on the other side of the space. She goes to the door, and after sharing the pass code ( Glenn Grant) she discovers an inner club of elite glenn grant drinkers.{\n} Please note that this is a spec commercial. However, there is a very high probability for it to get picked up by the brand.`,
         skill: 'Dancer',
         details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
         country: 'Nigeria',
@@ -112,6 +113,7 @@ const cards = [
 ];
 
 const myJob = [];
+
 class CastingCalls extends Component {
     state = { 
         submissions: false, 
@@ -121,7 +123,8 @@ class CastingCalls extends Component {
         switchScreen: false,
         showModel: false,
         popupData: {},
-        applyBtn: false
+        applyBtn: false,
+        postingForm: false,
     }
 
     showCards = () => {
@@ -138,13 +141,22 @@ class CastingCalls extends Component {
     }
 
     postedCallScreen = () => {
-        console.log('posted calls')
         this.setState({switchScreen: false}, () => {
              this.props.history.push({
                 pathname: '/casting_calls/posted_calls',
                 state: {switchScreen: this.state.switchScreen}
             })
         });
+    }
+
+    postingCallForm = () => {
+        this.setState({postingForm: true}, () => {
+            console.log(this.state.postingForm)
+            this.props.history.push({
+                pathname: '/casting_calls/post-a-casting-calls',
+            })
+            // this.props.history.push('/casting_calls/post-a-casting-calls');
+       });
     }
 
     handleShowModel = (data,) => {
@@ -167,8 +179,7 @@ class CastingCalls extends Component {
     
     render() {
 
-        const {submissionCard, cardShown, showModel, popupData, applyBtn} = this.state;
-        console.log(AuthService.getUserId())
+        const {submissionCard, cardShown, showModel, popupData, applyBtn, postingForm} = this.state;
         return ( 
             <>
                 <div className='h100p scrolling'>
@@ -208,6 +219,7 @@ class CastingCalls extends Component {
                                         showCards={this.showCards}
                                         noRecord='No Record found'
                                         handleShowModel={this.handleShowModel}
+                                        postingCallForm={this.postingCallForm}
                                     />
                                 </div>
                             </div>
@@ -237,6 +249,9 @@ class CastingCalls extends Component {
                                 /> : 
                                 null
                     }
+                </div>
+                <div>
+                    {postingForm ? <PostingCallsForm coming='He is cumming' /> : null}
                 </div>
            </>
         );

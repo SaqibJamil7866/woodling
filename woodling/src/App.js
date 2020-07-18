@@ -13,6 +13,7 @@ import { ToastsContainer, ToastsStore } from 'react-toasts';
 import history from './public/history';
 import CastingCalls from './components/casting_calls.component';
 import PostedCallsAndSubmissions from './components/posted_calls-and-my_submissions';
+import PostingCallsForm from './components/posting-calls-form.component';
 
 function Main(props) {
 
@@ -28,6 +29,7 @@ function Main(props) {
           <Route exact path='/casting_calls' component={CastingCalls} />
           <Route exact path='/casting_calls/posted_calls' component={PostedCallsAndSubmissions} />
           <Route exact path='/casting_calls/my_submission' component={PostedCallsAndSubmissions} />
+          <Route exact path='/casting_calls/post-a-casting-calls' component={PostingCallsForm} />
           <Route path='/search_talent' component={SearchTalent} />
         </Switch>
         

@@ -80,7 +80,7 @@ const LargeSubmissionCard = (props) => {
             </div>
             <div className='d-flex align-items-start ml20 h10 mr10'>
                 {/* <div className="fixedbutton"> */}
-                    <AddButtonIcon height="50px" width="50px" />
+                    <AddButtonIcon className='pointer' onClick={props.postingCallForm} height="50px" width="50px" />
                 {/* </div> */}
             </div>
         </div>

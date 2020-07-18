@@ -1,0 +1,1041 @@
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import DatePicker from "react-datepicker";
+require("react-datepicker/dist/react-datepicker.css");
+
+const gender = [
+    {
+        key: 0,
+        value: 'Any/All'
+    },
+    {
+        key: 1,
+        value: 'Male'
+    },
+    {
+        key: 2,
+        value: 'Female'
+    },
+    {
+        key: 3,
+        value: 'Others'
+    }
+]
+
+const roleType = [
+    {
+        "name": "",
+        "id": "40"
+      },
+      {
+        "name": "2 role type",
+        "id": "30"
+      },
+      {
+        "name": "3 role type",
+        "id": "31"
+      },
+      {
+        "name": "56 role type",
+        "id": "33"
+      },
+      {
+        "name": "A young boy",
+        "id": "53"
+      },
+      {
+        "name": "ambassadorial",
+        "id": "15"
+      },
+      {
+        "name": "another role type",
+        "id": "32"
+      },
+      {
+        "name": "Black Jaguar",
+        "id": "55"
+      },
+      {
+        "name": "Boss Lady",
+        "id": "39"
+      },
+      {
+        "name": "Brand Ambassador",
+        "id": "12"
+      },
+      {
+        "name": "Brand Ambassador Enugu",
+        "id": "13"
+      },
+      {
+        "name": "Brand Ambassador for Enugu City",
+        "id": "14"
+      },
+      {
+        "name": "cable boy",
+        "id": "50"
+      },
+      {
+        "name": "cold spells",
+        "id": "35"
+      },
+      {
+        "name": "coming",
+        "id": "26"
+      },
+      {
+        "name": "CornBread",
+        "id": "48"
+      },
+      {
+        "name": "crew",
+        "id": "4"
+      },
+      {
+        "name": "Custom",
+        "id": "29"
+      },
+      {
+        "name": "Dark fuse",
+        "id": "10"
+      },
+      {
+        "name": "dom",
+        "id": "27"
+      },
+      {
+        "name": "Driver",
+        "id": "6"
+      },
+      {
+        "name": "edited role type 2",
+        "id": "43"
+      },
+      {
+        "name": "Escort",
+        "id": "5"
+      },
+      {
+        "name": "extra",
+        "id": "3"
+      },
+      {
+        "name": "Fifth in command",
+        "id": "18"
+      },
+      {
+        "name": "For Cape Town",
+        "id": "11"
+      },
+      {
+        "name": "Hunk",
+        "id": "9"
+      },
+      {
+        "name": "lead",
+        "id": "1"
+      },
+      {
+        "name": "Let dance",
+        "id": "36"
+      },
+      {
+        "name": "Live Band",
+        "id": "49"
+      },
+      {
+        "name": "Loki",
+        "id": "51"
+      },
+      {
+        "name": "Longest",
+        "id": "21"
+      },
+      {
+        "name": "New",
+        "id": "24"
+      },
+      {
+        "name": "New role",
+        "id": "23"
+      },
+      {
+        "name": "Poet",
+        "id": "17"
+      },
+      {
+        "name": "Role",
+        "id": "22"
+      },
+      {
+        "name": "Rolee",
+        "id": "19"
+      },
+      {
+        "name": "Roler",
+        "id": "20"
+      },
+      {
+        "name": "Second in command",
+        "id": "8"
+      },
+      {
+        "name": "second role type",
+        "id": "42"
+      },
+      {
+        "name": "seeyou",
+        "id": "28"
+      },
+      {
+        "name": "Seth",
+        "id": "52"
+      },
+      {
+        "name": "spring",
+        "id": "44"
+      },
+      {
+        "name": "support",
+        "id": "2"
+      },
+      {
+        "name": "Test type",
+        "id": "47"
+      },
+      {
+        "name": "Test typee",
+        "id": "46"
+      },
+      {
+        "name": "Test typeee",
+        "id": "45"
+      },
+      {
+        "name": "testing role type",
+        "id": "41"
+      },
+      {
+        "name": "Thats the way",
+        "id": "37"
+      },
+      {
+        "name": "The ringer",
+        "id": "34"
+      },
+      {
+        "name": "Tiger",
+        "id": "56"
+      },
+      {
+        "name": "trickster",
+        "id": "38"
+      },
+      {
+        "name": "Twins",
+        "id": "7"
+      },
+      {
+        "name": "Voice cast",
+        "id": "54"
+      }
+]
+
+const productionType = [
+    {
+        "name": "",
+        "id": "36"
+      },
+      {
+        "name": "A production Type",
+        "id": "41"
+      },
+      {
+        "name": "A true story",
+        "id": "44"
+      },
+      {
+        "name": "abcd",
+        "id": "37"
+      },
+      {
+        "name": "animation",
+        "id": "1"
+      },
+      {
+        "name": "App testing",
+        "id": "49"
+      },
+      {
+        "name": "Brand Ambassador",
+        "id": "25"
+      },
+      {
+        "name": "choreography",
+        "id": "14"
+      },
+      {
+        "name": "commercial",
+        "id": "2"
+      },
+      {
+        "name": "competition",
+        "id": "24"
+      },
+      {
+        "name": "Conference",
+        "id": "22"
+      },
+      {
+        "name": "Custom",
+        "id": "42"
+      },
+      {
+        "name": "Dance photographer",
+        "id": "31"
+      },
+      {
+        "name": "documentary",
+        "id": "6"
+      },
+      {
+        "name": "Edited production type",
+        "id": "46"
+      },
+      {
+        "name": "fantasy adventure film",
+        "id": "48"
+      },
+      {
+        "name": "featured film",
+        "id": "9"
+      },
+      {
+        "name": "Gaming",
+        "id": "21"
+      },
+      {
+        "name": "I think this works",
+        "id": "33"
+      },
+      {
+        "name": "music video",
+        "id": "13"
+      },
+      {
+        "name": "musical",
+        "id": "3"
+      },
+      {
+        "name": "new production",
+        "id": "43"
+      },
+      {
+        "name": "New production type",
+        "id": "45"
+      },
+      {
+        "name": "New prouct",
+        "id": "40"
+      },
+      {
+        "name": "New role",
+        "id": "35"
+      },
+      {
+        "name": "Other call",
+        "id": "29"
+      },
+      {
+        "name": "play",
+        "id": "7"
+      },
+      {
+        "name": "print modelling",
+        "id": "19"
+      },
+      {
+        "name": "reality show",
+        "id": "16"
+      },
+      {
+        "name": "runway modelling",
+        "id": "18"
+      },
+      {
+        "name": "Sailor",
+        "id": "26"
+      },
+      {
+        "name": "saturday testing",
+        "id": "39"
+      },
+      {
+        "name": "short film",
+        "id": "12"
+      },
+      {
+        "name": "skilltest",
+        "id": "27"
+      },
+      {
+        "name": "Some new production type",
+        "id": "32"
+      },
+      {
+        "name": "sports",
+        "id": "4"
+      },
+      {
+        "name": "Stylist",
+        "id": "30"
+      },
+      {
+        "name": "Tera Hawks",
+        "id": "47"
+      },
+      {
+        "name": "Test",
+        "id": "34"
+      },
+      {
+        "name": "Thrbrb",
+        "id": "23"
+      },
+      {
+        "name": "thriller",
+        "id": "28"
+      },
+      {
+        "name": "TV program",
+        "id": "20"
+      },
+      {
+        "name": "TV series",
+        "id": "10"
+      },
+      {
+        "name": "wer",
+        "id": "38"
+      }
+]
+
+const skills = [
+    {
+        "name": "accountant",
+        "id": "36"
+      },
+      {
+        "name": "actor",
+        "id": "1"
+      },
+      {
+        "name": "actress",
+        "id": "37"
+      },
+      {
+        "name": "agent",
+        "id": "38"
+      },
+      {
+        "name": "animator",
+        "id": "39"
+      },
+      {
+        "name": "art director",
+        "id": "40"
+      },
+      {
+        "name": "assistant director",
+        "id": "41"
+      },
+      {
+        "name": "assistant editor",
+        "id": "42"
+      },
+      {
+        "name": "author",
+        "id": "43"
+      },
+      {
+        "name": "baggies",
+        "id": "156"
+      },
+      {
+        "name": "boom operator",
+        "id": "44"
+      },
+      {
+        "name": "brand ambassador",
+        "id": "142"
+      },
+      {
+        "name": "camera operator",
+        "id": "45"
+      },
+      {
+        "name": "career advisor",
+        "id": "46"
+      },
+      {
+        "name": "cast PA",
+        "id": "47"
+      },
+      {
+        "name": "casting director",
+        "id": "48"
+      },
+      {
+        "name": "caterers",
+        "id": "49"
+      },
+      {
+        "name": "choreographer",
+        "id": "9"
+      },
+      {
+        "name": "colorist",
+        "id": "50"
+      },
+      {
+        "name": "comedian",
+        "id": "51"
+      },
+      {
+        "name": "composer",
+        "id": "52"
+      },
+      {
+        "name": "costume designer",
+        "id": "53"
+      },
+      {
+        "name": "dancer",
+        "id": "54"
+      },
+      {
+        "name": "data wrangler",
+        "id": "55"
+      },
+      {
+        "name": "designer",
+        "id": "10"
+      },
+      {
+        "name": "digital artist",
+        "id": "56"
+      },
+      {
+        "name": "digital imaging technician",
+        "id": "57"
+      },
+      {
+        "name": "director",
+        "id": "3"
+      },
+      {
+        "name": "director of photography",
+        "id": "58"
+      },
+      {
+        "name": "dron pilot",
+        "id": "59"
+      },
+      {
+        "name": "editor",
+        "id": "60"
+      },
+      {
+        "name": "education and film festivals",
+        "id": "61"
+      },
+      {
+        "name": "electrician",
+        "id": "62"
+      },
+      {
+        "name": "engineer",
+        "id": "63"
+      },
+      {
+        "name": "entertainer",
+        "id": "11"
+      },
+      {
+        "name": "executive producer",
+        "id": "64"
+      },
+      {
+        "name": "field recording",
+        "id": "65"
+      },
+      {
+        "name": "film editing",
+        "id": "66"
+      },
+      {
+        "name": "film editor",
+        "id": "67"
+      },
+      {
+        "name": "film electrician",
+        "id": "68"
+      },
+      {
+        "name": "film finance",
+        "id": "69"
+      },
+      {
+        "name": "film music",
+        "id": "70"
+      },
+      {
+        "name": "film sound and color",
+        "id": "71"
+      },
+      {
+        "name": "foley engineer",
+        "id": "72"
+      },
+      {
+        "name": "graphic designer",
+        "id": "73"
+      },
+      {
+        "name": "greens man",
+        "id": "74"
+      },
+      {
+        "name": "health and safety",
+        "id": "75"
+      },
+      {
+        "name": "illustrator",
+        "id": "76"
+      },
+      {
+        "name": "image builder",
+        "id": "78"
+      },
+      {
+        "name": "intellectual property lawyers",
+        "id": "79"
+      },
+      {
+        "name": "lead man",
+        "id": "80"
+      },
+      {
+        "name": "legal counsel",
+        "id": "81"
+      },
+      {
+        "name": "lighting",
+        "id": "82"
+      },
+      {
+        "name": "lighting technician",
+        "id": "83"
+      },
+      {
+        "name": "line producer",
+        "id": "84"
+      },
+      {
+        "name": "location assistant",
+        "id": "85"
+      },
+      {
+        "name": "location manager",
+        "id": "86"
+      },
+      {
+        "name": "location scout",
+        "id": "87"
+      },
+      {
+        "name": "make-up artist",
+        "id": "88"
+      },
+      {
+        "name": "manager",
+        "id": "4"
+      },
+      {
+        "name": "mentorship",
+        "id": "89"
+      },
+      {
+        "name": "model",
+        "id": "90"
+      },
+      {
+        "name": "motion control technician",
+        "id": "91"
+      },
+      {
+        "name": "movie development",
+        "id": "92"
+      },
+      {
+        "name": "Mowgli",
+        "id": "157"
+      },
+      {
+        "name": "music composer",
+        "id": "93"
+      },
+      {
+        "name": "music supervisor",
+        "id": "94"
+      },
+      {
+        "name": "online editor",
+        "id": "95"
+      },
+      {
+        "name": "organizer",
+        "id": "12"
+      },
+      {
+        "name": "performer",
+        "id": "96"
+      },
+      {
+        "name": "post production supervisor",
+        "id": "97"
+      },
+      {
+        "name": "producer",
+        "id": "2"
+      },
+      {
+        "name": "production accountant",
+        "id": "99"
+      },
+      {
+        "name": "production art",
+        "id": "100"
+      },
+      {
+        "name": "production assistant",
+        "id": "101"
+      },
+      {
+        "name": "production designer",
+        "id": "102"
+      },
+      {
+        "name": "production sound",
+        "id": "103"
+      },
+      {
+        "name": "production specialty",
+        "id": "104"
+      },
+      {
+        "name": "production supervisor",
+        "id": "105"
+      },
+      {
+        "name": "programme researcher",
+        "id": "106"
+      },
+      {
+        "name": "project manager",
+        "id": "107"
+      },
+      {
+        "name": "props builder",
+        "id": "108"
+      },
+      {
+        "name": "props master",
+        "id": "109"
+      },
+      {
+        "name": "Puppet",
+        "id": "158"
+      },
+      {
+        "name": "re recording mixer",
+        "id": "110"
+      },
+      {
+        "name": "represantion",
+        "id": "111"
+      },
+      {
+        "name": "runner",
+        "id": "112"
+      },
+      {
+        "name": "screen writers",
+        "id": "113"
+      },
+      {
+        "name": "script editor",
+        "id": "114"
+      },
+      {
+        "name": "set builder/designer",
+        "id": "115"
+      },
+      {
+        "name": "set decorator",
+        "id": "116"
+      },
+      {
+        "name": "set designer",
+        "id": "117"
+      },
+      {
+        "name": "set dresser",
+        "id": "118"
+      },
+      {
+        "name": "sound mixer",
+        "id": "119"
+      },
+      {
+        "name": "sound technician",
+        "id": "120"
+      },
+      {
+        "name": "steadicam operator",
+        "id": "121"
+      },
+      {
+        "name": "story supervisor",
+        "id": "123"
+      },
+      {
+        "name": "storyboard artist",
+        "id": "124"
+      },
+      {
+        "name": "stunt coordinator",
+        "id": "125"
+      },
+      {
+        "name": "stunt performer",
+        "id": "122"
+      },
+      {
+        "name": "subtitles",
+        "id": "126"
+      },
+      {
+        "name": "technician",
+        "id": "127"
+      },
+      {
+        "name": "videographer",
+        "id": "128"
+      },
+      {
+        "name": "visual effects",
+        "id": "129"
+      },
+      {
+        "name": "voice over artist",
+        "id": "130"
+      },
+      {
+        "name": "wardrobe supervisor",
+        "id": "131"
+      },
+      {
+        "name": "We made it",
+        "id": "154"
+      },
+      {
+        "name": "weapons master",
+        "id": "132"
+      },
+      {
+        "name": "Westerners",
+        "id": "155"
+      }
+]
+
+class PostingCallsForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            genderChange: '',
+            postingCalls: {
+                title: '',
+                production_type: '',
+                skill_id: '',
+                description: '',
+                start_date: '',
+                application_deadline: '',
+                formatted_address: '',
+                lat: '',
+                date_venue	: '',
+                lookingFor: '',
+                role_type: [
+                   {
+                        role_type_id: '',
+                        role_description: '',
+                        gender: 'Any/All',
+                        age_from: '',
+                        age_to: ''
+                   } 
+                ]
+            }
+        }
+    }
+    handleGenderChange = (data) => {
+        this.setState({genderChange: data})
+    }
+    render() {
+        const {genderChange} = this.state
+        return ( 
+            <div className='h100p scrolling'>
+                <div className="row d-flex m0">
+                    <div className="col-md-8 br-white pl100">
+                        <div className='mt20'>
+                            <h1><b>Post A Casting Call</b></h1>
+                            <p><b>Note:</b>Posting a casting call costs $5 ifyou don't have free calls.<br/>For more information on posting a casting call <Link>Learn more</Link></p>
+                        </div>
+                        <form onSubmit='' className='forms'>
+                            <div className='clr__white p35 border-radius'>
+                                <p className='fs25 alignCenter'><b>Casting Call Details</b></p>
+                                <div className="form-group">
+                                    <label>Title:*</label>
+                                    <input 
+                                        type="text" 
+                                        name='field' 
+                                        className="form-control no-border-input" 
+                                        placeholder="Write title here" />
+                                    {/* {props.usernameError && <p className="alert alert-danger error">{props.usernameError}</p>} */}
+                                </div>
+                                <div className="form-group">
+                                <label>Production Type:*</label>
+                                <select name="type" id="inputState" className="form-control w35 bold box-shadow-none" placeholder='Gender'>
+                                    {productionType.map((i, index) => {
+                                        return <option value=''>{i.name}</option>
+                                    })}
+                                </select> 
+                                    {/* {props.passwordError && <p className="alert alert-danger error">{props.passwordError}</p>} */}
+                                </div>
+                                <div className='form-group'>
+                                <label>Description:*</label> 
+                                <textarea placeholder='Write the description of your casting call here' className="box-shadow-none form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                                <div className='form-group'>
+                                    <div className='d-flex'>
+                                        <div className='d-flex justify-content-center align-items-center bckgrnd-dark-grey w25 h45px'>
+                                            <i className='fa fa-map-marker fs20' />
+                                            <p className='p0 m0 ml5'><b>Add Location:*</b></p>
+                                        </div>
+                                        <input 
+                                            type="text" 
+                                            name='field' 
+                                            className="form-control border-none bckgrnd-grey h45px box-shadow-none"
+                                            placeholder="Type here..." />
+                                    </div>
+                                </div>
+                                <div className='form-group'>
+                                    <div className='d-flex space-between'>
+                                        <div className='d-flex w45'>
+                                            <div className='d-flex justify-content-center align-items-center bckgrnd-dark-grey w50 h45px'>
+                                                <i className='fa fa-calendar fs20' />
+                                                <p className='p0 m0 ml5'><b>Start Date:*</b></p>
+                                            </div>
+                                            <DatePicker
+                                                // selected={this.props.fromDate}
+                                                // onChange={(event) => this.props.handleDate(event, "from")}
+                                                className="form-control date-picker border-none bckgrnd-grey h45px box-shadow-none"
+                                            />
+                                        </div>
+                                        <div className='d-flex w45'>
+                                            <div className='d-flex justify-content-center align-items-center bckgrnd-dark-grey w50 h45px'>
+                                                <i className='fa fa-calendar fs20' />
+                                                <p className='p0 m0 ml5'><b>Deadline:*</b></p>
+                                            </div>
+                                            <DatePicker
+                                                // selected={this.props.fromDate}
+                                                // onChange={(event) => this.props.handleDate(event, "from")}
+                                                className="form-control date-picker border-none bckgrnd-grey h45px box-shadow-none"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <label>Dates & Venues</label>
+                                    <input 
+                                        type="text" 
+                                        //name='field' 
+                                        className="form-control no-border-input" 
+                                        placeholder="Write date and venue here" />
+                                    {/* {props.usernameError && <p className="alert alert-danger error">{props.usernameError}</p>} */}
+                                </div>
+                            </div>
+    
+                            <div className='clr__white mt20 p35 d-flex justify-content-center align-items-center'>
+                                <div>
+                                    <label><b>Who are you looking for?*</b></label>
+                                    <select name="type" id="inputState" className="form-control bold box-shadow-none" placeholder='Gender'>
+                                        {skills.map((i, index) => {
+                                            return <option>{i.name}</option>
+                                        })}
+                                    </select> 
+                                </div>
+                            </div>
+    
+                            <div className='clr__white mt20 p35'>
+                                <p><b>Role 1*</b></p>
+                                <div className='form-group'>
+                                    <label>Role Type:</label>
+                                    <select name="type" id="inputState" className="form-control w30 bold box-shadow-none" placeholder='Gender'>
+                                        {roleType.map((i, index) => {
+                                            return <option>{i.name}</option>
+                                        })}
+                                    </select> 
+                                </div>
+                                <div className='form-group'>
+                                    <label>Role Description:</label> 
+                                    <textarea 
+                                        placeholder='Write the description of your casting call here' 
+                                        className="box-shadow-none form-control" 
+                                        id="exampleFormControlTextarea1" 
+                                        rows="3" />
+                                </div>
+                                <div className='form-group d-flex flex-dir-col'>
+                                    <label>Gender</label>
+                                    <div>
+                                        {gender.map((i, index) => {
+                                            return <span onClick={() => this.handleGenderChange(index)} className={genderChange===index ? 'ml20 pointer clr__red' : 'ml20 pointer'}>{i.value}</span>
+                                        })}
+                                    </div>
+                                </div>
+                                <div className='form-group'>
+                                    <label>Age Range</label>
+                                </div>
+                            </div>
+                            <div className='d-flex space-between'>
+                                <img style={{width:'25%'}} className='pointer' src={require('../assets/processed-btn.svg')} />
+                                <div className='d-flex align-items-center'>
+                                    <i className='fa fa-plus clr__red' />
+                                    <p className='m0 p0 clr__red'><b>Add Another Role</b></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="col-md-4">
+                        
+    
+                        <div className="mt10 mb10">
+                            {/* <ExploreCard /> */}
+                        </div>
+                    </div>
+                </div>
+            </div>
+         );
+    }
+}
+ 
+export default PostingCallsForm;

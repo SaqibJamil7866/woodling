@@ -12,7 +12,7 @@ const SmallSubmissionCard = (props) => {
                     <p onClick={props.jobsClick} className="gray pointer"><b>View All </b><span className="inline-block float-right ml-2"> <RightIcon /></span></p>
                 </div>
             </div>
-            <div>
+            <div className='d-flex flex-dir-col align-item-end'>
                 <h3 className='fs20 float-right'>{props.Heading}</h3>
                 {props.Heading==='My Posted Jobs' ?<p className='float-right fs13'>You have {props.Length} casting calls posted</p>:<p className='float-right fs13'>You have sent an application to {props.Length} casting calls</p>}
             </div>

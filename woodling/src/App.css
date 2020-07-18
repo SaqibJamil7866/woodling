@@ -357,6 +357,18 @@ html, body, #root {
   color: #707070;
 }
 
+.bckgrnd-grey {
+  background-color: #eeeaea !important;
+}
+
+.bckgrnd-dark-grey{
+  background-color: #cccaca;
+}
+
+.ml5 {
+  margin-left: 5px !important;
+}
+
 .list {
   display: flex;
   list-style: none;
@@ -601,7 +613,7 @@ html, body, #root {
 }
 
 .bold {
-  font-weight: bold;
+  font-weight: bolder !important;
   color: black;
 }
 
@@ -854,7 +866,7 @@ button[name='searchSubmit'] {
 }
 
 .border-none {
-  border: none;
+  border: none !important;
 }
 
 .slider {
@@ -1700,4 +1712,55 @@ p.sdate {
 
 .row-flex-end {
   justify-content: flex-end;
+}
+
+.align-item-end {
+  align-items: flex-end;
+}
+
+.no-border-input {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+}
+
+.no-border-input:focus {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+  border-color: #80bdff !important;
+}
+
+.w25 {
+  width: 25% !important;
+}
+
+.w50 {
+  width: 50%;
+}
+
+.w35 {
+  width: 35% !important;
+}
+
+.h45px {
+  height: 45px !important;
+}
+
+.box-shadow-none:focus {
+  box-shadow: none !important;
+}
+
+.w15 {
+  width: 17%;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.pb10 {
+  padding-bottom: 20px;
 }
