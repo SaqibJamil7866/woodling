@@ -1,144 +1,51 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
 import { ToastsStore } from 'react-toasts';
 import HeaderSearch from './common/header-searchbar';
 import Filters from './common/filters.component';
 import { showLoader, hideLoader } from '../public/loader';
+import history from '../public/history';
 import SmallSubmissionCard from './common/small_submission_card.component';
 import LargeSubmissionCard from './common/large_submission_card.component';
 import CastingCallModal from '../models/casting-call-modal.component';
 import { CastingCallService } from '../services/CastingCallsService';
 import { AuthService } from '../services/AuthService';
 
-const cards = [
-    {
-        name: 'CLOSEUP: MAGIC BREATH',
-        description: 'The commercial is going to be a really fun 30 second spot with a really cool ‘mysterious’ motif in an elegant, fantasy- like party environment. Our female lead is in the middle of the room, at this elegant party, as she notices a mysterious door on the other side of the space. She goes to the door, and after sharing the pass code ( Glenn Grant) she discovers an inner club of elite glenn grant drinkers.{\n} Please note that this is a spec commercial. However, there is a very high probability for it to get picked up by the brand.',
-        skill: 'Dancer',
-        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
-        country: 'Nigeria',
-        status: 'ACTIVE',
-        btn: 'Commercial',
-        expiryDate: '7/7/2020',
-        location: 'Jose Marti, Asokoro, Cairo,',
-        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.',
-        Roles: [
-            {
-                gender: 'Male',
-                RoleType: 'Lead',
-                AgeRange: '33-50',
-                Detail: 'a suave gentleman with a smoldering gaze ready to propose to the woman he loves; for the second commercial: a guy with swagger ready to show off his custom jewelry, borderline cocky, admiring how he looks with the different jewelry in the store; "feelin himself."'
-            },
-            {
-                gender: 'Female',
-                RoleType: 'Lead',
-                AgeRange: '33-50',
-                Detail: 'a suave gentleman with a smoldering gaze ready to propose to the woman he loves; for the second commercial: a guy with swagger ready to show off his custom jewelry, borderline cocky, admiring how he looks with the different jewelry in the store; "feelin himself."'
-            }
-        ]
-    },
-    {
-        name: 'PORT HARCOURT FASHION RUNAWAY 2019 COMPITITION',
-        skill: 'Model',
-        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
-        country: 'Port Harcourt, Nigeria',
-        status: 'ACTIVE',
-        btn: 'Runaway Modeling',
-        expiryDate: '7/17/2020',
-        location: 'Jose Marti, Asokoro, Cairo,',
-        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
-    },
-    {
-        name: 'IN THE MIND OF AN ARTIST',
-        skill: 'Actor',
-        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
-        country: 'Worldwide',
-        status: 'ACTIVE',
-        btn: 'Documeentary',
-        expiryDate: '7/1/2020',
-        location: 'Jose Marti, Asokoro, Cairo,',
-        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
-    },
-    {
-        name: 'CLOSEUP: MAGIC BREATH',
-        skill: 'Dancer',
-        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
-        country: 'Nigeria',
-        status: 'ACTIVE',
-        btn: 'Commercial',
-        expiryDate: '7/20/2020',
-        location: 'Jose Marti, Asokoro, Cairo,',
-        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
-    },
-    {
-        name: 'PORT HARCOURT FASHION RUNAWAY 2019 COMPITITION',
-        skill: 'Model',
-        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
-        country: 'Port Harcourt, Nigeria',
-        status: 'ACTIVE',
-        btn: 'Runaway Modeling',
-        expiryDate: '1/7/2020',
-        location: 'Jose Marti, Asokoro, Cairo,'
-    },
-    {
-        name: 'IN THE MIND OF AN ARTIST',
-        skill: 'Actor',
-        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
-        country: 'Worldwide',
-        status: 'ACTIVE',
-        btn: 'Documeentary',
-        expiryDate: '1/7/2020',
-        location: 'Jose Marti, Asokoro, Cairo,',
-        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
-    },
-    {
-        name: 'IN THE MIND OF AN ARTIST',
-        skill: 'Actor',
-        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
-        country: 'Worldwide',
-        status: 'ACTIVE',
-        btn: 'Documeentary',
-        expiryDate: '1/7/2020',
-        location: 'Jose Marti, Asokoro, Cairo,',
-        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
-    },
-    {
-        name: 'IN THE MIND OF AN ARTIST',
-        skill: 'Actor',
-        details: 'Seeking talent for a 30-second spec commercial for the popular toothpaste. The ad takes place on a dance floor, pushing the brands progressive and forward thinking values.',
-        country: 'Worldwide',
-        status: 'ACTIVE',
-        btn: 'Documeentary',
-        expiryDate: '1/7/2020',
-        location: 'Jose Marti, Asokoro, Cairo,',
-        Venue: 'From 5th to 26th January 2020. On site location & Viking Age stages.Starts ASAP; position will work approx. 10-12 flexible, daytime hours per week in Abuja for the 1st week then to Lagos until the end of year.'
-    },
-];
-
-const myJob = [];
 class CastingCalls extends Component {
     state = { 
         allCastingCalls: [],
-        submissions: false, 
-        submissionCard: [...cards] ,
-        myJob: [...myJob],
+        myJobs: [],
+        mySubmissions: [],
         cardShown: false,
-        switchScreen: false,
         showModel: false,
-        popupData: {},
-        applyBtn: false
+        popupData: "",
+        applyBtns: []
     }
 
     componentDidMount(){
+
         showLoader();
-        CastingCallService.getAllCastingCalls(1).then((res)=>{
-            if(res.data.status !== 'error'){
-                this.setState({allCastingCalls: res.data.data});
-            }else{
-                ToastsStore.error(res.message); 
+        Promise.all([CastingCallService.getAllCastingCalls(1), CastingCallService.getUserPostedJobsCalls(), CastingCallService.getUserAppliedJobsCalls()])
+        .then((res)=>{
+            if(res[0].data.status !== 'error'){
+                this.setState({allCastingCalls: res[0].data.data});
+            }else {
+                ToastsStore.error(res[0].message); 
+            }
+            if(res[1].data.status !== 'error'){
+                this.setState({myJobs: res[1].data.data});
+            }else { 
+                ToastsStore.error(res[1].message); 
+            }
+            if(res[2].data.status !== 'error'){
+                this.setState({mySubmissions: res[2].data.casting_call});
+            }else { 
+                ToastsStore.error(res[2].message); 
             }
         })
-        .catch((e)=> console.error("error: "+ e))
+        .catch((e)=>console.error("error: "+ e))
         .then(() => hideLoader());
     }
 
@@ -146,46 +53,62 @@ class CastingCalls extends Component {
         this.setState({cardShown: true})
     }
 
-    mySubmissionScreen = () => {
-        this.setState({switchScreen: true}, () => {
-             this.props.history.push({
-                pathname: '/casting_calls/my_submission',
-                state: {switchScreen: this.state.switchScreen}
-            })
+    mySubmissionScreen = (data) => {
+        history.push({
+            pathname: '/casting_calls/my_submission',
+            state: {to: 'my_submission', data}
         })
     }
 
-    postedCallScreen = () => {
-        console.log('posted calls')
-        this.setState({switchScreen: false}, () => {
-             this.props.history.push({
-                pathname: '/casting_calls/posted_calls',
-                state: {switchScreen: this.state.switchScreen}
-            })
-        });
+    postedCallScreen = (data) => {
+        history.push({
+            pathname: '/casting_calls/posted_calls',
+            state: {to: 'posted_call', data}
+        })
     }
 
-    handleShowModel = (data,) => {
-        console.log(data);
-        this.setState({showModel: true, popupData: data});
+    handleShowModel = (data) => {
+        CastingCallService.getCastingCallDetails(data)
+        .then((res)=>{
+            if(res.data.status !== 'error'){
+                this.setState({showModel: true, popupData: res.data});
+            }else {
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=>console.error("error: "+ e));
     }
 
     handleHideModel = () => {
         this.setState({showModel: false});
     }
 
-    cancelApplication = () => {
-        console.log('Cancel Application')
-        this.setState({applyBtn: true})
+    cancelApplication = (index) => {
+        const filtered = this.state.applyBtns.filter(function(value){ return value !== index;});
+        this.setState({applyBtns: filtered});
     }
 
-    Apply = () => {
-        this.setState({applyBtn: false})
+    Apply = (data) => {
+        const params = { user_id: AuthService.getUserId(), casting_call_id: data.data.id, role_id: data.role.role_id, role_type_id: data.role.role_type_id }
+        showLoader();
+        CastingCallService.applyCastingCall(params)
+        .then((res)=>{
+            hideLoader();
+            if(res.data.status !== 'error'){
+                const temp = this.state.applyBtns;
+                temp.push(data.index);
+                this.setState({applyBtns: temp});
+                ToastsStore.success(res.data.message); 
+            }else {
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=>console.error("error: "+ e));
     }
     
     render() {
 
-        const {allCastingCalls, cardShown, showModel, popupData, applyBtn} = this.state;
+        const {allCastingCalls, myJobs, mySubmissions, cardShown, showModel, popupData, applyBtns} = this.state;
         console.log(AuthService.getUserId())
         return ( 
             <>
@@ -206,19 +129,21 @@ class CastingCalls extends Component {
                             <div className="col-md-8 br-white pl100">
                                 <div className='d-flex space-evenly'>
                                     <SmallSubmissionCard
-                                        Length='2'
+                                        data={myJobs}
                                         Heading='My Posted Jobs'
-                                        jobsClick={this.postedCallScreen}
+                                        from="jobs"
+                                        cardClick={this.postedCallScreen}
                                     />
                                     <SmallSubmissionCard
-                                        Length='2'
+                                        data={mySubmissions}
                                         Heading='My Submissions'
-                                        jobsClick={this.mySubmissionScreen}
+                                        from="submissions"
+                                        cardClick={this.mySubmissionScreen}
                                     />
                                 </div>
                                 <div className='mt20'>
                                     <LargeSubmissionCard
-                                        allCastingCalls={allCastingCalls}
+                                        data={allCastingCalls}
                                         textlimit={200}
                                         headinglimit={30}
                                         countrylimit={10}
@@ -245,18 +170,19 @@ class CastingCalls extends Component {
                     </div>
                 </div>
                 <div>
-                    {showModel ? <CastingCallModal
-                                    showModel={this.handleShowModel}
-                                    hideModel={this.handleHideModel}
-                                    popupData={popupData}
-                                    applyBtn={applyBtn}
-                                    Apply={this.Apply}
-                                    cancelApplication={this.cancelApplication}
-                                /> : 
-                                null
-                    }
+                    { showModel ? 
+                    (
+                        <CastingCallModal
+                            showModel={this.handleShowModel}
+                            hideModel={this.handleHideModel}
+                            popupData={popupData}
+                            applyBtns={applyBtns}
+                            Apply={this.Apply}
+                            cancelApplication={this.cancelApplication}
+                        />
+                    ) : null}
                 </div>
-           </>
+            </>
         );
     }
 }

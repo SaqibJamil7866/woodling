@@ -125,6 +125,11 @@ html, body, #root {
   text-align: center;
 }
 
+.align-right {
+  text-align: right;
+}
+
+
 .signUp {
   clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
   -webkit-clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
@@ -1447,6 +1452,10 @@ p.sdate {
 
 .fs13 {
   font-size: 13px;
+}
+
+.fs17 {
+  font-size: 17px;
 }
 
 .w80 {
