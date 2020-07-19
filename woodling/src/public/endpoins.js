@@ -33,6 +33,20 @@ export const addStarredNotesUrl = `${baseUrl}/add-starred-notes.php`;
 export const getIndividualSkillsUrl = `${baseUrl}/fetch-individual-skills.php`;
 export const addBusinessSkillsNoUrl = `${baseUrl}/fetch-business-skills.php`;
 
+// casting calls endpoints
+export const getUserAppliedJobsUrl = `${baseUrl}/fetch-user-applied-jobs.php`;
+export const getCastingCallApplicationUrl = `${baseUrl}/fetch-casting-call-applicants.php`;
+export const getCastingCallRoleDetailsUrl = `${baseUrl}/fetch-casting-call-role-details.php`;
+export const getAllCastingCallUrl = `${baseUrl}/fetch-all-casting-call.php`;
+export const deleteCastingCallUrl = `${baseUrl}/delete-casting-call.php`;
+export const getCastingCallDetailsUrl = `${baseUrl}/view-casting-call-details.php`;
+export const applyCastingCallUrl = `${baseUrl}/apply-for-casting-call.php`;
+export const cancleCastingCallApplicationUrl = `${baseUrl}/cancel-casting-call-application.php`;
+export const getUserPostedJobsUrl = `${baseUrl}/fetch-user-posted-jobs.php`;
+export const addCastingCallUrl = `${baseUrl}/add-casting-call.php`;
+export const editCastingCallUrl = `${baseUrl}/edit-casting-call.php`;
+export const getUserCastingCallsUrl = `${baseUrl}/fetch-user-casting-calls.php`;
+
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",
 // UPDATE_USER_SETUP_DETAILS :"update-user-setup-details.php",

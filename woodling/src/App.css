@@ -125,6 +125,11 @@ html, body, #root {
   text-align: center;
 }
 
+.align-right {
+  text-align: right;
+}
+
+
 .signUp {
   clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
   -webkit-clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
@@ -751,6 +756,14 @@ button[name='searchSubmit'] {
 
 .w35 {
   width: 35% !important;
+}
+
+.min-w870{
+  min-width: 870px !important;
+}
+
+.max-w870{
+  max-width: 870px !important;
 }
 
 .m-50 {
@@ -1451,6 +1464,10 @@ p.sdate {
 
 .fs13 {
   font-size: 13px;
+}
+
+.fs17 {
+  font-size: 17px;
 }
 
 .w80 {
