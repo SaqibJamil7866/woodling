@@ -11,7 +11,7 @@ const SmallSubmissionCard = (props) => {
                     <h1 className='fs25 clr__red'>{data.length}</h1>
                 </div>
                 <div>
-                    <p onClick={()=>cardClick(data)} className="gray pointer"><b>View All </b><span className="inline-block float-right ml-2"> <RightIcon /></span></p>
+                    <p onClick={()=>cardClick()} className="gray pointer"><b>View All </b><span className="inline-block float-right ml-2"> <RightIcon /></span></p>
                 </div>
             </div>
             <div>

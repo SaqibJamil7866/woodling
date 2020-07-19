@@ -9,8 +9,11 @@ class PostedCallsAndSubmissions extends Component{
         super(props);
         this.state = {
             switchScreen: history.location.state.to,
-            data: history.location.state.data,
-            cardShown: false
+            data: history.location.state.to === 'posted_call' ? history.location.state.myJobs : history.location.state.mySubmissions,
+            cardShown: false,
+            myJobs: history.location.state.myJobs,
+            mySubmissions: history.location.state.mySubmissions
+
         }
     }
 
@@ -19,13 +22,17 @@ class PostedCallsAndSubmissions extends Component{
     }
 
     postedCallCards = () => {
-        this.setState({switchScreen: 'posted_call'}, () => {
+        const { myJobs } = this.state;
+        console.log({myJobs})
+        this.setState({switchScreen: 'posted_call' , data: [...myJobs]}, () => {
             history.replace('/casting_calls/posted_calls')
         })
     }
 
     mySubmissionCards = () => {
-        this.setState({switchScreen: 'my_submission'}, () => {
+        const { mySubmissions } = this.state;
+        console.log({mySubmissions})
+        this.setState({switchScreen: 'my_submission', data: [...mySubmissions]}, () => {
             history.replace('/casting_calls/my_submission')
         })
     }
@@ -57,6 +64,7 @@ class PostedCallsAndSubmissions extends Component{
                                 countrylimit={10}
                                 cardShown={cardShown}
                                 showCards={this.showCards}
+                                handleShowModel={this.handleShowModel}
                                 img={require('../assets/no-submission.svg')}
                                 noRecord='You have not applied for any casting calls'
                             /> :  <LargeSubmissionCard
@@ -66,6 +74,7 @@ class PostedCallsAndSubmissions extends Component{
                                 countrylimit={10}
                                 cardShown={cardShown}
                                 showCards={this.showCards}
+                                handleShowModel={this.handleShowModel}
                                 img={require('../assets/no-post-calls.svg')}
                                 noRecord='You have not posted any casting calls'
                             />}
