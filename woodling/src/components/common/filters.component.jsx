@@ -1,6 +1,14 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState } from 'react';
+import InputRange from 'react-input-range';
+import 'react-input-range/lib/css/index.css';
 
 const Filters = (props) => {
+    const [sliderValue, setSliderValue ] = useState({ min: 18, max: 35 });
+    const sliderOnChange = (val) => {
+        setSliderValue({min: val.min, max: val.max});
+        console.log(val.min, val.max);
+    }
     return(
         <div className='clr__white wh80 h480 mt30'>
             <div className='liked-talent-title p35'>
@@ -15,12 +23,16 @@ const Filters = (props) => {
                 </select>
 
                 <label className='fs20 muli mt10'>Age</label> 
-                <div>
-                    <input type='range' className='slider' />
-                    <input type='range' className='slider' />
+                <div>                    
+                    <InputRange
+                        value={sliderValue}
+                        onChange={sliderOnChange}
+                        maxValue={100}
+                        minValue={1}
+                    />
                 </div>
 
-                <label className='fs20 muli mt10'>Gender</label>
+                <label className='fs20 muli mt25'>Gender</label>
                 <div className='d-flex space-between'>
                     <div>
                         <label className="containers">All/Any

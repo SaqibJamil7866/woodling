@@ -13,6 +13,7 @@ import CastingCallModal from '../models/casting-call-modal.component';
 import { CastingCallService } from '../services/CastingCallsService';
 import { AuthService } from '../services/AuthService';
 import PostingCallsForm from './posting-calls-form.component';
+import { getLocation } from '../public/helperFunctions';
 
 class CastingCalls extends Component {
     state = { 
@@ -27,6 +28,9 @@ class CastingCalls extends Component {
     }
 
     componentDidMount(){
+        getLocation().then((res)=>{
+
+        });
 
         showLoader();
         Promise.all([CastingCallService.getAllCastingCalls(1), CastingCallService.getUserPostedJobsCalls(), CastingCallService.getUserAppliedJobsCalls()])
@@ -55,10 +59,10 @@ class CastingCalls extends Component {
         this.setState({cardShown: true})
     }
 
-    mySubmissionScreen = (data) => {
+    mySubmissionScreen = () => {
         history.push({
             pathname: '/casting_calls/my_submission',
-            state: {to: 'my_submission', data}
+            state: {to: 'my_submission', myJobs: this.state.myJobs, mySubmissions: this.state.mySubmissions }
         })
     }
 
@@ -72,10 +76,10 @@ class CastingCalls extends Component {
        });
     }
 
-    postedCallScreen = (data) => {
+    postedCallScreen = () => {
         history.push({
             pathname: '/casting_calls/posted_calls',
-            state: {to: 'posted_call', data}
+            state: {to: 'posted_call', myJobs: this.state.myJobs, mySubmissions: this.state.mySubmissions}
         })
     }
 

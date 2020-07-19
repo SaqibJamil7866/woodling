@@ -10,9 +10,9 @@ const LargeSubmissionCard = (props) => {
     return( 
         <div className='d-flex'>
             <div className='d-flex flex-dir-col'>
-                {props.data && props.data.map((call)=>{
+                {props.data && props.data.map((call, index)=>{
                     return(
-                        <div key={call.id} className='clr__white min-w870 max-w870 border-radius d-flex flex-dir-col mt10'>
+                        <div key={index} className='clr__white min-w870 max-w870 border-radius d-flex flex-dir-col mt10'>
                             <div className='d-flex align-items-center space-between bkgrnd-red right-top-radius'>
                                 <div className='clr__white right-bottom-radius w75 border-bottom-2'>
                                     <h1 className='fs20'>{((call.title).length > props.headinglimit) ?  (((call.title).substring(0,props.headinglimit-3)) + '...') : call.title}</h1>
