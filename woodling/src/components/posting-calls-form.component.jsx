@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import  Joi from 'joi-browser';
 import {Link} from 'react-router-dom';
 import DatePicker from "react-datepicker";
 require("react-datepicker/dist/react-datepicker.css");
@@ -873,7 +874,15 @@ class PostingCallsForm extends Component {
                 application_deadline: '',
                 formatted_address: '',
                 lat: '',
+                lng: '',
+                country: '',
+                city: '',
                 date_venue	: '',
+                roles_count: '',
+                user_id: '',
+                paid: '',
+                amount_paid: '',
+                payment_used: '',
                 lookingFor: '',
                 role_type: [
                    {
@@ -887,11 +896,56 @@ class PostingCallsForm extends Component {
             }
         }
     }
+    schema = {
+        title: Joi.string().required().label("Title"),
+        production_type: Joi.string().required().label("Production Type"),
+        description: Joi.string().required().label("Discription"),
+        start_date: Joi.string().required().label("Start Date"),
+        application_deadline: Joi.string().required().label("Application Deadline"),
+    }
+    validateProperty = ({name, value}) => {
+        const obj = {[name]: value};
+        const schema = {[name]: this.schema[name]};
+        const {error} = Joi.validate(obj, schema);
+        console.log(error);
+        return error ? error.details[0].message : null;
+      }
+  
+      validation = () => {
+        console.log('Validation')
+        const result = Joi.validate(this.state.postingCalls, this.schema, {
+          abortEarly: false
+        });
+        if(!result.error) return null;
+  
+        const errors = {};
+        for(let item of result.error.details){
+          errors[item.path[0]] = item.message;
+        }
+        return errors;
+    }
+    handleChange = (e) => {
+        console.log(e.currentTarget.value);
+
+        // const errors = {...this.state.errors};
+        // const errorMessage = this.validateProperty(e.currentTarget);
+        // console.log('Handle Change validation');
+        // console.log(errorMessage);
+        // if(errorMessage) {
+        //     console.log(errorMessage)
+        //     errors[e.currentTarget.name] = errorMessage;
+        // }else {
+        //     delete errors[e.currentTarget.name];
+        // }
+        // const login = {...this.state.login};
+        // login[e.currentTarget.name] = e.currentTarget.value;
+        // this.setState({login, errors})
+     }
     handleGenderChange = (data) => {
         this.setState({genderChange: data})
     }
     render() {
-        const {genderChange} = this.state
+        const {genderChange, title, production_type, description} = this.state
         return ( 
             <div className='h100p scrolling'>
                 <div className="row d-flex m0">
@@ -907,23 +961,25 @@ class PostingCallsForm extends Component {
                                     <label>Title:*</label>
                                     <input 
                                         type="text" 
-                                        name='field' 
+                                        name='title'
+                                        value={title} 
+                                        onChange={this.handleChange}
                                         className="form-control no-border-input" 
                                         placeholder="Write title here" />
                                     {/* {props.usernameError && <p className="alert alert-danger error">{props.usernameError}</p>} */}
                                 </div>
                                 <div className="form-group">
                                 <label>Production Type:*</label>
-                                <select name="type" id="inputState" className="form-control w35 bold box-shadow-none" placeholder='Gender'>
+                                <select value={production_type} onChange={this.handleChange} name="production_type" id="inputState" className="form-control w35 bold box-shadow-none" placeholder='Gender'>
                                     {productionType.map((i, index) => {
-                                        return <option value=''>{i.name}</option>
+                                        return <option value={i.name}>{i.name===''?'Choose Type':i.name}</option>
                                     })}
                                 </select> 
                                     {/* {props.passwordError && <p className="alert alert-danger error">{props.passwordError}</p>} */}
                                 </div>
                                 <div className='form-group'>
-                                <label>Description:*</label> 
-                                <textarea placeholder='Write the description of your casting call here' className="box-shadow-none form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <label>Description:*</label> 
+                                    <textarea value={description} onChange={this.handleChange} name='description' placeholder='Write the description of your casting call here' className="box-shadow-none form-control" rows="3"></textarea>
                                 </div>
                                 <div className='form-group'>
                                     <div className='d-flex'>
@@ -946,6 +1002,7 @@ class PostingCallsForm extends Component {
                                                 <p className='p0 m0 ml5'><b>Start Date:*</b></p>
                                             </div>
                                             <DatePicker
+                                                name='start_date'
                                                 // selected={this.props.fromDate}
                                                 // onChange={(event) => this.props.handleDate(event, "from")}
                                                 className="form-control date-picker border-none bckgrnd-grey h45px box-shadow-none"
@@ -957,6 +1014,7 @@ class PostingCallsForm extends Component {
                                                 <p className='p0 m0 ml5'><b>Deadline:*</b></p>
                                             </div>
                                             <DatePicker
+                                                name='application_deadline'
                                                 // selected={this.props.fromDate}
                                                 // onChange={(event) => this.props.handleDate(event, "from")}
                                                 className="form-control date-picker border-none bckgrnd-grey h45px box-shadow-none"
@@ -968,7 +1026,7 @@ class PostingCallsForm extends Component {
                                     <label>Dates & Venues</label>
                                     <input 
                                         type="text" 
-                                        //name='field' 
+                                        name='date_venue' 
                                         className="form-control no-border-input" 
                                         placeholder="Write date and venue here" />
                                     {/* {props.usernameError && <p className="alert alert-danger error">{props.usernameError}</p>} */}
@@ -978,7 +1036,7 @@ class PostingCallsForm extends Component {
                             <div className='clr__white mt20 p35 d-flex justify-content-center align-items-center'>
                                 <div>
                                     <label><b>Who are you looking for?*</b></label>
-                                    <select name="type" id="inputState" className="form-control bold box-shadow-none" placeholder='Gender'>
+                                    <select name="lookingFor" id="inputState" className="form-control bold box-shadow-none" placeholder='Gender'>
                                         {skills.map((i, index) => {
                                             return <option>{i.name}</option>
                                         })}
