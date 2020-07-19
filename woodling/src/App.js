@@ -28,6 +28,7 @@ function Main(props) {
           <SecuredRoute path='/home' component={Home} />
           <SecuredRoute exact path='/casting_calls' component={CastingCalls} />
           <SecuredRoute exact path={['/casting_calls/posted_calls', '/casting_calls/my_submission']} component={PostedCallsAndSubmissions} />
+          <SecuredRoute exact path='/casting_calls/post-a-casting-calls' component={PostingCallsForm} />
           <SecuredRoute path='/search_talent' component={SearchTalent} />
         </Switch>
         

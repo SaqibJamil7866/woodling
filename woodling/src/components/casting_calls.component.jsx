@@ -65,7 +65,7 @@ class CastingCalls extends Component {
     postingCallForm = () => {
         this.setState({postingForm: true}, () => {
             console.log(this.state.postingForm)
-            this.props.history.push({
+            history.push({
                 pathname: '/casting_calls/post-a-casting-calls',
             })
             // this.props.history.push('/casting_calls/post-a-casting-calls');

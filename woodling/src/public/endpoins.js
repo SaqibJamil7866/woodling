@@ -46,6 +46,7 @@ export const getUserPostedJobsUrl = `${baseUrl}/fetch-user-posted-jobs.php`;
 export const addCastingCallUrl = `${baseUrl}/add-casting-call.php`;
 export const editCastingCallUrl = `${baseUrl}/edit-casting-call.php`;
 export const getUserCastingCallsUrl = `${baseUrl}/fetch-user-casting-calls.php`;
+// export const getLocationUrl = 
 
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",

@@ -5,8 +5,14 @@ import { getAllCastingCallUrl, getUserPostedJobsUrl, getUserAppliedJobsUrl, getC
     applyCastingCallUrl } from '../public/endpoins';
 
 export const CastingCallService = {
-    getAllCastingCalls, getUserPostedJobsCalls, getUserAppliedJobsCalls, getCastingCallDetails, applyCastingCall
+    getAllCastingCalls, getUserPostedJobsCalls, getUserAppliedJobsCalls, getCastingCallDetails, applyCastingCall, getLocation
 }; 
+
+function getLocation() {
+    return new Promise((resolve, reject) => {
+        // axios.get()
+    })
+}
 
 function getAllCastingCalls(page) { 
     return new Promise((resolve, reject) =>{
