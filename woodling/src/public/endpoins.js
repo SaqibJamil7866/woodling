@@ -11,6 +11,9 @@ export const activityStreamUrl = `${baseUrl}/view-activity-stream.php`;
 export const activityDetailsUrl = `${baseUrl}/view-post-details.php`;
 export const getPostTaggedUsersUrl = `${baseUrl}/fetch-post-tagged-users.php`;
 
+// User endpoints
+export const getUserProfileUrl = `${baseUrl}/fetch-user-profile.php`;
+
 // follow endpoints
 export const getUserFollowingUrl = `${baseUrl}/fetch-user-following.php`;
 export const getUserFollowersUrl = `${baseUrl}/fetch-user-followers.php`;

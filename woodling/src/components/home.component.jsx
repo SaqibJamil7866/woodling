@@ -25,6 +25,10 @@ function Home() {
     const [state, dispatch] = useReducer(reducer, initialState);
     const { posts, followers } = state;
 
+    const openImageModal = () => {
+        console.log("Open image popup button clicked");
+    }
+
     useEffect(() => {
         showLoader();
         Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers()])
@@ -48,7 +52,9 @@ function Home() {
         <div className="container h100p">
             <div className="row h100p">
                 <div className="col-md-8 br-white scrolling">
-                    <TopContentBar />
+                    <TopContentBar
+                        openImagePopup={openImageModal}
+                    />
                     <Post posts={posts}/>
                     <div className="fixedbutton">
                         <AddButtonIcon height="50px" width="50px" />

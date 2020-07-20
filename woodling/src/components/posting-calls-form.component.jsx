@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-comp */
 import React, {Component} from 'react';
 import  Joi from 'joi-browser';
 import {Link} from 'react-router-dom';
@@ -714,6 +715,7 @@ class PostingCallsForm extends Component {
         age_from: Joi.string().required().label('Age From'),
         age_to: Joi.string().required().label('Age to')
     }
+
     validateProperty = ({name, value}) => {
         const obj = {[name]: value};
         const schema = {[name]: this.schema[name]};
@@ -817,7 +819,7 @@ class PostingCallsForm extends Component {
 
     handleGenderChange = (index, id) => e =>  {
       console.log(index)
-      console.log(e.currentTarget.name)
+      console.log(e.currentTarget.name);
       let role_type = [...this.state.role_type];
       let item = {...role_type[index]};
       item[e.currentTarget.name] = id;
