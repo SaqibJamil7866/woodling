@@ -12,7 +12,8 @@ import { FollowService } from '../services/FollowService';
 function Home() {
     const initialState ={
         posts:[],
-        followers: []
+        followers: [],
+        showModal: false
     }
 
     function reducer(state, { field, value}){
@@ -47,14 +48,14 @@ function Home() {
     return (
         <div className="container h100p">
             <div className="row h100p">
-                <div className="col-md-8 br-white scrolling">
+                <div className="col-md-8 br-white scrolling h100p">
                     <TopContentBar />
                     <Post posts={posts}/>
                     <div className="fixedbutton">
                         <AddButtonIcon height="50px" width="50px" />
                     </div>
                 </div>
-                <div className="col-md-4 scrolling">
+                <div className="col-md-4 scrolling h100p">
                     <div className="img-div h230 mt30 mb10 ">
                         <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="authore pic" />
                     </div>
@@ -64,6 +65,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+            <div>{}</div>
         </div>
     );
 }

@@ -12,7 +12,7 @@ function TopContentBar(props) {
                 <span>
                     <CircleImageIcon height="35px" width="35px" className="mr10 mt3"/>
                     <CircleVideoIcon height="35px" width="35px" className="mr10 mt3"/>
-                    <ScriptIcon height="35px" width="35px" className="mr10 mt3"/>
+                    <ScriptIcon height="35px" width="35px" className="mr10 mt3 pointer"/>
                     <EventIcon height="35px" width="35px" className="mr10 mt3"/>
                     <CartIcon height="35px" width="35px" className="mr10 mt3"/>
                 </span>

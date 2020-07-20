@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import cookie from 'react-cookies';
+import {AuthService} from './services/AuthService';
 import { Router, Route, Switch } from 'react-router-dom';
 import { ToastsContainer, ToastsStore } from 'react-toasts';
 import Sidebar from './components/common/sidebar.component';
@@ -14,6 +15,7 @@ import history from './public/history';
 import CastingCalls from './components/casting_calls.component';
 import PostedCallsAndSubmissions from './components/posted_calls-and-my_submissions';
 import PostingCallsForm from './components/posting-calls-form.component';
+import MyProfile from './components/my_profile.component';
 
 function Main(props) {
 
@@ -30,6 +32,7 @@ function Main(props) {
           <SecuredRoute exact path={['/casting_calls/posted_calls', '/casting_calls/my_submission']} component={PostedCallsAndSubmissions} />
           <SecuredRoute exact path='/casting_calls/post-a-casting-calls' component={PostingCallsForm} />
           <SecuredRoute path='/search_talent' component={SearchTalent} />
+          <SecuredRoute path='my-profile' component={MyProfile} />
         </Switch>
         
       </aside>
