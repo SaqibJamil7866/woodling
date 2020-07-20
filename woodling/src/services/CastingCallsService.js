@@ -2,15 +2,20 @@
 import axios from 'axios';
 import { AuthService } from './AuthService';
 import { getAllCastingCallUrl, getUserPostedJobsUrl, getUserAppliedJobsUrl, getCastingCallDetailsUrl,
-    applyCastingCallUrl } from '../public/endpoins';
+    applyCastingCallUrl, getLocationUrl, roleTypeUrl } from '../public/endpoins';
 
 export const CastingCallService = {
-    getAllCastingCalls, getUserPostedJobsCalls, getUserAppliedJobsCalls, getCastingCallDetails, applyCastingCall, getLocation
+    getAllCastingCalls, getUserPostedJobsCalls, getUserAppliedJobsCalls, getCastingCallDetails, applyCastingCall, getLocation, getRoleType
 }; 
 
-function getLocation() {
+function getLocation(location) {
     return new Promise((resolve, reject) => {
-        // axios.get()
+         axios.get(getLocationUrl+'?key=AIzaSyAtMIt9Kf_GXjGuTrQHyqUiXnl4Ri0lU9E&input='+location)
+         .then(res => {
+            resolve(res);
+          }).catch(e => {
+            reject(e);        
+        });
     })
 }
 
@@ -67,4 +72,15 @@ function applyCastingCall(data){
             reject(e);        
         });
 	});
+}
+
+function getRoleType() {
+    return new Promise((resolve, reject) => {
+        axios.get(roleTypeUrl)
+        .then(res => {
+            resolve(res);
+        }).catch(e => {
+            reject(e)
+        })
+    })
 }

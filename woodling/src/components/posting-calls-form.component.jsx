@@ -1,247 +1,33 @@
 import React, {Component} from 'react';
 import  Joi from 'joi-browser';
 import {Link} from 'react-router-dom';
+import { ToastsStore } from 'react-toasts';
 import DatePicker from 'react-datetime';
 import moment from 'moment';
+import InputRange from 'react-input-range';
+import {CastingCallService} from '../services/CastingCallsService';
+import 'react-input-range/lib/css/index.css';
 import 'react-datetime/css/react-datetime.css';
 
 const gender = [
     {
-        key: 0,
-        value: 'Any/All'
+        id: 0,
+        name: 'Any/All'
     },
     {
-        key: 1,
-        value: 'Male'
+        id: 1,
+        name: 'Male'
     },
     {
-        key: 2,
-        value: 'Female'
+        id: 2,
+        name: 'Female'
     },
     {
-        key: 3,
-        value: 'Others'
+        id: 3,
+        name: 'Others'
     }
 ]
 
-const roleType = [
-    {
-        "name": "",
-        "id": "40"
-      },
-      {
-        "name": "2 role type",
-        "id": "30"
-      },
-      {
-        "name": "3 role type",
-        "id": "31"
-      },
-      {
-        "name": "56 role type",
-        "id": "33"
-      },
-      {
-        "name": "A young boy",
-        "id": "53"
-      },
-      {
-        "name": "ambassadorial",
-        "id": "15"
-      },
-      {
-        "name": "another role type",
-        "id": "32"
-      },
-      {
-        "name": "Black Jaguar",
-        "id": "55"
-      },
-      {
-        "name": "Boss Lady",
-        "id": "39"
-      },
-      {
-        "name": "Brand Ambassador",
-        "id": "12"
-      },
-      {
-        "name": "Brand Ambassador Enugu",
-        "id": "13"
-      },
-      {
-        "name": "Brand Ambassador for Enugu City",
-        "id": "14"
-      },
-      {
-        "name": "cable boy",
-        "id": "50"
-      },
-      {
-        "name": "cold spells",
-        "id": "35"
-      },
-      {
-        "name": "coming",
-        "id": "26"
-      },
-      {
-        "name": "CornBread",
-        "id": "48"
-      },
-      {
-        "name": "crew",
-        "id": "4"
-      },
-      {
-        "name": "Custom",
-        "id": "29"
-      },
-      {
-        "name": "Dark fuse",
-        "id": "10"
-      },
-      {
-        "name": "dom",
-        "id": "27"
-      },
-      {
-        "name": "Driver",
-        "id": "6"
-      },
-      {
-        "name": "edited role type 2",
-        "id": "43"
-      },
-      {
-        "name": "Escort",
-        "id": "5"
-      },
-      {
-        "name": "extra",
-        "id": "3"
-      },
-      {
-        "name": "Fifth in command",
-        "id": "18"
-      },
-      {
-        "name": "For Cape Town",
-        "id": "11"
-      },
-      {
-        "name": "Hunk",
-        "id": "9"
-      },
-      {
-        "name": "lead",
-        "id": "1"
-      },
-      {
-        "name": "Let dance",
-        "id": "36"
-      },
-      {
-        "name": "Live Band",
-        "id": "49"
-      },
-      {
-        "name": "Loki",
-        "id": "51"
-      },
-      {
-        "name": "Longest",
-        "id": "21"
-      },
-      {
-        "name": "New",
-        "id": "24"
-      },
-      {
-        "name": "New role",
-        "id": "23"
-      },
-      {
-        "name": "Poet",
-        "id": "17"
-      },
-      {
-        "name": "Role",
-        "id": "22"
-      },
-      {
-        "name": "Rolee",
-        "id": "19"
-      },
-      {
-        "name": "Roler",
-        "id": "20"
-      },
-      {
-        "name": "Second in command",
-        "id": "8"
-      },
-      {
-        "name": "second role type",
-        "id": "42"
-      },
-      {
-        "name": "seeyou",
-        "id": "28"
-      },
-      {
-        "name": "Seth",
-        "id": "52"
-      },
-      {
-        "name": "spring",
-        "id": "44"
-      },
-      {
-        "name": "support",
-        "id": "2"
-      },
-      {
-        "name": "Test type",
-        "id": "47"
-      },
-      {
-        "name": "Test typee",
-        "id": "46"
-      },
-      {
-        "name": "Test typeee",
-        "id": "45"
-      },
-      {
-        "name": "testing role type",
-        "id": "41"
-      },
-      {
-        "name": "Thats the way",
-        "id": "37"
-      },
-      {
-        "name": "The ringer",
-        "id": "34"
-      },
-      {
-        "name": "Tiger",
-        "id": "56"
-      },
-      {
-        "name": "trickster",
-        "id": "38"
-      },
-      {
-        "name": "Twins",
-        "id": "7"
-      },
-      {
-        "name": "Voice cast",
-        "id": "54"
-      }
-]
 
 const productionType = [
     {
@@ -866,7 +652,7 @@ class PostingCallsForm extends Component {
         super(props);
         this.state = {
             genderChange: '',
-            addRole: [],
+            roleType: [],
             postingCalls: {
                 title: '',
                 production_type: '',
@@ -891,14 +677,24 @@ class PostingCallsForm extends Component {
                 {
                      role_type_id: '',
                      role_description: '',
-                     gender: 'Any/All',
-                     age_from: '',
-                     age_to: ''
+                     gender: '',
+                     age: {
+                        min: 18,
+                        max: 35
+                     }
                 } 
             ],
-            errors: {}
+            errors: {},
+            removeBtn: false
         }
     }
+
+    async componentDidMount() {
+      const roleType = await CastingCallService.getRoleType()
+      this.setState({roleType: roleType.data.data})
+
+    }
+
     schema = {
         title: Joi.string().required().label("Title"),
         production_type: Joi.string().required().label("Production Type"),
@@ -907,7 +703,7 @@ class PostingCallsForm extends Component {
         application_deadline: Joi.string().required().label("Application Deadline"),
         date_venue: Joi.string(),
         skill_id: Joi.string(),
-        formatted_address: Joi.string(),
+        formatted_address: Joi.string().required().label('Address'),
         lat: Joi.string(),
         lng: Joi.string(),
         country: Joi.string(),
@@ -970,23 +766,24 @@ class PostingCallsForm extends Component {
         this.setState({postingCalls, errors})
     }
     handleRoleType = (index) => (e) => {
-        console.log(e.currentTarget)
-        console.log(index)
-        const errors = {...this.state.errors};
-        const errorMessage = this.validateProperty(e.currentTarget);
-        console.log('Handle Change validation');
-        console.log(errorMessage);
-        if(errorMessage) {
-            console.log(errorMessage)
-            errors[e.currentTarget.name] = errorMessage;
-        }else {
-            delete errors[e.currentTarget.name];
-        }
-        let role_type = [...this.state.role_type];
-        let item = {...role_type[index]};
-        item[e.currentTarget.name] = e.currentTarget.value;
-        role_type[index] = item;
-        this.setState({role_type, errors})
+      console.log(index)
+      console.log(e.currentTarget.value)
+      console.log(e.currentTarget.name)
+      const errors = {...this.state.errors};
+      const errorMessage = this.validateProperty(e.currentTarget);
+      console.log('Handle Change validation');
+      console.log(errorMessage);
+      if(errorMessage) {
+          console.log(errorMessage)
+          errors[e.currentTarget.name] = errorMessage;
+      }else {
+          delete errors[e.currentTarget.name];
+      }
+      let role_type = [...this.state.role_type];
+      let item = {...role_type[index]};
+      item[e.currentTarget.name] = e.currentTarget.value;
+      role_type[index] = item;
+      this.setState({role_type, errors})
     }
     handleDate = (name) => (e) => {
       console.log(e)
@@ -994,7 +791,7 @@ class PostingCallsForm extends Component {
       const date = new Date(e).toLocaleDateString('en-GB')
       console.log(date);
       // const errors = {...this.state.errors};
-      // const errorMessage = this.validateProperty(e);
+      // const errorMessage = this.validateProperty(date);
       // console.log('Handle Change validation');
       // console.log(errorMessage);
       // if(errorMessage) {
@@ -1009,14 +806,45 @@ class PostingCallsForm extends Component {
       console.log(new Date(e).toLocaleDateString('en-GB'));
     }
 
-    disablePastDt = current => {debugger
-      // const yesterday = moment().subtract(1, 'day');
-      return true;
-      // return current.isAfter(yesterday);
-    };
+    disablePastDt = current => {
+      const yesterday = moment().subtract(1, 'day');
+      return current.isAfter(yesterday);
+    }
+    disableDeadlineDt = current => {
+      const yesterday = moment().subtract(0, 'day');
+      return current.isAfter(yesterday);
+    }
 
-    handleGenderChange = (data) => {
-        this.setState({genderChange: data})
+    handleGenderChange = (index, id) => e =>  {
+      console.log(index)
+      console.log(e.currentTarget.name)
+      let role_type = [...this.state.role_type];
+      let item = {...role_type[index]};
+      item[e.currentTarget.name] = id;
+      role_type[index] = item;
+      this.setState({role_type, genderChange: id},() => {
+        console.log(this.state.genderChange)
+      })
+    }
+    sliderOnChange = (index) => (value) => {
+      let role_type = [...this.state.role_type];
+      let item = {...role_type[index]};
+      item.age = value;
+      role_type[index] = item;
+      this.setState({role_type})
+    }
+    handleLocationChange = (e) => {
+      CastingCallService.getLocation(e.currentTarget.value)
+      // .then((res)=>{
+      //   if(res.data.status !== 'error'){
+          const postingCalls = {...this.state.postingCalls};
+          postingCalls[e.currentTarget.name] = e.currentTarget.value;
+          this.setState({postingCalls})
+    //     }else {
+    //         ToastsStore.error(res.message); 
+    //     }
+    // })
+    // .catch((e)=>console.error("error: "+ e));
     }
     addRole = () => {
         let role_type = [...this.state.role_type]
@@ -1029,162 +857,194 @@ class PostingCallsForm extends Component {
         })
         this.setState({role_type})
     }
+    removeRole = () => {
+      let role_type = [...this.state.role_type]
+        role_type.pop();
+        this.setState({role_type})
+    }
     render() {
-        const {genderChange, title, production_type, description, start_date, application_deadline, date_venue, skill_id} = this.state.postingCalls
-        const {role_type} = this.state;
-        return ( 
-            <div className='h100p scrolling'>
-                <div className="row d-flex m0">
-                    <div className="col-md-8 br-white pl100">
-                        <div className='mt20'>
-                            <h1><b>Post A Casting Call</b></h1>
-                            <p><b>Note:</b>Posting a casting call costs $5 ifyou don't have free calls.<br/>For more information on posting a casting call <Link>Learn more</Link></p>
-                        </div>
-                        <form onSubmit='' className='forms'>
-                            <div className='clr__white p35 border-radius'>
-                                <p className='fs25 alignCenter'><b>Casting Call Details</b></p>
-                                <div className="form-group">
-                                    <label>Title:*</label>
-                                    <input 
+      const {genderChange, title, production_type, description, formatted_address, start_date, application_deadline, date_venue, skill_id} = this.state.postingCalls
+      const {role_type, errors, roleType} = this.state;
+      return ( 
+          <div className='h100p scrolling'>
+              <div className="row d-flex m0">
+                  <div className="col-md-8 br-white pl100">
+                      <div className='mt20'>
+                          <h1><b>Post A Casting Call</b></h1>
+                          <p><b>Note:</b>Posting a casting call costs $5 ifyou don't have free calls.<br/>For more information on posting a casting call <Link>Learn more</Link></p>
+                      </div>
+                      <form onSubmit='' className='forms'>
+                          <div className='clr__white p35 border-radius'>
+                              <p className='fs25 alignCenter'><b>Casting Call Details</b></p>
+                              <div className="form-group">
+                                  <label>Title:*</label>
+                                  <input 
+                                      type="text" 
+                                      name='title'
+                                      value={title} 
+                                      onChange={this.handleChange}
+                                      className="form-control no-border-input" 
+                                      placeholder="Write title here" />
+                                  {errors.title && <p className="alert alert-danger error">{errors.title}</p>}
+                              </div>
+                              <div className="form-group">
+                              <label>Production Type:*</label>
+                              <select value={production_type} onChange={this.handleChange} name="production_type" id="inputState" className="form-control w35 bold box-shadow-none" placeholder='Gender'>
+                                  {productionType.map((i, index) => {
+                                      return <option value={i.name}>{i.name}</option>
+                                  })}
+                              </select> 
+                                  {errors.production_type && <p className="alert alert-danger error">{errors.production_type}</p>}
+                              </div>
+                              <div className='form-group'>
+                                  <label>Description:*</label> 
+                                  <textarea value={description} onChange={this.handleChange} name='description' placeholder='Write the description of your casting call here' className="box-shadow-none form-control" rows="3"></textarea>
+                                  {errors.description && <p className="alert alert-danger error">{errors.description}</p>}
+                              </div>
+                              <div className='form-group'>
+                                  <div className='d-flex'>
+                                      <div className='d-flex justify-content-center align-items-center bckgrnd-dark-grey w35 h45px'>
+                                        <i className='fa fa-map-marker fs20' />
+                                        <p className='p0 m0 ml5'><b>Add Location:*</b></p>
+                                      </div>
+                                      <input 
                                         type="text" 
-                                        name='title'
-                                        value={title} 
-                                        onChange={this.handleChange}
-                                        className="form-control no-border-input" 
-                                        placeholder="Write title here" />
-                                    {/* {props.usernameError && <p className="alert alert-danger error">{props.usernameError}</p>} */}
-                                </div>
-                                <div className="form-group">
-                                <label>Production Type:*</label>
-                                <select value={production_type} onChange={this.handleChange} name="production_type" id="inputState" className="form-control w35 bold box-shadow-none" placeholder='Gender'>
-                                    {productionType.map((i, index) => {
-                                        return <option value={i.name}>{i.name}</option>
-                                    })}
-                                </select> 
-                                    {/* {props.passwordError && <p className="alert alert-danger error">{props.passwordError}</p>} */}
-                                </div>
-                                <div className='form-group'>
-                                    <label>Description:*</label> 
-                                    <textarea value={description} onChange={this.handleChange} name='description' placeholder='Write the description of your casting call here' className="box-shadow-none form-control" rows="3"></textarea>
-                                </div>
-                                <div className='form-group'>
-                                    <div className='d-flex'>
-                                        <div className='d-flex justify-content-center align-items-center bckgrnd-dark-grey w25 h45px'>
-                                            <i className='fa fa-map-marker fs20' />
-                                            <p className='p0 m0 ml5'><b>Add Location:*</b></p>
-                                        </div>
-                                        <input 
-                                            type="text" 
-                                            name='field' 
-                                            className="form-control border-none bckgrnd-grey h45px box-shadow-none"
-                                            placeholder="Type here..." />
-                                    </div>
-                                </div>
-                                <div className='form-group'>
-                                    <div className='d-flex space-between'>
-                                        <div className='d-flex w45'>
-                                            <div className='d-flex justify-content-center align-items-center bckgrnd-dark-grey w50 h45px'>
-                                                <i className='fa fa-calendar fs20' />
-                                                <p className='p0 m0 ml5'><b>Start Date:*</b></p>
-                                            </div>
-                                            <DatePicker
-                                                // isValidDate={this.disablePastDt}
-                                                value={start_date}
-                                                onChange={this.handleDate('start_date')}
-                                                className="form-control date-picker border-none bckgrnd-grey h45px box-shadow-none"
-                                            />
-                                        </div>
-                                        <div className='d-flex w45'>
-                                            <div className='d-flex justify-content-center align-items-center bckgrnd-dark-grey w50 h45px'>
-                                                <i className='fa fa-calendar fs20' />
-                                                <p className='p0 m0 ml5'><b>Deadline:*</b></p>
-                                            </div>
-                                            <DatePicker
-                                                name='application_deadline'
-                                                value={application_deadline}
-                                                onChange={this.handleDate('application_deadline')}
-                                                className="form-control date-picker border-none bckgrnd-grey h45px box-shadow-none"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group">
-                                    <label>Dates & Venues</label>
-                                    <input 
-                                        value={date_venue}
-                                        onChange={this.handleChange}
-                                        type="text" 
-                                        name='date_venue' 
-                                        className="form-control no-border-input" 
-                                        placeholder="Write date and venue here" />
-                                    {/* {props.usernameError && <p className="alert alert-danger error">{props.usernameError}</p>} */}
-                                </div>
-                            </div>
-    
-                            <div className='clr__white mt20 p35 d-flex justify-content-center align-items-center'>
-                                <div>
-                                    <label><b>Who are you looking for?*</b></label>
-                                    <select value={skill_id} onChange={this.handleChange} name="lookingFor" id="inputState" className="form-control bold box-shadow-none" placeholder='Gender'>
-                                        {skills && skills.map((i, index) => {
-                                            return <option value={i.id}>{i.name}</option>
-                                        })}
-                                    </select> 
-                                </div>
-                            </div>
-    
-                            {role_type.map((i,index) => {
-                                return <div className='clr__white mt20 p35'>
+                                        value={formatted_address}
+                                        onChange={this.handleLocationChange}
+                                        name='formatted_address' 
+                                        className="form-control border-none bckgrnd-grey h45px box-shadow-none"
+                                        placeholder="Type here..." />
+                                      {errors.formatted_address && <p className="alert alert-danger error">{errors.formatted_address}</p>}
+                                  </div>
+                              </div>
+                              <div className='form-group'>
+                                  <div className='d-flex space-between'>
+                                      <div className='d-flex w45'>
+                                          <div className='d-flex justify-content-center align-items-center bckgrnd-dark-grey w80 h45px'>
+                                              <i className='fa fa-calendar fs20' />
+                                              <p className='p0 m0 ml5'><b>Start Date:*</b></p>
+                                          </div>
+                                          <DatePicker
+                                            isValidDate={this.disablePastDt}
+                                            value={start_date}
+                                            onChange={this.handleDate('start_date')}
+                                            className="form-control date-picker border-none bckgrnd-grey h45px box-shadow-none"
+                                          />
+                                          {errors.start_date && <p className="alert alert-danger error">{errors.start_date}</p>}
+                                      </div>
+                                      <div className='d-flex w45'>
+                                          <div className='d-flex justify-content-center align-items-center bckgrnd-dark-grey w50 h45px'>
+                                              <i className='fa fa-calendar fs20' />
+                                              <p className='p0 m0 ml5'><b>Deadline:*</b></p>
+                                          </div>
+                                          <DatePicker
+                                            isValidDate={this.disableDeadlineDt}
+                                            name='application_deadline'
+                                            value={application_deadline}
+                                            onChange={this.handleDate('application_deadline')}
+                                            className="form-control date-picker border-none bckgrnd-grey h45px box-shadow-none"
+                                          />
+                                          {errors.application_deadline && <p className="alert alert-danger error">{errors.application_deadline}</p>}
+                                      </div>
+                                  </div>
+                              </div>
+                              <div className="form-group">
+                                  <label>Dates & Venues</label>
+                                  <input 
+                                      value={date_venue}
+                                      onChange={this.handleChange}
+                                      type="text" 
+                                      name='date_venue' 
+                                      className="form-control no-border-input" 
+                                      placeholder="Write date and venue here" />
+                                  {/* {props.usernameError && <p className="alert alert-danger error">{props.usernameError}</p>} */}
+                              </div>
+                          </div>
+  
+                          <div className='clr__white mt20 p35 d-flex justify-content-center align-items-center'>
+                              <div>
+                                  <label><b>Who are you looking for?*</b></label>
+                                  <select value={skill_id} onChange={this.handleChange} name="lookingFor" id="inputState" className="form-control bold box-shadow-none" >
+                                      {skills && skills.map((i, index) => {
+                                          return <option value={i.id}>{i.name}</option>
+                                      })}
+                                  </select> 
+                                  {errors.lookingFor && <p className="alert alert-danger error">{errors.lookingFor}</p>}
+                              </div>
+                          </div>
+  
+                          {role_type.map((i,index) => {
+                              return <div className='clr__white mt20 p35'>
+                                          <div className={index>0?'d-flex space-between':null}>
+                                            <p></p>
                                             <p className="alignCenter"><b>Role {index+1}</b></p>
-                                            <div className='form-group'>
-                                                <label>Role Type:</label>
-                                                <select value={role_type[index].role_type_id} onChange={this.handleRoleType(index)}  name="role_type_id" id="inputState" className="form-control w30 bold box-shadow-none" placeholder='Gender'>
-                                                    {roleType.map((i, index) => {
-                                                        return <option value={i.id}>{i.name}</option>
-                                                    })}
-                                                </select> 
-                                            </div>
-                                            <div className='form-group'>
-                                                <label>Role Description:</label> 
-                                                <textarea 
-                                                  name='role_description'
-                                                  value={role_type[index].role_description}
-                                                  onChange={this.handleRoleType(index)}
-                                                  placeholder='Write the description of your casting call here' 
-                                                  className="box-shadow-none form-control"  
-                                                  rows="3" />
-                                            </div>
-                                            <div className='form-group d-flex flex-dir-col'>
-                                                <label>Gender</label>
-                                                <div>
-                                                    {gender.map((i, ind) => {
-                                                        return <span value={role_type[index].role_description} onChange={this.handleRoleType(index)} onClick={() => this.handleGenderChange(ind)} className={genderChange===index ? 'ml20 pointer clr__red' : 'ml20 pointer'}>{i.value}</span>
-                                                    })}
-                                                </div>
-                                            </div>
-                                            <div className='form-group'>
-                                                <label>Age Range</label>
-                                            </div>
-                                        </div>
-                            })}
-                            <div className='d-flex space-between'>
-                                <img style={{width:'25%'}} className='pointer' src={require('../assets/processed-btn.svg')} />
-                                <div className='d-flex align-items-center'>
-                                    <i className='fa fa-plus clr__red' />
-                                    <p onClick={this.addRole} className='m0 p0 clr__red pointer'><b>Add Another Role</b></p>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="col-md-4">
-                        
-    
-                        <div className="mt10 mb10">
-                            {/* <ExploreCard /> */}
-                        </div>
-                    </div>
-                </div>
-            </div>
-         );
+                                            <p className={index>0?'clr__red pointer':'noDisplay'} onClick={this.removeRole}>Remove</p>
+                                          </div>
+                                          <div className='form-group'>
+                                              <label>Role Type:</label>
+                                              <select value={role_type[index].role_type_id} onChange={this.handleRoleType(index)}  name="role_type_id" id="inputState" className="form-control w30 bold box-shadow-none" placeholder='Gender'>
+                                                  {roleType.map((i, index) => {
+                                                      return <option value={i.id}>{i.name}</option>
+                                                  })}
+                                              </select> 
+                                              {errors.role_type_id && <p className="alert alert-danger error">{errors.role_type_id}</p>}
+                                          </div>
+                                          <div className='form-group'>
+                                              <label>Role Description:</label> 
+                                              <textarea 
+                                                name='role_description'
+                                                value={role_type[index].role_description}
+                                                onChange={this.handleRoleType(index)}
+                                                placeholder='Write the description of your casting call here' 
+                                                className="box-shadow-none form-control"  
+                                                rows="3" />
+                                                {errors.role_description && <p className="alert alert-danger error">{errors.role_description}</p>}
+                                          </div>
+                                          <div className='form-group d-flex flex-dir-col'>
+                                            
+                                              <label>Gender</label>
+                                              <div>
+                                                  {gender.map((i, ind) => {
+                                                      // return <span value={role_type[index].gender} onClick={() => this.handleGenderChange(ind, index)} className={genderChange===index ? 'ml20 pointer clr__red' : 'ml20 pointer'}>{i.value}</span>
+                                                    return <>
+                                                            <input className="form-check-input pointer zero-opacity" type="radio" name="gender" id={ind} value={role_type[index].gender} onChange={this.handleGenderChange(index, i.id)}  />
+                                                            <label className={genderChange===i.id ? "form-check-label pointer mr40 red" : "form-check-label pointer mr40"} for={ind}>
+                                                              {i.name}
+                                                            </label>
+                                                        </>
+                                                  })}
+                                              </div>
+                                          </div>
+                                          <div className='form-group'>
+                                              <label>Age Range</label>
+                                              <InputRange
+                                                value={role_type[index].age}
+                                                onChange={this.sliderOnChange(index)}
+                                                maxValue={100}
+                                                minValue={1}
+                                            />
+                                          </div>
+                                      </div>
+                          })}
+                          <div className='d-flex space-between'>
+                              <img style={{width:'25%'}} className='pointer' src={require('../assets/processed-btn.svg')} />
+                              <div className='d-flex align-items-center'>
+                                  <i className='fa fa-plus clr__red' />
+                                  <p onClick={this.addRole} className='m0 p0 clr__red pointer'><b>Add Another Role</b></p>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+                  <div className="col-md-4">
+                      
+  
+                      <div className="mt10 mb10">
+                          {/* <ExploreCard /> */}
+                      </div>
+                  </div>
+              </div>
+          </div>
+        );
     }
 }
  

@@ -1,4 +1,5 @@
 const baseUrl = 'http://3.133.7.18/woodlig_jwt/controllers/mobile/';
+const locationUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/'
 
 export const siteUrl = 'http://3.133.7.18/woodlig_jwt/';
 
@@ -46,7 +47,8 @@ export const getUserPostedJobsUrl = `${baseUrl}/fetch-user-posted-jobs.php`;
 export const addCastingCallUrl = `${baseUrl}/add-casting-call.php`;
 export const editCastingCallUrl = `${baseUrl}/edit-casting-call.php`;
 export const getUserCastingCallsUrl = `${baseUrl}/fetch-user-casting-calls.php`;
-// export const getLocationUrl = 
+export const roleTypeUrl = `${baseUrl}/fetch-role-type.php`;
+export const getLocationUrl = `${locationUrl}/json`
 
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",

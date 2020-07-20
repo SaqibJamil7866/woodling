@@ -1785,3 +1785,11 @@ p.sdate {
 .pb10 {
   padding-bottom: 20px;
 }
+
+.mr40 {
+  margin-right: 40px;
+}
+
+.zero-opacity {
+  opacity: 0;
+}
