@@ -44,10 +44,10 @@ class TalentCard extends Component {
     }
     
     render() {
-        const { talent: { username, full_name, profile_thumb, rating, followers_count, premium, city } } = this.props;
+        const { talent: { username, full_name, profile_thumb, rating, followers_count, premium, city }, openProfile } = this.props;
         return(
             <div className='f-left mt10 ml10'>
-                <Card style={{ width: '19rem', borderRadius: '10px', minHeight:'320px', maxHeight:'320px' }}>
+                <Card style={{ width: '19rem', borderRadius: '10px', minHeight:'360px', maxHeight:'360px' }}>
                     <Card.Img variant="top" src={require('../../assets/card-background.svg')} />
                     <div className='center__item dir-col m-50 p-relative'>
                         <Card.Img className='border-radius60 w35 h100' src={siteUrl+""+profile_thumb} />
@@ -66,6 +66,8 @@ class TalentCard extends Component {
                                     <i className="fa fa-map-marker" /> {city}
                                 </Card.Text>
                             )}
+
+                            <button onClick={()=>openProfile(this.props.talent)}>View Profile</button>
 
                             {/* <Card.Text className='clr-grey alignCenter'>
                                 <b>Actor, Artist, Actor, Artist, Actor, Artist, Actor, Artist</b>

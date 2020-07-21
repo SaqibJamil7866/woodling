@@ -24,7 +24,13 @@ function Home() {
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { posts, followers } = state;
+    const { posts, followers, showModal } = state;
+
+    const openImageModal = () => {
+        dispatch({field: 'showModal', value: true})
+            
+        console.log("Open image popup button clicked");
+    }
 
     useEffect(() => {
         showLoader();
@@ -46,13 +52,17 @@ function Home() {
     }, []);
 
     return (
+        
         <div className="container h100p">
             <div className="row h100p">
-                <div className="col-md-8 br-white scrolling h100p">
-                    <TopContentBar />
+                <div className="col-md-8 br-white scrolling">
+                    <TopContentBar
+                        openImagePopup={openImageModal}
+                    />
                     <Post posts={posts}/>
                     <div className="fixedbutton">
                         <AddButtonIcon height="50px" width="50px" />
+                        {console.log(showModal)}
                     </div>
                 </div>
                 <div className="col-md-4 scrolling h100p">

@@ -1,5 +1,7 @@
+/* eslint-disable class-methods-use-this */
 import React from 'react';
 import { ToastsStore } from 'react-toasts';
+import history from '../public/history';
 import TalentBar from './common/talent_bar.component';
 import TalentCard from './common/talent_card.component';
 import StaredTalent from './common/star-talent.component';
@@ -108,6 +110,15 @@ class SearchTalent extends React.Component {
         .catch((e)=>console.error("error: "+ e))
     }
 
+    openProfile(data){
+        console.log("open Profile: ", data);
+        history.push({
+            pathname: '/user_profile',
+            state: { data }
+        })
+
+    }
+
     render() {
         const { allTalents, starredTalents, featuredTalents, modalData } = this.state;
         return (
@@ -130,7 +141,7 @@ class SearchTalent extends React.Component {
                         <TalentBar title="Featured Talents of the week" featuredTalents={featuredTalents} />
                         <div className='mt20'>
                             {allTalents && allTalents.map((talent)=>{
-                                return <TalentCard key={talent.id} talent={talent} />
+                                return <TalentCard key={talent.id} talent={talent} openProfile={this.openProfile} />
                             })}
 
                             {allTalents && allTalents.length === 0 ? 'No Talent find' : ''}
