@@ -41,7 +41,7 @@ html, body, #root {
   margin: 0;
   height: 100% !important;
   background-color: #F2F2F2;
-  font-family: poppins;
+  font-family: Poppins;
 }
 
 .logoStyling {
@@ -528,6 +528,10 @@ html, body, #root {
 
 .w45 {
   width: 45%;
+}
+
+.w40 {
+  width: 40%;
 }
 
 
@@ -1265,6 +1269,14 @@ p.sdate {
   padding: 5px;
   padding-top: 0px;
 }
+
+.close-btn:focus {
+  outline: none;
+}
+.close:focus {
+  outline: none;
+}
+
 .close-btn .close {
   padding: 0px !important;
   margin: 0;
@@ -1792,4 +1804,74 @@ p.sdate {
 
 .zero-opacity {
   opacity: 0;
+}
+
+.poppins {
+  font-family: Poppins;
+}
+
+.no-text-decoration {
+  list-style: none;
+}
+
+.p10 {
+  padding: 10px;
+}
+
+.profile-btn {
+  padding-left: 17px;
+  padding-right: 17px;
+  border-radius: 10px;
+  padding-top: 0px;
+  background-color: #FB0201;
+  border: 3px solid #FB0201 !important;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.profile-btn:focus {
+  outline: none;
+}
+
+.border-top-bottom {
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.pl80 {
+  padding-left: 80px !important;
+}
+
+.w40 {
+  width: 40%;
+}
+
+.h200 {
+  height: 200px ;
+}
+
+.w5 {
+  width: 5% !important;
+}
+
+.mt-30 {
+  margin-top: -30px !important;
+}
+
+.video-camera-icon {
+  color: white;
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 23px;
+  z-index: 1;
+}
+
+.z-index {
+  z-index: 1;
+}
+
+.mt-45 {
+  margin-top: -45px;
 }
