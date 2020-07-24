@@ -1494,6 +1494,10 @@ p.sdate {
   background-color: #ee0202;
 }
 
+.w70 {
+  width: 70%;
+}
+
 .w75 {
   width: 75%;
 }
@@ -1520,6 +1524,17 @@ p.sdate {
   padding-right: 35px;
   border-radius: 16px;
   padding-top: 0px;
+  border: 3px solid #FB0201 !important;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ff0000;
+  background-color: #FFFFFF;
+}
+
+.roles-text {
+  margin-top: 14px;
+  border-radius: 16px;
+  padding: 10px;
   border: 3px solid #FB0201 !important;
   font-size: 20px;
   font-weight: 500;
@@ -1794,6 +1809,13 @@ p.sdate {
   justify-content: center;
 }
 
+.p17 {
+  padding-left: 17px !important;
+  padding-right: 17px !important;
+  padding-top: 17px !important;
+  padding-bottom: 17px !important;
+}
+
 .pb10 {
   padding-bottom: 20px;
 }
@@ -1874,4 +1896,41 @@ p.sdate {
 
 .mt-45 {
   margin-top: -45px;
+}
+
+.h150 {
+  height: 150px;
+}
+
+.about-icon {
+  width: 10%;
+  background-color: white;
+  z-index: 1;
+  margin-left: -5px;
+}
+
+.p20 {
+  padding: 20px;
+}
+
+.following-img {
+  height: 70px;
+  width: 50%;
+  border-radius: 43px;
+}
+
+.h35 {
+  height: 35px;
+}
+
+.w65 {
+  width: 65%;
+}
+
+.fs12 {
+  font-size: 12px;
+}
+
+.premium-border {
+  border: 3px solid #ee0202;
 }

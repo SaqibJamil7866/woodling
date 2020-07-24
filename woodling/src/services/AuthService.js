@@ -1,10 +1,11 @@
   
 import axios from 'axios';
 import cookie from 'react-cookies';
-import { loginUrl, getIndividualSkillsUrl, addBusinessSkillsNoUrl } from '../public/endpoins';
+import { loginUrl, getIndividualSkillsUrl, addBusinessSkillsNoUrl, siteUrl } from '../public/endpoins';
 
 export const AuthService = {
-  login, getUserId, getUserName, getSkills
+  login, getUserId, getUserName, getSkills,
+  getUserProfileImage
 //    , register, registerStep, 
 //    getUSerProfile,
 //     getUSerFollowings,
@@ -173,14 +174,14 @@ function getUserName(){
   return userName;
 }
 
-// function getUserProfileImage(){
-// 	var user = JSON.parse(localStorage.getItem('user'));
-// 	var profile_picture = '';
-// 	if(user){
-// 		profile_picture = Config.SITE_URL+""+user.details.profile_picture; 
-// 	}
-// 	return profile_picture;
-// }
+function getUserProfileImage(){
+	const user = cookie.load('currnt_user');
+	var profile_picture = '';
+	if(user){
+		profile_picture = siteUrl+""+user.profile_picture; 
+	}
+	return profile_picture;
+}
 // function getUserData(){
 // 	var user = JSON.parse(localStorage.getItem('user'));
 // 	var data = '';

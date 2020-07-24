@@ -3,21 +3,30 @@ import React, {Component} from 'react';
 import { showLoader, hideLoader } from '../public/loader';
 import history from '../public/history';
 import { UserService } from '../services/UserService';
+import { FollowService } from '../services/FollowService';
 import { siteUrl } from '../public/endpoins';
 import ProfilePicHeader from './common/profile-header.component';
 import UserExperience from './common/profile-user-experience.component';
 import UserAlbum from './common/profile-user-album.component';
+import UserAbout from './common/profile-user-about.component';
+import UserFollowing from './common/profile-user-following.component';
 
 class Profile extends Component {
     constructor(props){
         super(props);
         this.state = {
             userData: [],
+            rolesData: [],
             userAlbum: [],
             userExperience: [],
+            userFollowing: [],
+            followersId: [],
+            myFollowing: [],
             albums: true,
             post: false,
             experience: false,
+            about: false,
+            following: false,
             userModal: false,
             userModalData: {}
         }
@@ -28,28 +37,58 @@ class Profile extends Component {
         const data = history.location.state.data;
         await UserService.getUserProfileData(data.id)
         .then((res)=>{
-            this.setState({userData: res.data.data, userExperience: res.data.user_experience});
+            this.setState({userData: res.data.data, userExperience: res.data.user_experience, rolesData: res.data.user_roles});
+            console.log("user details: ", res.data.data);
         }).catch((e)=>console.error("error: "+ e));
 
         await UserService.getUserProfileAlbum(data.id)
         .then((res) => {
             this.setState({userAlbum: res.data.albums})
-            console.log("user details: ", res.data);
         }).catch((e)=>console.error("error: "+ e))
+
+        await FollowService.getUSerFollowings(data.id)
+        .then((res) => {
+            this.setState({userFollowing: res.data.data}, () => {
+                this.state.userFollowing.map((i, index) => {
+                    UserService.getUserProfileData(i.id)
+                    .then((res)=>{
+                        this.state.followersId.push(res.data.data)
+                    })
+                })
+            })
+        }).catch((e)=>console.error("error: "+ e))
+        await FollowService.getUSerFollowings()
+        .then((res) => {
+            this.setState({myFollowing: res.data.data})
+        }).catch((e)=>console.error("error: "+ e))
+
+        
         .then(() => hideLoader());
         hideLoader();
     }
 
+    onCrash = (e) => {
+        e.currentTarget.src='https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'
+    }
+
     openAlbumLink = () => {
-        this.setState({albums: true, post: false, experience: false});
+        this.setState({albums: true, post: false, experience: false, about: false, following: false});
     }
 
     openPostLink = () => {
-        this.setState({post: true, albums: false, experience: false});
+        this.setState({post: true, albums: false, experience: false, about: false, following: false});
     }
 
     openExperienceLink = () => {
-        this.setState({experience: true, albums: false, post: false});
+        this.setState({experience: true, albums: false, post: false, about: false, following: false});
+    }
+
+    openAboutLink = () => {
+        this.setState({about: true, albums: false, post: false, experience: false, following: false});
+    }
+
+    openFollowingLink = () => {
+        this.setState({following: true, albums: false, post: false, experience: false, about: false})
     }
 
     openModal = (data) => {
@@ -60,10 +99,8 @@ class Profile extends Component {
     }
 
     render(){
-        const {albums, post, experience, userExperience, userModal, userModalData, userAlbum} = this.state;
-        const {rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
-        const {path, type} = this.state.userAlbum;
-        console.log('adasdasd', this.state.userAlbum)
+        const {albums, post, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followersId, myFollowing} = this.state;
+        const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
         return(
             <div className='h100p scrolling'>
                 <div className="row m0">
@@ -85,10 +122,10 @@ class Profile extends Component {
                                 <li className={post ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openPostLink}>{post_count} Posts</li>
                                 <li className='p10'>{tag_count} Tags</li>
                                 <li className='p10'>{rating_count} Ratings</li>
-                                <li className='p10'>About</li>
+                                <li className={about ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openAboutLink}>About</li>
                                 <li className={experience ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openExperienceLink}>Experience</li>
                                 <li className='p10'>{followers_count} Followers</li>
-                                <li className='p10'>{following_count} Following</li>
+                                <li className={following ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openFollowingLink}>{following_count} Following</li>
                             </ul>
                         </div>
                     </div>
@@ -97,7 +134,8 @@ class Profile extends Component {
                 <div className="row d-flex m0">
                     <div className="col-md-12 br-white pl80">
                         <div className='mt20'>
-                            {experience ? <UserExperience 
+                            {experience ? userExperience==='empty' ? <p>No Experience Found</p> 
+                                        :<UserExperience 
                                             userExperience={userExperience} 
                                             userModal={userModal}
                                             openModal={this.openModal}
@@ -107,6 +145,23 @@ class Profile extends Component {
                             {albums ? userAlbum==='empty' ?<p>No Albums found</p> : <UserAlbum 
                                         userAlbum={userAlbum}
                                     /> : null}
+                            {about ? <UserAbout 
+                                            full_name={full_name}
+                                            email={email}
+                                            address={address}
+                                            date_of_birth={date_of_birth}
+                                            gender={gender}
+                                            marital_status={marital_status}
+                                            phone_1={phone_1}
+                                            rolesData={rolesData}
+                                    /> : null}
+
+                            {following ? userFollowing==='empty' ? <p>No Following Found</p> : <UserFollowing
+                                            followersId={followersId}
+                                            userFollowing={userFollowing}
+                                            myFollowing={myFollowing}
+                                            onCrash={this.onCrash}
+                                        /> : null}
                         </div>
                     </div>
 

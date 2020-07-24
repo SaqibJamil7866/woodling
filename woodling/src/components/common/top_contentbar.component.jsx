@@ -5,7 +5,7 @@ import { ReactComponent as ScriptIcon } from '../../assets/script.svg';
 import { ReactComponent as EventIcon } from '../../assets/event.svg';
 import { ReactComponent as CartIcon } from '../../assets/cart.svg';
 function TopContentBar(props) {
-    const { openImagePopup } = props;
+    const { openImagePopup, openStatusUploadModal } = props;
 
     return (
         <div className="mt30 top-content-bar h40 col-md-10 ml18">
@@ -14,7 +14,7 @@ function TopContentBar(props) {
                 <span>
                     <CircleImageIcon onClick={()=> openImagePopup()} height="35px" width="35px" className="mr10 mt3"/>
                     <CircleVideoIcon height="35px" width="35px" className="mr10 mt3"/>
-                    <ScriptIcon height="35px" width="35px" className="mr10 mt3 pointer"/>
+                    <ScriptIcon onClick={() => openStatusUploadModal()} height="35px" width="35px" className="mr10 mt3 pointer"/>
                     <EventIcon height="35px" width="35px" className="mr10 mt3"/>
                     <CartIcon height="35px" width="35px" className="mr10 mt3"/>
                 </span>

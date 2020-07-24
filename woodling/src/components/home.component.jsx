@@ -8,6 +8,7 @@ import OnlineStatusCard from './common/online_status_card.component';
 import ExploreCard from './common/explore_card.component';
 import { ActivityStreamService } from '../services/ActivityStreamService';
 import { FollowService } from '../services/FollowService';
+import StatusUpload from '../models/status-update-modal.component';
 
 function Home() {
     const initialState ={
@@ -32,12 +33,21 @@ function Home() {
         console.log("Open image popup button clicked");
     }
 
+    const openStatusUploadModal = () => {
+        dispatch({field: 'showModal', value: true})
+    }
+
+    const closeStatusUploadModal = () => {
+        dispatch({field: 'showModal', value: false})
+    }
+
     useEffect(() => {
         showLoader();
         Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers()])
         .then((res)=>{            
             if(res[0].status !== 'error'){
                 dispatch({field: 'posts', value: res[0].data.data});
+                console.log(res[0].data.data)
             }else { 
                 ToastsStore.error(res[0].message); 
             }
@@ -55,14 +65,14 @@ function Home() {
         
         <div className="container h100p">
             <div className="row h100p">
-                <div className="col-md-8 br-white scrolling">
+                <div className="col-md-8 br-white scrolling h100p">
                     <TopContentBar
                         openImagePopup={openImageModal}
+                        openStatusUploadModal={openStatusUploadModal}
                     />
                     <Post posts={posts}/>
                     <div className="fixedbutton">
                         <AddButtonIcon height="50px" width="50px" />
-                        {console.log(showModal)}
                     </div>
                 </div>
                 <div className="col-md-4 scrolling h100p">
@@ -75,7 +85,11 @@ function Home() {
                     </div>
                 </div>
             </div>
-            <div>{}</div>
+            <div>{showModal ? <StatusUpload
+                                openStatusUploadModal={openStatusUploadModal}
+                                closeStatusUploadModal={closeStatusUploadModal}
+                                posts={posts}
+                            /> : null}</div>
         </div>
     );
 }
