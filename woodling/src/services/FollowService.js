@@ -32,15 +32,28 @@ function getUSerFollowings(id) {
     }
 }
 function getUSerFollowiers() { 
- return new Promise((resolve, reject) =>{
- 		var url = getUserFollowersUrl+"?user_id="+AuthService.getUserId();
-        axios.get(url)
-        .then((res) => {
-            resolve(res);
-        })
-        .catch((error) => {
-            reject(error);
+    if(id){
+        return new Promise((resolve, reject) =>{	 
+            const url = getUserFollowersUrl+"?user_id="+id;
+            axios.get(url)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((error) => {
+                reject(error);
+            });
         });
-	});
+    }else {
+        return new Promise((resolve, reject) =>{	 
+            const url = getUserFollowersUrl+"?user_id="+AuthService.getUserId();
+            axios.get(url)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+        });
+    }
 } 
  

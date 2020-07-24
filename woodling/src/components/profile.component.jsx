@@ -20,13 +20,16 @@ class Profile extends Component {
             userAlbum: [],
             userExperience: [],
             userFollowing: [],
-            followersId: [],
+            userFollowers: [],
+            followingId: [],
+            followerId: [],
             myFollowing: [],
             albums: true,
             post: false,
             experience: false,
             about: false,
             following: false,
+            follower: false,
             userModal: false,
             userModalData: {}
         }
@@ -52,7 +55,7 @@ class Profile extends Component {
                 this.state.userFollowing.map((i, index) => {
                     UserService.getUserProfileData(i.id)
                     .then((res)=>{
-                        this.state.followersId.push(res.data.data)
+                        this.state.followingId.push(res.data.data)
                     })
                 })
             })
@@ -61,6 +64,18 @@ class Profile extends Component {
         .then((res) => {
             this.setState({myFollowing: res.data.data})
         }).catch((e)=>console.error("error: "+ e))
+
+        await FollowService.getUSerFollowiers(data.id)
+        .then((res) => {
+            this.setState({userFollowers: res.data.data}, () => {
+                this.state.userFollowers.map((i, index) => {
+                    UserService.getUserProfileData(i.id)
+                    .then((res) => {
+                        this.state.followerId.push(res.data.data)
+                    })
+                })
+            })
+        })
 
         
         .then(() => hideLoader());
@@ -72,23 +87,27 @@ class Profile extends Component {
     }
 
     openAlbumLink = () => {
-        this.setState({albums: true, post: false, experience: false, about: false, following: false});
+        this.setState({albums: true, post: false, experience: false, about: false, following: false, follower: false});
     }
 
     openPostLink = () => {
-        this.setState({post: true, albums: false, experience: false, about: false, following: false});
+        this.setState({post: true, albums: false, experience: false, about: false, following: false, follower: false});
     }
 
     openExperienceLink = () => {
-        this.setState({experience: true, albums: false, post: false, about: false, following: false});
+        this.setState({experience: true, albums: false, post: false, about: false, following: false, follower: false});
     }
 
     openAboutLink = () => {
-        this.setState({about: true, albums: false, post: false, experience: false, following: false});
+        this.setState({about: true, albums: false, post: false, experience: false, following: false, follower: false});
     }
 
     openFollowingLink = () => {
-        this.setState({following: true, albums: false, post: false, experience: false, about: false})
+        this.setState({following: true, albums: false, post: false, experience: false, about: false, follower: false})
+    }
+
+    openFollowerLink = () => {
+        this.setState({follower: true, albums: false, post: false, experience: false, about: false, following: false})
     }
 
     openModal = (data) => {
@@ -99,7 +118,7 @@ class Profile extends Component {
     }
 
     render(){
-        const {albums, post, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followersId, myFollowing} = this.state;
+        const {albums, post, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing} = this.state;
         const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
         return(
             <div className='h100p scrolling'>
@@ -157,7 +176,7 @@ class Profile extends Component {
                                     /> : null}
 
                             {following ? userFollowing==='empty' ? <p>No Following Found</p> : <UserFollowing
-                                            followersId={followersId}
+                                            followingId={followingId}
                                             userFollowing={userFollowing}
                                             myFollowing={myFollowing}
                                             onCrash={this.onCrash}
