@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import RatingStar from './rating-stars.component';
 import convertToFloat from '../../public/helperFunctions';
@@ -10,7 +11,7 @@ const ProfilePicHeader = (props) => {
             <div className='d-flex space-between w50'>
                 <RatingStar rating={convertToFloat(rating)} />
                 <div className='d-flex align-item flex-dir-col'>
-                    <img className='border-radius60 h100 m-50' src={siteUrl+""+profile_picture} />
+                    <img className='border-radius60 h100 m-50' src={siteUrl+""+profile_picture} alt="profile img" />
                     <h1 className='fs30 poppins'>{full_name}</h1>
                     <p>{bio}</p>
                 </div>
