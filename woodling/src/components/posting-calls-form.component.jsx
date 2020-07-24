@@ -835,6 +835,7 @@ class PostingCallsForm extends Component {
       role_type[index] = item;
       this.setState({role_type})
     }
+    
     handleLocationChange = (e) => {
       CastingCallService.getLocation(e.currentTarget.value)
       // .then((res)=>{
