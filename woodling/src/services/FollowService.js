@@ -31,7 +31,7 @@ function getUSerFollowings(id) {
         });
     }
 }
-function getUSerFollowiers() { 
+function getUSerFollowiers(id) { 
     if(id){
         return new Promise((resolve, reject) =>{	 
             const url = getUserFollowersUrl+"?user_id="+id;

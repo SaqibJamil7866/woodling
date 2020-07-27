@@ -10,6 +10,7 @@ import UserExperience from './common/profile-user-experience.component';
 import UserAlbum from './common/profile-user-album.component';
 import UserAbout from './common/profile-user-about.component';
 import UserFollowing from './common/profile-user-following.component';
+import UserFollowers from './common/profile-user-followers.component';
 
 class Profile extends Component {
     constructor(props){
@@ -60,6 +61,7 @@ class Profile extends Component {
                 })
             })
         }).catch((e)=>console.error("error: "+ e))
+
         await FollowService.getUSerFollowings()
         .then((res) => {
             this.setState({myFollowing: res.data.data})
@@ -118,7 +120,7 @@ class Profile extends Component {
     }
 
     render(){
-        const {albums, post, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing} = this.state;
+        const {albums, post, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers} = this.state;
         const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
         return(
             <div className='h100p scrolling'>
@@ -143,7 +145,7 @@ class Profile extends Component {
                                 <li className='p10'>{rating_count} Ratings</li>
                                 <li className={about ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openAboutLink}>About</li>
                                 <li className={experience ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openExperienceLink}>Experience</li>
-                                <li className='p10'>{followers_count} Followers</li>
+                                <li className={follower? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openFollowerLink}>{followers_count} Followers</li>
                                 <li className={following ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openFollowingLink}>{following_count} Following</li>
                             </ul>
                         </div>
@@ -181,6 +183,12 @@ class Profile extends Component {
                                             myFollowing={myFollowing}
                                             onCrash={this.onCrash}
                                         /> : null}
+
+                            {follower ? userFollowers==='empty' ? <p>No Followers Found</p> : <UserFollowers 
+                                            followerId={followerId}
+                                            userFollowers={userFollowers}
+                                            onCrash={this.onCrash}
+                                        />:null}
                         </div>
                     </div>
 
