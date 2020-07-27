@@ -7,7 +7,8 @@ class MultiSelectDropdown extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            data: props.data.slice()
+            data: props.data.slice(),
+            value: props.value
         };
     }
 
@@ -18,11 +19,24 @@ class MultiSelectDropdown extends React.Component {
         });
     }
 
+    // get this method to the parent component
+    handleChange = (event) => {
+        this.setState({
+            value: event.target.value
+        });
+    }
+
     render() {
+        const { data, value } = this.state;
+        const { textField, filter, dataItemKey } = this.props
         return (
             <MultiSelect
-                data={this.state.data}
-                filterable={this.props.filter}
+                data={data}
+                value={value}
+                onChange={this.handleChange}
+                textField={textField}
+                dataItemKey={dataItemKey}
+                filterable={filter}
                 onFilterChange={this.filterChange}
             />
         );
