@@ -22,6 +22,7 @@ class Profile extends Component {
             userExperience: [],
             userFollowing: [],
             userFollowers: [],
+            userReviews: [],
             followingId: [],
             followerId: [],
             myFollowing: [],
@@ -42,7 +43,7 @@ class Profile extends Component {
         await UserService.getUserProfileData(data.id)
         .then((res)=>{
             this.setState({userData: res.data.data, userExperience: res.data.user_experience, rolesData: res.data.user_roles});
-            console.log("user details: ", res.data.data);
+            // console.log("user details: ", res.data);
         }).catch((e)=>console.error("error: "+ e));
 
         await UserService.getUserProfileAlbum(data.id)
@@ -77,8 +78,13 @@ class Profile extends Component {
                     })
                 })
             })
-        })
+        }).catch((e)=>console.error("error: "+ e))
 
+        await UserService.getUserProfileReview(data.id)
+        .then((res) => {
+            //this.setState({userReviews: res.data})
+            console.log('userReview', res)
+        })
         
         .then(() => hideLoader());
         hideLoader();
@@ -120,7 +126,7 @@ class Profile extends Component {
     }
 
     render(){
-        const {albums, post, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers} = this.state;
+        const {albums, post, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website} = this.state;
         const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
         return(
             <div className='h100p scrolling'>
@@ -175,6 +181,7 @@ class Profile extends Component {
                                             marital_status={marital_status}
                                             phone_1={phone_1}
                                             rolesData={rolesData}
+                                            website={website}
                                     /> : null}
 
                             {following ? userFollowing==='empty' ? <p>No Following Found</p> : <UserFollowing

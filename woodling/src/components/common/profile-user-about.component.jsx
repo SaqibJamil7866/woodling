@@ -1,15 +1,15 @@
 import React from 'react';
 
 const UserAbout = (props) => {
-    const {rolesData, full_name, email, address, date_of_birth, gender, marital_status, phone_1} = props;
+    const {rolesData, full_name, email, address, date_of_birth, gender, marital_status, phone_1, website} = props;
     console.log(rolesData)
     return ( 
         <div>
             <div className='clr__white d-flex justify-content-center p10'>
                 {/* <button className="skills-text">Producer</button> */}
-                {rolesData.map((i, index) => {
+                {rolesData ? rolesData.map((i, index) => {
                     return <button disabled className="roles-text ml10 mr10">{i.name}</button>
-                })}
+                }) : null}
                 {/* <button className="skills-text">Videographer</button> */}
             </div>
             <div className='d-flex justify-content-center'>
@@ -24,16 +24,16 @@ const UserAbout = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-md-6'>
+                    {website ? <div className='col-md-6'>
                         <div className='clr__white h150 mt20'>
                             <div className='about-icon'>
                                 <i className='fa fa-globe fs20' />
                             </div>
                             <div className='d-flex justify-content-center align-item h100p'>
-                                <p><b>{email}</b></p>
+                                <p><b>{website}</b></p>
                             </div>
                         </div>
-                    </div>
+                    </div> : null}
                     <div className='col-md-6'>
                         <div className='clr__white h150 mt20'>
                             <div className='about-icon'>

@@ -15,7 +15,10 @@ export const getPostTaggedUsersUrl = `${baseUrl}/fetch-post-tagged-users.php`;
 export const getUserProfileUrl = `${baseUrl}/fetch-user-profile.php`;
 
 //User Album endpoints
-export const getUserProfileAlbumUrl = `${baseUrl}/fetch-user-profile-album.php`
+export const getUserProfileAlbumUrl = `${baseUrl}/fetch-user-profile-album.php`;
+
+//userReview endpoints
+export const getUserProfileReviewUrl = `${baseUrl}/fetch-user-review.php`;
 
 // follow endpoints
 export const getUserFollowingUrl = `${baseUrl}/fetch-user-following.php`;
