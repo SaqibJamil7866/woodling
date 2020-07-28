@@ -1,5 +1,5 @@
 const baseUrl = 'http://3.133.7.18/woodlig_jwt/controllers/mobile/';
-const locationUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/'
+const locationUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/';
 
 export const siteUrl = 'http://3.133.7.18/woodlig_jwt/';
 

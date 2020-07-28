@@ -10,7 +10,7 @@ export const CastingCallService = {
 
 function getLocation(location) {
     return new Promise((resolve, reject) => {
-         axios.get(getLocationUrl+'?key=AIzaSyAtMIt9Kf_GXjGuTrQHyqUiXnl4Ri0lU9E&input='+location)
+         axios.get(getLocationUrl+'?key=AIzaSyALASmPhIDmvRTBX1hVIk4nacE_gd93qt0&input='+location)
          .then(res => {
             resolve(res);
           }).catch(e => {

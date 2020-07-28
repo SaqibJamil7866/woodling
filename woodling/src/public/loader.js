@@ -10,6 +10,8 @@ export function showLoader(el, tmOut){
         document.getElementById('loading').style.width = el.width();
     }
     document.getElementById('loading').style.display = "block";
+    document.getElementById('loading').style.width = "100%";
+    document.getElementById('loading').style.height = "100%";
 
 
     if(!tmOut){
