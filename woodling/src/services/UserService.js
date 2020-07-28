@@ -7,7 +7,7 @@ import { getUserProfileUrl, getUserProfileAlbumUrl, getUserProfileReviewUrl} fro
 export const UserService = {
 	getUserProfileData,
 	getUserProfileAlbum,
-	getUserProfileReview
+	getUserProfileReview,
 };
 
 function getUserProfileData(id) { 

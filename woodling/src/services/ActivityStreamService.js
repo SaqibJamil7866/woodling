@@ -1,10 +1,10 @@
   
 import axios from 'axios';
 import {AuthService} from './AuthService';
-import { activityStreamUrl, activityDetailsUrl, getPostTaggedUsersUrl } from '../public/endpoins';
+import { activityStreamUrl, activityDetailsUrl, getPostTaggedUsersUrl, getTagPeopleUrl } from '../public/endpoins';
 
 export const ActivityStreamService = {
-   getActivityStreams, getActivityDetails, getPostTaggedUsers     
+   getActivityStreams, getActivityDetails, getPostTaggedUsers, getTagPeople 
 };
 
 function getActivityStreams(page) { 
@@ -44,4 +44,16 @@ function getPostTaggedUsers(postId) {
 	});
 }
 
- 
+function getTagPeople() {
+	return new Promise((resolve, reject) => {
+		const url = getTagPeopleUrl+"?user_id="+AuthService.getUserId();
+		axios.get(url)
+		.then((res) => {
+			console.log('ress', res)
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}

@@ -82,7 +82,7 @@ class Profile extends Component {
 
         await UserService.getUserProfileReview(data.id)
         .then((res) => {
-            //this.setState({userReviews: res.data})
+            //this.setState({userReviews: res.data.user_review})
             console.log('userReview', res)
         })
         

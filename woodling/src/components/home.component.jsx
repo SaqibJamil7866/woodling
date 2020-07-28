@@ -14,6 +14,7 @@ function Home() {
     const initialState ={
         posts:[],
         followers: [],
+        tagPeople: [],
         showModal: false
     }
 
@@ -25,7 +26,7 @@ function Home() {
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { posts, followers, showModal } = state;
+    const { posts, followers, showModal, tagPeople } = state;
 
     const openImageModal = () => {
         dispatch({field: 'showModal', value: true})
@@ -43,11 +44,11 @@ function Home() {
 
     useEffect(() => {
         showLoader();
-        Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers()])
+        Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers(), ActivityStreamService.getTagPeople()])
         .then((res)=>{            
             if(res[0].status !== 'error'){
                 dispatch({field: 'posts', value: res[0].data.data});
-                console.log(res[0].data.data)
+                // console.log(res[0].data.data)
             }else { 
                 ToastsStore.error(res[0].message); 
             }
@@ -55,6 +56,12 @@ function Home() {
                 dispatch({field: 'followers', value: res[1].data.data});
             }else { 
                 ToastsStore.error(res[1].message); 
+            }
+            if(res[2].status !== 'error') {
+                dispatch({field: 'tagPeople', value: res[2].data.data})
+                // console.log('tag people',res[2].data.data)
+            }else { 
+                ToastsStore.error(res[2].message); 
             }
         })
         .catch((e)=>console.error("error: "+ e))
@@ -89,6 +96,7 @@ function Home() {
                                 openStatusUploadModal={openStatusUploadModal}
                                 closeStatusUploadModal={closeStatusUploadModal}
                                 posts={posts}
+                                tagPeople={tagPeople}
                             /> : null}</div>
         </div>
     );

@@ -1934,3 +1934,18 @@ p.sdate {
 .premium-border {
   border: 3px solid #ee0202;
 }
+
+.tag-icon {
+  border-right: 1px solid #5F6772;
+  background: #484d54;
+  color: #000000;
+  min-width: 50px;
+  font-size: 20px;
+  padding-bottom: 17px;
+  padding-top: 10.1px;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
