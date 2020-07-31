@@ -1809,6 +1809,13 @@ p.sdate {
   justify-content: center;
 }
 
+/* multiselect style */
+.k-reset {
+  z-index: 1100 !important;
+}
+
+/* end multiselect style */
+
 .p17 {
   padding-left: 17px !important;
   padding-right: 17px !important;

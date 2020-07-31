@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React from 'react';
 import { ToastsStore } from 'react-toasts';
 import { Carousel } from 'react-bootstrap';
@@ -22,7 +23,7 @@ class PostImageDetailsModelContent extends React.Component {
     componentDidMount() {
         Promise.all([ActivityStreamService.getPostTaggedUsers( this.props.postData.post_id)])
         .then((res)=>{
-            if(res[0].status != 'error'){
+            if(res[0].status !== 'error'){
                 if(res[0].data.tagged_users.length > 0){
                     this.setState({postTaggedUsers: res[0].data.tagged_users,sliderLoad:false});
                 }
