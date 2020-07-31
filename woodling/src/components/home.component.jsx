@@ -45,7 +45,7 @@ function Home() {
     useEffect(() => {
         showLoader();
         Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers(), ActivityStreamService.getTagPeople()])
-        .then((res)=>{            
+        .then((res)=>{
             if(res[0].status !== 'error'){
                 dispatch({field: 'posts', value: res[0].data.data});
                  console.log('post',res[0].data.data)
@@ -59,7 +59,6 @@ function Home() {
             }
             if(res[2].status !== 'error') {
                 dispatch({field: 'tagPeople', value: res[2].data.data})
-                // console.log('tag people',res[2].data.data)
             }else { 
                 ToastsStore.error(res[2].message); 
             }

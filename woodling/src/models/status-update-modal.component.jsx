@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, {Component} from 'react';
 import {Modal} from 'react-bootstrap';
 import { siteUrl } from '../public/endpoins';
@@ -9,9 +10,9 @@ import { filterBy } from '@progress/kendo-data-query';
 
 class StatusUpload extends React.Component {
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
-            data: props.tagPeople,
+            // data: props.tagPeople.slice(),
             value: []
         };
     }
@@ -63,7 +64,6 @@ class StatusUpload extends React.Component {
                                     filterChange={this.filterChange}
                                     handleChange={this.handleChange}
                                     value={this.state.value}
-                                    data={this.state.data}
                                     textField="title" 
                                     dataItemKey="id" 
                                     filter={true}

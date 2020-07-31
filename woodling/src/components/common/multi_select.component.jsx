@@ -4,31 +4,24 @@ import { filterBy } from '@progress/kendo-data-query';
 import '@progress/kendo-theme-default/dist/all.css';
 
 class MultiSelectDropdown extends React.Component {
-    // constructor(props){
-    //     super(props)
-    //     this.state = {
-    //         data: props.data.slice(),
-    //         value: props.value
-    //     };
-    // }
+    constructor(props){
+        super(props)
+        this.state = {
+            data: props.data.slice()
+        };
+    }
 
 
-    // filterChange = (event) => {
-    //     this.setState({
-    //         data: filterBy(this.props.data.slice(), event.filter)
-    //     });
-    // }
-
-    // // get this method to the parent component
-    // handleChange = (event) => {
-    //     this.setState({
-    //         value: event.target.value
-    //     });
-    // }
+    filterChange = (event) => {
+        this.setState({
+            data: filterBy(this.props.data.slice(), event.filter)
+        });
+    }
 
     render() {
-        // const { data, value } = this.state;
-        const { textField, filter, dataItemKey, data, value, filterChange, handleChange } = this.props
+        const { data } = this.state;
+        const { textField, filter, dataItemKey, value, handleChange } = this.props;
+        console.log('data: ', data, textField, dataItemKey);
         return (
             <MultiSelect
                 data={data}
@@ -37,7 +30,7 @@ class MultiSelectDropdown extends React.Component {
                 textField={textField}
                 dataItemKey={dataItemKey}
                 filterable={filter}
-                onFilterChange={filterChange}
+                onFilterChange={this.filterChange}
             />
         );
     }
