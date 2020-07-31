@@ -6,7 +6,7 @@ const TagAndLoc = (props) => {
     return ( 
         <div>
             <i className='fa fa-user tag-icon'>Tag People</i>
-            <input type="search" placeholder='tag' name="search" className='border-radius' />
+            {/* <input type="search" placeholder='tag' name="search" className='border-radius' /> */}
             <MultiSelectDropdown 
                 data={data} 
                 value={value} 

@@ -48,7 +48,7 @@ function Home() {
         .then((res)=>{            
             if(res[0].status !== 'error'){
                 dispatch({field: 'posts', value: res[0].data.data});
-                // console.log(res[0].data.data)
+                 console.log('post',res[0].data.data)
             }else { 
                 ToastsStore.error(res[0].message); 
             }

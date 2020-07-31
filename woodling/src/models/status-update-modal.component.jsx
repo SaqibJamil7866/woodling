@@ -5,12 +5,13 @@ import { AuthService } from '../services/AuthService';
 import TagAndLoc from '../components/common/home-modal-inputfields.component';
 import { MultiSelect } from '@progress/kendo-react-dropdowns';
 import { filterBy } from '@progress/kendo-data-query';
+// import '@progress/kendo-theme-default/dist/all.css';
 
 class StatusUpload extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            data: props.tagPeople.slice(),
+            data: props.tagPeople,
             value: []
         };
     }
@@ -31,6 +32,7 @@ class StatusUpload extends React.Component {
         });
     }
     render() {
+        console.log(this.props.posts)
         return ( 
             <Modal
                 size="lg"

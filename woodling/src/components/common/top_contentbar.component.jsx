@@ -32,7 +32,7 @@ function TopContentBar(props) {
                     <CartIcon height="35px" width="35px" className="mr10 mt3"/>
                 </span>
             </span>
-            <MultiSelectDropdown data={temp} value={value} textField="text" dataItemKey="id" filter={true} />
+            {/* <MultiSelectDropdown data={temp} value={value} textField="text" dataItemKey="id" filter={true} /> */}
         </div>
     );
 }

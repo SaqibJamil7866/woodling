@@ -49,7 +49,7 @@ function getTagPeople() {
 		const url = getTagPeopleUrl+"?user_id="+AuthService.getUserId();
 		axios.get(url)
 		.then((res) => {
-			console.log('ress', res)
+			// console.log('tagp', res)
 			resolve(res);
 		})
 		.catch((error) => {
