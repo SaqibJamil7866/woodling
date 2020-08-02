@@ -21,9 +21,15 @@ export const getUserProfileAlbumUrl = `${baseUrl}/fetch-user-profile-album.php`;
 //userReview endpoints
 export const getUserProfileReviewUrl = `${baseUrl}/fetch-user-review.php`;
 
+//userPost endpoints
+export const getUserPostsUrl = `${baseUrl}/fetch-user-posts.php`;
+
 // follow endpoints
 export const getUserFollowingUrl = `${baseUrl}/fetch-user-following.php`;
 export const getUserFollowersUrl = `${baseUrl}/fetch-user-followers.php`;
+
+//add review endpoints
+export const addReviewUrl = `${baseUrl}/add-review.php`
 
 // comments endpoints
 export const getCommentsUrl = `${baseUrl}/fetch-post-comments.php`;

@@ -8,6 +8,7 @@ import { siteUrl } from '../public/endpoins';
 import ProfilePicHeader from './common/profile-header.component';
 import UserExperience from './common/profile-user-experience.component';
 import UserAlbum from './common/profile-user-album.component';
+import Post from './common/post.component';
 import UserAbout from './common/profile-user-about.component';
 import UserFollowing from './common/profile-user-following.component';
 import UserFollowers from './common/profile-user-followers.component';
@@ -20,9 +21,10 @@ class Profile extends Component {
             rolesData: [],
             userAlbum: [],
             userExperience: [],
+            userReviews: [],
+            userPosts: [],
             userFollowing: [],
             userFollowers: [],
-            userReviews: [],
             followingId: [],
             followerId: [],
             myFollowing: [],
@@ -83,9 +85,14 @@ class Profile extends Component {
         await UserService.getUserProfileReview(data.id)
         .then((res) => {
             //this.setState({userReviews: res.data.user_review})
-            console.log('userReview', res)
-        })
+            //console.log('userReview', res)
+        }).catch((e)=>console.error("error: "+ e))
         
+        await UserService.getUserPost(data.id)
+        .then((res) => {
+            this.setState({userPosts: res.data.data})
+        }).catch((e)=>console.error("error: "+ e))
+
         .then(() => hideLoader());
         hideLoader();
     }
@@ -126,7 +133,7 @@ class Profile extends Component {
     }
 
     render(){
-        const {albums, post, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website} = this.state;
+        const {albums, post, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts} = this.state;
         const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
         return(
             <div className='h100p scrolling'>
@@ -141,6 +148,10 @@ class Profile extends Component {
                                 username={username}
                                 full_name={full_name}
                                 bio={bio}
+                                userModal={userModal}
+                                openModal={this.openModal}
+                                closeModal={this.closeModal}
+                                id={history.location.state.data.id}
                             />
                         </div>
                         <div className='border-bottom'>
@@ -169,9 +180,19 @@ class Profile extends Component {
                                             closeModal={this.closeModal}
                                             userModalData={userModalData}
                                         /> : null}
+
                             {albums ? userAlbum==='empty' ?<p>No Albums found</p> : <UserAlbum 
                                         userAlbum={userAlbum}
                                     /> : null}
+
+                            {post  ? userPosts==='empty' ? <p>No Post Found</p> 
+                                    : <Post 
+                                        posts={userPosts} 
+                                        profile_picture={profile_picture}
+                                        onCrash={this.onCrash}
+                                    />
+                                    : null}
+
                             {about ? <UserAbout 
                                             full_name={full_name}
                                             email={email}

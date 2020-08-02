@@ -2,12 +2,14 @@
   
 import axios from 'axios';
 import {AuthService} from './AuthService';
-import { getUserProfileUrl, getUserProfileAlbumUrl, getUserProfileReviewUrl} from '../public/endpoins';
+import { getUserProfileUrl, getUserProfileAlbumUrl, getUserProfileReviewUrl, getUserPostsUrl, addReviewUrl} from '../public/endpoins';
 
 export const UserService = {
 	getUserProfileData,
 	getUserProfileAlbum,
 	getUserProfileReview,
+	getUserPost,
+	addReview
 };
 
 function getUserProfileData(id) { 
@@ -47,4 +49,29 @@ function getUserProfileReview(id) {
 			reject(error);
 		})
 	}))
+}
+
+function getUserPost(id) {
+	return new Promise((resolve, reject) => {
+		const url = getUserPostsUrl+"?user_id="+AuthService.getUserId()+"&user_profile_id="+id;
+		axios.get(url)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}
+
+function addReview(params) {
+	return new Promise((resolve, reject) => {
+		axios.post(addReviewUrl, params)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
 }

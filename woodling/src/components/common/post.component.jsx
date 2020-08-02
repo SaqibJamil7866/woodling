@@ -2,12 +2,14 @@
 /* eslint-disable react/jsx-indent */
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { siteUrl } from '../../public/endpoins';
 import { ReactComponent as DotCircleIcon } from '../../assets/dot-circle.svg';
 import { ReactComponent as ShareIcon } from '../../assets/share-alt.svg';
 import { ReactComponent as LinkIcon } from '../../assets/link.svg';
 import PostImageDetailsModelContent from '../../models/post_image_details.model';
 
 function Post(props) {
+
     const [postDetailData, setPostDetailData] = useState({showModal:false, postData: 'love', postType: ''});
 
     function openDetailsModal(postData, type){
@@ -24,13 +26,14 @@ function Post(props) {
                 props.posts.map((prop, index, arr) => {
                 return (
                     <div onClick={()=>openDetailsModal(prop,'single-image')} key={prop.post_id} className={`mt30 top-content-bar container row ${arr.length -1 === index ? "": "mb100"}`} style={{width: '700px'}}>
-                        <div className="col-md-6">
+                        <div className={prop.path ? "col-md-6" : 'col-md-10'}>
                             <div className="p-3-0">
-                                <img className="brad-40" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
-                                <span>{prop.full_name}</span>
+                                <img style={{width: '15%'}} className="brad-40" src={props.profile_picture ? siteUrl+""+props.profile_picture : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'}  alt="authore pic"/>
+                                <span>@{prop.username}</span>
                             </div>
                             <div className="min-h80">
-                                {prop.caption}
+                                <p><b>{prop.caption}</b></p>
+                                <p>{prop.body}</p>
                             </div>
                             <div className="border-top">
                                 <span className="mr20 red">
@@ -43,9 +46,9 @@ function Post(props) {
                                 </span>
                             </div>
                         </div>
-                        <div className="col-md-6 p0">
+                        <div className={prop.path ? "col-md-6 p0" : 'col-md-2'}>
                             <div className="">
-                                <img className="brad-10 post-image absolute" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
+                                {prop.path!==null ? <img onError={props.onCrash} className="brad-10 post-image absolute" src={siteUrl+""+prop.path}  alt="authore pic"/> : null}
                             </div>
                             <div className="float-right">
                                 <DotCircleIcon className="profile-icons" />
