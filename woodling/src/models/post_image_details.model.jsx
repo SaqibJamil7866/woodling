@@ -3,7 +3,7 @@ import React from 'react';
 import { ToastsStore } from 'react-toasts';
 import { Carousel } from 'react-bootstrap';
 import Moment from 'react-moment';
-import { siteUrl } from '../public/endpoins';
+import { siteUrl, picUrl } from '../public/endpoins';
 import PostCommentComponent from '../components/common/post_comment.component';
 import { ActivityStreamService } from '../services/ActivityStreamService';
  
@@ -45,7 +45,7 @@ class PostImageDetailsModelContent extends React.Component {
             // postImage = activityMedia.map((media,index)=>{  
             //     return <img src={siteUrl+""+media.path} />;
             // });
-            postImage = <img src={siteUrl+""+this.props.postData.path} />;
+            postImage = <img src={picUrl+""+this.props.postData.path} />;
         }
 
         taggedUsers = postTaggedUsers.map((tuser)=>{  

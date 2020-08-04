@@ -60,7 +60,6 @@ class ProfileRating extends Component {
                 centered
                 show={this.props.openModal}
                 onHide={this.props.closeModal}
-                onSubmit={hide ? this.props.closeModal : null}
             >
                 <Modal.Header>
                     <div className='d-flex w100p space-between align-item'>

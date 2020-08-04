@@ -2,6 +2,7 @@ const baseUrl = 'http://3.133.7.18/woodlig_jwt/controllers/mobile/';
 const locationUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/';
 
 export const siteUrl = 'http://3.133.7.18/woodlig_jwt/';
+export const picUrl = 'http://3.133.7.18/'
 
 // auth endpoints
 export const loginUrl = `${baseUrl}/login.php`;
@@ -23,6 +24,9 @@ export const getUserProfileReviewUrl = `${baseUrl}/fetch-user-review.php`;
 
 //userPost endpoints
 export const getUserPostsUrl = `${baseUrl}/fetch-user-posts.php`;
+
+//user Tag Post endpoints
+export const getUserTagPostUrl = `${baseUrl}/fetch-user-tagged-posts.php`;
 
 // follow endpoints
 export const getUserFollowingUrl = `${baseUrl}/fetch-user-following.php`;

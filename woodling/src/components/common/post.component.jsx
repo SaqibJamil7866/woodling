@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-indent */
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { siteUrl } from '../../public/endpoins';
+import { siteUrl, picUrl } from '../../public/endpoins';
 import { ReactComponent as DotCircleIcon } from '../../assets/dot-circle.svg';
 import { ReactComponent as ShareIcon } from '../../assets/share-alt.svg';
 import { ReactComponent as LinkIcon } from '../../assets/link.svg';
@@ -48,7 +48,7 @@ function Post(props) {
                         </div>
                         <div className={prop.path ? "col-md-6 p0" : 'col-md-2'}>
                             <div className="">
-                                {prop.path!==null ? <img onError={props.onCrash} className="brad-10 post-image absolute" src={siteUrl+""+prop.path}  alt="authore pic"/> : null}
+                                {prop.path!==null ? <img onError={props.onCrash} className="brad-10 post-image absolute" src={picUrl+""+prop.path}  alt="authore pic"/> : null}
                             </div>
                             <div className="float-right">
                                 <DotCircleIcon className="profile-icons" />

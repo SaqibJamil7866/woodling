@@ -23,6 +23,7 @@ class Profile extends Component {
             userExperience: [],
             userReviews: [],
             userPosts: [],
+            userTags: [],
             userFollowing: [],
             userFollowers: [],
             followingId: [],
@@ -30,11 +31,13 @@ class Profile extends Component {
             myFollowing: [],
             albums: true,
             post: false,
+            tag: false,
             experience: false,
             about: false,
             following: false,
             follower: false,
             userModal: false,
+            ratingModal: false,
             userModalData: {}
         }
     }
@@ -93,6 +96,12 @@ class Profile extends Component {
             this.setState({userPosts: res.data.data})
         }).catch((e)=>console.error("error: "+ e))
 
+        await UserService.getUserTagPost(data.id)
+        .then((res) => {
+            console.log('tag post',res.data.data)
+            this.setState({userTags: res.data.data});
+        }).catch((e)=>console.error("error: "+ e))
+
         .then(() => hideLoader());
         hideLoader();
     }
@@ -102,27 +111,39 @@ class Profile extends Component {
     }
 
     openAlbumLink = () => {
-        this.setState({albums: true, post: false, experience: false, about: false, following: false, follower: false});
+        this.setState({albums: true, post: false, tag: false, experience: false, about: false, following: false, follower: false});
     }
 
     openPostLink = () => {
-        this.setState({post: true, albums: false, experience: false, about: false, following: false, follower: false});
+        this.setState({post: true, albums: false, tag: false, experience: false, about: false, following: false, follower: false});
+    }
+
+    openTagLink = () => {
+        this.setState({tag: true, albums: false, post: false, experience: false, about: false, following: false, follower: false})
     }
 
     openExperienceLink = () => {
-        this.setState({experience: true, albums: false, post: false, about: false, following: false, follower: false});
+        this.setState({experience: true, albums: false, post: false, tag: false, about: false, following: false, follower: false});
     }
 
     openAboutLink = () => {
-        this.setState({about: true, albums: false, post: false, experience: false, following: false, follower: false});
+        this.setState({about: true, albums: false, post: false, tag: false, experience: false, following: false, follower: false});
     }
 
     openFollowingLink = () => {
-        this.setState({following: true, albums: false, post: false, experience: false, about: false, follower: false})
+        this.setState({following: true, albums: false, post: false, tag: false, experience: false, about: false, follower: false})
     }
 
     openFollowerLink = () => {
-        this.setState({follower: true, albums: false, post: false, experience: false, about: false, following: false})
+        this.setState({follower: true, albums: false, post: false, tag: false, experience: false, about: false, following: false})
+    }
+
+    openRatingModal = () => {
+        this.setState({ratingModal: true});
+    }
+    
+    closeRatingModal = () => {
+        this.setState({ratingModal: false});
     }
 
     openModal = (data) => {
@@ -133,7 +154,7 @@ class Profile extends Component {
     }
 
     render(){
-        const {albums, post, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts} = this.state;
+        const {albums, post, tag, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts, ratingModal,userTags} = this.state;
         const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
         return(
             <div className='h100p scrolling'>
@@ -148,9 +169,9 @@ class Profile extends Component {
                                 username={username}
                                 full_name={full_name}
                                 bio={bio}
-                                userModal={userModal}
-                                openModal={this.openModal}
-                                closeModal={this.closeModal}
+                                userModal={ratingModal}
+                                openModal={this.openRatingModal}
+                                closeModal={this.closeRatingModal}
                                 id={history.location.state.data.id}
                             />
                         </div>
@@ -158,7 +179,7 @@ class Profile extends Component {
                             <ul className='no-text-decoration d-flex space-evenly p0 mb0'>
                                 <li className={albums ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openAlbumLink}>Albums</li>
                                 <li className={post ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openPostLink}>{post_count} Posts</li>
-                                <li className='p10'>{tag_count} Tags</li>
+                                <li className={tag ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openTagLink}>{tag_count} Tags</li>
                                 <li className='p10'>{rating_count} Ratings</li>
                                 <li className={about ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openAboutLink}>About</li>
                                 <li className={experience ? 'p10 clr__red border-top-bottom pointer' : 'p10 pointer'} onClick={this.openExperienceLink}>Experience</li>
@@ -192,6 +213,13 @@ class Profile extends Component {
                                         onCrash={this.onCrash}
                                     />
                                     : null}
+
+                            {tag ? userTags==='empty' ? <p>No Tags Found</p> 
+                                    : <Post 
+                                        posts={userTags}
+                                        profile_picture={profile_picture}
+                                        onCrash={this.onCrash}
+                                    /> : null}
 
                             {about ? <UserAbout 
                                             full_name={full_name}
