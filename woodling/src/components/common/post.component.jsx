@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-indent */
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { siteUrl, picUrl } from '../../public/endpoins';
+import { picUrl } from '../../public/endpoins';
 import { ReactComponent as DotCircleIcon } from '../../assets/dot-circle.svg';
 import { ReactComponent as ShareIcon } from '../../assets/share-alt.svg';
 import { ReactComponent as LinkIcon } from '../../assets/link.svg';
@@ -28,7 +28,7 @@ function Post(props) {
                     <div onClick={()=>openDetailsModal(prop,'single-image')} key={prop.post_id} className={`mt30 top-content-bar container row ${arr.length -1 === index ? "": "mb100"}`} style={{width: '700px'}}>
                         <div className={prop.path ? "col-md-6" : 'col-md-10'}>
                             <div className="p-3-0">
-                                <img style={{width: '15%'}} className="brad-40" src={props.profile_picture ? siteUrl+""+props.profile_picture : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'}  alt="authore pic"/>
+                                <img style={{width: '15%'}} className="brad-40 h45" src={prop.profile_thumb ? picUrl+prop.profile_thumb : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} alt="authore pic" />
                                 <span>@{prop.username}</span>
                             </div>
                             <div className="min-h80">
@@ -48,7 +48,7 @@ function Post(props) {
                         </div>
                         <div className={prop.path ? "col-md-6 p0" : 'col-md-2'}>
                             <div className="">
-                                {prop.path!==null ? <img onError={props.onCrash} className="brad-10 post-image absolute" src={picUrl+""+prop.path}  alt="authore pic"/> : null}
+                                {prop.path!==null ? <img onError={props.onCrash} className="brad-10 post-image absolute" src={picUrl+prop.path} alt="authore pic" /> : null}
                             </div>
                             <div className="float-right">
                                 <DotCircleIcon className="profile-icons" />

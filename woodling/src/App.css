@@ -224,6 +224,9 @@ html, body, #root {
 .h40{
   height: 40px;
 }
+.h45{
+  height: 45px;
+}
 .h230{
   height: 230px;
 }
@@ -353,6 +356,10 @@ html, body, #root {
 
 .brad-10{
   border-radius: 10px;
+}
+
+.brad-19{
+  border-radius: 19px !important;
 }
 
 .brad-40{

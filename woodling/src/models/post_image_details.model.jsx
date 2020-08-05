@@ -3,7 +3,7 @@ import React from 'react';
 import { ToastsStore } from 'react-toasts';
 import { Carousel } from 'react-bootstrap';
 import Moment from 'react-moment';
-import { siteUrl, picUrl } from '../public/endpoins';
+import { picUrl } from '../public/endpoins';
 import PostCommentComponent from '../components/common/post_comment.component';
 import { ActivityStreamService } from '../services/ActivityStreamService';
  
@@ -77,7 +77,7 @@ class PostImageDetailsModelContent extends React.Component {
                 <div className="custom-modal-body">
                     <div className="fullpost-header">
                     <div className="update_user_profile">
-                        <img src={require('../assets/account-circle.png')} alt="" />
+                        <img className="brad-40" src={activity.profile_thumb ? picUrl+activity.profile_thumb: 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} alt="" />
                         <p>@{activity && activity.username}</p>
                     </div>
                     <div className="post-location">
