@@ -51,7 +51,7 @@ class SideNav extends React.Component {
                   key: 4
                 },
                 {
-                    path: '/NoMatch',
+                    path: '/market_place',
                     name: 'Market Place',
                     imgsrc: (<MarketplaceIcon alt="Market icon" title="Marketplace" />),
                     key: 5

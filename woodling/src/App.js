@@ -17,6 +17,7 @@ import Profile from './components/profile.component';
 import PostedCallsAndSubmissions from './components/posted_calls-and-my_submissions';
 import PostingCallsForm from './components/posting-calls-form.component';
 import MyProfile from './components/my_profile.component';
+import MarketPlace from './components/market_place.component';
 
 function Main(props) {
 
@@ -34,6 +35,7 @@ function Main(props) {
           <SecuredRoute exact path='/casting_calls/post-a-casting-calls' component={PostingCallsForm} />
           <SecuredRoute path='/search_talent' component={SearchTalent} />
           <SecuredRoute path='/user_profile' component={Profile} />
+          <SecuredRoute path='/market_place' component={MarketPlace}/>
         </Switch>
         
       </aside>

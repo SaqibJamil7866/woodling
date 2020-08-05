@@ -868,6 +868,14 @@ button[name='searchSubmit'] {
   font-size: 20px;
 }
 
+.fs15 {
+  font-size: 15px;
+}
+
+.h270 {
+  height: 270px !important;
+}
+
 .border-bottom {
   border-bottom: 1px solid #F2F2F2;
 }
@@ -2018,4 +2026,23 @@ p.sdate {
 
 .padding-right-40 {
   padding-right: 40px;
+}
+.modal-90w {
+  max-width: 55% !important;
+}
+
+.w30 {
+  width: 30%;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.p25 {
+  padding: 25px;
+}
+
+.fw600 {
+  font-weight: 600;
 }

@@ -40,7 +40,8 @@ class Profile extends Component {
             follower: false,
             userModal: false,
             ratingModal: false,
-            userModalData: {}
+            userModalData: {},
+            status: ''
         }
     }
 
@@ -49,18 +50,18 @@ class Profile extends Component {
         const data = history.location.state.data;
         await UserService.getUserProfileData(data.id)
         .then((res)=>{
-            this.setState({userData: res.data.data, userExperience: res.data.user_experience, rolesData: res.data.user_roles});
+            this.setState({userData: res.data.data, userExperience: res.data.user_experience, rolesData: res.data.user_roles, status: res.data.status});
             // console.log("user details: ", res.data);
         }).catch((e)=>console.error("error: "+ e));
 
         await UserService.getUserProfileAlbum(data.id)
         .then((res) => {
-            this.setState({userAlbum: res.data.albums})
+            this.setState({userAlbum: res.data.albums, status: res.data.status})
         }).catch((e)=>console.error("error: "+ e))
 
         await FollowService.getUSerFollowings(data.id)
         .then((res) => {
-            this.setState({userFollowing: res.data.data}, () => {
+            this.setState({userFollowing: res.data.data, status: res.data.status}, () => {
                 this.state.userFollowing.map((i, index) => {
                     UserService.getUserProfileData(i.id)
                     .then((res)=>{
@@ -72,12 +73,12 @@ class Profile extends Component {
 
         await FollowService.getUSerFollowings()
         .then((res) => {
-            this.setState({myFollowing: res.data.data})
+            this.setState({myFollowing: res.data.data, status: res.data.status})
         }).catch((e)=>console.error("error: "+ e))
 
         await FollowService.getUSerFollowiers(data.id)
         .then((res) => {
-            this.setState({userFollowers: res.data.data}, () => {
+            this.setState({userFollowers: res.data.data, status: res.data.status}, () => {
                 this.state.userFollowers.map((i, index) => {
                     UserService.getUserProfileData(i.id)
                     .then((res) => {
@@ -89,18 +90,18 @@ class Profile extends Component {
 
         await UserService.getUserProfileReview(data.id)
         .then((res) => {
-            this.setState({userReviews: res.data.user_review})
+            this.setState({userReviews: res.data.user_review, status: res.data.status})
             console.log('userReview', res)
         }).catch((e)=>console.error("error: "+ e))
         
         await UserService.getUserPost(data.id)
         .then((res) => {
-            this.setState({userPosts: res.data.data})
+            this.setState({userPosts: res.data.data, status: res.data.status})
         }).catch((e)=>console.error("error: "+ e))
 
         await UserService.getUserTagPost(data.id)
         .then((res) => {
-            this.setState({userTags: res.data.data});
+            this.setState({userTags: res.data.data, status: res.data.status});
         }).catch((e)=>console.error("error: "+ e))
 
         .then(() => hideLoader());
@@ -159,7 +160,7 @@ class Profile extends Component {
     }
 
     render(){
-        const {albums, post, tag, reviews, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts, ratingModal, userTags, userReviews} = this.state;
+        const {status, albums, post, tag, reviews, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts, ratingModal, userTags, userReviews} = this.state;
         const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
         return(
             <div className='h100p scrolling'>
@@ -198,7 +199,7 @@ class Profile extends Component {
                 <div className="row d-flex m0">
                     <div className="col-md-12 br-white pl80">
                         <div className='mt20'>
-                            {experience ? userExperience==='empty' ? <p>No Experience Found</p> 
+                            {experience ? status==='empty' ? <p>No Experience Found</p> 
                                         :<UserExperience 
                                             userExperience={userExperience} 
                                             userModal={userModal}
@@ -207,11 +208,11 @@ class Profile extends Component {
                                             userModalData={userModalData}
                                         /> : null}
 
-                            {albums ? userAlbum==='empty' ?<p>No Albums found</p> : <UserAlbum 
+                            {albums ? status==='empty' ?<p>No Albums found</p> : <UserAlbum 
                                         userAlbum={userAlbum}
                                     /> : null}
 
-                            {post  ? userPosts==='empty' ? <p>No Post Found</p> 
+                            {post  ? status==='empty' ? <p>No Post Found</p> 
                                     : <Post 
                                         posts={userPosts} 
                                         profile_picture={profile_picture}
@@ -219,14 +220,14 @@ class Profile extends Component {
                                     />
                                     : null}
 
-                            {tag ? userTags==='empty' ? <p>No Tags Found</p> 
+                            {tag ? status==='empty' ? <p>No Tags Found</p> 
                                     : <Post 
                                         posts={userTags}
                                         profile_picture={profile_picture}
                                         onCrash={this.onCrash}
                                     /> : null}
                             
-                            {reviews ? userReviews==='empty' ? <p>No Rating Found</p> 
+                            {reviews ? status==='empty' ? <p>No Rating Found</p> 
                                     : <Reviews 
                                         userReviews={userReviews}
                                         onCrash={this.onCrash}
@@ -244,14 +245,14 @@ class Profile extends Component {
                                             website={website}
                                     /> : null}
 
-                            {following ? userFollowing==='empty' ? <p>No Following Found</p> : <UserFollowing
+                            {following ? status==='empty' ? <p>No Following Found</p> : <UserFollowing
                                             followingId={followingId}
                                             userFollowing={userFollowing}
                                             myFollowing={myFollowing}
                                             onCrash={this.onCrash}
                                         /> : null}
 
-                            {follower ? userFollowers==='empty' ? <p>No Followers Found</p> : <UserFollowers 
+                            {follower ? status==='empty' ? <p>No Followers Found</p> : <UserFollowers 
                                             followerId={followerId}
                                             userFollowers={userFollowers}
                                             onCrash={this.onCrash}

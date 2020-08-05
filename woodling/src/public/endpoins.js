@@ -72,6 +72,13 @@ export const getUserCastingCallsUrl = `${baseUrl}/fetch-user-casting-calls.php`;
 export const roleTypeUrl = `${baseUrl}/fetch-role-type.php`;
 export const getLocationUrl = `${locationUrl}`
 
+//market place endpoints
+export const getPopularProductUrl = `${baseUrl}/search-products.php`;
+export const getFavProductUrl = `${baseUrl}/fetch-favorited-products.php`;
+export const getMyPostedPostUrl = `${baseUrl}/fetch-my-posted-adverts.php`;
+export const getPostLikeUrl = `${baseUrl}/fetch-post-likes.php`;
+export const getRelatedPostUrl = `${baseUrl}/fetch-related-products.php`
+
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",
 // UPDATE_USER_SETUP_DETAILS :"update-user-setup-details.php",
