@@ -1940,7 +1940,7 @@ p.sdate {
 }
 
 .w65 {
-  width: 65%;
+  width: 65% !important;
 }
 
 .fs12 {
@@ -1953,7 +1953,7 @@ p.sdate {
 
 .tag-icon {
   border-right: 1px solid #5F6772;
-  background: #484d54;
+  background: #CECECE;
   color: #000000;
   min-width: 50px;
   font-size: 20px;
@@ -1997,4 +1997,18 @@ p.sdate {
   position: absolute;
   color: gray;
   background-color: transparent;
+}
+
+.k-multiselect .k-multiselect-wrap:hover, .k-dropdowntree .k-multiselect-wrap:hover, .k-multiselect .k-multiselect-wrap.k-state-hover, .k-dropdowntree .k-multiselect-wrap .k-state-hover{
+  background-color: #E8E8E8 !important;
+  padding: 8px;
+}
+
+.k-multiselect .k-multiselect-wrap, .k-dropdowntree .k-multiselect-wrap {
+  background-color: #E8E8E8 !important;
+  padding: 8px !important;
+}
+
+.padding-right-40 {
+  padding-right: 40px;
 }

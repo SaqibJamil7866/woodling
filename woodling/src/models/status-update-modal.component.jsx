@@ -4,6 +4,7 @@ import {Modal} from 'react-bootstrap';
 import { siteUrl } from '../public/endpoins';
 import { AuthService } from '../services/AuthService';
 import TagAndLoc from '../components/common/home-modal-inputfields.component';
+import {CastingCallService} from '../services/CastingCallsService';
 import { MultiSelect } from '@progress/kendo-react-dropdowns';
 import { filterBy } from '@progress/kendo-data-query';
 // import '@progress/kendo-theme-default/dist/all.css';
@@ -12,14 +13,14 @@ class StatusUpload extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            // data: props.tagPeople.slice(),
-            value: []
+            formatted_address: '',
+            value: [],
+            locations: []
         };
     }
 
 
     filterChange = (event) => {
-        console.log('filterChanege', this.state.data)
         this.setState({
             data: filterBy(this.props.tagPeople.slice(), event.filter)
         });
@@ -27,13 +28,22 @@ class StatusUpload extends React.Component {
 
     // get this method to the parent component
     handleChange = (event) => {
-        console.log('handle Cahnfe')
         this.setState({
             value: event.target.value
         });
     }
+
+    handleLocation = (e) => {
+        this.setState({formatted_address: e.currentTarget.value}, () => {
+            CastingCallService.getLocation(this.state.formatted_address)
+            .then((res) => {
+                this.setState({locations: res.data.predictions}, () => {
+                    console.log(this.state.locations)
+                })
+            })
+        })
+    }
     render() {
-        console.log(this.props.posts)
         return ( 
             <Modal
                 size="lg"
@@ -67,7 +77,13 @@ class StatusUpload extends React.Component {
                                     textField="title" 
                                     dataItemKey="id" 
                                     filter={true}
+                                    formatted_address={this.state.formatted_address}
+                                    handleLocation={this.handleLocation}
+                                    locations={this.state.locations}
                                 />
+                            </div>
+                            <div className='form-group d-flex justify-content-center'>
+                                <button onClick={this.handleSubmit} className="profile-btn">Post</button>
                             </div>
                         </form>
                     </div>
