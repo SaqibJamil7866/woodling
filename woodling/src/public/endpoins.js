@@ -19,7 +19,7 @@ export const getUserProfileUrl = `${baseUrl}/fetch-user-profile.php`;
 //User Album endpoints
 export const getUserProfileAlbumUrl = `${baseUrl}/fetch-user-profile-album.php`;
 
-//userReview endpoints
+// userReview endpoints
 export const getUserProfileReviewUrl = `${baseUrl}/fetch-user-review.php`;
 
 //userPost endpoints
@@ -38,6 +38,8 @@ export const addReviewUrl = `${baseUrl}/add-review.php`
 // comments endpoints
 export const getCommentsUrl = `${baseUrl}/fetch-post-comments.php`;
 export const addCommentsUrl = `${baseUrl}/add-post-comment.php`;
+export const addCommentReplyUrl = `${baseUrl}/add-comment-reply.php`;
+export const addCommentReactionUrl = `${baseUrl}/add-comment-reaction.php`;
 
 // talent endpoints
 export const getFeaturedTalentUrl = `${baseUrl}/fetch-featured-talents.php`;

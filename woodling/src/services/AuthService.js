@@ -1,7 +1,7 @@
   
 import axios from 'axios';
 import cookie from 'react-cookies';
-import { loginUrl, getIndividualSkillsUrl, addBusinessSkillsNoUrl, siteUrl } from '../public/endpoins';
+import { loginUrl, getIndividualSkillsUrl, addBusinessSkillsNoUrl, picUrl } from '../public/endpoins';
 
 export const AuthService = {
   login, getUserId, getUserName, getSkills,
@@ -176,11 +176,11 @@ function getUserName(){
 
 function getUserProfileImage(){
 	const user = cookie.load('currnt_user');
-	var profile_picture = '';
+	let profilePicture = '';
 	if(user){
-		profile_picture = siteUrl+""+user.profile_picture; 
+		profilePicture = picUrl+""+user.profile_picture; 
 	}
-	return profile_picture;
+	return profilePicture;
 }
 // function getUserData(){
 // 	var user = JSON.parse(localStorage.getItem('user'));

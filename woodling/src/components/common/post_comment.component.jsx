@@ -2,8 +2,10 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import Moment from 'react-moment';
+import { picUrl } from '../../public/endpoins';
 import { PostCommentsService } from '../../services/PostCommentService';  
-import { AuthService } from '../../services/AuthService';  
+import { AuthService } from '../../services/AuthService';
+import convertToFloat from '../../public/helperFunctions';
  
 class PostCommentComponent extends React.Component {
     constructor(props) {
@@ -67,8 +69,28 @@ class PostCommentComponent extends React.Component {
         }
     }
 
-    render(){  
-        const {postData} = this.state;   
+    likeDislikeComment(comment){
+        try{
+            const data = {
+                user_id: AuthService.getUserId(),
+                post_id: this.state.postData.post_id,
+                comment_id: comment.comment_id,
+                reaction:  convertToFloat(comment.like_status) ? 'dislike' : 'like'
+            }
+            
+            PostCommentsService.addCommentReaction(data).then(async (res) => {
+                if(res.data.status === "success"){
+                    this.getCooments();
+                }else {
+                    console.log(res);
+                }
+            });
+        }catch(e){
+            console.log('error', e);
+        } 
+    }
+
+    render(){
         let commentsList = '';
         if(this.state.comments.length > 0 ){
             commentsList  = this.state.comments.map((item)=>{ 
@@ -76,15 +98,15 @@ class PostCommentComponent extends React.Component {
                     <li key={item.comment_id}>
                         <div className="comment-main">
                             <div className="posst_user_profile">
-                                <img src={require('../../assets/account-circle.png')} alt="profile" />
+                                <img className="brad-19" src={picUrl+item.profile_thumb} alt="profile" />
                                 <p>{item.username}</p><span className="comment-time"><Moment fromNow>{new Date(item.date_created * 1000)}</Moment></span>
                             </div>
                             <div className="comment-dec">
                                 <p>{ item.comment }</p>
                             </div>  
                             <div className="reply-like">
-                                <a href="" className="reply">Reply</a>
-                                <a href="" className="like-count"><i className="fa fa-heart"></i><span>Like ({item.likes})</span></a>
+                                <a className="reply">Reply</a>
+                                <span className="like-count"><i onClick={()=>this.likeDislikeComment(item)} className={`red fa ${ convertToFloat(item.like_status) ? 'fa-heart': 'fa-heart-o'}`} /><span className="ml5">Like ({item.likes})</span></span>
                             </div>    
                         </div>
                     </li>
@@ -97,7 +119,7 @@ class PostCommentComponent extends React.Component {
                 </div>
                 <div className="post-comment-list">
                     <div className="posst_user_profile">
-                        <img src={require('../../assets/account-circle.png')} alt="img"/>
+                        <img className="brad-19" src={AuthService.getUserProfileImage()} alt="img" />
                         <p>{AuthService.getUserName()}</p>
                     </div>
                     <div className="form-group comment-input">
