@@ -6,6 +6,7 @@ import Moment from 'react-moment';
 import { picUrl } from '../public/endpoins';
 import PostCommentComponent from '../components/common/post_comment.component';
 import { ActivityStreamService } from '../services/ActivityStreamService';
+import { MarketPlaceService } from '../services/MarketPlace';
  
 class PostImageDetailsModelContent extends React.Component {
 
@@ -17,10 +18,11 @@ class PostImageDetailsModelContent extends React.Component {
             dotPosition:'top',
             sliderLoad:false,
             postTaggedUsers:[],
+            likes: [],
         };
     }
     
-    componentDidMount() {
+    async componentDidMount() {
         Promise.all([ActivityStreamService.getPostTaggedUsers( this.props.postData.post_id)])
         .then((res)=>{
             if(res[0].status !== 'error'){
@@ -32,13 +34,19 @@ class PostImageDetailsModelContent extends React.Component {
             }
         })
         .catch((e)=>console.error("error: "+ e))
+
+        await MarketPlaceService.getPostLike(this.props.postData.post_id)
+        .then((res) => {
+            this.setState({likes: res.data.data})
+        }).catch((e)=>console.error("error: "+ e))
+
         .then(() => console.log("Hide loader"));
     }
 
     handlePositionChange = ({ target: { value: dotPosition } }) => this.setState({ dotPosition })
      
     render() {  
-        const {activity,activityMedia,dotPosition,postTaggedUsers} = this.state;
+        const {activity,activityMedia,dotPosition,postTaggedUsers, likes} = this.state;
         var postImage = '';
         var taggedUsers = '';
         if(activityMedia){
@@ -80,10 +88,10 @@ class PostImageDetailsModelContent extends React.Component {
                         <img className="brad-40" src={activity.profile_thumb ? picUrl+activity.profile_thumb: 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} alt="" />
                         <p>@{activity && activity.username}</p>
                     </div>
-                    <div className="post-location">
+                    {activity.address ? <div className="post-location">
                         <i className="fa fa-map-marker" />
                         <span>{activity && activity.address}</span>
-                    </div>
+                    </div> : null}
                     </div>
                     <div className="full-post-img">
                         <Carousel>
@@ -98,12 +106,9 @@ class PostImageDetailsModelContent extends React.Component {
                     <div className="like_time">
                     <div className="like-by">
                         <p>Like by</p>  
-                        <a href="">
-                        <img src={require('../assets/account-circle.png')} alt="avatar" />
-                        <img src={require('../assets/account-circle.png')} alt="avatar" />
-                        <img src={require('../assets/account-circle.png')} alt="avatar" />
-                        <img src={require('../assets/account-circle.png')} alt="avatar" />
-                        </a>  
+                        {likes.map((i, index) => {
+                                        return i.profile_thumb ? <img key={index} style={{borderRadius:'20px', marginRight: '-15px'}} src={picUrl+""+i.profile_thumb} alt="avatar" /> : null;
+                                    })}
                     </div>
                     <div className="post-time">                        
                         <p>posted <Moment fromNow>{new Date(activity.date_created * 1000)}</Moment></p>

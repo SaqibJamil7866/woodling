@@ -77,7 +77,11 @@ export const getPopularProductUrl = `${baseUrl}/search-products.php`;
 export const getFavProductUrl = `${baseUrl}/fetch-favorited-products.php`;
 export const getMyPostedPostUrl = `${baseUrl}/fetch-my-posted-adverts.php`;
 export const getPostLikeUrl = `${baseUrl}/fetch-post-likes.php`;
-export const getRelatedPostUrl = `${baseUrl}/fetch-related-products.php`
+export const getRelatedPostUrl = `${baseUrl}/fetch-related-products.php`;
+
+//trending endpoints
+export const getTrendingBonAppetitUrl = `${baseUrl}/fetch-trending-bon-appetit.php`;
+
 
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",

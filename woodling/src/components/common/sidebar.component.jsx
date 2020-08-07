@@ -33,7 +33,7 @@ class SideNav extends React.Component {
                   key: 1 /* Key is required, else console throws error. Does this please you Mr. Browser?! */
                 },
                 {
-                  path: '/about',
+                  path: '/trending',
                   name: 'Trending',
                   imgsrc: (<TrendingIcon alt="Trending icon" title="Trending" width="30px" />),
                   key: 2

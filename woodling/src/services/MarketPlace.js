@@ -54,6 +54,7 @@ function getPostLike(id) {
         const url = getPostLikeUrl+"?user_id="+AuthService.getUserId()+"&post_id="+id;
         axios.get(url)
         .then((res) => {
+            //.log('res,', res)
             resolve(res);
         })
         .catch((error) => {

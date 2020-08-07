@@ -18,6 +18,7 @@ import PostedCallsAndSubmissions from './components/posted_calls-and-my_submissi
 import PostingCallsForm from './components/posting-calls-form.component';
 import MyProfile from './components/my_profile.component';
 import MarketPlace from './components/market_place.component';
+import Trending from './components/trending.component';
 
 function Main(props) {
 
@@ -36,6 +37,7 @@ function Main(props) {
           <SecuredRoute path='/search_talent' component={SearchTalent} />
           <SecuredRoute path='/user_profile' component={Profile} />
           <SecuredRoute path='/market_place' component={MarketPlace}/>
+          <SecuredRoute path='/trending' component={Trending} />
         </Switch>
         
       </aside>

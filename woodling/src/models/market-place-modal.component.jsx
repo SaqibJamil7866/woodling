@@ -5,6 +5,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { MarketPlaceService } from '../services/MarketPlace';
 import RatingStar from '../components/common/rating-stars.component';
 import convertToFloat from '../public/helperFunctions';
+import { showLoader, hideLoader } from '../public/loader';
 
 class MarketPlaceModal extends Component {
     state = { 
@@ -13,6 +14,7 @@ class MarketPlaceModal extends Component {
         status: ''
     }
     async componentDidMount() {
+        showLoader();
         await MarketPlaceService.getPostLike(this.props.modalData.post_id)
         .then((res) => {
             this.setState({likes: res.data.data, status: res.data.status});
@@ -21,11 +23,14 @@ class MarketPlaceModal extends Component {
         await MarketPlaceService.getRelatedPost(this.props.modalData.product_id)
         .then((res) => {
             this.setState({relatedProd: res.data.data, status: res.data.status})
-        }).catch((e) => console.log(e));
+        }).catch((e) => console.log(e))
+
+        .then(() => hideLoader());
+        hideLoader();
     }
     render() { 
         const {postModal, handleCloseModal} = this.props;
-        const {name, product_type, path, purpose, currency, price, full_name, username, profile_thumb, formatted_address} = this.props.modalData;
+        const {name, product_type, path, purpose, currency, price, full_name, username, profile_thumb, profile_picture, rating, formatted_address} = this.props.modalData;
         const {likes, status, relatedProd} = this.state;
         return ( 
             <Modal
@@ -87,13 +92,13 @@ class MarketPlaceModal extends Component {
                         </div>
                         <div className='d-flex p25 space-between '>
                             <div className='d-flex'>
-                                <img style={{width: '10%'}} className="brad-40 h45" src={picUrl+""+profile_thumb} alt="authore pic" />
+                                <img style={{width: '10%'}} className="brad-40 h45" src={profile_thumb ? picUrl+""+profile_thumb : picUrl+""+profile_picture} alt="authore pic" />
                                 <div className='ml10'>
                                     <p className='m0 p0'><b>{full_name}</b></p>
                                     <p className='clr-grey'><b>@{username}</b></p>
                                 </div>
                             </div>
-                            <RatingStar rating={convertToFloat(4)} />
+                            <RatingStar rating={convertToFloat(rating)} />
                         </div>
                         <div className='d-flex space-between pb10 border-bottom'>
                             <div />

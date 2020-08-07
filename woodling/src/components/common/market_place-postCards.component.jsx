@@ -11,7 +11,7 @@ const MarketPlacePost = (props) => {
             return <div key={index+1} className={`mt30 top-content-bar container row ${ "mb100"}`} style={{width: '700px'}}>
                         <div className={i.path ? "col-md-6" : 'col-md-10'}>
                             <div className="p-3-0">
-                                <img style={{width: '15%'}} className="brad-40 h45" src={picUrl+""+i.profile_thumb} alt="authore pic" />
+                                <img style={{width: '15%'}} className="brad-40 h45" src={i.profile_thumb ? picUrl+""+i.profile_thumb : picUrl+""+i.profile_picture} alt="authore pic" />
                                 <span><b>@{i.username}</b></span>
                             </div>
                             <div className="min-h80 w100p d-flex space-between align-item mt10">

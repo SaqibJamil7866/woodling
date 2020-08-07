@@ -2028,7 +2028,7 @@ p.sdate {
   padding-right: 40px;
 }
 .modal-90w {
-  max-width: 55% !important;
+  max-width: 50% !important;
 }
 
 .w30 {
@@ -2045,4 +2045,23 @@ p.sdate {
 
 .fw600 {
   font-weight: 600;
+}
+
+.position-fixed {
+  position: fixed;
+}
+
+.mt30p {
+  margin-top: 30%;
+}
+
+.image-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  grid-auto-rows: 180px;
+}
+
+.image-list img {
+  width: 220px;
 }
