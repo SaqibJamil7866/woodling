@@ -81,6 +81,7 @@ export const getRelatedPostUrl = `${baseUrl}/fetch-related-products.php`;
 
 //trending endpoints
 export const getTrendingBonAppetitUrl = `${baseUrl}/fetch-trending-bon-appetit.php`;
+export const getTrendingTagsUrl = `${baseUrl}/fetch-trending-tags.php`;
 
 
 // REGISTER :"register.php",

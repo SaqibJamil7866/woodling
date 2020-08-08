@@ -578,6 +578,14 @@ html, body, #root {
   min-height: 300px !important;
 }
 
+.h300 {
+  height: 300px;
+}
+
+.alignSelf {
+  align-self: center;
+}
+
 .w60{
   width: 60px !important;
 }
