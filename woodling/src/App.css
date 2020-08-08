@@ -218,6 +218,9 @@ html, body, #root {
 .w100p{
   width: 100%;
 }
+.w50{
+  width: 50px !important;
+}
 .h100p{
   height: 100% !important;
 }
@@ -226,6 +229,9 @@ html, body, #root {
 }
 .h45{
   height: 45px;
+}
+.h50{
+  height: 50px !important;
 }
 .h230{
   height: 230px;
