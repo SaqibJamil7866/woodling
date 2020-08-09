@@ -23,10 +23,11 @@ class EditProfile extends React.Component {
 
     openCover = (e) => {
         const pic = e.currentTarget.files[0];
-        //const url = `uploads/cover/${pic.name}`;
-        console.log(pic)
-        const data = {user_id: parseInt(AuthService.getUserId()), type: 'cover_photo', photo: pic.name}
-        SettingService.postCover(data)
+        const fd = new FormData();
+        fd.append('user_id', AuthService.getUserId());
+        fd.append('type', 'cover_photo');
+        fd.append('photo', pic);
+        SettingService.postCover(fd)
         .then((res) => {
             if(res.data.status !== 'error'){
                 ToastsStore.success(res.data.message); 

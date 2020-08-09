@@ -23,7 +23,6 @@ function postCover(params) {
     return new Promise((resolve, reject) => {
         axios.post(postCoverImageUrl, params)
         .then((res) => {
-            console.log(res)
             resolve(res);
         })
         .catch((error) => {
