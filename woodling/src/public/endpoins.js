@@ -1,4 +1,4 @@
-const baseUrl = 'http://3.133.7.18/woodlig_jwt/controllers/mobile/';
+const baseUrl = 'http://3.133.7.18/woodlig_jwt/controllers/mobile';
 const locationUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
 
 export const siteUrl = 'http://3.133.7.18/woodlig_jwt/';
@@ -82,6 +82,10 @@ export const getRelatedPostUrl = `${baseUrl}/fetch-related-products.php`;
 
 //trending endpoints
 export const getTrendingBonAppetitUrl = `${baseUrl}/fetch-trending-bon-appetit.php`;
+export const getTrendingTagsUrl = `${baseUrl}/fetch-trending-tags.php`;
+
+//setting endpoints
+export const postCoverImageUrl = `${baseUrl}/update-setting-profile.php`;
 
 
 // REGISTER :"register.php",

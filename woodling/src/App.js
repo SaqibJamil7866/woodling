@@ -16,16 +16,16 @@ import CastingCalls from './components/casting_calls.component';
 import Profile from './components/profile.component';
 import PostedCallsAndSubmissions from './components/posted_calls-and-my_submissions';
 import PostingCallsForm from './components/posting-calls-form.component';
-import MyProfile from './components/my_profile.component';
 import MarketPlace from './components/market_place.component';
 import Trending from './components/trending.component';
+import Settings from './components/setting.component';
 
 function Main(props) {
 
   return(
     <div className='h100p' style={{overflowY: 'hidden'}}>
       <Navigation />
-      <aside className="left-side">
+      <aside className="left-side h90 float-left">
         <Sidebar />
       </aside>
       <aside className="right-side h90">
@@ -38,6 +38,7 @@ function Main(props) {
           <SecuredRoute path='/user_profile' component={Profile} />
           <SecuredRoute path='/market_place' component={MarketPlace}/>
           <SecuredRoute path='/trending' component={Trending} />
+          <SecuredRoute path='/settings' component={Settings} />
         </Switch>
         
       </aside>

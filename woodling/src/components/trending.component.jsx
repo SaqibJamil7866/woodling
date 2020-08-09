@@ -3,13 +3,15 @@ import { TrendingService } from '../services/Trending';
 import { Modal, Button } from 'react-bootstrap';
 import { showLoader, hideLoader } from '../public/loader';
 import TrendingGallery from './common/trending-gallery.component';
+import TrendingTags from './common/trending-tags.component';
 import PostImageDetailsModelContent from '../models/post_image_details.model';
 
 class Trending extends Component {
     state = { 
         gallery: [],
         galleryModal: false,
-        modalData: []
+        modalData: [],
+        tags: []
     }
 
     async componentDidMount() {
@@ -17,6 +19,11 @@ class Trending extends Component {
         await TrendingService.getTrendingBonAppetit(1)
         .then((res) => {
             this.setState({gallery: res.data.data})
+        }).catch((e) => console.log(e))
+
+        await TrendingService.getTrendingTags()
+        .then((res) => {
+            this.setState({tags: res.data.data})
         }).catch((e) => console.log(e))
 
         .then(() => hideLoader());
@@ -32,18 +39,22 @@ class Trending extends Component {
     }
 
     render() { 
-        const {gallery, galleryModal, modalData} = this.state;
+        const {gallery, galleryModal, modalData, tags} = this.state;
         return ( 
             <>
                 <div className='h100p scrolling'>
-                    <div className="row m0">
-                        <div className='col-md-8 pl100'>
+                    <div className='row m0'>
+                        <div className='col-md-12 pl100'>
                             <div className='clr__white mt20'>
                                 <p className='gray'>Featured Ads</p>
                                 <div>
                                     
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="row m0">
+                        <div className='col-md-8 pl100'>  
                             <div className='clr__white mt30'>
                                 <h1><b>Bon Appetit</b></h1>
                                 <div className='d-flex justify-content-center'>
@@ -56,8 +67,8 @@ class Trending extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className='col-md-4 br-white'>
-                            
+                        <div className='col-md-4 br-white mt30'>
+                            <TrendingTags tags={tags} />
                         </div>
                     </div>
                 </div>
@@ -68,14 +79,14 @@ class Trending extends Component {
                 centered
                 show={galleryModal}
                 onHide={this.handleCloseModal}
-            >
-                <Modal.Body>
-                    <PostImageDetailsModelContent postData={modalData} closeModal={this.handleCloseModal} />
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.handleCloseModal}>Close</Button>
-                </Modal.Footer>
-            </Modal> : null}
+                >
+                    <Modal.Body>
+                        <PostImageDetailsModelContent postData={modalData} closeModal={this.handleCloseModal} />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.handleCloseModal}>Close</Button>
+                    </Modal.Footer>
+                </Modal> : null}
             </>
         );
     }

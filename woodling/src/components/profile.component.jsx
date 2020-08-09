@@ -62,12 +62,14 @@ class Profile extends Component {
         await FollowService.getUSerFollowings(data.id)
         .then((res) => {
             this.setState({userFollowing: res.data.data, status: res.data.status}, () => {
-                this.state.userFollowing.map((i, index) => {
-                    UserService.getUserProfileData(i.id)
-                    .then((res)=>{
-                        this.state.followingId.push(res.data.data)
+                if(this.state.status!=='empty') {
+                    this.state.userFollowing.map((i, index) => {
+                        UserService.getUserProfileData(i.id)
+                        .then((res)=>{
+                            this.state.followingId.push(res.data.data)
+                        })
                     })
-                })
+                }
             })
         }).catch((e)=>console.error("error: "+ e))
 
@@ -208,11 +210,11 @@ class Profile extends Component {
                                             userModalData={userModalData}
                                         /> : null}
 
-                            {albums ? status==='empty' ?<p>No Albums found</p> : <UserAlbum 
+                            {albums ? userAlbum==='empty' ?<p>No Albums found</p> : <UserAlbum 
                                         userAlbum={userAlbum}
                                     /> : null}
 
-                            {post  ? status==='empty' ? <p>No Post Found</p> 
+                            {post  ? userPosts==='empty' ? <p>No Post Found</p> 
                                     : <Post 
                                         posts={userPosts} 
                                         profile_picture={profile_picture}
@@ -220,14 +222,14 @@ class Profile extends Component {
                                     />
                                     : null}
 
-                            {tag ? status==='empty' ? <p>No Tags Found</p> 
+                            {tag ? userTags==='empty' ? <p>No Tags Found</p> 
                                     : <Post 
                                         posts={userTags}
                                         profile_picture={profile_picture}
                                         onCrash={this.onCrash}
                                     /> : null}
                             
-                            {reviews ? status==='empty' ? <p>No Rating Found</p> 
+                            {reviews ? userReviews==='empty' ? <p>No Rating Found</p> 
                                     : <Reviews 
                                         userReviews={userReviews}
                                         onCrash={this.onCrash}
