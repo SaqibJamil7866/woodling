@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, {Component} from 'react';
 import {Modal} from 'react-bootstrap';
-import { siteUrl } from '../public/endpoins';
+import { filterBy } from '@progress/kendo-data-query';
+import { MultiSelect } from '@progress/kendo-react-dropdowns';
+import { picUrl } from '../public/endpoins';
 import { AuthService } from '../services/AuthService';
 import TagAndLoc from '../components/common/home-modal-inputfields.component';
 import {CastingCallService} from '../services/CastingCallsService';
-import { MultiSelect } from '@progress/kendo-react-dropdowns';
-import { filterBy } from '@progress/kendo-data-query';
 // import '@progress/kendo-theme-default/dist/all.css';
 
 class StatusUpload extends React.Component {
@@ -15,18 +15,34 @@ class StatusUpload extends React.Component {
         this.state = {
             formatted_address: '',
             value: [],
-            locations: []
+            locations: [],
+            data: this.props.tagPeople
         };
     }
+    
+    // Custom item rendering of multiselect
+    itemRender = (li, itemProps) => {
+        const itemChildren = (
+            <div style={{ color: "#00F" }}>
+                <div className="w50 inline-block">
+                    <img style={{marginTop:'-10px'}} src={itemProps.dataItem.profile_thumb ? picUrl+itemProps.dataItem.profile_thumb : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} className="brad-40 w50 h50" alt="profile pic" />
+                </div>
+                <div className="ml10 pt10 dark-gray  inline-block">
+                    {itemProps.dataItem.full_name} <br />
+                    <b>{itemProps.dataItem.username}</b>
+                </div> 
+            </div>
+        );
 
+        return React.cloneElement(li, li.props, itemChildren);
+    }
 
     filterChange = (event) => {
         this.setState({
-            data: filterBy(this.props.tagPeople.slice(), event.filter)
+            data: filterBy(this.state.data.slice(), event.filter)
         });
     }
 
-    // get this method to the parent component
     handleChange = (event) => {
         this.setState({
             value: event.target.value
@@ -70,16 +86,17 @@ class StatusUpload extends React.Component {
                             </div>
                             <div className='form-group'>
                                 <TagAndLoc 
-                                    tagPeople={this.props.tagPeople}
-                                    filterChange={this.filterChange}
+                                    tagPeople={this.state.data}
                                     handleChange={this.handleChange}
+                                    filterChange={this.filterChange}
                                     value={this.state.value}
-                                    textField="title" 
-                                    dataItemKey="id" 
+                                    itemRender={this.itemRender}
                                     filter={true}
                                     formatted_address={this.state.formatted_address}
                                     handleLocation={this.handleLocation}
                                     locations={this.state.locations}
+                                    dataItemKey="id"
+                                    textField="full_name"
                                 />
                             </div>
                             <div className='form-group d-flex justify-content-center'>

@@ -11,7 +11,8 @@ export const loginUrl = `${baseUrl}/login.php`;
 export const activityStreamUrl = `${baseUrl}/view-activity-stream.php`;
 export const activityDetailsUrl = `${baseUrl}/view-post-details.php`;
 export const getPostTaggedUsersUrl = `${baseUrl}/fetch-post-tagged-users.php`;
-export const getTagPeopleUrl = `${baseUrl}/fetch-tags.php`;
+export const getTagUrl = `${baseUrl}/fetch-tags.php`;
+export const searchPeopleUrl = `${baseUrl}/search-people.php`;
 
 // User endpoints
 export const getUserProfileUrl = `${baseUrl}/fetch-user-profile.php`;

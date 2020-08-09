@@ -44,7 +44,7 @@ function Home() {
 
     useEffect(() => {
         showLoader();
-        Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers(), ActivityStreamService.getTagPeople()])
+        Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers(), ActivityStreamService.searchPeople()])
         .then((res)=>{
             if(res[0].status !== 'error'){
                 dispatch({field: 'posts', value: res[0].data.data});
@@ -56,8 +56,8 @@ function Home() {
             }else { 
                 ToastsStore.error(res[1].message); 
             }
-            if(res[2].status !== 'error') {
-                dispatch({field: 'tagPeople', value: res[2].data.data})
+            if(res[2].status !== 'error'){
+                dispatch({field: 'tagPeople', value: res[2].data.people});
             }else { 
                 ToastsStore.error(res[2].message); 
             }
@@ -75,7 +75,7 @@ function Home() {
                         openImagePopup={openImageModal}
                         openStatusUploadModal={openStatusUploadModal}
                     />
-                    <Post posts={posts}/>
+                    <Post posts={posts} />
                     <div className="fixedbutton">
                         <AddButtonIcon height="50px" width="50px" />
                     </div>
