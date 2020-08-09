@@ -1,7 +1,7 @@
   
 import axios from 'axios';
 import cookie from 'react-cookies';
-import { loginUrl, getIndividualSkillsUrl, addBusinessSkillsNoUrl, picUrl } from '../public/endpoins';
+import { loginUrl, getIndividualSkillsUrl, picUrl } from '../public/endpoins';
 
 export const AuthService = {
   login, getUserId, getUserName, getSkills,

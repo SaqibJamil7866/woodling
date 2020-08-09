@@ -5,10 +5,11 @@ import { siteUrl, picUrl } from '../../public/endpoins';
 
 const Reviews = (props) => {
     const {userReviews, onCrash} = props;
+    console.log(userReviews)
     return ( 
         <div className='container'>
             <div className='row flex-dir-col align-item'>
-                {userReviews.map((i, index) => {
+                {userReviews && userReviews.map((i, index) => {
                     return <div className='clr__white w50 mt10'>
                                 <div className='d-flex border-bottom'>
                                     <div className='d-flex flex-dir-col align-item w25'>

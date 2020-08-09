@@ -288,7 +288,12 @@ html, body, #root {
 }
 
 .h90 {
-  height: 90% !important;
+  height: 
+  90% !important;
+}
+
+.float-left {
+  float: left;
 }
 
 .h10 {
@@ -660,7 +665,7 @@ html, body, #root {
 }
 
 .w50 {
-  width: 50%;
+  width: 50% !important;
 }
 
 .t0{
@@ -892,6 +897,10 @@ button[name='searchSubmit'] {
 
 .border-bottom {
   border-bottom: 1px solid #F2F2F2;
+}
+
+.border {
+  border: 1px solid #F2F2F2;
 }
 
 .h60 {
@@ -2078,4 +2087,39 @@ p.sdate {
 
 .image-list img {
   width: 220px;
+}
+
+.fw500 {
+  font-weight: 500px;
+}
+
+.w73p {
+  width: 73%;
+}
+
+.border-right {
+  border-right: 1px solid #F2F2F2;
+}
+
+.cover-photo {
+  background-color: grey;
+  width: 100%;
+  height: 230px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fs50 {
+  font-size: 50px;
+}
+
+.camera {
+  transform: translateY(150px);
+  display: none;
+}
+
+.camera:hover {
+  transform: translateY(0px);
+  display: block;
 }

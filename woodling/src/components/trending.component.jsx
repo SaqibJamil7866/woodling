@@ -79,14 +79,14 @@ class Trending extends Component {
                 centered
                 show={galleryModal}
                 onHide={this.handleCloseModal}
-            >
-                <Modal.Body>
-                    <PostImageDetailsModelContent postData={modalData} closeModal={this.handleCloseModal} />
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.handleCloseModal}>Close</Button>
-                </Modal.Footer>
-            </Modal> : null}
+                >
+                    <Modal.Body>
+                        <PostImageDetailsModelContent postData={modalData} closeModal={this.handleCloseModal} />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.handleCloseModal}>Close</Button>
+                    </Modal.Footer>
+                </Modal> : null}
             </>
         );
     }
