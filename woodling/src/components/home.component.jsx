@@ -13,6 +13,7 @@ import StatusUpload from '../models/status-update-modal.component';
 
 function Home() {
     const initialState ={
+        page: 1,
         posts:[],
         followers: [],
         tagPeople: [],
@@ -27,7 +28,7 @@ function Home() {
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { posts, followers, showModal, tagPeople } = state;
+    const { page, posts, followers, showModal, tagPeople } = state;
 
     const openImageModal = () => {
         dispatch({field: 'showModal', value: true})
@@ -49,6 +50,7 @@ function Home() {
         .then((res)=>{
             if(res[0].status !== 'error'){
                 dispatch({field: 'posts', value: res[0].data.data});
+                dispatch({field: 'page', value: page+1});
             }else { 
                 ToastsStore.error(res[0].message); 
             }
@@ -67,8 +69,22 @@ function Home() {
         .then(() => hideLoader());
     }, []);
 
-    const loadMorePosts = () => {debugger
-        console.log("Scroll called")
+    const loadMorePosts = () => {
+        if(page > 1){
+            ActivityStreamService.getActivityStreams(page).then((res)=>{
+                if(res.status !== 'error'){
+                    if(res.data.data){
+                        dispatch({field: 'posts', value: [...posts, ...res.data.data]});
+                        dispatch({field: 'page', value: page+1});
+                    }
+                    else{
+                        ToastsStore.warning('No more records.');
+                    }
+                }else { 
+                    ToastsStore.error(res.message); 
+                }
+            });
+        }
     }
 
     return (
@@ -82,10 +98,11 @@ function Home() {
                     />
                     <div className="br-white scrolling h100p">
                         <InfiniteScroll
-                            pageStart={0}
+                            pageStart={1}
                             loadMore={loadMorePosts}
                             hasMore={true || false}
                             useWindow={false}
+                            threshold={10}
                         >
                             <Post posts={posts} />
                         </InfiniteScroll>
