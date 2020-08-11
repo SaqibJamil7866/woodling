@@ -888,7 +888,7 @@ button[name='searchSubmit'] {
 }
 
 .fs15 {
-  font-size: 15px;
+  font-size: 15px !important;
 }
 
 .h270 {
@@ -1537,6 +1537,10 @@ p.sdate {
   width: 80% !important;
 }
 
+.w85 {
+  width: 85% !important;
+}
+
 .bkgrnd-red {
   background-color: #ee0202;
 }
@@ -1609,8 +1613,13 @@ p.sdate {
   color: #ffffff;
 }
 
-.skills-btn:focus {
-  outline: none;
+
+.inline-block:focus {
+  outline: none !important;
+}
+
+.outline:focus {
+  outline: none !important;
 }
 
 .pb20 {
@@ -2055,7 +2064,7 @@ p.sdate {
 }
 
 .w30 {
-  width: 30%;
+  width: 30% !important;
 }
 
 .space-around {
@@ -2122,4 +2131,87 @@ p.sdate {
 .camera:hover {
   transform: translateY(0px);
   display: block;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.w10p {
+  width: 10%;
+}
+
+.h85 {
+  height: 85px;
+}
+
+.pb30 {
+  padding-bottom: 30px;
+}
+
+.brder-l-r-t {
+  border-right: none !important;
+  border-top: none !important;
+  border-left: none !important;
+}
+
+.brder-l-r-t:focus {
+  border-right: none !important;
+  border-top: none !important;
+  border-left: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.mt-10 {
+  margin-top: -10px;
+}
+
+.dates .form-control {
+  border-right: none !important;
+  border-top: none !important;
+  border-left: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.k-switch-label-off {
+  display: none !important;
+}
+
+.k-switch-label-on {
+  display: none !important;
+}
+
+.k-switch-on:hover .k-switch-container, .k-switch-on.k-state-hover .k-switch-container {
+  background-color: #ee0202 !important;
+  color: #ffffff;
+}
+
+.k-switch-off .k-switch-container {
+  background-color: #CECECE !important;
+}
+
+.border-left {
+  border: 1px solid #F2F2F2;
+}
+
+.border-left-none {
+  border-left: none !important;
+}
+
+.box-shadow {
+  box-shadow: 3px 3px 5px 6px #ccc;
+}
+
+.w400 {
+  width: 400px;
+}
+
+.h400 {
+  height: 400px !important;
 }

@@ -1,9 +1,10 @@
 import {AuthService} from './AuthService';
 import axios from 'axios';
-import { getUserProfileUrl, postCoverImageUrl } from '../public/endpoins';
+import { getUserProfileUrl, postCoverImageUrl, postProfileImageUrl, getIndividualSkillsUrl } from '../public/endpoins';
+import { resolve } from 'joi-browser';
 
 export const SettingService = {
-    myData, postCover
+    myData, postCover, postProfile, getSkills
 }; 
 
 function myData() {
@@ -27,6 +28,30 @@ function postCover(params) {
         })
         .catch((error) => {
             reject(error);
+        })
+    })
+}
+
+function postProfile(params) {
+    return new Promise((resolve, reject) => {
+        axios.post(postProfileImageUrl, params)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+function getSkills() {
+    return new Promise((resolve, reject) => {
+        axios.get(getIndividualSkillsUrl)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error)
         })
     })
 }

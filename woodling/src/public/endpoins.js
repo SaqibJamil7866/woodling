@@ -85,7 +85,7 @@ export const getTrendingTagsUrl = `${baseUrl}/fetch-trending-tags.php`;
 
 //setting endpoints
 export const postCoverImageUrl = `${baseUrl}/update-setting-profile.php`;
-
+export const postProfileImageUrl = `${baseUrl}/update-setting-profile.php`;
 
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",
