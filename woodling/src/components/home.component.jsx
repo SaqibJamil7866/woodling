@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import { ToastsStore } from 'react-toasts';
+import InfiniteScroll from 'react-infinite-scroller';
 import TopContentBar from './common/top_contentbar.component';
 import Post from './common/post.component';
 import { showLoader, hideLoader } from '../public/loader';
@@ -66,18 +67,31 @@ function Home() {
         .then(() => hideLoader());
     }, []);
 
+    const loadMorePosts = () => {debugger
+        console.log("Scroll called")
+    }
+
     return (
         
         <div className="container h100p">
             <div className="row h100p">
-                <div className="col-md-8 br-white scrolling h100p">
+                <div className="col-md-8 h90p">
                     <TopContentBar
                         openImagePopup={openImageModal}
                         openStatusUploadModal={openStatusUploadModal}
                     />
-                    <Post posts={posts} />
-                    <div className="fixedbutton">
-                        <AddButtonIcon height="50px" width="50px" />
+                    <div className="br-white scrolling h100p">
+                        <InfiniteScroll
+                            pageStart={0}
+                            loadMore={loadMorePosts}
+                            hasMore={true || false}
+                            useWindow={false}
+                        >
+                            <Post posts={posts} />
+                        </InfiniteScroll>
+                        <div className="fixedbutton">
+                            <AddButtonIcon height="50px" width="50px" />
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-4 scrolling h100p">
