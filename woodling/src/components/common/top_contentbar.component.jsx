@@ -4,7 +4,6 @@ import { ReactComponent as CircleVideoIcon } from '../../assets/circle-video-ico
 import { ReactComponent as ScriptIcon } from '../../assets/script.svg';
 import { ReactComponent as EventIcon } from '../../assets/event.svg';
 import { ReactComponent as CartIcon } from '../../assets/cart.svg';
-import MultiSelectDropdown from  '../common/multi_select.component';
 
 function TopContentBar(props) {
     const { openImagePopup, openStatusUploadModal } = props;
@@ -17,8 +16,8 @@ function TopContentBar(props) {
                     <CircleImageIcon onClick={()=> openImagePopup()} height="35px" width="35px" className="mr10 mt3"/>
                     <CircleVideoIcon height="35px" width="35px" className="mr10 mt3"/>
                     <ScriptIcon onClick={() => openStatusUploadModal()} height="35px" width="35px" className="mr10 mt3 pointer"/>
-                    <EventIcon height="35px" width="35px" className="mr10 mt3"/>
-                    <CartIcon height="35px" width="35px" className="mr10 mt3"/>
+                    <EventIcon height="35px" width="35px" className="mr10 mt3" />
+                    <CartIcon height="35px" width="35px" className="mr10 mt3" />
                 </span>
             </span>
         </div>

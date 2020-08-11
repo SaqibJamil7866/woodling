@@ -119,6 +119,17 @@ class SearchTalent extends React.Component {
 
     }
 
+    applySearchFilterTalent(data){debugger
+        console.log("open Profile: ", data);
+        history.push({
+            pathname: '/user_profile',
+            state: { data }
+        })
+
+    }
+
+
+
     render() {
         const { allTalents, starredTalents, featuredTalents, modalData } = this.state;
         return (
@@ -158,9 +169,9 @@ class SearchTalent extends React.Component {
                                     handleHideModel={this.handleHideModel}
                                     modalData={modalData}
                                 />
-                                <Filters />
+                                <Filters search={this.applySearchFilterTalent} />
                             </div>
-                            <img style={{width: '80%', marginTop: '20px'}} src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="authore pic" />
+                            <img style={{width: '80%', marginTop: '20px'}} src={require('../assets/virtual-reality.png')} alt="virtual reality pic" />
                         </div>
     
                         <div className="mt10 mb10">

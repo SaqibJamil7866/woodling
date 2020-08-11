@@ -168,6 +168,9 @@ html, body, #root {
   background-color: #ff0000;
 }
 
+.dark-gray {
+  color: #495057 !important;
+}
 .red {
   color: #ff0000 !important;
 }
@@ -182,7 +185,7 @@ html, body, #root {
 }
 
 .inline-block{
-  display: inline-block;
+  display: inline-block !important;
 }
 
 .center__item {
@@ -287,6 +290,9 @@ html, body, #root {
   padding-top: 6px;
 }
 
+.pt10{
+  padding-top: 10px !important;
+}
 .h90 {
   height: 
   90% !important;
@@ -306,6 +312,10 @@ html, body, #root {
 
 .mt3{
   margin-top: 3px !important;
+}
+
+.ml5{
+  margin-left: 5px;
 }
 
 .ml10{
@@ -664,7 +674,7 @@ html, body, #root {
   position: absolute;
 }
 
-.w50 {
+.w50p {
   width: 50% !important;
 }
 
@@ -1839,10 +1849,6 @@ p.sdate {
 
 .w25 {
   width: 25% !important;
-}
-
-.w50 {
-  width: 50%;
 }
 
 .w35 {

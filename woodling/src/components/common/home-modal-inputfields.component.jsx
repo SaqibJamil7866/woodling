@@ -1,34 +1,40 @@
 import React from 'react';
-import MultiSelectDropdown from './multi_select.component';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
+import CustomRenderingMultiSelectDropdown from './custom_rendering_multi_select.component';
 
 const TagAndLoc = (props) => {
-    const { tagPeople, filterChange, handleChange, value, textField, dataItemKey, filter, formatted_address, handleLocation, locations } = props;
+    const { tagPeople, handleChange, handleLocationSearch, isLocationLoading, itemRender, value, filterChange, dataItemKey, textField, filter, handleLocation, locations } = props;    
     return ( 
         <div>
             <div>
                 <i className='fa fa-user tag-icon'>  Tag People</i>
                 <div style={{width:'79%', display:'inline-block'}}>
-                    <MultiSelectDropdown 
+                    <CustomRenderingMultiSelectDropdown
                         data={tagPeople} 
-                        value={value} 
-                        textField={textField} 
-                        dataItemKey={dataItemKey} 
+                        value={value}
                         filter={filter}
-                        filterChange={filterChange}
                         handleChange={handleChange}
+                        filterChange={filterChange}
+                        itemRender={itemRender}
+                        dataItemKey={dataItemKey}
+                        textField={textField}
                     />
                 </div>
             </div>
             <div className='mt10'>
                 <i className='fa fa-map-marker tag-icon padding-right-40'>  Location</i>
                 <div style={{width:'79%', display:'inline-block'}}>
-                <input 
-                    type="text" 
-                    value={formatted_address}
+                <AsyncTypeahead
+                    id="location_typehead"
+                    labelKey="description"
+                    isLoading={isLocationLoading}
+                    placeholder="Search for a Location (type min 3 char)"
+                    minLength={3}
+                    onSearch={handleLocationSearch}
                     onChange={handleLocation}
-                    name='formatted_address' 
+                    options={locations}
                     className="form-control border-none bckgrnd-grey h45px box-shadow-none"
-                    placeholder="Type here..." />
+                />
                 </div>
             </div>
         </div>
