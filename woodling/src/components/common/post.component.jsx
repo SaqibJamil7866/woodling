@@ -25,7 +25,7 @@ function Post(props) {
             {props.posts && 
                 props.posts.map((prop, index, arr) => {
                 return (
-                    <div onClick={()=>openDetailsModal(prop,'single-image')} key={prop.post_id} className={`mt30 top-content-bar container row ${arr.length -1 === index ? "": "mb100"}`} style={{width: '700px'}}>
+                    <div onClick={()=>openDetailsModal(prop,'single-image')} key={prop.post_id} className={`mt30 top-content-bar container row ${arr.length -1 === index ? "mb100": "mb100"}`} style={{width: '700px'}}>
                         <div className={prop.path ? "col-md-6" : 'col-md-10'}>
                             <div className="p-3-0">
                                 <img style={{width: '15%'}} className="brad-40 h45" src={prop.profile_thumb ? picUrl+prop.profile_thumb : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} alt="authore pic" />

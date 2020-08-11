@@ -67,15 +67,17 @@ class StatusUpload extends React.Component {
     }
 
     handleLocation = (location) => {
-        this.setState({selectedLocation: location[0]}, () => {
-            const {selectedLocation}= this.state;
-            ActivityStreamService.getLocationDetailByPlaceId(selectedLocation.place_id)
-            .then((response) => {
-                const res= response.data.results[0];
-                const address = selectedLocation.description.split(',');
-                this.setState({city: address[address.length-2],country: address[address.length-1],lat: res.geometry.location.lat, lng: res.geometry.location.lng, formatted_address: res.formatted_address})
+        if(location && location.length > 0){
+            this.setState({selectedLocation: location[0]}, () => {
+                const {selectedLocation}= this.state;
+                ActivityStreamService.getLocationDetailByPlaceId(selectedLocation.place_id)
+                .then((response) => {
+                    const res= response.data.results[0];
+                    const address = selectedLocation.description.split(',');
+                    this.setState({city: address[address.length-2],country: address[address.length-1],lat: res.geometry.location.lat, lng: res.geometry.location.lng, formatted_address: res.formatted_address})
+                })
             })
-        })
+        }
     }
 
     handlePostSubmit = () => {
