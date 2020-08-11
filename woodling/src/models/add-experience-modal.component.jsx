@@ -2,10 +2,11 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import DatePicker from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
-import moment from 'moment';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
+
 
 const AddExperience = (props) => {
-    const { experienceModal, closeExperienceModal, allSkills, allRoleType, disablePastDt, disableDeadlineDt, handleChange } = props;
+    const { experienceModal, closeExperienceModal, allSkills, allRoleType, disablePastDt, disableDeadlineDt, handleChange, isLocationLoading, handleLocationSearch, handleLocation, locations } = props;
     const { project, skill_id, role_type, company, location, start_date, end_date, desciption } = props.addExperience;
     return ( 
         <Modal
@@ -31,7 +32,18 @@ const AddExperience = (props) => {
                             </div>
                             <div className='form-group'>
                                 <label for='company' className='grey'>Compnay/Institute</label>
-                                <input value={company} onChange={handleChange} type="text" className="form-control brder-l-r-t mt-10" id="company" name='company' />
+                                <AsyncTypeahead
+                                        id="location_typehead"
+                                        labelKey="description"
+                                        isLoading={isLocationLoading}
+                                        placeholder="Search for a Location (type min 3 char)"
+                                        minLength={3}
+                                        onSearch={handleLocationSearch}
+                                        onChange={handleLocation}
+                                        options={locations}
+                                        className="form-control box-shadow-none border-none brder-l-r-t mb20"
+                                    />
+                                {/* <input value={company} onChange={handleChange} type="text" className="form-control brder-l-r-t mt-10" id="company" name='company' /> */}
                             </div>
                             <div className='form-group'>
                                 <label for='skill_id' className='grey'>Role</label>

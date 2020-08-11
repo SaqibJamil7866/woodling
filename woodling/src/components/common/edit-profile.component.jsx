@@ -44,12 +44,7 @@ class EditProfile extends React.Component {
 
         selectedLocation: '',
         description: '',
-        lat: '',
-        lng: '',
         formatted_address:'',
-        city:'',
-        country: '',
-        selectedPeople: [],
         locations: [],
         isLocationLoading: false,
     }
@@ -220,17 +215,33 @@ class EditProfile extends React.Component {
     }
 
     handleLocation = (location) => { 
-        this.setState({selectedLocation: location[0]}, () => {
-            const {selectedLocation}= this.state;
-            ActivityStreamService.getLocationDetailByPlaceId(selectedLocation.place_id)
-            .then((response) => {
-                const res= response.data.results[0];
-                const address = selectedLocation.description.split(',');
-                this.setState((prev) => ({myData: {...prev.myData, address: res.formatted_address}}), () => {
-                    console.log(this.state.myData)
+        if(this.state.experienceModal===true) {
+            if(location && location.length > 0){
+                this.setState({selectedLocation: location[0]}, () => {
+                    const {selectedLocation}= this.state;
+                    ActivityStreamService.getLocationDetailByPlaceId(selectedLocation.place_id)
+                    .then((response) => {
+                        const res= response.data.results[0];
+                        const address = selectedLocation.description.split(',');
+                        this.setState((prev) => ({addExperience: {...prev.addExperience, location: res.formatted_address}}))
+                    })
                 })
-            })
-        })
+            }
+        }else {
+            if(location && location.length > 0){
+                this.setState({selectedLocation: location[0]}, () => {
+                    const {selectedLocation}= this.state;
+                    ActivityStreamService.getLocationDetailByPlaceId(selectedLocation.place_id)
+                    .then((response) => {
+                        const res= response.data.results[0];
+                        const address = selectedLocation.description.split(',');
+                        this.setState((prev) => ({myData: {...prev.myData, address: res.formatted_address}}), () => {
+                            console.log(this.state.myData)
+                        })
+                    })
+                })
+            }
+        }
     }
 
     handleLocationSearch = (e) =>{ 
@@ -265,7 +276,7 @@ class EditProfile extends React.Component {
 
     render() {
         const { cover_picture, profile_picture, full_name, date_of_birth, address, gender, marital_status, email, phone_1, website, bio } = this.state.myData;
-        const { mySkills, skillModal, data, allSkills, experienceCount, location, myExperience, experienceModal, allRoleType, addExperience, isLocationLoading } = this.state;
+        const { mySkills, skillModal, data, allSkills, experienceCount, locations, myExperience, experienceModal, allRoleType, addExperience, isLocationLoading } = this.state;
         
         return ( 
             <div>
@@ -327,12 +338,13 @@ class EditProfile extends React.Component {
                                     <AsyncTypeahead
                                         id="location_typehead"
                                         labelKey="description"
+                                        selected={address}
                                         isLoading={isLocationLoading}
                                         placeholder="Search for a Location (type min 3 char)"
                                         minLength={3}
                                         onSearch={this.handleLocationSearch}
                                         onChange={this.handleLocation}
-                                        options={this.state.locations}
+                                        options={locations}
                                         className="form-control box-shadow-none border-none brder-l-r-t mb20"
                                     />
                                 </div>
@@ -476,6 +488,10 @@ class EditProfile extends React.Component {
                                         disableDeadlineDt={this.disableDeadlineDt}
                                         addExperience={addExperience}
                                         handleChange={this.handleChange}
+                                        locations={locations}
+                                        handleLocationSearch={this.handleLocationSearch}
+                                        handleLocation={this.handleLocation}
+                                        isLocationLoading={isLocationLoading}
                                         
                 /> : null}
             </div>
