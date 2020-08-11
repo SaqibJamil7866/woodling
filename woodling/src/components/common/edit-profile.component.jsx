@@ -70,6 +70,29 @@ class EditProfile extends React.Component {
         role_type: Joi.string().required().label('Role Type'),
     }
 
+    validateProperty = ({name, value}) => {
+        const obj = {[name]: value};
+        const schema = {[name]: this.schema[name]};
+        console.log(schema)
+        const {error} = Joi.validate(obj, schema);
+        console.log(error);
+        return error ? error.details[0].message : null;
+      }
+  
+      validation = () => {
+        console.log('Validation')
+        const result = Joi.validate(this.state.addExperience, this.schema, {
+          abortEarly: false
+        });
+        if(!result.error) return null;
+  
+        const errors = {};
+        for(let item of result.error.details){
+          errors[item.path[0]] = item.message;
+        }
+        return errors;
+    }
+
     openCover = async (e) => {
         const pic = e.currentTarget.files[0];
         if(pic) {
@@ -125,6 +148,7 @@ class EditProfile extends React.Component {
 
     handleChange = (e) => {
         if(this.state.experienceModal === true) {
+            console.log('experienceChange', e.currentTarget.value)
             const data = {...this.state.addExperience}
             data[e.currentTarget.name] = e.currentTarget.value;
             this.setState({addExperience: data})
@@ -217,8 +241,8 @@ class EditProfile extends React.Component {
 
     render() {
         const { cover_picture, profile_picture, full_name, date_of_birth, address, gender, marital_status, email, phone_1, website, bio } = this.state.myData;
-        const { mySkills, skillModal, data, allSkills, experienceCount, myExperience, experienceModal, allRoleType } = this.state;
-        const { project, skill_id, role_type, company, location, start_date, end_date, desciption } = this.state.addExperience;
+        const { mySkills, skillModal, data, allSkills, experienceCount, myExperience, experienceModal, allRoleType, addExperience } = this.state;
+        
         return ( 
             <div>
                 <div className='cover-photo position-relative'>
@@ -416,6 +440,8 @@ class EditProfile extends React.Component {
                                         allRoleType={allRoleType}
                                         disablePastDt={this.disablePastDt}
                                         disableDeadlineDt={this.disableDeadlineDt}
+                                        addExperience={addExperience}
+                                        handleChange={this.handleChange}
                                         
                 /> : null}
             </div>

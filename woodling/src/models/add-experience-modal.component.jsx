@@ -5,7 +5,8 @@ import 'react-datetime/css/react-datetime.css';
 import moment from 'moment';
 
 const AddExperience = (props) => {
-    const { experienceModal, closeExperienceModal, allSkills, allRoleType, disablePastDt, disableDeadlineDt } = props;
+    const { experienceModal, closeExperienceModal, allSkills, allRoleType, disablePastDt, disableDeadlineDt, handleChange } = props;
+    const { project, skill_id, role_type, company, location, start_date, end_date, desciption } = props.addExperience;
     return ( 
         <Modal
             size="md"
@@ -26,17 +27,17 @@ const AddExperience = (props) => {
                         <form className=''>
                             <div className='form-group'>
                                 <label for='project' className='grey'>Title</label>
-                                <input type="text" className="form-control brder-l-r-t mt-10" id="project" name='project' />
+                                <input value={project} onChange={handleChange} type="text" className="form-control brder-l-r-t mt-10" id="project" name='project' />
                             </div>
                             <div className='form-group'>
                                 <label for='company' className='grey'>Compnay/Institute</label>
-                                <input type="text" className="form-control brder-l-r-t mt-10" id="company" name='company' />
+                                <input value={company} onChange={handleChange} type="text" className="form-control brder-l-r-t mt-10" id="company" name='company' />
                             </div>
                             <div className='form-group'>
                                 <label for='skill_id' className='grey'>Role</label>
-                                <select name="skill_id" id="skill_id" className="form-control bold form-control brder-l-r-t mt-10" placeholder='Gender'>
+                                <select value={skill_id} onChange={handleChange} name="skill_id" id="skill_id" className="form-control bold form-control brder-l-r-t mt-10" placeholder='Gender'>
                                     {allSkills.map((i, index) => {
-                                        return <option key={index} value={i.name}>{i.name}</option>
+                                        return <option key={index} value={i.id}>{i.name}</option>
                                     })}
                                 </select>
                             </div>
