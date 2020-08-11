@@ -1,10 +1,10 @@
   
 import axios from 'axios';
 import {AuthService} from './AuthService';
-import { activityStreamUrl, activityDetailsUrl, getPostTaggedUsersUrl, searchPeopleUrl } from '../public/endpoins';
+import { activityStreamUrl, activityDetailsUrl, getPostTaggedUsersUrl, searchPeopleUrl, geocodeUrl, addPostUrl } from '../public/endpoins';
 
 export const ActivityStreamService = {
-   getActivityStreams, getActivityDetails, getPostTaggedUsers, searchPeople 
+   getActivityStreams, getActivityDetails, getPostTaggedUsers, searchPeople, getLocationDetailByPlaceId, submitPost
 };
 
 function getActivityStreams(page) { 
@@ -48,6 +48,31 @@ function searchPeople(name = '') {
 	return new Promise((resolve, reject) => {
 		const url = searchPeopleUrl+"?user_id="+AuthService.getUserId()+"&name="+name+"&page=1";
 		axios.get(url)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}
+
+function getLocationDetailByPlaceId(placeId = ''){
+	return new Promise((resolve, reject) => {
+		const url = geocodeUrl+"?key=AIzaSyALASmPhIDmvRTBX1hVIk4nacE_gd93qt0&place_id="+placeId;
+		axios.get(url)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}
+
+function submitPost(data){
+	return new Promise((resolve, reject) => {
+		axios.post(addPostUrl, data)
 		.then((res) => {
 			resolve(res);
 		})

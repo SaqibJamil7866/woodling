@@ -936,7 +936,7 @@ class PostingCallsForm extends Component {
                                           {errors.start_date && <p className="alert alert-danger error">{errors.start_date}</p>}
                                       </div>
                                       <div className='d-flex w45'>
-                                          <div className='d-flex justify-content-center align-items-center bckgrnd-dark-grey w50 h45px'>
+                                          <div className='d-flex justify-content-center align-items-center bckgrnd-dark-grey w50p h45px'>
                                               <i className='fa fa-calendar fs20' />
                                               <p className='p0 m0 ml5'><b>Deadline:*</b></p>
                                           </div>

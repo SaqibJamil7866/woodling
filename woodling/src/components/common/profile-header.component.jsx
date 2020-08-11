@@ -9,7 +9,7 @@ const ProfilePicHeader = (props) => {
     const {rating, profile_picture, username, full_name,  bio, openModal, closeModal, userModal, id} = props;
     return ( 
         <>
-            <div className='d-flex space-between w50'>
+            <div className='d-flex space-between w50p'>
                 <RatingStar rating={convertToFloat(rating)} />
                 <div className='d-flex align-item flex-dir-col'>
                     <img className='border-radius60 h100 m-50' src={siteUrl+""+profile_picture} alt="profile img" />

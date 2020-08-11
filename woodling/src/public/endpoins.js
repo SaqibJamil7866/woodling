@@ -1,5 +1,8 @@
 const baseUrl = 'http://3.133.7.18/woodlig_jwt/controllers/mobile';
+
+// location endpoints
 const locationUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+export const geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
 
 export const siteUrl = 'http://3.133.7.18/woodlig_jwt/';
 export const picUrl = 'http://3.133.7.18/'
@@ -13,30 +16,31 @@ export const activityDetailsUrl = `${baseUrl}/view-post-details.php`;
 export const getPostTaggedUsersUrl = `${baseUrl}/fetch-post-tagged-users.php`;
 export const getTagUrl = `${baseUrl}/fetch-tags.php`;
 export const searchPeopleUrl = `${baseUrl}/search-people.php`;
+export const addPostUrl = `${baseUrl}/add-post.php`;
 
 // User endpoints
 export const getUserProfileUrl = `${baseUrl}/fetch-user-profile.php`;
 
-//User Album endpoints
+// User Album endpoints
 export const getUserProfileAlbumUrl = `${baseUrl}/fetch-user-profile-album.php`;
 
-// userReview endpoints
+// UserReview endpoints
 export const getUserProfileReviewUrl = `${baseUrl}/fetch-user-review.php`;
 
-//userPost endpoints
+// UserPost endpoints
 export const getUserPostsUrl = `${baseUrl}/fetch-user-posts.php`;
 
-//user Tag Post endpoints
+// User Tag Post endpoints
 export const getUserTagPostUrl = `${baseUrl}/fetch-user-tagged-posts.php`;
 
 // follow endpoints
 export const getUserFollowingUrl = `${baseUrl}/fetch-user-following.php`;
 export const getUserFollowersUrl = `${baseUrl}/fetch-user-followers.php`;
 
-//add review endpoints
+// Add review endpoints
 export const addReviewUrl = `${baseUrl}/add-review.php`
 
-// comments endpoints
+// Comments endpoints
 export const getCommentsUrl = `${baseUrl}/fetch-post-comments.php`;
 export const addCommentsUrl = `${baseUrl}/add-post-comment.php`;
 export const addCommentReplyUrl = `${baseUrl}/add-comment-reply.php`;
@@ -73,29 +77,27 @@ export const getUserCastingCallsUrl = `${baseUrl}/fetch-user-casting-calls.php`;
 export const roleTypeUrl = `${baseUrl}/fetch-role-type.php`;
 export const getLocationUrl = `${locationUrl}`
 
-//market place endpoints
+// market place endpoints
 export const getPopularProductUrl = `${baseUrl}/search-products.php`;
 export const getFavProductUrl = `${baseUrl}/fetch-favorited-products.php`;
 export const getMyPostedPostUrl = `${baseUrl}/fetch-my-posted-adverts.php`;
 export const getPostLikeUrl = `${baseUrl}/fetch-post-likes.php`;
 export const getRelatedPostUrl = `${baseUrl}/fetch-related-products.php`;
 
-//trending endpoints
+// trending endpoints
 export const getTrendingBonAppetitUrl = `${baseUrl}/fetch-trending-bon-appetit.php`;
 export const getTrendingTagsUrl = `${baseUrl}/fetch-trending-tags.php`;
 
-//setting endpoints
+// setting endpoints
 export const postCoverImageUrl = `${baseUrl}/update-setting-profile.php`;
 
-
+// 
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",
 // UPDATE_USER_SETUP_DETAILS :"update-user-setup-details.php",
-// ADD_POST_COMMENTS :"",
 // FETCH_USER_BALANCE :"fetch-user-balance.php",
 // FETCH_WALLET_HISTORY :"fetch-wallet-payment-history.php",
 // ADD_AMOUNT_WALLET:"add-amount-in-wallet.php",
 // PROMOTION_INSIGHTS:"fetch-promotion-insights.php",
 // PROMOTION_STATUS_UPDATE:"update-promotion-status.php", 
-// ADD_POST:"add-post.php", 
 // SEARCH_PEOPLE:"search-people.php", 

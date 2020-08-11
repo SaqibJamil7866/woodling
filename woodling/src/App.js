@@ -36,7 +36,7 @@ function Main(props) {
           <SecuredRoute exact path='/casting_calls/post-a-casting-calls' component={PostingCallsForm} />
           <SecuredRoute path='/search_talent' component={SearchTalent} />
           <SecuredRoute path='/user_profile' component={Profile} />
-          <SecuredRoute path='/market_place' component={MarketPlace}/>
+          <SecuredRoute path='/market_place' component={MarketPlace} />
           <SecuredRoute path='/trending' component={Trending} />
           <SecuredRoute path='/settings' component={Settings} />
         </Switch>

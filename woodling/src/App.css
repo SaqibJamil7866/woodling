@@ -674,7 +674,7 @@ html, body, #root {
   position: absolute;
 }
 
-.w50 {
+.w50p {
   width: 50% !important;
 }
 
@@ -1840,10 +1840,6 @@ p.sdate {
 
 .w25 {
   width: 25% !important;
-}
-
-.w50 {
-  width: 50%;
 }
 
 .w35 {

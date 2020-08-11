@@ -82,7 +82,7 @@ function Home() {
                 </div>
                 <div className="col-md-4 scrolling h100p">
                     <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="authore pic" />
+                        <img src={require('../assets/virtual-reality.png')} alt="virtual reality pic" />
                     </div>
                     <OnlineStatusCard />
                     <div className="mt10 mb10">
