@@ -10,7 +10,7 @@ const Reviews = (props) => {
         <div className='container'>
             <div className='row flex-dir-col align-item'>
                 {userReviews && userReviews.map((i, index) => {
-                    return <div className='clr__white w50 mt10'>
+                    return <div className='clr__white w50p mt10'>
                                 <div className='d-flex border-bottom'>
                                     <div className='d-flex flex-dir-col align-item w25'>
                                         <img onError={onCrash} className={i.premium==='1'? 'premium-border following-img w65' : 'following-img w65'} src={i.profile_thumb!=='' ? picUrl+""+i.profile_thumb : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} />

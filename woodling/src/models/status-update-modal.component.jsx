@@ -1,56 +1,110 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable jsx-a11y/alt-text */
-import React, {Component} from 'react';
+import React from 'react';
 import {Modal} from 'react-bootstrap';
-import { siteUrl } from '../public/endpoins';
+import { ToastsStore } from 'react-toasts';
+import { filterBy } from '@progress/kendo-data-query';
+import { picUrl } from '../public/endpoins';
 import { AuthService } from '../services/AuthService';
 import TagAndLoc from '../components/common/home-modal-inputfields.component';
+import { ActivityStreamService } from '../services/ActivityStreamService';
 import {CastingCallService} from '../services/CastingCallsService';
-import { MultiSelect } from '@progress/kendo-react-dropdowns';
-import { filterBy } from '@progress/kendo-data-query';
 // import '@progress/kendo-theme-default/dist/all.css';
 
 class StatusUpload extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            formatted_address: '',
-            value: [],
-            locations: []
-        };
+            selectedLocation: '',
+            description: '',
+            lat: '',
+            lng: '',
+            formatted_address:'',
+            city:'',
+            country: '',
+            selectedPeople: [],
+            locations: [],
+            isLocationLoading: false,
+            data: this.props.tagPeople
+        }; 
     }
+    
+    // Custom item rendering of multiselect
+    itemRender = (li, itemProps) => {
+        const itemChildren = (
+            <div style={{ color: "#00F" }}>
+                <div className="w50 inline-block">
+                    <img style={{marginTop:'-10px'}} src={itemProps.dataItem.profile_thumb ? picUrl+itemProps.dataItem.profile_thumb : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} className="brad-40 w50 h50" alt="profile pic" />
+                </div>
+                <div className="ml5 pt10  dark-gray  inline-block">
+                    {itemProps.dataItem.full_name} <br />
+                    <b>{itemProps.dataItem.username}</b>
+                </div> 
+            </div>
+        );
 
+        return React.cloneElement(li, li.props, itemChildren);
+    }
 
     filterChange = (event) => {
         this.setState({
-            data: filterBy(this.props.tagPeople.slice(), event.filter)
+            data: filterBy(this.state.data.slice(), event.filter)
         });
     }
 
-    // get this method to the parent component
     handleChange = (event) => {
         this.setState({
-            value: event.target.value
+            selectedPeople: event.target.value
         });
     }
 
-    handleLocation = (e) => {
-        this.setState({formatted_address: e.currentTarget.value}, () => {
-            CastingCallService.getLocation(this.state.formatted_address)
-            .then((res) => {
-                this.setState({locations: res.data.predictions}, () => {
-                    console.log(this.state.locations)
-                })
+    handleLocationSearch = (keyword) =>{
+        this.setState({isLocationLoading: true});
+        CastingCallService.getLocation(keyword)
+        .then((res) => {
+            this.setState({isLocationLoading: false, locations: res.data.predictions});
+        })
+    }
+
+    handleLocation = (location) => {
+        this.setState({selectedLocation: location[0]}, () => {
+            const {selectedLocation}= this.state;
+            ActivityStreamService.getLocationDetailByPlaceId(selectedLocation.place_id)
+            .then((response) => {
+                const res= response.data.results[0];
+                const address = selectedLocation.description.split(',');
+                this.setState({city: address[address.length-2],country: address[address.length-1],lat: res.geometry.location.lat, lng: res.geometry.location.lng, formatted_address: res.formatted_address})
             })
         })
     }
-    render() {
+
+    handlePostSubmit = () => {
+        const {description, lat, lng, formatted_address, city, country, selectedPeople} = this.state;
+        if(!description || !formatted_address || !selectedPeople){
+            ToastsStore.error("Please select all fields");
+            return false;
+        }
+        const people = selectedPeople.map((obj)=>{
+            return obj.id;
+        }).join(',');
+        const User_id = AuthService.getUserId();
+        ActivityStreamService.submitPost({User_id, description, lat, lng, formatted_address, people, city, country, type: "Text", privacy: "public"})
+        .then((response) => {debugger
+            const res= response.data;
+            this.props.closeStatusUploadModal();
+        })
+    }
+
+    render(){
+        const { openStatusUploadModal, closeStatusUploadModal } = this.props;
+        const { data, selectedPeople, description, locations } = this.state;
         return ( 
             <Modal
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
-                show={this.props.openStatusUploadModal}
-                onHide={this.props.closeStatusUploadModal}
+                show={openStatusUploadModal}
+                onHide={closeStatusUploadModal}
             >
                 <Modal.Header closeButton>
                     <div className='d-flex justify-content-center w100p'>
@@ -61,29 +115,31 @@ class StatusUpload extends React.Component {
                 <Modal.Body>
                     <div>
                         <div className='d-flex align-item'>
-                            <img className='brad-40' style={{width: '10%'}} src='https://www.cornwallbusinessawards.co.uk/wp-content/uploads/2017/11/dummy450x450.jpg' />
+                            <img className='brad-40 w50 h50' src={AuthService.getUserProfileImage()} />
                             <p className='p0 mb0 ml10'>@{AuthService.getUserName()}</p>
                         </div>
-                        <form action="">
+                        <form>
                             <div className="form-group p20">
-                                <textarea className="form-control" placeholder='Say Something...' rows="5"></textarea>
+                                <textarea className="form-control" value={description} onChange={(e)=>this.setState({description: e.target.value})} placeholder='Say Something...' rows="5" />
                             </div>
                             <div className='form-group'>
                                 <TagAndLoc 
-                                    tagPeople={this.props.tagPeople}
-                                    filterChange={this.filterChange}
+                                    tagPeople={data}
                                     handleChange={this.handleChange}
-                                    value={this.state.value}
-                                    textField="title" 
-                                    dataItemKey="id" 
+                                    filterChange={this.filterChange}
+                                    value={selectedPeople}
+                                    itemRender={this.itemRender}
                                     filter={true}
-                                    formatted_address={this.state.formatted_address}
+                                    locations={locations}
+                                    isLocationLoading={this.isLocationLoading}
+                                    handleLocationSearch={this.handleLocationSearch}
                                     handleLocation={this.handleLocation}
-                                    locations={this.state.locations}
+                                    dataItemKey="id"
+                                    textField="full_name"
                                 />
                             </div>
                             <div className='form-group d-flex justify-content-center'>
-                                <button onClick={this.handleSubmit} className="profile-btn">Post</button>
+                                <button type="button" onClick={this.handlePostSubmit} className="profile-btn">Post</button>
                             </div>
                         </form>
                     </div>

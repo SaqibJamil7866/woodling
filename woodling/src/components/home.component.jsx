@@ -44,7 +44,7 @@ function Home() {
 
     useEffect(() => {
         showLoader();
-        Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers(), ActivityStreamService.getTagPeople()])
+        Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers(), ActivityStreamService.searchPeople()])
         .then((res)=>{
             if(res[0].status !== 'error'){
                 dispatch({field: 'posts', value: res[0].data.data});
@@ -56,8 +56,8 @@ function Home() {
             }else { 
                 ToastsStore.error(res[1].message); 
             }
-            if(res[2].status !== 'error') {
-                dispatch({field: 'tagPeople', value: res[2].data.data})
+            if(res[2].status !== 'error'){
+                dispatch({field: 'tagPeople', value: res[2].data.people});
             }else { 
                 ToastsStore.error(res[2].message); 
             }
@@ -75,14 +75,14 @@ function Home() {
                         openImagePopup={openImageModal}
                         openStatusUploadModal={openStatusUploadModal}
                     />
-                    <Post posts={posts}/>
+                    <Post posts={posts} />
                     <div className="fixedbutton">
                         <AddButtonIcon height="50px" width="50px" />
                     </div>
                 </div>
                 <div className="col-md-4 scrolling h100p">
                     <div className="img-div h230 mt30 mb10 ">
-                        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="authore pic" />
+                        <img src={require('../assets/virtual-reality.png')} alt="virtual reality pic" />
                     </div>
                     <OnlineStatusCard />
                     <div className="mt10 mb10">
