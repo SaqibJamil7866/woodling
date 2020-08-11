@@ -338,7 +338,7 @@ class EditProfile extends React.Component {
                                     <AsyncTypeahead
                                         id="location_typehead"
                                         labelKey="description"
-                                        selected={address}
+                                        //={address}
                                         isLoading={isLocationLoading}
                                         placeholder="Search for a Location (type min 3 char)"
                                         minLength={3}
