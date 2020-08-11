@@ -15,6 +15,9 @@ import { Switch } from '@progress/kendo-react-inputs';
 import '@progress/kendo-theme-default/dist/all.css';
 import MySkillsModal from '../../models/edit-skills-modal.component';
 import AddExperience from '../../models/add-experience-modal.component';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
+import { ActivityStreamService } from '../../services/ActivityStreamService';
+
 
 class EditProfile extends React.Component {
     state = {
@@ -38,6 +41,17 @@ class EditProfile extends React.Component {
         allSkills: [],
         allRoleType: [],
         errors: {},
+
+        selectedLocation: '',
+        description: '',
+        lat: '',
+        lng: '',
+        formatted_address:'',
+        city:'',
+        country: '',
+        selectedPeople: [],
+        locations: [],
+        isLocationLoading: false,
     }
     async componentDidMount() {
         showLoader();
@@ -205,16 +219,26 @@ class EditProfile extends React.Component {
     return current.isAfter(yesterday);
     }
 
-    handleLocation = (e) => {
-        const data = {...this.state.myData}
-        data[e.currentTarget.name] = e.currentTarget.value;
-        this.setState({myData: data}, () => {
-            CastingCallService.getLocation(this.state.myData.address)
-            .then((res) => {
-                this.setState((prev) => ({myData: {...prev.myData, address: res.data.predictions}}), () => {
-                    console.log(this.state.myData.address)
+    handleLocation = (location) => { 
+        this.setState({selectedLocation: location[0]}, () => {
+            const {selectedLocation}= this.state;
+            ActivityStreamService.getLocationDetailByPlaceId(selectedLocation.place_id)
+            .then((response) => {
+                const res= response.data.results[0];
+                const address = selectedLocation.description.split(',');
+                this.setState((prev) => ({myData: {...prev.myData, address: res.formatted_address}}), () => {
+                    console.log(this.state.myData)
                 })
             })
+        })
+    }
+
+    handleLocationSearch = (e) =>{ 
+        const data = {...this.state.myData}
+        this.setState({isLocationLoading: true});
+        CastingCallService.getLocation(e)
+        .then((res) => {
+            this.setState({isLocationLoading: false, locations: res.data.predictions});
         })
     }
 
@@ -241,7 +265,7 @@ class EditProfile extends React.Component {
 
     render() {
         const { cover_picture, profile_picture, full_name, date_of_birth, address, gender, marital_status, email, phone_1, website, bio } = this.state.myData;
-        const { mySkills, skillModal, data, allSkills, experienceCount, myExperience, experienceModal, allRoleType, addExperience } = this.state;
+        const { mySkills, skillModal, data, allSkills, experienceCount, location, myExperience, experienceModal, allRoleType, addExperience, isLocationLoading } = this.state;
         
         return ( 
             <div>
@@ -292,7 +316,7 @@ class EditProfile extends React.Component {
                             </div>
                             <div className='d-flex'>
                                 <i className="fa fa-pencil fs15 gray" />
-                                <div className="form-group w90p">
+                                <div className=" w90p">
                                     <div className='d-flex space-between'>
                                         <label className='ml10 gray' for="location">Location</label>
                                         <div className='d-flex align-items'>
@@ -300,7 +324,17 @@ class EditProfile extends React.Component {
                                             <Switch />
                                         </div>
                                     </div>
-                                    <input value={address} onChange={this.handleLocation} type="text" className="form-control brder-l-r-t" id="location" name='address' />
+                                    <AsyncTypeahead
+                                        id="location_typehead"
+                                        labelKey="description"
+                                        isLoading={isLocationLoading}
+                                        placeholder="Search for a Location (type min 3 char)"
+                                        minLength={3}
+                                        onSearch={this.handleLocationSearch}
+                                        onChange={this.handleLocation}
+                                        options={this.state.locations}
+                                        className="form-control box-shadow-none border-none brder-l-r-t mb20"
+                                    />
                                 </div>
                             </div>
                             <div className='d-flex'>

@@ -43,7 +43,7 @@ const AddExperience = (props) => {
                             </div>
                             <div className='form-group'>
                                 <label for='role_type' className='grey'>Role Type</label>
-                                <select name="role_type" id="role_type" className="form-control bold form-control brder-l-r-t mt-10" placeholder='Gender'>
+                                <select value={role_type} onChange={handleChange} name="role_type" id="role_type" className="form-control bold form-control brder-l-r-t mt-10" placeholder='Gender'>
                                     {allRoleType.map((i, index) => {
                                         if(i.name===''){
                                             return null;
@@ -54,7 +54,7 @@ const AddExperience = (props) => {
                             </div>
                             <div className='form-group'>
                                 <label for='location' className='grey'>Location</label>
-                                <input type="text" className="form-control brder-l-r-t mt-10" id="location" name='location' />
+                                <input value={location} type="text" className="form-control brder-l-r-t mt-10" id="location" name='location' />
                             </div>
                             <div className="form-group">
                                 <label className='ml10 gray' for="start_date">Start Date</label>

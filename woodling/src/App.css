@@ -222,7 +222,7 @@ html, body, #root {
   width: 100%;
 }
 .w50{
-  width: 50px !important;
+  width: 50% !important;
 }
 .h100p{
   height: 100% !important;
@@ -2163,6 +2163,24 @@ p.sdate {
   border-right: none !important;
   border-top: none !important;
   border-left: none !important;
+}
+
+.brder-l-r-t input {
+  border-right: none !important;
+  border-top: none !important;
+  border-left: none !important;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.brder-l-r-t input:focus {
+  border-right: none !important;
+  border-top: none !important;
+  border-left: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .brder-l-r-t:focus {
