@@ -1,10 +1,10 @@
 import {AuthService} from './AuthService';
 import axios from 'axios';
-import { getUserProfileUrl, postCoverImageUrl, postProfileImageUrl, getIndividualSkillsUrl } from '../public/endpoins';
+import { getUserProfileUrl, getIndividualSkillsUrl, postupdateProfileUrl, getSettingProfileUrl } from '../public/endpoins';
 import { resolve } from 'joi-browser';
 
 export const SettingService = {
-    myData, postCover, postProfile, getSkills
+    myData, postCover, postProfile, getSkills, addExperience, UpdateUserDetail, getSettingProfile
 }; 
 
 function myData() {
@@ -22,7 +22,7 @@ function myData() {
 
 function postCover(params) {
     return new Promise((resolve, reject) => {
-        axios.post(postCoverImageUrl, params)
+        axios.post(postupdateProfileUrl, params)
         .then((res) => {
             resolve(res);
         })
@@ -34,7 +34,7 @@ function postCover(params) {
 
 function postProfile(params) {
     return new Promise((resolve, reject) => {
-        axios.post(postProfileImageUrl, params)
+        axios.post(postupdateProfileUrl, params)
         .then((res) => {
             resolve(res);
         })
@@ -52,6 +52,44 @@ function getSkills() {
         })
         .catch((error) => {
             reject(error)
+        })
+    })
+}
+
+function addExperience(params) {
+    return new Promise((resolve, reject) => {
+        axios.post(postupdateProfileUrl, params)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
+function UpdateUserDetail(params) {
+    console.log(params)
+    return new Promise((resolve, reject) => {
+        axios.post(postupdateProfileUrl, params)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
+function getSettingProfile() {
+    return new Promise((resolve, reject) => {
+        const url = getSettingProfileUrl+"?user_id="+AuthService.getUserId();
+        axios(url)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
         })
     })
 }

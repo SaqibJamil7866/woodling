@@ -1543,7 +1543,7 @@ p.sdate {
 }
 
 .fs13 {
-  font-size: 13px;
+  font-size: 13px !important;
 }
 
 .fs17 {
@@ -1679,6 +1679,19 @@ p.sdate {
 
 .w75 {
   width: 70%;
+}
+
+.plr10 {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.h165px {
+  height: 165px;
+}
+
+.w45 {
+  width: 45%;
 }
 
 .dropDown-btn .dropDown-btn:hover .dropDown-btn:active .dropDown-btn:focus {
@@ -1893,7 +1906,7 @@ p.sdate {
 }
 
 .pb10 {
-  padding-bottom: 20px;
+  padding-bottom: 20px !important;
 }
 
 .mr40 {
@@ -2239,6 +2252,10 @@ p.sdate {
   box-shadow: 3px 3px 5px 6px #ccc;
 }
 
+.box-shadow-red {
+  box-shadow: 3px 3px 5px 6px #f36767;
+}
+
 .w400 {
   width: 400px;
 }
@@ -2246,3 +2263,15 @@ p.sdate {
 .h400 {
   height: 400px !important;
 }
+
+.transition {
+  transition: all .2s;
+}
+
+.transform:hover {
+  transform: translateY(-5px);
+}
+.transform:focus {
+  transform: translateY(0px);
+}
+
