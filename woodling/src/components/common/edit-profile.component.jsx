@@ -368,11 +368,73 @@ class EditProfile extends React.Component {
     }
 
     handleSwitchChange = (e) => {
-        // const data = {...this.state.profileSwitches};
+        const data = {...this.state.profileSwitches};
         // data[e.target.name]===
-        console.log(e.target.name)
-        console.log(e.target.value)
-        console.log(e)
+        if(this.state.profileSwitches[e.target.name]==='1') {
+
+            data[e.target.name] = false;
+            this.setState({profileSwitches: data}, () => {
+                const data = {type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
+                SettingService.UpdateUserDetail(data)
+                .then((res) => {
+                    if(res.data.status !== 'error'){
+                        ToastsStore.success(res.data.message); 
+                    }else{
+                        console.log('error')
+                        ToastsStore.error(res.message); 
+                    }
+                })
+                .catch((e)=> console.error("error: "+ e))
+            });
+        }
+        else if(this.state.profileSwitches[e.target.name]==='0') {
+            data[e.target.name] = true;
+            this.setState({profileSwitches: data}, () => {
+                const data = {type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
+                SettingService.UpdateUserDetail(data)
+                .then((res) => {
+                    if(res.data.status !== 'error'){
+                        ToastsStore.success(res.data.message); 
+                    }else{
+                        console.log('error')
+                        ToastsStore.error(res.message); 
+                    }
+                })
+                .catch((e)=> console.error("error: "+ e))
+            });
+        }
+        else if(this.state.profileSwitches[e.target.name]===true) {
+            data[e.target.name] = false;
+            this.setState({profileSwitches: data}, () => {
+                const data = {type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
+                SettingService.UpdateUserDetail(data)
+                .then((res) => {
+                    if(res.data.status !== 'error'){
+                        ToastsStore.success(res.data.message); 
+                    }else{
+                        console.log('error')
+                        ToastsStore.error(res.message); 
+                    }
+                })
+                .catch((e)=> console.error("error: "+ e))
+            });
+        }
+        else if(this.state.profileSwitches[e.target.name]===false) {
+            data[e.target.name] = true;
+            this.setState({profileSwitches: data}, () => {
+                const data = {type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
+                SettingService.UpdateUserDetail(data)
+                .then((res) => {
+                    if(res.data.status !== 'error'){
+                        ToastsStore.success(res.data.message); 
+                    }else{
+                        console.log('error')
+                        ToastsStore.error(res.message); 
+                    }
+                })
+                .catch((e)=> console.error("error: "+ e))
+            });
+        }
     }
 
     render() {
@@ -416,7 +478,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="birth">Birthday</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13 fs13'>Display on profile</p>
-                                            <Switch name='birthday_display' checked={birthday_display} onChange={this.handleSwitchChange} />
+                                            <Switch name='birthday_display' checked={Boolean(birthday_display)} onChange={this.handleSwitchChange} />
                                         </div>
                                     </div>
                                     <DatePicker
