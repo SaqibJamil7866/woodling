@@ -1,11 +1,11 @@
-const baseUrl = 'http://3.133.7.18/woodlig_jwt/controllers/mobile';
+const baseUrl = 'http://18.220.228.143/woodlig_jwt/controllers/mobile';
 
 // location endpoints
 const locationUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
 export const geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
 
-export const siteUrl = 'http://3.133.7.18/woodlig_jwt/';
-export const picUrl = 'http://3.133.7.18/'
+export const siteUrl = 'http://18.220.228.143/woodlig_jwt/';
+export const picUrl = 'http://18.220.228.143/'
 
 // auth endpoints
 export const loginUrl = `${baseUrl}/login.php`;
@@ -60,6 +60,7 @@ export const addStarredNotesUrl = `${baseUrl}/add-starred-notes.php`;
 // skills endpoints
 export const getIndividualSkillsUrl = `${baseUrl}/fetch-individual-skills.php`;
 export const addBusinessSkillsNoUrl = `${baseUrl}/fetch-business-skills.php`;
+export const getGendersUrl = `${baseUrl}/fetch_all_gender.php`;
 
 // casting calls endpoints
 export const getUserAppliedJobsUrl = `${baseUrl}/fetch-user-applied-jobs.php`;

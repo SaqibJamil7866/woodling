@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable class-methods-use-this */
 import React from 'react';
 import { ToastsStore } from 'react-toasts';
@@ -14,7 +15,10 @@ import { TalentService } from '../services/TalentService';
 class SearchTalent extends React.Component {
     constructor(props){
         super(props)
+        // this.scrollParentRef = React.createRef();
         this.state = {
+            page: 1,
+            showLoadMoreBtn: true,
             featuredTalents: [],
             allTalents: [],
             starredTalents: [],
@@ -24,11 +28,13 @@ class SearchTalent extends React.Component {
     }
 
     componentDidMount(){
+        const {page} = this.state;
         showLoader();
         Promise.all([TalentService.getAllTalents(1), TalentService.getStarredTalents(), TalentService.getFeaturedTalents(1)])
         .then((res)=>{
             if(res[0].data.status !== 'error'){
                 this.setState({allTalents: res[0].data.talents});
+                this.setState({page: page+1});
             }else {
                 ToastsStore.error(res[0].message); 
             }
@@ -45,6 +51,26 @@ class SearchTalent extends React.Component {
         })
         .catch((e)=>console.error("error: "+ e))
         .then(() => hideLoader());
+    }
+
+    loadMoreTalents = () => {
+        const {page, allTalents} = this.state;
+        showLoader();
+        TalentService.getAllTalents(page).then((res)=>{
+            hideLoader();
+            if(res.data.status !== 'error'){
+                if(res.data.talents){
+                    this.setState({page: page+1, allTalents: [...allTalents, ...res.data.talents]});
+                }
+                else{
+                    this.setState({showLoadMoreBtn: false});
+                    ToastsStore.warning('No more records.');
+                }
+            }
+            else{
+                ToastsStore.error(res[0].message); 
+            }
+        });
     }
 
     handleShowModel = (data) => {
@@ -133,7 +159,7 @@ class SearchTalent extends React.Component {
     render() {
         const { allTalents, starredTalents, featuredTalents, modalData } = this.state;
         return (
-            <div className='h100p scrolling'>
+            <div className='h100p scrolling' ref={(ref) => this.scrollParentRef = ref}>
                 <div className="row m0">
                     <div className="col-md-12 p0">
                         <HeaderSearch 
@@ -156,6 +182,7 @@ class SearchTalent extends React.Component {
                             })}
 
                             {allTalents && allTalents.length === 0 ? 'No Talent find' : ''}
+                            {this.state.showLoadMoreBtn && <button className="btn btn-primary w100p mb20" onClick={this.loadMoreTalents}>Load More...</button>}
                         </div>
                     </div>
                     <div className="col-md-4">
