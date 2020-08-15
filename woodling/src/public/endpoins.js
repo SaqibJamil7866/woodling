@@ -42,6 +42,7 @@ export const addReviewUrl = `${baseUrl}/add-review.php`
 
 // Comments endpoints
 export const getCommentsUrl = `${baseUrl}/fetch-post-comments.php`;
+export const getCommentRpliesUrl = `${baseUrl}/fetch-comment-reply.php`;
 export const addCommentsUrl = `${baseUrl}/add-post-comment.php`;
 export const addCommentReplyUrl = `${baseUrl}/add-comment-reply.php`;
 export const addCommentReactionUrl = `${baseUrl}/add-comment-reaction.php`;

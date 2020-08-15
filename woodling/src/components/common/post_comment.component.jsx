@@ -10,13 +10,18 @@ import convertToFloat from '../../public/helperFunctions';
 class PostCommentComponent extends React.Component {
     constructor(props) {
         super(props); 
-        this.state = {  
+        this.state = {
+            showReply: '',
             postData: this.props.postData, 
-            comment:'',
-            comments:[]
+            comment: '',
+            commentId: '',
+            commentReply: '',
+            commentReplies: [],
+            comments: []
         };
         
         this.handleChange = this.handleChange.bind(this);
+        this.handleCommentReply = this.handleCommentReply.bind(this);
         this.keyPress = this.keyPress.bind(this);
     }
   
@@ -29,6 +34,20 @@ class PostCommentComponent extends React.Component {
             PostCommentsService.getPostComments( this.state.postData.post_id).then(async (res) => {
                 if(res.data.status === "success"){
                     this.setState({ comments:res.data.comments});
+                }else {
+                    console.log(res); 
+                }
+            });
+        }catch(e){
+            console.log('error', e);
+        } 
+    }
+
+    getPostCommentReplies(){
+        try{
+            PostCommentsService.getPostCommentReplies( this.state.postData.post_id, this.state.commentId).then(async (res) => {
+                if(res.data.status === "success"){
+                    this.setState({ commentReplies: res.data.replies});
                 }else {
                     console.log(res); 
                 }
@@ -58,14 +77,45 @@ class PostCommentComponent extends React.Component {
             console.log('error', e);
         } 
     }
+
+    addCommentReply(){
+        try{  
+            const data = {
+                user_id: AuthService.getUserId(),
+                post_id: this.state.postData.post_id,
+                comment: this.state.commentReply,
+                comment_id: this.state.commentId
+            }
+            
+            PostCommentsService.addCommentReply(data).then(async (res) => {
+                if(res.data.status === "success"){
+                    this.getPostCommentReplies();
+                    this.setState({ commentReply:''});
+                }else {
+                    console.log(res);  
+                } 
+            });
+        }catch(e){
+            console.log('error', e);
+        } 
+    }
     
     handleChange(e) {
         this.setState({ comment: e.target.value });
     }
 
+    handleCommentReply(e){
+        this.setState({ commentReply: e.target.value });
+    }
+
     keyPress(e){
         if(e.keyCode === 13 &&  e.target.value !== ''){
-            this.addCooment();
+            if(e.target.name === 'comment'){
+                this.addCooment();
+            }
+            else if(e.target.name === 'comment-reply'){
+                this.addCommentReply();
+            }
         }
     }
 
@@ -93,7 +143,7 @@ class PostCommentComponent extends React.Component {
     render(){
         let commentsList = '';
         if(this.state.comments.length > 0 ){
-            commentsList  = this.state.comments.map((item)=>{ 
+            commentsList  = this.state.comments.map((item, index)=>{ 
                 return( 
                     <li key={item.comment_id}>
                         <div className="comment-main">
@@ -105,9 +155,27 @@ class PostCommentComponent extends React.Component {
                                 <p>{ item.comment }</p>
                             </div>  
                             <div className="reply-like">
-                                <a className="reply">Reply</a>
+                                <a className="reply" onClick={()=>{this.setState({showReply: index, commentId: item.comment_id},()=>this.getPostCommentReplies())}}>Reply</a>
                                 <span className="like-count"><i onClick={()=>this.likeDislikeComment(item)} className={`red fa ${ convertToFloat(item.like_status) ? 'fa-heart': 'fa-heart-o'}`} /><span className="ml5">Like ({item.likes})</span></span>
-                            </div>    
+                            </div>
+                            { this.state.showReply === index && (
+                                <div className="form-group comment-input">
+                                    <input type="text" name="comment-reply" id="comment-reply" className="form-control input-sm" placeholder="Say something about this" value={this.state.commentReply} onChange={this.handleCommentReply} onKeyDown={this.keyPress} />
+                                    {this.state.commentReplies && this.state.commentReplies.map((obj)=>{
+                                        return (
+                                            <div key={obj.id} className="ml10">
+                                                <div className="posst_user_profile">
+                                                    <img className="brad-19" src={picUrl+obj.profile_thumb} alt="profile" />
+                                                    <p>{obj.username}</p>
+                                                </div>
+                                                <div className="comment-dec">
+                                                    <p>{ obj.reply }</p>
+                                                </div>  
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            )}
                         </div>
                     </li>
             )});

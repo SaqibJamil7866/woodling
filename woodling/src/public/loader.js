@@ -15,7 +15,7 @@ export function showLoader(el, tmOut){
 
 
     if(!tmOut){
-        tmOut = 30000;
+        tmOut = 50000;
     }
 
     if(loaderInterval){  // To avoid concurrent timeouts if showLoader() is called more than once.
