@@ -351,7 +351,7 @@ class EditProfile extends React.Component {
     handleUpdateProfile = async (e) => {
         e.preventDefault();
         const { full_name, date_of_birth, address, gender, marital_status, email, phone_1, website, bio } = this.state.myData;
-        const data = {userId: AuthService.getUserId(), type: 'user_details', full_name: full_name, date_of_birth: date_of_birth, description: bio, gender: gender, marital_status: marital_status, website: website, address: address}
+        const data = {user_id: AuthService.getUserId(), type: 'user_details', full_name: full_name, date_of_birth: date_of_birth, description: bio, gender: gender, marital_status: marital_status, website: website, address: address}
         showLoader();
         await SettingService.UpdateUserDetail(data)
         .then((res) => {
