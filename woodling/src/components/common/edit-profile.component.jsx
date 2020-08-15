@@ -283,20 +283,20 @@ class EditProfile extends React.Component {
 
     closeSkillModal = async (e) => {
         e.preventDefault();
-        console.log(this.state.mySkills)
-        await this.state.mySkills.map((i, index) => {
-            const skills = {user_id: AuthService.getUserId(), type: 'skills', skillset: i.id}
-            SettingService.UpdateUserDetail(skills)
-            .then((res) => {
-                if(res.data.status !== 'error'){
-                    this.setState({skillModal: false}) 
-                    ToastsStore.success(res.data.message); 
-                }else{
-                    console.log('error')
-                    ToastsStore.error(res.message); 
-                }
-            })
-        })       
+        const skillIds = this.state.mySkills.map((skill) => {
+            return skill.id;
+        }).join(',');
+
+        const skills = {user_id: AuthService.getUserId(), type: 'skills', skillset: skillIds}
+        SettingService.UpdateUserDetail(skills)
+        .then((res) => {
+            if(res.data.status !== 'error'){
+                this.setState({skillModal: false}) 
+                ToastsStore.success(res.data.message); 
+            }else{
+                ToastsStore.error(res.message); 
+            }
+        })
     }
 
     openExperienceModal = (data) => {
