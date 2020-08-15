@@ -5,8 +5,8 @@ import EditProfile from './common/edit-profile.component'
 
 class Settings extends Component {
     state = { 
-        profile: true,
-        account: false,
+        profile: false,
+        account: true,
         notification: false,
         privacy: false,
         sharing: false,
