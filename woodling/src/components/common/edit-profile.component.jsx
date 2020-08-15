@@ -2,6 +2,7 @@ import React from 'react';
 import { SettingService } from '../../services/Setting';
 import { ToastsStore } from 'react-toasts';
 import { picUrl, siteUrl } from '../../public/endpoins';
+import convertToFloat from '../../public/helperFunctions';
 import  Joi from 'joi-browser';
 import { AuthService } from '../../services/AuthService';
 import { showLoader, hideLoader } from '../../public/loader';
@@ -281,8 +282,7 @@ class EditProfile extends React.Component {
         this.setState({skillModal: true, data: data})
     }
 
-    closeSkillModal = async (e) => {
-        e.preventDefault();
+    closeSkillModal = (e) => {
         const skillIds = this.state.mySkills.map((skill) => {
             return skill.id;
         }).join(',');
@@ -390,7 +390,7 @@ class EditProfile extends React.Component {
     handleSwitchChange = (e) => {
         const data = {...this.state.profileSwitches};
         if(this.state.profileSwitches[e.target.name]==='1') {
-            data[e.target.name] = false;
+            data[e.target.name] = "0";
             this.setState({profileSwitches: data}, () => {
                 const data = {user_id: AuthService.getUserId(), type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
                 SettingService.UpdateUserDetail(data)
@@ -406,7 +406,7 @@ class EditProfile extends React.Component {
             });
         }
         else if(this.state.profileSwitches[e.target.name]==='0') {
-            data[e.target.name] = true;
+            data[e.target.name] = "1";
             this.setState({profileSwitches: data}, () => {
                 const data = {user_id: AuthService.getUserId(), type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
                 SettingService.UpdateUserDetail(data)
@@ -422,7 +422,7 @@ class EditProfile extends React.Component {
             });
         }
         else if(this.state.profileSwitches[e.target.name]===true) {
-            data[e.target.name] = false;
+            data[e.target.name] = "0";
             this.setState({profileSwitches: data}, () => {
                 const data = {user_id: AuthService.getUserId(), type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
                 SettingService.UpdateUserDetail(data)
@@ -438,7 +438,7 @@ class EditProfile extends React.Component {
             });
         }
         else if(this.state.profileSwitches[e.target.name]===false) {
-            data[e.target.name] = true;
+            data[e.target.name] = "1";
             this.setState({profileSwitches: data}, () => {
                 const data = {user_id: AuthService.getUserId(), type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
                 SettingService.UpdateUserDetail(data)
@@ -496,7 +496,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="birth">Birthday</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13 fs13'>Display on profile</p>
-                                            <Switch name='birthday_display' checked={Boolean(birthday_display)} onChange={this.handleSwitchChange} />
+                                            <Switch name='birthday_display' checked={Boolean(convertToFloat(birthday_display))} onChange={this.handleSwitchChange} />
                                         </div>
                                     </div>
                                     <DatePicker
@@ -513,7 +513,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="location">Location</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch name='location_display' checked={Boolean(location_display)} onChange={this.handleSwitchChange} />
+                                            <Switch name='location_display' checked={Boolean(convertToFloat(location_display))} onChange={this.handleSwitchChange} />
                                         </div>
                                     </div>
                                         <AsyncTypeahead
@@ -536,7 +536,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="gender">Gender</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch name='gender_display' checked={Boolean(gender_display)} onChange={this.handleSwitchChange} />
+                                            <Switch name='gender_display' checked={Boolean(convertToFloat(gender_display))} onChange={this.handleSwitchChange} />
                                         </div>
                                     </div>
                                     <select name="gender" value={gender==='null' ? 'Rather not say' : gender} onChange={this.handleChange} id="gender" className="form-control brder-l-r-t" placeholder='Gender'>
@@ -554,7 +554,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="marital_status">Marital Status</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch name='marital_status_display' checked={Boolean(marital_status_display)} onChange={this.handleSwitchChange} />
+                                            <Switch name='marital_status_display' checked={Boolean(convertToFloat(marital_status_display))} onChange={this.handleSwitchChange} />
                                         </div>
                                     </div>
                                     <select name="marital_status" value={marital_status==='null' ? 'Rather not say' : marital_status} onChange={this.handleChange} id="marital_status" className="form-control brder-l-r-t" placeholder='marital_status'>
@@ -574,7 +574,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="email">Email</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch name='email_display' checked={Boolean(email_display)} onChange={this.handleSwitchChange} />
+                                            <Switch name='email_display' checked={Boolean(convertToFloat(email_display))} onChange={this.handleSwitchChange} />
                                         </div>
                                     </div>
                                     <input value={email} onChange={this.handleChange} type="text" className="form-control brder-l-r-t" id="email" name='email' />
@@ -587,7 +587,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="contact">Phone Number</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch name='phone_display' checked={Boolean(phone_display)} onChange={this.handleSwitchChange} />
+                                            <Switch name='phone_display' checked={Boolean(convertToFloat(phone_display))} onChange={this.handleSwitchChange} />
                                         </div>
                                     </div>
                                     <input value={phone_1} onChange={this.handleChange} type="text" className="form-control brder-l-r-t" id="contact" name='phone_1' placeholder='Not Set' />
@@ -600,7 +600,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="website">Website</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch name='website_display' checked={Boolean(website_display)} onChange={this.handleSwitchChange} />
+                                            <Switch name='website_display' checked={Boolean(convertToFloat(website_display))} onChange={this.handleSwitchChange} />
                                         </div>
                                     </div>
                                     <input value={website==='null'?"":null} onChange={this.handleChange} type="text" className="form-control brder-l-r-t" id="website" name='website' placeholder='Not Set' />

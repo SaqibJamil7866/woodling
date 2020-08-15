@@ -7,7 +7,8 @@ import { showLoader, hideLoader } from '../../public/loader';
 import 'react-input-range/lib/css/index.css';
 
 const Filters = (props) => {
-    const [filters, setFilters] = useState({skills: [], genders: []});
+    const [skills, setSkills] = useState([]);
+    const [genders, setGenders] = useState([]);
     const [formData, setFormData] = useState({gender: '', skill: ''});
     const [sliderValue, setSliderValue ] = useState({ min: 18, max: 35 });
     const sliderOnChange = (val) => {
@@ -20,12 +21,12 @@ const Filters = (props) => {
         Promise.all([SettingService.getSkills(), SettingService.getGenders()])
         .then((res)=>{
             if(res[0].status !== 'error'){
-                setFilters({skills: res[0].data.data})
+                setSkills(res[0].data.data)
             }else { 
                 ToastsStore.error(res[0].message); 
             }
             if(res[1].status !== 'error'){
-                setFilters({genders: res[1].data.data})
+                setGenders(res[1].data.data);
             }else { 
                 ToastsStore.error(res[1].message); 
             }
@@ -41,11 +42,10 @@ const Filters = (props) => {
             </div>
             <div className='p35 d-flex flex-dir-col'>
                 <label className='fs20 muli'>Skills</label>
-                <select name="skill" id="skill" value={formData.skill} onChange={(val)=>{debugger; setFormData({skill: val})}} className="form-control border-none">
-                    <option value="">Select</option>                    
-                    {filters.skills && filters.skills.map((sk, index) => {
-                        console.log('option: ', sk.name);
-                        return <option key={index}>{sk.name}</option>
+                <select name="skill" id="skill" onChange={(e)=>{setFormData({...formData, skill: e.target.value})}} className="form-control border-none">
+                    <option value="">Select</option>
+                    {skills && skills.map((sk, index) => {
+                        return <option key={index} value={sk.id}>{sk.name}</option>
                     })}
                 </select>
 
@@ -66,17 +66,17 @@ const Filters = (props) => {
                             <input type="radio" name="radio" />
                             <span className="checkmark" />
                         </label>
-                        {filters.genders && filters.genders.map((gender) => {
+                        {genders && genders.map((gender) => {
                             return(
                                 <label key={gender.id} className="containers">{gender.sex}
-                                    <input type="radio" name="radio" />
+                                    <input type="radio" name="radio" onClick={()=>{setFormData({...formData, gender: gender.id})}} />
                                     <span className="checkmark" />
                                 </label>
                             )
                         })}
                     </div>
                 </div>
-                <button className="filter-btn mt20">Apply Filter</button>
+                <button className="filter-btn mt20" onClick={()=>props.applyFilter(formData, sliderValue)}>Apply Filter</button>
             </div>
         </div>
     );

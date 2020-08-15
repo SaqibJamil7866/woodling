@@ -145,18 +145,17 @@ class SearchTalent extends React.Component {
 
     }
 
-    applySearchFilterTalent(data){debugger
-        console.log("open Profile: ", data);
-        history.push({
-            pathname: '/user_profile',
-            state: { data }
-        })
-
+    applySearchFilterTalent(data, age){debugger
+        console.log("open Profile: ", data, age);
+        // history.push({
+        //     pathname: '/user_profile',
+        //     state: { data }
+        // })
     }
 
 
 
-    render() {
+    render(){
         const { allTalents, starredTalents, featuredTalents, modalData } = this.state;
         return (
             <div className='h100p scrolling' ref={(ref) => this.scrollParentRef = ref}>
@@ -196,7 +195,7 @@ class SearchTalent extends React.Component {
                                     handleHideModel={this.handleHideModel}
                                     modalData={modalData}
                                 />
-                                <Filters search={this.applySearchFilterTalent} />
+                                <Filters applyFilter={this.applySearchFilterTalent} />
                             </div>
                             <img style={{width: '80%', marginTop: '20px'}} src={require('../assets/virtual-reality.png')} alt="virtual reality pic" />
                         </div>
