@@ -60,6 +60,7 @@ export const addStarredNotesUrl = `${baseUrl}/add-starred-notes.php`;
 // skills endpoints
 export const getIndividualSkillsUrl = `${baseUrl}/fetch-individual-skills.php`;
 export const addBusinessSkillsNoUrl = `${baseUrl}/fetch-business-skills.php`;
+export const getGendersUrl = `${baseUrl}/fetch_all_gender.php`;
 
 // casting calls endpoints
 export const getUserAppliedJobsUrl = `${baseUrl}/fetch-user-applied-jobs.php`;

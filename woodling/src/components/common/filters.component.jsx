@@ -1,14 +1,39 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { ToastsStore } from 'react-toasts';
 import InputRange from 'react-input-range';
+import { SettingService } from '../../services/Setting'
+import { showLoader, hideLoader } from '../../public/loader';
 import 'react-input-range/lib/css/index.css';
 
 const Filters = (props) => {
+    const [filters, setFilters] = useState({skills: [], genders: []});
+    const [formData, setFormData] = useState({gender: '', skill: ''});
     const [sliderValue, setSliderValue ] = useState({ min: 18, max: 35 });
     const sliderOnChange = (val) => {
         setSliderValue({min: val.min, max: val.max});
         console.log(val.min, val.max);
     }
+
+    useEffect(() => {
+        showLoader();
+        Promise.all([SettingService.getSkills(), SettingService.getGenders()])
+        .then((res)=>{
+            if(res[0].status !== 'error'){
+                setFilters({skills: res[0].data.data})
+            }else { 
+                ToastsStore.error(res[0].message); 
+            }
+            if(res[1].status !== 'error'){
+                setFilters({genders: res[1].data.data})
+            }else { 
+                ToastsStore.error(res[1].message); 
+            }
+        })
+        .catch((e)=>console.error("error: "+ e))
+        .then(() => hideLoader());
+    }, []);
+
     return(
         <div className='clr__white wh80 h480 mt30'>
             <div className='liked-talent-title p35'>
@@ -16,13 +41,15 @@ const Filters = (props) => {
             </div>
             <div className='p35 d-flex flex-dir-col'>
                 <label className='fs20 muli'>Skills</label>
-                <select name="gender" id="inputState" className="form-control border-none" placeholder='Gender'>
-                    <option value=''>Any</option>
-                    <option value='Male'>Male</option>
-                    <option value='Female'>Female</option>
+                <select name="skill" id="skill" value={formData.skill} onChange={(val)=>{debugger; setFormData({skill: val})}} className="form-control border-none">
+                    <option value="">Select</option>                    
+                    {filters.skills && filters.skills.map((sk, index) => {
+                        console.log('option: ', sk.name);
+                        return <option key={index}>{sk.name}</option>
+                    })}
                 </select>
 
-                <label className='fs20 muli mt10'>Age</label> 
+                <label className='fs20 muli mt10'>Age</label>
                 <div>                    
                     <InputRange
                         value={sliderValue}
@@ -37,25 +64,19 @@ const Filters = (props) => {
                     <div>
                         <label className="containers">All/Any
                             <input type="radio" name="radio" />
-                            <span className="checkmark"></span>
-                        </label>
-                        <label className="containers">Female
-                            <input type="radio" name="radio" />
-                            <span className="checkmark"></span>
-                        </label>
-                    </div>
-                    <div>
-                        <label htmlFor='radio' className="containers">Male
-                            <input type="radio" name="radio" id='radio' />
                             <span className="checkmark" />
                         </label>
-                        <label className="containers">Rather Not Say
-                            <input type="radio" name="radio" />
-                            <span className="checkmark"></span>
-                        </label>
+                        {filters.genders && filters.genders.map((gender) => {
+                            return(
+                                <label key={gender.id} className="containers">{gender.sex}
+                                    <input type="radio" name="radio" />
+                                    <span className="checkmark" />
+                                </label>
+                            )
+                        })}
                     </div>
                 </div>
-                <button href="" className="filter-btn mt20">Apply Filter</button>
+                <button className="filter-btn mt20">Apply Filter</button>
             </div>
         </div>
     );

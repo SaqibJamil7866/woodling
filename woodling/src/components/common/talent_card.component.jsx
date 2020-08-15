@@ -46,7 +46,7 @@ class TalentCard extends Component {
     render() {
         const { talent: { username, full_name, profile_thumb, rating, followers_count, premium, city }, openProfile } = this.props;
         return(
-            <div className='f-left mt10 ml10'>
+            <div className='f-left mt10 ml10' style={{marginBottom:'10px'}}>
                 <Card style={{ width: '19rem', borderRadius: '10px', minHeight:'360px', maxHeight:'360px' }}>
                     <Card.Img variant="top" src={require('../../assets/card-background.svg')} />
                     <div className='center__item dir-col m-50 p-relative'>

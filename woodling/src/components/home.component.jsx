@@ -70,21 +70,19 @@ function Home() {
     }, []);
 
     const loadMorePosts = () => {
-        if(page > 1){
-            ActivityStreamService.getActivityStreams(page).then((res)=>{
-                if(res.status !== 'error'){
-                    if(res.data.data){
-                        dispatch({field: 'posts', value: [...posts, ...res.data.data]});
-                        dispatch({field: 'page', value: page+1});
-                    }
-                    else{
-                        ToastsStore.warning('No more records.');
-                    }
-                }else { 
-                    ToastsStore.error(res.message); 
+        ActivityStreamService.getActivityStreams(page).then((res)=>{
+            if(res.status !== 'error'){
+                if(res.data.data){
+                    dispatch({field: 'posts', value: [...posts, ...res.data.data]});
+                    dispatch({field: 'page', value: page+1});
                 }
-            });
-        }
+                else{
+                    ToastsStore.warning('No more records.');
+                }
+            }else { 
+                ToastsStore.error(res.message); 
+            }
+        });
     }
 
     return (
@@ -99,6 +97,7 @@ function Home() {
                     <div className="br-white scrolling h100p">
                         <InfiniteScroll
                             pageStart={1}
+                            initialLoad={false}
                             loadMore={loadMorePosts}
                             hasMore={true || false}
                             useWindow={false}
