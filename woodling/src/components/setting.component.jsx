@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { ReactComponent as RightIcon } from '../assets/right-arrow.svg';
 import { AuthService } from '../services/AuthService';
-import EditProfile from './common/edit-profile.component'
+import EditProfile from './common/edit-profile.component';
+import EditAccount from './common/edit-account.component';
+import EditNotifications from './common/edit-notification.component';
 
 class Settings extends Component {
     state = { 
-        profile: true,
+        profile: false,
         account: false,
-        notification: false,
+        notification: true,
         privacy: false,
         sharing: false,
         faq: false,
@@ -104,6 +106,8 @@ class Settings extends Component {
                     </div>
                     <div className='col-md-8 clr__white'>
                         {profile ? <EditProfile /> : null}
+                        {account ? <EditAccount /> : null}
+                        {notification ? <EditNotifications /> : null}
                     </div>
                 </div>
             </div>

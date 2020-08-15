@@ -92,6 +92,9 @@ export const getTrendingTagsUrl = `${baseUrl}/fetch-trending-tags.php`;
 // setting endpoints
 export const postupdateProfileUrl = `${baseUrl}/update-setting-profile.php`;
 export const getSettingProfileUrl = `${baseUrl}/fetch-setting-profile.php`;
+export const postUpdateUrl = `${baseUrl}/update-setting-account.php`;
+export const getEmailUrl = `${baseUrl}/fetch-user-email.php`;
+export const getUsernameUrl = `${baseUrl}/fetch-user-username.php`;
 
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",

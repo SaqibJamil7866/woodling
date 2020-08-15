@@ -21,7 +21,6 @@ class MultiSelectDropdown extends React.Component {
     render() {
         const { data } = this.state;
         const { textField, filter, dataItemKey, value, handleChange } = this.props;
-        console.log('data: ', data, textField, dataItemKey);
         return (
             <MultiSelect
                 data={data}

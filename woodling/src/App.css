@@ -394,7 +394,7 @@ html, body, #root {
   border-radius: 40px;
 }
 .border-top{
-  border-top: 1px solid gray;
+  border-top: 1px solid #eeeaea;
 }
 
 .gray{
@@ -1630,6 +1630,23 @@ p.sdate {
   color: #ffffff;
 }
 
+.update-btn {
+  border-radius: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  background-color: #FB0201;
+  border: 3px solid #FB0201 !important;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+.align-self-center {
+  align-self: center;
+}
 
 .inline-block:focus {
   outline: none !important;
@@ -2195,6 +2212,10 @@ p.sdate {
   margin-bottom: 20px;
 }
 
+.mb30 {
+  margin-bottom: 30px;
+}
+
 .brder-l-r-t input:focus {
   border-right: none !important;
   border-top: none !important;
@@ -2275,3 +2296,6 @@ p.sdate {
   transform: translateY(0px);
 }
 
+.w150p {
+  width: 150% !important;
+}

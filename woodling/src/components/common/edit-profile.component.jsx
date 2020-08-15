@@ -283,20 +283,21 @@ class EditProfile extends React.Component {
 
     closeSkillModal = async (e) => {
         e.preventDefault();
-        console.log(this.state.mySkills)
-        await this.state.mySkills.map((i, index) => {
-            const skills = {user_id: AuthService.getUserId(), type: 'skills', skillset: i.id}
-            SettingService.UpdateUserDetail(skills)
-            .then((res) => {
-                if(res.data.status !== 'error'){
-                    this.setState({skillModal: false}) 
-                    ToastsStore.success(res.data.message); 
-                }else{
-                    console.log('error')
-                    ToastsStore.error(res.message); 
-                }
-            })
-        })       
+        const arr = [];
+        this.state.mySkills.map((i, index) => {
+            arr.push(i.id)
+        })   
+        const skills = {user_id: AuthService.getUserId(), type: 'skills', skillset: arr}
+        SettingService.UpdateUserDetail(skills)
+        .then((res) => {
+            if(res.data.status !== 'error'){
+                this.setState({skillModal: false}) 
+                ToastsStore.success(res.data.message); 
+            }else{
+                console.log('error')
+                ToastsStore.error(res.message); 
+            }
+        })
     }
 
     openExperienceModal = (data) => {
@@ -315,7 +316,6 @@ class EditProfile extends React.Component {
     }
 
     handleSkills = async(e) => {
-        console.log(e) 
         this.setState({mySkills: e.value})
     }
 
@@ -624,7 +624,7 @@ class EditProfile extends React.Component {
                                 <div className='form-group w90p'>
                                     <label for='bio' className='ml10'>Edit Skills</label>
                                     {mySkills.length === 0 ? <div className='box-shadow p10 border-radius clr__white w400 pointer'>
-                                    <button onClick={this.openZeroSkillModal} className="outline skills-text fs15">Add Skills</button>
+                                        <button onClick={this.openZeroSkillModal} className="outline skills-text fs15">Add Skills</button>
                                     </div> 
                                         :
                                     <div className='box-shadow p10 border-radius clr__white w400 pointer'>

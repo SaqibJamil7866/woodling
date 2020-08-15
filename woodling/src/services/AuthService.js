@@ -5,7 +5,7 @@ import { loginUrl, getIndividualSkillsUrl, picUrl } from '../public/endpoins';
 
 export const AuthService = {
   login, getUserId, getUserName, getSkills,
-  getUserProfileImage
+  getUserProfileImage, getPassword
 //    , register, registerStep, 
 //    getUSerProfile,
 //     getUSerFollowings,
@@ -181,6 +181,14 @@ function getUserProfileImage(){
 		profilePicture = picUrl+""+user.profile_picture; 
 	}
 	return profilePicture;
+}
+
+function getPassword() {
+  const user = cookie.load('current_user');
+  let password = '';
+  if(user) {
+    console.log(user);
+  }
 }
 // function getUserData(){
 // 	var user = JSON.parse(localStorage.getItem('user'));
