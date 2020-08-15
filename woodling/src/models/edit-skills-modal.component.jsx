@@ -11,7 +11,6 @@ class MySkillsModal extends Component {
     // }
     render() { 
         const { closeSkillModal, skillModal, allSkills, handleSkills, data } = this.props;
-        console.log(allSkills);
         return ( 
             <Modal
                 size="md"
