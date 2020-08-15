@@ -17,6 +17,7 @@ import MySkillsModal from '../../models/edit-skills-modal.component';
 import AddExperience from '../../models/add-experience-modal.component';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { ActivityStreamService } from '../../services/ActivityStreamService';
+import UserExperience from './profile-user-experience.component';
 
 
 class EditProfile extends React.Component {
@@ -41,12 +42,15 @@ class EditProfile extends React.Component {
         allSkills: [],
         allRoleType: [],
         errors: {},
-
+        profileSwitches: [],
         selectedLocation: '',
         description: '',
         formatted_address:'',
         locations: [],
         isLocationLoading: false,
+        hideField: false,
+        experienceStyle: true,
+        updateExperience: false
     }
     async componentDidMount() {
         showLoader();
@@ -66,12 +70,19 @@ class EditProfile extends React.Component {
         .then((res) => {
             this.setState({allRoleType: res.data.data});
         }).catch((e) => console.log(e))
+
+        await SettingService.getSettingProfile()
+        .then((res) => {
+            this.setState({profileSwitches: res.data.settings_profile})
+        }).catch((e) => console.log(e))
+
         .then(() => hideLoader());
     }
 
     schema = {
         project: Joi.string().required().label("Title"),
         description: Joi.string().required().label("Discription"),
+        company: Joi.string().required().label("company"),
         start_date: Joi.string().required().label("Start Date"),
         end_date: Joi.string().required().label("Deadline"),
         skill_id: Joi.string(),
@@ -158,6 +169,23 @@ class EditProfile extends React.Component {
     handleChange = (e) => {
         if(this.state.experienceModal === true) {
             console.log('experienceChange', e.currentTarget.value)
+            const errors = {...this.state.errors};
+            const errorMessage = this.validateProperty(e.currentTarget);
+            console.log('Handle Change validation');
+            console.log(errorMessage);
+            if(errorMessage) {
+                console.log(errorMessage)
+                errors[e.currentTarget.name] = errorMessage;
+            }else {
+                delete errors[e.currentTarget.name];
+            }
+            if(e.currentTarget.name==='description') {
+                if(e.currentTarget.value.length<=200) {
+                    const data = {...this.state.addExperience}
+                    data[e.currentTarget.name] = e.currentTarget.value;
+                    this.setState({addExperience: data})
+                }
+            }
             const data = {...this.state.addExperience}
             data[e.currentTarget.name] = e.currentTarget.value;
             this.setState({addExperience: data})
@@ -167,28 +195,23 @@ class EditProfile extends React.Component {
                 const a = ValidateContact(e.currentTarget.value)
                 if(a===true) {
                     data[e.currentTarget.name] = e.currentTarget.value;
-                    this.setState({myData: data}, () => {
-                        console.log(this.state.myData)
-                    });
+                    this.setState({myData: data});
                 }
             }
             else if(e.currentTarget.name==='bio') {
                 if(e.currentTarget.value.length<=160) {
                     data[e.currentTarget.name] = e.currentTarget.value;
-                    this.setState({myData: data}, () => {
-                        console.log(this.state.myData)
-                    });
+                    this.setState({myData: data});
                 }
             }else{
                 data[e.currentTarget.name] = e.currentTarget.value;
-                this.setState({myData: data}, () => {
-                    console.log(this.state.myData)
-                });
+                this.setState({myData: data});
             }
         }
     }
 
     handleDate = (name) => (e) => {
+        console.log('datename', name)
         if(this.state.experienceModal===true) {
             const date = new Date(e).toLocaleDateString('en-GB')
             const addExperience = {...this.state.addExperience};
@@ -235,9 +258,7 @@ class EditProfile extends React.Component {
                     .then((response) => {
                         const res= response.data.results[0];
                         const address = selectedLocation.description.split(',');
-                        this.setState((prev) => ({myData: {...prev.myData, address: res.formatted_address}}), () => {
-                            console.log(this.state.myData)
-                        })
+                        this.setState((prev) => ({myData: {...prev.myData, address: res.formatted_address}}))
                     })
                 })
             }
@@ -262,8 +283,16 @@ class EditProfile extends React.Component {
         this.setState({skillModal: false})
     }
 
-    openExperienceModal = () => {
-        this.setState({experienceModal: true});
+    openExperienceModal = (data) => {
+        console.log(data)
+        this.setState({experienceModal: true, addExperience: data});
+    }
+
+    openUpdateExperienceModal = (data) => {
+        console.log(data)
+        this.setState({experienceModal: true, addExperience: data, updateExperience: true}, () => {
+            this.setState((prev) => ({addExperience: {...prev.addExperience, skill_id: data.role_id, role_type: data.role_type_id}}))
+        });
     }
 
     closeExperienceModal = () => {
@@ -274,10 +303,144 @@ class EditProfile extends React.Component {
          this.setState({mySkills: e.value})
     }
 
+    handleAddExperienceButton = async (e) => {
+        e.preventDefault();
+        if(this.state.updateExperience) {
+            const data = {id: AuthService.getUserId(), user_id: AuthService.getUserId(), type: 'edit_experience', project: this.state.addExperience.project, skill_id: this.state.addExperience.skill_id, role_type: this.state.addExperience.role_type, company: this.state.addExperience.company, location: this.state.addExperience.location, start_date: this.state.addExperience.start_date, end_date: this.state.addExperience.end_date, description: this.state.addExperience.desciption }
+            showLoader();
+            await SettingService.addExperience(data)
+            .then((res) => {
+                if(res.data.status !== 'error'){
+                    this.setState({experienceModal: false})
+                    ToastsStore.success(res.data.message); 
+                }else{
+                    console.log('error')
+                    ToastsStore.error(res.message); 
+                }
+            })
+            .catch((e)=> console.error("error: "+ e))
+            .then(() => hideLoader());
+        }else {
+            const fd = new FormData();
+            fd.append('user_id', AuthService.getUserId());
+            fd.append('type', 'add_experience');
+            fd.append('project', this.state.addExperience.project);
+            fd.append('skill_id', this.state.addExperience.skill_id);
+            fd.append('role_type', this.state.addExperience.role_type);
+            fd.append('company', this.state.addExperience.company);
+            fd.append('location', this.state.addExperience.location);
+            fd.append('start_date', this.state.addExperience.start_date);
+            fd.append('end_date', this.state.addExperience.end_date);
+            fd.append('description', this.state.addExperience.description);
+            showLoader();
+            await SettingService.addExperience(fd)
+            .then((res) => {
+                if(res.data.status !== 'error'){
+                    this.setState({experienceModal: false});
+                    ToastsStore.success(res.data.message); 
+                }else{
+                    console.log('error')
+                    ToastsStore.error(res.message); 
+                }
+            })
+            .catch((e)=> console.error("error: "+ e))
+            .then(() => hideLoader());
+        }  
+    }
+
+    handleUpdateProfile = async (e) => {
+        e.preventDefault();
+        const { full_name, date_of_birth, address, gender, marital_status, email, phone_1, website, bio } = this.state.myData;
+        const data = {userId: AuthService.getUserId(), type: 'user_details', full_name: full_name, date_of_birth: date_of_birth, description: bio, gender: gender, marital_status: marital_status, website: website, address: address}
+        showLoader();
+        await SettingService.UpdateUserDetail(data)
+        .then((res) => {
+            if(res.data.status !== 'error'){
+                this.setState({experienceModal: false});
+                ToastsStore.success(res.data.message); 
+            }else{
+                console.log('error')
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=> console.error("error: "+ e))
+        .then(() => hideLoader());
+    }
+
+    handleSwitchChange = (e) => {
+        const data = {...this.state.profileSwitches};
+        // data[e.target.name]===
+        if(this.state.profileSwitches[e.target.name]==='1') {
+
+            data[e.target.name] = false;
+            this.setState({profileSwitches: data}, () => {
+                const data = {type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
+                SettingService.UpdateUserDetail(data)
+                .then((res) => {
+                    if(res.data.status !== 'error'){
+                        ToastsStore.success(res.data.message); 
+                    }else{
+                        console.log('error')
+                        ToastsStore.error(res.message); 
+                    }
+                })
+                .catch((e)=> console.error("error: "+ e))
+            });
+        }
+        else if(this.state.profileSwitches[e.target.name]==='0') {
+            data[e.target.name] = true;
+            this.setState({profileSwitches: data}, () => {
+                const data = {type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
+                SettingService.UpdateUserDetail(data)
+                .then((res) => {
+                    if(res.data.status !== 'error'){
+                        ToastsStore.success(res.data.message); 
+                    }else{
+                        console.log('error')
+                        ToastsStore.error(res.message); 
+                    }
+                })
+                .catch((e)=> console.error("error: "+ e))
+            });
+        }
+        else if(this.state.profileSwitches[e.target.name]===true) {
+            data[e.target.name] = false;
+            this.setState({profileSwitches: data}, () => {
+                const data = {type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
+                SettingService.UpdateUserDetail(data)
+                .then((res) => {
+                    if(res.data.status !== 'error'){
+                        ToastsStore.success(res.data.message); 
+                    }else{
+                        console.log('error')
+                        ToastsStore.error(res.message); 
+                    }
+                })
+                .catch((e)=> console.error("error: "+ e))
+            });
+        }
+        else if(this.state.profileSwitches[e.target.name]===false) {
+            data[e.target.name] = true;
+            this.setState({profileSwitches: data}, () => {
+                const data = {type: e.target.name, value: Number(this.state.profileSwitches[e.target.name])}
+                SettingService.UpdateUserDetail(data)
+                .then((res) => {
+                    if(res.data.status !== 'error'){
+                        ToastsStore.success(res.data.message); 
+                    }else{
+                        console.log('error')
+                        ToastsStore.error(res.message); 
+                    }
+                })
+                .catch((e)=> console.error("error: "+ e))
+            });
+        }
+    }
+
     render() {
         const { cover_picture, profile_picture, full_name, date_of_birth, address, gender, marital_status, email, phone_1, website, bio } = this.state.myData;
-        const { mySkills, skillModal, data, allSkills, experienceCount, locations, myExperience, experienceModal, allRoleType, addExperience, isLocationLoading } = this.state;
-        
+        const { mySkills, skillModal, data, allSkills, experienceCount, locations, errors, experienceModal, allRoleType, addExperience, isLocationLoading, myExperience, experienceStyle, updateExperience } = this.state;
+        const { birthday_display, location_display, gender_display, marital_status_display, email_display, phone_display, website_display } = this.state.profileSwitches;
         return ( 
             <div>
                 <div className='cover-photo position-relative'>
@@ -315,7 +478,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="birth">Birthday</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13 fs13'>Display on profile</p>
-                                            <Switch />
+                                            <Switch name='birthday_display' checked={Boolean(birthday_display)} onChange={this.handleSwitchChange} />
                                         </div>
                                     </div>
                                     <DatePicker
@@ -332,21 +495,24 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="location">Location</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch />
+                                            <Switch checked={location_display} />
                                         </div>
                                     </div>
-                                    <AsyncTypeahead
-                                        id="location_typehead"
-                                        labelKey="description"
-                                        //={address}
-                                        isLoading={isLocationLoading}
-                                        placeholder="Search for a Location (type min 3 char)"
-                                        minLength={3}
-                                        onSearch={this.handleLocationSearch}
-                                        onChange={this.handleLocation}
-                                        options={locations}
-                                        className="form-control box-shadow-none border-none brder-l-r-t mb20"
-                                    />
+                                    {/* <div onClick={()=>this.setState({hideField: true})}>
+                                        <input value={address} onChange={this.handleChange} type="text" className={this.state.hideField ? 'noDisplay' : "form-control brder-l-r-t mt-10"} id="name" name='full_name' /> */}
+                                        <AsyncTypeahead
+                                            id="location_typehead"
+                                            labelKey="description"
+                                            //selected={address==='undefined' ? '' : address}
+                                            isLoading={isLocationLoading}
+                                            placeholder="Search for a Location (type min 3 char)"
+                                            minLength={3}
+                                            onSearch={this.handleLocationSearch}
+                                            onChange={this.handleLocation}
+                                            options={locations}
+                                            className= "form-control box-shadow-none border-none brder-l-r-t mb20" 
+                                        />
+                                    {/* </div> */}
                                 </div>
                             </div>
                             <div className='d-flex'>
@@ -356,7 +522,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="gender">Gender</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch />
+                                            <Switch checked={gender_display} />
                                         </div>
                                     </div>
                                     <select name="gender" value={gender==='null' ? 'Rather not say' : gender} onChange={this.handleChange} id="gender" className="form-control brder-l-r-t" placeholder='Gender'>
@@ -374,7 +540,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="marital_status">Marital Status</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch />
+                                            <Switch checked={marital_status_display} />
                                         </div>
                                     </div>
                                     <select name="marital_status" value={marital_status==='null' ? 'Rather not say' : marital_status} onChange={this.handleChange} id="marital_status" className="form-control brder-l-r-t" placeholder='marital_status'>
@@ -394,7 +560,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="email">Email</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch />
+                                            <Switch checked={email_display} />
                                         </div>
                                     </div>
                                     <input value={email} onChange={this.handleChange} type="text" className="form-control brder-l-r-t" id="email" name='email' />
@@ -407,7 +573,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="contact">Phone Number</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch />
+                                            <Switch checked={phone_display} />
                                         </div>
                                     </div>
                                     <input value={phone_1} onChange={this.handleChange} type="text" className="form-control brder-l-r-t" id="contact" name='phone_1' placeholder='Not Set' />
@@ -420,7 +586,7 @@ class EditProfile extends React.Component {
                                         <label className='ml10 gray' for="website">Website</label>
                                         <div className='d-flex align-items'>
                                             <p className='mb0 mr10 fs13'>Display on profile</p>
-                                            <Switch />
+                                            <Switch checked={website_display} />
                                         </div>
                                     </div>
                                     <input value={website==='null'?"":null} onChange={this.handleChange} type="text" className="form-control brder-l-r-t" id="website" name='website' placeholder='Not Set' />
@@ -455,21 +621,32 @@ class EditProfile extends React.Component {
                             </div>}
                         </div>
                     </div>
-                    <div className='w100p clr__white border p10'>
-                        <div className='d-flex'>
+                    <div className='w100p clr__white border p10 pb10'>
+                        <div className='d-flex flex-dir-col'>
+                           <div className='d-flex'>
                             <i className="fa fa-pencil fs15 gray" />
-                            <div className='d-flex space-between w100p'>
-                            <label for='bio' className='ml10'>Edit Experience</label>
-                                <div onClick={this.openExperienceModal} className='d-flex pointer align-items-center'>
-                                    <i className='fa fa-plus red' />
-                                    <p className='mb0 red'><b>Add</b></p>
+                                <div className='d-flex space-between w100p'>
+                                <label for='bio' className='ml10'>Edit Experience</label>
+                                    <div onClick={this.openExperienceModal} className='d-flex pointer align-items-center'>
+                                        <i className='fa fa-plus red' />
+                                        <p className='mb0 red'><b>Add</b></p>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        {experienceCount===0 ? <p>No Experience Exist</p> 
+                           </div>
+                            {experienceCount===0 ? <p>No Experience Exist</p> 
                                     :
-                                    <div className='form-group'></div>
+                                    <div> 
+                                        <UserExperience 
+                                            userExperience={myExperience} 
+                                            experienceStyle={experienceStyle} 
+                                            openExperienceModal={this.openUpdateExperienceModal}
+                                            />
+                                    </div>   
                             }
+                        </div>    
+                    </div>
+                    <div className='d-flex justify-content-center mt10 transition'>
+                        <button onClick={this.handleUpdateProfile} className="outline skills-btn box-shadow-red transform transition">Update Profile</button>
                     </div>
                 </form>
                 {skillModal ? <MySkillsModal
@@ -492,7 +669,11 @@ class EditProfile extends React.Component {
                                         handleLocationSearch={this.handleLocationSearch}
                                         handleLocation={this.handleLocation}
                                         isLocationLoading={isLocationLoading}
-                                        
+                                        handleDate={this.handleDate}
+                                        errors={errors}
+                                        handleAddExperienceButton={this.handleAddExperienceButton}
+                                        updateExperience={updateExperience}
+                                        handleUpdateExperience={this.handleUpdateExperience}
                 /> : null}
             </div>
         );

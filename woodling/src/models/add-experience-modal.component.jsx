@@ -6,8 +6,8 @@ import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
 
 const AddExperience = (props) => {
-    const { experienceModal, closeExperienceModal, allSkills, allRoleType, disablePastDt, disableDeadlineDt, handleChange, isLocationLoading, handleLocationSearch, handleLocation, locations } = props;
-    const { project, skill_id, role_type, company, location, start_date, end_date, desciption } = props.addExperience;
+    const { experienceModal, closeExperienceModal, allSkills, allRoleType, disablePastDt, disableDeadlineDt, handleChange, isLocationLoading, handleLocationSearch, handleLocation, locations, errors, handleDate, handleAddExperienceButton, updateExperience, handleUpdateExperience } = props;
+    const { project, skill_id, role_type, company, location, start_date, end_date, description } = props.addExperience;
     return ( 
         <Modal
             size="md"
@@ -19,7 +19,7 @@ const AddExperience = (props) => {
             <Modal.Header>
                 <div className='d-flex space-between w100p'>
                     <h1 className='fs25'><b>Add Experience</b></h1>
-                    <button className='skills-btn'>Done</button>
+                    <button onClick={handleAddExperienceButton} className='skills-btn'>Done</button>
                 </div>
             </Modal.Header>
             <Modal.Body>
@@ -29,21 +29,13 @@ const AddExperience = (props) => {
                             <div className='form-group'>
                                 <label for='project' className='grey'>Title</label>
                                 <input value={project} onChange={handleChange} type="text" className="form-control brder-l-r-t mt-10" id="project" name='project' />
+                                {errors.title && <p className="alert alert-danger error">{errors.title}</p>}
                             </div>
                             <div className='form-group'>
                                 <label for='company' className='grey'>Compnay/Institute</label>
-                                <AsyncTypeahead
-                                        id="location_typehead"
-                                        labelKey="description"
-                                        isLoading={isLocationLoading}
-                                        placeholder="Search for a Location (type min 3 char)"
-                                        minLength={3}
-                                        onSearch={handleLocationSearch}
-                                        onChange={handleLocation}
-                                        options={locations}
-                                        className="form-control box-shadow-none border-none brder-l-r-t mb20"
-                                    />
-                                {/* <input value={company} onChange={handleChange} type="text" className="form-control brder-l-r-t mt-10" id="company" name='company' /> */}
+                                <input value={company} onChange={handleChange} type="text" className="form-control brder-l-r-t mt-10" id="company" name='company' />
+                                {/* <input value={company} type="text" className="form-control brder-l-r-t mt-10" id="company" name='company' /> */}
+                                    {errors.title && <p className="alert alert-danger error">{errors.title}</p>}
                             </div>
                             <div className='form-group'>
                                 <label for='skill_id' className='grey'>Role</label>
@@ -63,32 +55,46 @@ const AddExperience = (props) => {
                                         return <option key={index} value={i.id}>{i.name}</option>;
                                     })}
                                 </select>
+                                {errors.title && <p className="alert alert-danger error">{errors.title}</p>}
                             </div>
                             <div className='form-group'>
                                 <label for='location' className='grey'>Location</label>
-                                <input value={location} type="text" className="form-control brder-l-r-t mt-10" id="location" name='location' />
+                                <AsyncTypeahead
+                                        id="location_typehead"
+                                        labelKey="description"
+                                        isLoading={isLocationLoading}
+                                        placeholder="Search for a Location (type min 3 char)"
+                                        minLength={3}
+                                        onSearch={handleLocationSearch}
+                                        onChange={handleLocation}
+                                        options={locations}
+                                        className="form-control box-shadow-none border-none brder-l-r-t mb20"
+                                    />
                             </div>
                             <div className="form-group">
                                 <label className='ml10 gray' for="start_date">Start Date</label>
                                 <DatePicker
-                                    // value={}
-                                    // onChange={this.handleDate('date_of_birth')}
+                                    value={start_date}
+                                    onChange={handleDate('start_date')}
                                     isValidDate={disablePastDt}
                                     className="form-control dates border-none "
                                 />
+                                {errors.title && <p className="alert alert-danger error">{errors.title}</p>}
                             </div>
                             <div className="form-group">
                                 <label className='ml10 gray' for="start_date">End Date</label>
                                 <DatePicker
-                                    // value={}
-                                    // onChange={this.handleDate('date_of_birth')}
+                                    value={end_date}
+                                    onChange={handleDate('end_date')}
                                     isValidDate={disableDeadlineDt}
                                     className="form-control dates border-none "
                                 />
+                                {errors.title && <p className="alert alert-danger error">{errors.title}</p>}
                             </div>
                             <div className='form-group'>
-                                <label for='location' className='grey'>Location</label>
-                                <textarea className="form-control" placeholder='Write here(200 characters)' rows="8" name='discription' id='discription' />
+                                <label for='description' className='grey'>Desciption</label>
+                                <textarea value={description} onChange={handleChange} className="form-control" placeholder='Write here(200 characters)' rows="8" name='description' id='description' />
+                                {errors.title && <p className="alert alert-danger error">{errors.title}</p>}
                             </div>
                         </form>
                     </div>
