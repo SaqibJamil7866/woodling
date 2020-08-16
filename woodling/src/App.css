@@ -980,8 +980,9 @@ button[name='searchSubmit'] {
 }
 
 .containers {
-  display: block;
+  /* display: block; */
   position: relative;
+  margin-right: 30px;
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
