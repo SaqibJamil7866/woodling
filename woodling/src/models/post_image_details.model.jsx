@@ -106,9 +106,9 @@ class PostImageDetailsModelContent extends React.Component {
                     <div className="like_time">
                     <div className="like-by">
                         <p>Like by</p>  
-                        {likes.map((i, index) => {
-                                        return i.profile_thumb ? <img key={index} style={{borderRadius:'20px', marginRight: '-15px'}} src={picUrl+""+i.profile_thumb} alt="avatar" /> : null;
-                                    })}
+                        {likes && likes.map((i, index) => {
+                            return i.profile_thumb ? <img key={index} style={{borderRadius:'20px', marginRight: '-15px'}} src={picUrl+""+i.profile_thumb} alt="avatar" /> : null;
+                        })}
                     </div>
                     <div className="post-time">                        
                         <p>posted <Moment fromNow>{new Date(activity.date_created * 1000)}</Moment></p>

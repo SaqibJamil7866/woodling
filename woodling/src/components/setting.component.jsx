@@ -4,20 +4,19 @@ import { AuthService } from '../services/AuthService';
 import EditProfile from './common/edit-profile.component';
 import EditAccount from './common/edit-account.component';
 import EditNotifications from './common/edit-notification.component';
+import EditPrivacy from './common/edit-privacy.component';
+import EditSharing from './common/edit-sharing.component';
 
 class Settings extends Component {
     state = { 
         profile: false,
         account: false,
-        notification: true,
-        privacy: false,
+        notification: false,
+        privacy: true,
         sharing: false,
         faq: false,
         about: false
     }
-    // componentDidMount() {
-    //     console.log(AuthService.getName())
-    // }
     openProfile = () => {
         this.setState({profile: true, account: false, notification: false, privacy: false, sharing: false, faq: false, about: false});
     }
@@ -108,6 +107,8 @@ class Settings extends Component {
                         {profile ? <EditProfile /> : null}
                         {account ? <EditAccount /> : null}
                         {notification ? <EditNotifications /> : null}
+                        {privacy ? <EditPrivacy /> : null}
+                        {sharing ? <EditSharing /> : null}
                     </div>
                 </div>
             </div>

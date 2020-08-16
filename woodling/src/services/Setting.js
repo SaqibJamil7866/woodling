@@ -1,10 +1,12 @@
 import axios from 'axios';
 import {AuthService} from './AuthService';
-import { getUserProfileUrl, postupdateProfileUrl, getSettingProfileUrl, getIndividualSkillsUrl, getGendersUrl, getEmailUrl, postUpdateUrl, getUsernameUrl } from '../public/endpoins';
+import { getUserProfileUrl, postupdateProfileUrl, getSettingProfileUrl, getIndividualSkillsUrl, getGendersUrl, getEmailUrl, postUpdateUrl, getUsernameUrl, getNotificationsUrl, postNotificationsUrl, linkedSocialMediaUrl, getPrivacyUrl, postPrivacyUrl, getBlockedUrl } from '../public/endpoins';
+import { resolve } from 'joi-browser';
 
 export const SettingService = {
     myData, postCover, postProfile, getSkills, getGenders, addExperience, UpdateUserDetail, getSettingProfile,
-    getEmail, postUpdate, getUsername
+    getEmail, postUpdate, getUsername, getNotifications, postNotifications, linkedSocialMedia, getPrivacy, postPrivacy,
+    getBlocked
 }; 
 
 function myData() {
@@ -134,6 +136,81 @@ function postUpdate(params) {
 function getUsername() {
     return new Promise((resolve, reject) => {
         const url = getUsernameUrl+'?user_id='+AuthService.getUserId();
+        axios(url)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
+function linkedSocialMedia(params) {
+    return new Promise((resolve, reject) => {
+        axios.post(linkedSocialMediaUrl, params)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
+function getNotifications() {
+    return new Promise((resolve, reject) => {
+        const url = getNotificationsUrl+'?user_id='+AuthService.getUserId();
+        axios(url)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+function postNotifications(params) {
+    return new Promise((resolve, reject) => {
+        axios.post(postNotificationsUrl, params)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
+function getPrivacy() {
+    return new Promise((resolve, reject) => {
+        const url = getPrivacyUrl+'?user_id='+AuthService.getUserId();
+        axios(url)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
+function postPrivacy(params) {
+    return new Promise((resolve, reject) => {
+        axios.post(postPrivacyUrl, params)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
+function getBlocked() {
+    return new Promise((resolve, reject) => {
+        const url = getBlockedUrl+'?user_id='+AuthService.getUserId();
         axios(url)
         .then((res) => {
             resolve(res);

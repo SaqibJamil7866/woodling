@@ -23,7 +23,7 @@ class EditAccount extends Component {
         }
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         showLoader();
         await SettingService.getEmail()
         .then((res) => {
@@ -124,21 +124,39 @@ class EditAccount extends Component {
                         <form className='w80 mt10'>
                             <div className="d-flex space-between mb30 p20">
                                 <div>
-                                    <label className='ml10 gray' for="email">Email</label>
+                                    <label className='ml10' for="email">Email</label>
                                     <input value={email} onChange={this.handleChange} type="email" className="form-control brder-l-r-t mt-10 w150p" id="email" name='email' />
                                 </div>
                                 <p onClick={this.handleUpdateEmail} className='update-btn outline align-self-center pointer'>Update</p>
                             </div>
                             <div className="d-flex space-between mb30 p20">
                                 <div>
-                                    <label className='ml10 gray' for="username">Username</label>
+                                    <label className='ml10' for="username">Username</label>
                                     <input value={username} onChange={this.handleChange} type="text" className="form-control brder-l-r-t mt-10 w150p" id="username" name='username' />
                                 </div>
                                 <p onClick={this.handleUsername} className='update-btn outline align-self-center pointer'>Update</p>
                             </div>
                             <div className="d-flex space-between mb30 p20 align-items">
                                 <div>
-                                    <label className='ml10 gray' for="name">Password</label>
+                                    <label className='ml10' for="name"><b>Password</b></label>
+                                </div>
+                                <p onClick={this.handleOpenModal} className='update-btn outline align-self-center  pointer'>Change</p>
+                            </div>
+                            <div className="d-flex space-between mb30 p20 align-items">
+                                <div>
+                                    <img style={{width: '40%'}} src={require('../../assets/fb-icon.svg')} alt="fb-icon"/>
+                                </div>
+                                <p onClick={this.handleOpenModal} className='update-btn outline align-self-center  pointer'>Change</p>
+                            </div>
+                            <div className="d-flex space-between mb30 p20 align-items">
+                                <div>
+                                    <img style={{width: '50%'}} src={require('../../assets/google-icon.svg')} alt="fb-icon"/>
+                                </div>
+                                <p onClick={this.handleOpenModal} className='update-btn outline align-self-center  pointer'>Change</p>
+                            </div>
+                            <div className="d-flex space-between mb30 p20 align-items">
+                                <div>
+                                    <img style={{width: '50%'}} src={require('../../assets/twitter-icon.svg')} alt="fb-icon"/>
                                 </div>
                                 <p onClick={this.handleOpenModal} className='update-btn outline align-self-center  pointer'>Change</p>
                             </div>

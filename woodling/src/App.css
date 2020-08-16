@@ -1001,13 +1001,13 @@ button[name='searchSubmit'] {
 }
 
 /* Create a custom radio button */
-.checkmarkSelect {
+.checkmark {
   position: absolute;
   top: 0;
   left: 0;
   height: 25px;
   width: 25px;
-  background-color: #FB0201;
+  background-color: #ccc;
   border-radius: 50%;
 }
 .checkmarkUnselect {
@@ -1972,7 +1972,7 @@ p.sdate {
 }
 
 .w40 {
-  width: 40%;
+  width: 40% !important;
 }
 
 .h200 {
@@ -2298,4 +2298,8 @@ p.sdate {
 
 .w150p {
   width: 150% !important;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
 }
