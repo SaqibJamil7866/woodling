@@ -95,6 +95,15 @@ export const getTrendingTagsUrl = `${baseUrl}/fetch-trending-tags.php`;
 // setting endpoints
 export const postupdateProfileUrl = `${baseUrl}/update-setting-profile.php`;
 export const getSettingProfileUrl = `${baseUrl}/fetch-setting-profile.php`;
+export const postUpdateUrl = `${baseUrl}/update-setting-account.php`;
+export const getEmailUrl = `${baseUrl}/fetch-user-email.php`;
+export const getUsernameUrl = `${baseUrl}/fetch-user-username.php`;
+export const linkedSocialMediaUrl = `${baseUrl}/social-media-login.php`;
+export const getNotificationsUrl = `${baseUrl}/fetch-setting-notifications.php`;
+export const postNotificationsUrl = `${baseUrl}/update-setting-notification.php`;
+export const getPrivacyUrl = `${baseUrl}/fetch-setting-privacy.php`;
+export const postPrivacyUrl = `${baseUrl}/update-setting-privacy.php`;
+export const getBlockedUrl = `${baseUrl}/fetch-blocked-users.php`;
 
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",

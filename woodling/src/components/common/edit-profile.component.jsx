@@ -315,7 +315,6 @@ class EditProfile extends React.Component {
     }
 
     handleSkills = async(e) => {
-        console.log(e) 
         this.setState({mySkills: e.value})
     }
 
@@ -624,7 +623,7 @@ class EditProfile extends React.Component {
                                 <div className='form-group w90p'>
                                     <label for='bio' className='ml10'>Edit Skills</label>
                                     {mySkills.length === 0 ? <div className='box-shadow p10 border-radius clr__white w400 pointer'>
-                                    <button onClick={this.openZeroSkillModal} className="outline skills-text fs15">Add Skills</button>
+                                        <button onClick={this.openZeroSkillModal} className="outline skills-text fs15">Add Skills</button>
                                     </div> 
                                         :
                                     <div className='box-shadow p10 border-radius clr__white w400 pointer'>
