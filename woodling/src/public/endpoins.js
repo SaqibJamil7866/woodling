@@ -57,6 +57,7 @@ export const starTalentUrl = `${baseUrl}/star-talent.php`;
 export const unstartTalentUrl = `${baseUrl}/unstar-talent.php`;
 export const getStarredNotesUrl = `${baseUrl}/fetch-starred-notes.php`;
 export const addStarredNotesUrl = `${baseUrl}/add-starred-notes.php`;
+export const getSearchTalentsUrl = `${baseUrl}/search-talents-with-filter.php`;
 
 // skills endpoints
 export const getIndividualSkillsUrl = `${baseUrl}/fetch-individual-skills.php`;
@@ -77,6 +78,7 @@ export const addCastingCallUrl = `${baseUrl}/add-casting-call.php`;
 export const editCastingCallUrl = `${baseUrl}/edit-casting-call.php`;
 export const getUserCastingCallsUrl = `${baseUrl}/fetch-user-casting-calls.php`;
 export const roleTypeUrl = `${baseUrl}/fetch-role-type.php`;
+export const getProductionTypeUrl = `${baseUrl}/fetch-production-type.php`;
 export const getLocationUrl = `${locationUrl}`
 
 // market place endpoints

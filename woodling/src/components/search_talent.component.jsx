@@ -25,6 +25,7 @@ class SearchTalent extends React.Component {
             modalData: { showModal: false, notes:''}
         }
         this.talentSearch = this.talentSearch.bind(this);
+        this.applySearchFilterTalent = this.applySearchFilterTalent.bind(this);
     }
 
     componentDidMount(){
@@ -145,12 +146,18 @@ class SearchTalent extends React.Component {
 
     }
 
-    applySearchFilterTalent(data, age){debugger
-        console.log("open Profile: ", data, age);
-        // history.push({
-        //     pathname: '/user_profile',
-        //     state: { data }
-        // })
+    applySearchFilterTalent(data, age){
+        const params = {talent: data.skill, min_age: age.min, max_age: age.max, gender: data.gender}        
+        showLoader();
+        TalentService.getSearchedTalents(params).then((res)=>{
+            hideLoader();
+            if(res.data.status !== 'error'){
+                this.setState({allTalents: res.data.talents, showLoadMoreBtn: false, page: 1});
+            }else {
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=>console.error("error: "+ e))
     }
 
 

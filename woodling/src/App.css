@@ -622,8 +622,12 @@ html, body, #root {
   width: 60% !important;
 }
 
+.w76p{
+  width: 76.5% !important;
+}
+
 .w90p {
-  width: 90%;
+  width: 90% !important;
 }
 
 .m15 {

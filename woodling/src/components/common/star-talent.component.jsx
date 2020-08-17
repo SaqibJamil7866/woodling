@@ -10,7 +10,7 @@ const StaredTalent = (props) => {
         <>
             <div className='clr__white wh80 scrolling'>
                 <div className='liked-talent-title'>
-                    <p className="oniline-status-title"><b>Talent You've Shared</b></p>
+                    <p className="oniline-status-title"><b>Talent You've Starred</b></p>
                 </div>
                 {starredTalents && starredTalents.map((like)=>{
                     return(

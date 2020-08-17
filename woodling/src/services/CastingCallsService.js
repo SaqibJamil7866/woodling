@@ -2,10 +2,10 @@
 import axios from 'axios';
 import { AuthService } from './AuthService';
 import { getAllCastingCallUrl, getUserPostedJobsUrl, getUserAppliedJobsUrl, getCastingCallDetailsUrl,
-    applyCastingCallUrl, getLocationUrl, roleTypeUrl } from '../public/endpoins';
+    applyCastingCallUrl, getLocationUrl, roleTypeUrl, getProductionTypeUrl } from '../public/endpoins';
 
 export const CastingCallService = {
-    getAllCastingCalls, getUserPostedJobsCalls, getUserAppliedJobsCalls, getCastingCallDetails, applyCastingCall, getLocation, getRoleType
+    getAllCastingCalls, getProductionType, getUserPostedJobsCalls, getUserAppliedJobsCalls, getCastingCallDetails, applyCastingCall, getLocation, getRoleType
 }; 
 
 function getLocation(location) {
@@ -19,7 +19,12 @@ function getLocation(location) {
     })
 }
 
-function getAllCastingCalls(page) { 
+function getAllCastingCalls(page, params) {
+    if(params){debugger
+        // {role: data.skill, age_from: age.min, age_to: age.max, gender: data.gender, production_type_id: data.production_type, location: data.location}; debugger
+
+    }
+
     return new Promise((resolve, reject) =>{
         axios.get(getAllCastingCallUrl+'?user_id='+AuthService.getUserId()+'&page='+page)
         .then(res => {
@@ -77,6 +82,17 @@ function applyCastingCall(data){
 function getRoleType() {
     return new Promise((resolve, reject) => {
         axios.get(roleTypeUrl)
+        .then(res => {
+            resolve(res);
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
+function getProductionType() {
+    return new Promise((resolve, reject) => {
+        axios.get(getProductionTypeUrl)
         .then(res => {
             resolve(res);
         }).catch(e => {

@@ -60,16 +60,16 @@ const AddExperience = (props) => {
                             <div className='form-group'>
                                 <label for='location' className='grey'>Location</label>
                                 <AsyncTypeahead
-                                        id="location_typehead"
-                                        labelKey="description"
-                                        isLoading={isLocationLoading}
-                                        placeholder="Search for a Location (type min 3 char)"
-                                        minLength={3}
-                                        onSearch={handleLocationSearch}
-                                        onChange={handleLocation}
-                                        options={locations}
-                                        className="form-control box-shadow-none border-none brder-l-r-t mb20"
-                                    />
+                                    id="location_typehead"
+                                    labelKey="description"
+                                    isLoading={isLocationLoading}
+                                    placeholder="Search for a Location (type min 3 char)"
+                                    minLength={3}
+                                    onSearch={handleLocationSearch}
+                                    onChange={handleLocation}
+                                    options={locations}
+                                    className="form-control box-shadow-none border-none brder-l-r-t mb20"
+                                />
                             </div>
                             <div className="form-group">
                                 <label className='ml10 gray' for="start_date">Start Date</label>
