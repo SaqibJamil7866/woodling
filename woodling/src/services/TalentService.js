@@ -2,11 +2,11 @@
 import axios from 'axios';
 import { AuthService } from './AuthService';
 import { getAllTalentsUrl, getFeaturedTalentUrl, searchTalentUrl, getTalentDetailsUrl,
-    getStarredTalentsUrl, starTalentUrl, unstartTalentUrl, getStarredNotesUrl, addStarredNotesUrl } from '../public/endpoins';
+    getStarredTalentsUrl, starTalentUrl, unstartTalentUrl, getStarredNotesUrl, addStarredNotesUrl, getSearchTalentsUrl } from '../public/endpoins';
 
     export const TalentService = {
         getAllTalents, getStarredTalents, getFeaturedTalents, starTalent, unstarTalent, searchTalent,
-        getStarredTalentNotes, addStarredTalentNotes
+        getStarredTalentNotes, addStarredTalentNotes, getSearchedTalents
     };
 
     function getFeaturedTalents(page) { 
@@ -23,6 +23,17 @@ import { getAllTalentsUrl, getFeaturedTalentUrl, searchTalentUrl, getTalentDetai
     function getAllTalents(page) { 
         return new Promise((resolve, reject) =>{
             axios.get(getAllTalentsUrl+'?page='+page)
+            .then(res => {
+                resolve(res);
+            }).catch(e => {
+                reject(e);        
+            });
+        });
+    }
+
+    function getSearchedTalents(data) { 
+        return new Promise((resolve, reject) =>{
+            axios.get(getSearchTalentsUrl+'?talent='+data.talent+'&min_age='+data.min_age+'&max_age='+data.max_age+'&gender='+data.gender)
             .then(res => {
                 resolve(res);
             }).catch(e => {

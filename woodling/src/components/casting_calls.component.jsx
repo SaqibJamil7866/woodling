@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { ToastsStore } from 'react-toasts';
 import HeaderSearch from './common/header-searchbar';
-import Filters from './common/filters.component';
+import CastingCallFilters from './common/casting_call_filter.component';
 import { showLoader, hideLoader } from '../public/loader';
 import history from '../public/history';
 import SmallSubmissionCard from './common/small_submission_card.component';
@@ -18,6 +18,8 @@ import { getLocation } from '../public/helperFunctions';
 class CastingCalls extends Component {
     state = { 
         allCastingCalls: [],
+        showLoadMoreBtn: true,
+        page: 1,
         myJobs: [],
         mySubmissions: [],
         cardShown: false,
@@ -33,10 +35,10 @@ class CastingCalls extends Component {
         });
 
         showLoader();
-        Promise.all([CastingCallService.getAllCastingCalls(1), CastingCallService.getUserPostedJobsCalls(), CastingCallService.getUserAppliedJobsCalls()])
+        Promise.all([CastingCallService.getAllCastingCalls(this.state.page), CastingCallService.getUserPostedJobsCalls(), CastingCallService.getUserAppliedJobsCalls()])
         .then((res)=>{
             if(res[0].data.status !== 'error'){
-                this.setState({allCastingCalls: res[0].data.data});
+                this.setState({allCastingCalls: res[0].data.data, page: this.state.page+1});
             }else {
                 ToastsStore.error(res[0].message); 
             }
@@ -72,7 +74,6 @@ class CastingCalls extends Component {
             history.push({
                 pathname: '/casting_calls/post-a-casting-calls',
             })
-            // this.props.history.push('/casting_calls/post-a-casting-calls');
        });
     }
 
@@ -81,6 +82,40 @@ class CastingCalls extends Component {
             pathname: '/casting_calls/posted_calls',
             state: {to: 'posted_call', myJobs: this.state.myJobs, mySubmissions: this.state.mySubmissions}
         })
+    }
+
+    loadMoreCastingCalls = () => {
+        const {allCastingCalls, page} = this.state;
+        showLoader();
+        CastingCallService.getAllCastingCalls(this.state.page).then((res)=>{
+            if(res.data.status !== 'error'){
+                if(res.data.data){
+                    this.setState({allCastingCalls: [...allCastingCalls, ...res.data.data], page: page+1});
+                }
+                else{
+                    this.setState({showLoadMoreBtn: false});
+                    ToastsStore.warning('No more records.');
+                }
+            }else {
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=>console.error("error: "+ e))
+        .then(() => hideLoader());
+    }
+
+    applyCastingCallFilters = (data, age) =>{
+        const params = {role: data.skill, age_from: age.min, age_to: age.max, gender: data.gender, production_type_id: data.production_type, location: data.location};
+        showLoader();
+        CastingCallService.getFilterCastingCallUrl('1', params).then((res)=>{
+            hideLoader();
+            if(res.data.status !== 'error'){
+                this.setState({allCastingCalls: res.data.data, showLoadMoreBtn: false, page: 1});
+            }else {
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=>console.error("error: "+ e))
     }
 
     handleShowModel = (data) => {
@@ -124,7 +159,7 @@ class CastingCalls extends Component {
     
     render() {
 
-        const {allCastingCalls, myJobs, mySubmissions, cardShown, showModel, popupData, applyBtns, postingForm} = this.state;
+        const {allCastingCalls, showLoadMoreBtn, myJobs, mySubmissions, cardShown, showModel, popupData, applyBtns, postingForm} = this.state;
         return ( 
             <>
                 <div className='h100p scrolling'>
@@ -168,12 +203,14 @@ class CastingCalls extends Component {
                                         handleShowModel={this.handleShowModel}
                                         postingCallForm={this.postingCallForm}
                                     />
+                                    {showLoadMoreBtn && <button className="btn btn-primary w76p mt10 mb20" onClick={this.loadMoreCastingCalls}>Load More...</button>}
+
                                 </div>
                             </div>
                             <div className="col-md-4">
-                                <div className="img-div h230 mt30 mb10">
+                                <div className="img-div h230 mb10">
                                     <div>
-                                        <Filters />
+                                        <CastingCallFilters applyFilter={this.applyCastingCallFilters} />
                                     </div>
                                     <img style={{width: '80%', marginTop: '20px'}} src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"  alt="authore pic"/>
                                 </div>

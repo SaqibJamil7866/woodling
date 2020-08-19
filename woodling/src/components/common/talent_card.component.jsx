@@ -14,7 +14,7 @@ import { TalentService } from '../../services/TalentService';
 class TalentCard extends Component {
     constructor(props){
         super(props);
-        this.state = {starLiked: false}
+        this.state = {starLiked: (this.props.talent.starred ? true : false) };
     }
 
     liked = () => {
@@ -58,7 +58,7 @@ class TalentCard extends Component {
                     </div>
                     <Card.Body>
                         <div className='center__item dir-col'>
-                            <Card.Text className='clr-grey'>
+                            <Card.Text className='clr-grey mb0'>
                                 <b>@{username}</b> {convertToFloat(premium) === 1 ? <PremiumIcon /> : null }
                             </Card.Text>
                             {city &&(
@@ -67,7 +67,7 @@ class TalentCard extends Component {
                                 </Card.Text>
                             )}
 
-                            <button onClick={()=>openProfile(this.props.talent)}>View Profile</button>
+                            <button className="btn btn-primary" onClick={()=>openProfile(this.props.talent)}>View Profile</button>
 
                             {/* <Card.Text className='clr-grey alignCenter'>
                                 <b>Actor, Artist, Actor, Artist, Actor, Artist, Actor, Artist</b>

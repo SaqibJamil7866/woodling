@@ -1,11 +1,12 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { AuthService } from './AuthService';
+import { getParamString } from '../public/helperFunctions';
 import { getAllCastingCallUrl, getUserPostedJobsUrl, getUserAppliedJobsUrl, getCastingCallDetailsUrl,
-    applyCastingCallUrl, getLocationUrl, roleTypeUrl } from '../public/endpoins';
+    applyCastingCallUrl, getLocationUrl, roleTypeUrl, getProductionTypeUrl } from '../public/endpoins';
 
 export const CastingCallService = {
-    getAllCastingCalls, getUserPostedJobsCalls, getUserAppliedJobsCalls, getCastingCallDetails, applyCastingCall, getLocation, getRoleType
+    getAllCastingCalls, getFilterCastingCallUrl, getProductionType, getUserPostedJobsCalls, getUserAppliedJobsCalls, getCastingCallDetails, applyCastingCall, getLocation, getRoleType
 }; 
 
 function getLocation(location) {
@@ -19,9 +20,32 @@ function getLocation(location) {
     })
 }
 
-function getAllCastingCalls(page) { 
+function getAllCastingCalls(page){
+
+    const data = {user_id: AuthService.getUserId(), page}
+    const queryParams = getParamString(data);
+    
     return new Promise((resolve, reject) =>{
-        axios.get(getAllCastingCallUrl+'?user_id='+AuthService.getUserId()+'&page='+page)
+        axios.get(getAllCastingCallUrl+queryParams)
+        .then(res => {
+            resolve(res);
+          }).catch(e => {
+            reject(e);        
+        });
+	});
+}
+
+function getFilterCastingCallUrl(page, params){
+    let queryParams = '';
+
+    if(params){
+        params.user_id = AuthService.getUserId();
+        params.page = page;
+        queryParams = getParamString(params);
+    }
+    
+    return new Promise((resolve, reject) =>{
+        axios.get(getAllCastingCallUrl+queryParams)
         .then(res => {
             resolve(res);
           }).catch(e => {
@@ -77,6 +101,17 @@ function applyCastingCall(data){
 function getRoleType() {
     return new Promise((resolve, reject) => {
         axios.get(roleTypeUrl)
+        .then(res => {
+            resolve(res);
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
+function getProductionType() {
+    return new Promise((resolve, reject) => {
+        axios.get(getProductionTypeUrl)
         .then(res => {
             resolve(res);
         }).catch(e => {

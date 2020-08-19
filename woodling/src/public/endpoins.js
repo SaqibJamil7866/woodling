@@ -29,6 +29,7 @@ export const getUserProfileReviewUrl = `${baseUrl}/fetch-user-review.php`;
 
 // UserPost endpoints
 export const getUserPostsUrl = `${baseUrl}/fetch-user-posts.php`;
+export const addPostReactionUrl = `${baseUrl}/add-post-reaction.php`;
 
 // User Tag Post endpoints
 export const getUserTagPostUrl = `${baseUrl}/fetch-user-tagged-posts.php`;
@@ -57,6 +58,7 @@ export const starTalentUrl = `${baseUrl}/star-talent.php`;
 export const unstartTalentUrl = `${baseUrl}/unstar-talent.php`;
 export const getStarredNotesUrl = `${baseUrl}/fetch-starred-notes.php`;
 export const addStarredNotesUrl = `${baseUrl}/add-starred-notes.php`;
+export const getSearchTalentsUrl = `${baseUrl}/search-talents-with-filter.php`;
 
 // skills endpoints
 export const getIndividualSkillsUrl = `${baseUrl}/fetch-individual-skills.php`;
@@ -68,6 +70,7 @@ export const getUserAppliedJobsUrl = `${baseUrl}/fetch-user-applied-jobs.php`;
 export const getCastingCallApplicationUrl = `${baseUrl}/fetch-casting-call-applicants.php`;
 export const getCastingCallRoleDetailsUrl = `${baseUrl}/fetch-casting-call-role-details.php`;
 export const getAllCastingCallUrl = `${baseUrl}/fetch-all-casting-call.php`;
+export const getFilterCastingCallUrl = `${baseUrl}/fetch-casting-calls.php`;
 export const deleteCastingCallUrl = `${baseUrl}/delete-casting-call.php`;
 export const getCastingCallDetailsUrl = `${baseUrl}/view-casting-call-details.php`;
 export const applyCastingCallUrl = `${baseUrl}/apply-for-casting-call.php`;
@@ -77,6 +80,7 @@ export const addCastingCallUrl = `${baseUrl}/add-casting-call.php`;
 export const editCastingCallUrl = `${baseUrl}/edit-casting-call.php`;
 export const getUserCastingCallsUrl = `${baseUrl}/fetch-user-casting-calls.php`;
 export const roleTypeUrl = `${baseUrl}/fetch-role-type.php`;
+export const getProductionTypeUrl = `${baseUrl}/fetch-production-type.php`;
 export const getLocationUrl = `${locationUrl}`
 
 // market place endpoints
