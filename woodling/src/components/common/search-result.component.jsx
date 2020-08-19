@@ -6,7 +6,7 @@ const SearchResult = (props) => {
     const { heading, goBack, latest, posts, products, services, castingCalls, people, events, hashtags, places,
         handleLatestLink, handlePostLink, handlePlacesLink, handleServiceLink, handleHashtagsLink, handleEventsLink,
         handlePeopleLink, handleProductLink, handleCastingCallLink, onCrash,
-        peoples, everything, loadMoreLatest, post
+        peoples, everything, loadMoreLatest, loadMorePeople, scrollRef, post
     } = props;
     return ( 
         <div className='ml100 mt10 p20 w100p'>
@@ -29,15 +29,19 @@ const SearchResult = (props) => {
                     </ul>
                 </div>
                 <div>
-                    {latest ? <LatestSearch
-                                everything={everything}
-                                loadMoreLatest={loadMoreLatest}
-                                peoples={peoples}
-                                onCrash={onCrash}
-                    />  : null}
-                    {posts ? <SearchPost 
-                                post={post}
-                    /> : null}
+                    {latest ? (
+                        <LatestSearch
+                            everything={everything}
+                            loadMoreLatest={loadMoreLatest}
+                            loadMorePeople={loadMorePeople}
+                            scrollRef={scrollRef}
+                            peoples={peoples}
+                            onCrash={onCrash}
+                        />
+                    )  : null}
+                    {posts ? (
+                        <SearchPost post={post} />
+                    ) : null}
                 </div>
             </div>
         </div>
