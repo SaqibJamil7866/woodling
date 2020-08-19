@@ -6,7 +6,7 @@ import Post from './post.component';
 import InfiniteScroll from 'react-infinite-scroller';
 
 const LatestSearch = (props) => {
-    const {peoples, onCrash, everything, loadMorePosts} = props;
+    const {peoples, onCrash, everything, loadMoreLatest} = props;
     console.log(everything)
     return ( 
         <div className='container'>
@@ -33,7 +33,7 @@ const LatestSearch = (props) => {
                     <InfiniteScroll
                         pageStart={1}
                         initialLoad={false}
-                        loadMore={loadMorePosts}
+                        loadMore={loadMoreLatest}
                         hasMore={true || false}
                         useWindow={false}
                         threshold={10}
@@ -41,7 +41,7 @@ const LatestSearch = (props) => {
                         <Post posts={everything} />
                     </InfiniteScroll>
                     {everything.length!==0 ? <div className='d-flex justify-content-center w80'>
-                                                <button onClick={loadMorePosts} className='load-btn'>Load More</button>
+                                                <button onClick={loadMoreLatest} className='load-btn'>Load More</button>
                                             </div> 
                         : null}
                 </div>

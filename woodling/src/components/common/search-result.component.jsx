@@ -1,11 +1,12 @@
 import React from 'react';
 import LatestSearch from './latest-search.component';
+import SearchPost from './search-post.component';
 
 const SearchResult = (props) => {
     const { heading, goBack, latest, posts, products, services, castingCalls, people, events, hashtags, places,
         handleLatestLink, handlePostLink, handlePlacesLink, handleServiceLink, handleHashtagsLink, handleEventsLink,
         handlePeopleLink, handleProductLink, handleCastingCallLink, onCrash,
-        peoples, everything, loadMorePosts
+        peoples, everything, loadMoreLatest, post
     } = props;
     return ( 
         <div className='ml100 mt10 p20 w100p'>
@@ -30,10 +31,13 @@ const SearchResult = (props) => {
                 <div>
                     {latest ? <LatestSearch
                                 everything={everything}
-                                loadMorePosts={loadMorePosts}
+                                loadMoreLatest={loadMoreLatest}
                                 peoples={peoples}
                                 onCrash={onCrash}
                     />  : null}
+                    {posts ? <SearchPost 
+                                post={post}
+                    /> : null}
                 </div>
             </div>
         </div>

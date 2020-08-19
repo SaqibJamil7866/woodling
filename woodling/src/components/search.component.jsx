@@ -10,6 +10,7 @@ class Search extends Component {
     state = { 
         page: 1,
         peoplePage: 1,
+        postPage: 1,
         result: false,
         latest: true,
         posts: false,
@@ -22,7 +23,8 @@ class Search extends Component {
         places: false,
         search: '',
         everything: [],
-        peoples: []
+        peoples: [],
+        post: []
     }
 
     handleSearchInput = (e) => {
@@ -48,7 +50,7 @@ class Search extends Component {
         .then(() => hideLoader());
     }
 
-    loadMorePosts = async() => {
+    loadMoreLatest = async() => {
         await SearchService.getEverything(this.state.page, this.state.search)
         .then((res) => {
             this.setState({everything:[...this.state.everything, ...res.data.data], page: this.state.page+1, result: true}, () => {
@@ -68,7 +70,16 @@ class Search extends Component {
     }
 
     handlePostLink = () => {
-        this.setState({latest: false, posts: true, products: false, services: false, castingCalls: false, people: false, events: false, hashtags: false, places: false})
+        this.setState({latest: false, posts: true, products: false, services: false, castingCalls: false, people: false, events: false, hashtags: false, places: false}, async() => {
+            showLoader();
+            
+            await SearchService.getPost(this.state.postPage, this.state.search)
+            .then((res) => {
+                this.setState({post: res.data.data, postPage: this.state.postPage+1})
+            }).catch((e) => console.log(e))
+
+            .then(() => hideLoader());
+        })
     }
 
     handleProductLink = () => {
@@ -106,7 +117,7 @@ class Search extends Component {
 
     render() { 
         const { search, result, latest, posts, products, services, castingCalls, people, events, hashtags, places,
-            peoples, everything
+            peoples, everything, post
         } = this.state;
         return ( 
             <div className='h100p scrolling'>
@@ -136,7 +147,9 @@ class Search extends Component {
                         onCrash={this.onCrash}
                         peoples={peoples}
                         everything={everything}
-                        loadMorePosts={this.loadMorePosts}
+                        loadMoreLatest={this.loadMoreLatest}
+
+                        post={post}
                     />
                     :
                     <div className='mt10 p20 ml20 w100p'>
