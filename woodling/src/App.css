@@ -309,6 +309,10 @@ html, body, #root {
   height: 10% !important;
 }
 
+.h8p {
+  height: 8% !important;
+}
+
 .m0 {
   margin: 0 !important;
 }
@@ -908,6 +912,10 @@ button[name='searchSubmit'] {
   font-size: 20px;
 }
 
+.fs18 {
+  font-size: 18px !important;
+}
+
 .fs15 {
   font-size: 15px !important;
 }
@@ -932,6 +940,7 @@ button[name='searchSubmit'] {
   width: 80%;
   height: 355px;
 }
+
 
 .p35 {
   padding: 35px;
@@ -988,7 +997,7 @@ button[name='searchSubmit'] {
   position: relative;
   margin-right: 30px;
   padding-left: 35px;
-  margin-bottom: 12px;
+  margin-bottom: 7px;
   cursor: pointer;
   font-size: 15px;
   color: #646464;
@@ -1010,8 +1019,8 @@ button[name='searchSubmit'] {
   position: absolute;
   top: 0;
   left: 0;
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
   background-color: #ccc;
   border-radius: 50%;
 }
@@ -1061,15 +1070,19 @@ button[name='searchSubmit'] {
   height: 480px !important;
 }
 
+.h520 {
+  height: 520px !important;
+}
+
 .filter-btn {
   background-color: #FB0201;
   color: #ffffff;
   border: 1px solid #FB0201;
   border-radius: 15px;
   vertical-align: center;
-  padding-bottom: 15px;
-  padding-top: 15px;
-  width: 60%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  width: 50%;
   align-self: center;
 }
 
@@ -1540,7 +1553,7 @@ p.sdate {
 }
 
 .p15 {
-  padding: 15px;
+  padding: 15px !important;
 }
 
 .space-evenly {
@@ -1839,11 +1852,6 @@ p.sdate {
   opacity: .5;
 }
 
-.mt30 {
-  margin-top: 30px;
-}
-
-
 /* Elipsis dropdown  */
 .dropdown .elipsis-dropdown{
   color: #000;
@@ -1948,7 +1956,7 @@ p.sdate {
 }
 
 .p10 {
-  padding: 10px;
+  padding: 10px !important;
 }
 
 .profile-btn {
@@ -2021,7 +2029,7 @@ p.sdate {
 }
 
 .p20 {
-  padding: 20px;
+  padding: 20px !important;
 }
 
 .following-img {

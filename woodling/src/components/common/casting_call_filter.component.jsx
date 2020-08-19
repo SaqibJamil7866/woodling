@@ -67,12 +67,12 @@ const CastingCallFilters = (props) => {
     }, []);
 
     return(
-        <div className='clr__white wh80 h480 mt30'>
-            <div className='liked-talent-title p35'>
+        <div className='clr__white wh80 h520'>
+            <div className='liked-talent-title p20'>
                 <p className="oniline-status-title fs25"><b>Filters</b></p>
             </div>
-            <div className='p35 d-flex flex-dir-col'>
-                <label htmlFor='location' className='grey'>Location</label>
+            <div className='p10 d-flex flex-dir-col'>
+                <label htmlFor='location' className='grey mb0'>Location</label>
                 <AsyncTypeahead
                     id="location_typehead"
                     labelKey="description"
@@ -81,10 +81,10 @@ const CastingCallFilters = (props) => {
                     onSearch={handleLocationSearch}
                     onChange={handleLocation}
                     options={locations}
-                    className="form-control box-shadow-none border-none brder-l-r-t mb20"
+                    className="form-control box-shadow-none border-none brder-l-r-t mb10"
                 />
 
-                <label className='fs20 muli'>Production Type</label>
+                <label className='fs18 bold muli'>Production Type</label>
                 <select name="skill" id="skill" onChange={(e)=>{setFormData({...formData, production_type: e.target.value})}} className="form-control border-none">
                     <option value="">Select</option>
                     {productionTypes && productionTypes.map((obj, index) => {
@@ -92,7 +92,7 @@ const CastingCallFilters = (props) => {
                     })}
                 </select>
 
-                <label className='fs20 muli'>Skills</label>
+                <label className='fs18 bold muli'>Skills</label>
                 <select name="skill" id="skill" onChange={(e)=>{setFormData({...formData, skill: e.target.value})}} className="form-control border-none">
                     <option value="">Select</option>
                     {skills && skills.map((sk, index) => {
@@ -100,7 +100,7 @@ const CastingCallFilters = (props) => {
                     })}
                 </select>
 
-                <label className='fs20 muli mt10'>Age</label>
+                <label className='fs18 bold muli'>Age</label>
                 <div>                    
                     <InputRange
                         value={sliderValue}
@@ -110,7 +110,7 @@ const CastingCallFilters = (props) => {
                     />
                 </div>
 
-                <label className='fs20 muli mt25'>Gender</label>
+                <label className='fs18 bold muli mt25'>Gender</label>
                 <div className='d-flex space-between'>
                     <div>
                         <label className="containers">All/Any
@@ -127,7 +127,7 @@ const CastingCallFilters = (props) => {
                         })}
                     </div>
                 </div>
-                <button className="filter-btn mt20" onClick={()=>props.applyFilter(formData, sliderValue)}>Apply Filter</button>
+                <button className="filter-btn mt5" onClick={()=>props.applyFilter(formData, sliderValue)}>Apply Filter</button>
             </div>
         </div>
     );

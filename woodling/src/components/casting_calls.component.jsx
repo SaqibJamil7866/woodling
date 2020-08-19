@@ -105,12 +105,12 @@ class CastingCalls extends Component {
     }
 
     applyCastingCallFilters = (data, age) =>{
-        const params = {role: data.skill, age_from: age.min, age_to: age.max, gender: data.gender, production_type_id: data.production_type, location: data.location}; debugger
+        const params = {role: data.skill, age_from: age.min, age_to: age.max, gender: data.gender, production_type_id: data.production_type, location: data.location};
         showLoader();
-        CastingCallService.getAllCastingCalls('', params).then((res)=>{
+        CastingCallService.getFilterCastingCallUrl('1', params).then((res)=>{
             hideLoader();
             if(res.data.status !== 'error'){
-                this.setState({allCastingCalls: res.data.talents, showLoadMoreBtn: false, page: 1});
+                this.setState({allCastingCalls: res.data.data, showLoadMoreBtn: false, page: 1});
             }else {
                 ToastsStore.error(res.message); 
             }
@@ -208,7 +208,7 @@ class CastingCalls extends Component {
                                 </div>
                             </div>
                             <div className="col-md-4">
-                                <div className="img-div h230 mt30 mb10">
+                                <div className="img-div h230 mb10">
                                     <div>
                                         <CastingCallFilters applyFilter={this.applyCastingCallFilters} />
                                     </div>

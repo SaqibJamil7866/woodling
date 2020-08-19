@@ -1,3 +1,6 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable eqeqeq */
+/* eslint-disable guard-for-in */
 import { ToastsStore } from 'react-toasts';
 
 export default function convertToFloat(number){
@@ -28,4 +31,19 @@ export function getLocation(){
             reject(result)
         }
 	});
+}
+
+export function getParamString(params){
+    let paramString = '';
+    if(params){
+        for(const p in params){
+            if(paramString == ''){
+                paramString += '?';
+            }else{
+                paramString += '&';
+            }
+            paramString += p+'='+ params[p];
+        }
+    }
+    return paramString;
 }

@@ -29,6 +29,7 @@ export const getUserProfileReviewUrl = `${baseUrl}/fetch-user-review.php`;
 
 // UserPost endpoints
 export const getUserPostsUrl = `${baseUrl}/fetch-user-posts.php`;
+export const addPostReactionUrl = `${baseUrl}/add-post-reaction.php`;
 
 // User Tag Post endpoints
 export const getUserTagPostUrl = `${baseUrl}/fetch-user-tagged-posts.php`;
@@ -69,6 +70,7 @@ export const getUserAppliedJobsUrl = `${baseUrl}/fetch-user-applied-jobs.php`;
 export const getCastingCallApplicationUrl = `${baseUrl}/fetch-casting-call-applicants.php`;
 export const getCastingCallRoleDetailsUrl = `${baseUrl}/fetch-casting-call-role-details.php`;
 export const getAllCastingCallUrl = `${baseUrl}/fetch-all-casting-call.php`;
+export const getFilterCastingCallUrl = `${baseUrl}/fetch-casting-calls.php`;
 export const deleteCastingCallUrl = `${baseUrl}/delete-casting-call.php`;
 export const getCastingCallDetailsUrl = `${baseUrl}/view-casting-call-details.php`;
 export const applyCastingCallUrl = `${baseUrl}/apply-for-casting-call.php`;

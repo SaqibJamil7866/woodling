@@ -5,8 +5,11 @@ import { Carousel } from 'react-bootstrap';
 import Moment from 'react-moment';
 import { picUrl } from '../public/endpoins';
 import PostCommentComponent from '../components/common/post_comment.component';
+import { AuthService } from '../services/AuthService';
 import { ActivityStreamService } from '../services/ActivityStreamService';
+import { PostCommentsService } from '../services/PostCommentService';
 import { MarketPlaceService } from '../services/MarketPlace';
+import { showLoader, hideLoader } from '../public/loader';
  
 class PostImageDetailsModelContent extends React.Component {
 
@@ -16,9 +19,8 @@ class PostImageDetailsModelContent extends React.Component {
             activity: this.props.postData,
             activityMedia: [],
             dotPosition:'top',
-            sliderLoad:false,
             postTaggedUsers:[],
-            likes: [],
+            likes: []
         };
     }
     
@@ -27,7 +29,7 @@ class PostImageDetailsModelContent extends React.Component {
         .then((res)=>{
             if(res[0].status !== 'error'){
                 if(res[0].data.tagged_users.length > 0){
-                    this.setState({postTaggedUsers: res[0].data.tagged_users,sliderLoad:false});
+                    this.setState({postTaggedUsers: res[0].data.tagged_users});
                 }
             }else {
                 ToastsStore.error(res[1].message); 
@@ -43,10 +45,20 @@ class PostImageDetailsModelContent extends React.Component {
         .then(() => console.log("Hide loader"));
     }
 
-    handlePositionChange = ({ target: { value: dotPosition } }) => this.setState({ dotPosition })
+    handlePositionChange = ({ target: { value: dotPosition } }) => this.setState({ dotPosition });
+
+    addPostReaction = () =>{
+        const {activity: { post_id, like_status }} = this.state;debugger
+        const reaction = (like_status ? like_status : 0);
+        const data = { user_id: AuthService.getUserId(), post_id , reaction: (reaction === '1' ? 'like':'dislike') };debugger
+        showLoader();
+        PostCommentsService.addPostReaction(data).then(()=>{
+            hideLoader();
+        })
+    }
      
     render() {  
-        const {activity,activityMedia,dotPosition,postTaggedUsers, likes} = this.state;
+        const {activity, activityMedia,dotPosition,postTaggedUsers, likes} = this.state;
         var postImage = '';
         var taggedUsers = '';
         if(activityMedia){
@@ -68,7 +80,7 @@ class PostImageDetailsModelContent extends React.Component {
                         </button>
                     </div>
                     <div className='post-like-btn'>
-                        <a href="" className="post-like-top"><i className="fa fa-heart-o"></i></a>
+                        <a onClick={this.addPostReaction} className="post-like-top" ><i className={`fa ${activity.like_status ? 'fa-heart-o' : 'fa-heart'}`} /></a>
                     </div>
                     <div className="attachment-share">
                         <div className="more-icon">
