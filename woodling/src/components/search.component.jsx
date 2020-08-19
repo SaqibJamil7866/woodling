@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { ToastsStore } from 'react-toasts';
 import { SearchService } from '../services/SearchService';
 import InfiniteScroll from 'react-infinite-scroller';
-import SearchR from './common/search-result.component';
 import { showLoader, hideLoader } from '../public/loader';
-import { ToastsStore } from 'react-toasts';
 import SearchResult from './common/search-result.component';
+
 class Search extends Component {
 
     state = { 
@@ -22,7 +22,8 @@ class Search extends Component {
         places: false,
         search: '',
         everything: [],
-        peoples: []
+        peoples: [],
+        scrollRef: React.createRef()
     }
 
     handleSearchInput = (e) => {
@@ -30,30 +31,48 @@ class Search extends Component {
     }
 
     handleSearch = async(e) => {
-        e.preventDefault();        
-        this.setState({page: 1});
+        e.preventDefault();      
+        const { page, peoplePage} = this.state; 
+        this.setState({page: 1, peoplePage: 1});
         showLoader();
         await SearchService.getEverything(this.state.page, this.state.search)
         .then((res) => {
-            this.setState({everything: res.data.data, page: this.state.page+1, result: true}, () => {
+            this.setState({everything: res.data.data, page: page+1, result: true}, () => {
                 console.log('response', this.state.everything)
             });
-        }).catch((e) => {console.log(e)})
+        }).catch((ex) => {console.log(ex)})
 
-        await SearchService.getPeople(this.state.peoplePage, this.state.search)
+        await SearchService.getPeople(1, this.state.search)
         .then((res) => {
-            this.setState({peoples: res.data.people});
-        }).catch((e) => console.log(e))
+            this.setState({peoples: res.data.people, peoplePage: peoplePage+1 });
+        }).catch((ex) => console.log(ex))
         
         .then(() => hideLoader());
     }
 
-    loadMorePosts = async() => {
-        await SearchService.getEverything(this.state.page, this.state.search)
+    loadMorePosts = () => {
+        const tempRef = this.state.scrollRef.current;
+        SearchService.getEverything(this.state.page, this.state.search)
         .then((res) => {
             this.setState({everything:[...this.state.everything, ...res.data.data], page: this.state.page+1, result: true}, () => {
-                console.log('response', this.state.everything)
+                tempRef.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                });
             });
+        }).catch((e) => {console.log(e)})
+    }
+
+    loadMorePeople = () => {
+        const { peoplePage, search, peoples} = this.state;
+        SearchService.getPeople(peoplePage, search)
+        .then((res) => {
+            if(res.data.people && res.data.people.length>0){
+                this.setState({peoples:[...peoples, ...res.data.people], peoplePage: peoplePage+1});
+            }
+            else{
+                ToastsStore.warning("No More Records");
+            }
         }).catch((e) => {console.log(e)})
     }
 
@@ -105,7 +124,7 @@ class Search extends Component {
 
 
     render() { 
-        const { search, result, latest, posts, products, services, castingCalls, people, events, hashtags, places,
+        const { search, scrollRef, result, latest, posts, products, services, castingCalls, people, events, hashtags, places,
             peoples, everything
         } = this.state;
         return ( 
@@ -132,11 +151,12 @@ class Search extends Component {
                         handlePeopleLink={this.handlePeopleLink}
                         handleProductLink={this.handleProductLink}
                         handleCastingCallLink={this.handleCastingCallLink}
-
                         onCrash={this.onCrash}
                         peoples={peoples}
                         everything={everything}
                         loadMorePosts={this.loadMorePosts}
+                        scrollRef={scrollRef}
+                        loadMorePeople={this.loadMorePeople}
                     />
                     :
                     <div className='mt10 p20 ml20 w100p'>
