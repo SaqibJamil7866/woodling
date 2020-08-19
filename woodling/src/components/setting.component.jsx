@@ -12,7 +12,7 @@ class Settings extends Component {
         profile: false,
         account: false,
         notification: false,
-        privacy: true,
+        privacy: false,
         sharing: false,
         faq: false,
         about: false

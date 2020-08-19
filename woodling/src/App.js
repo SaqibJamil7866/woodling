@@ -19,6 +19,7 @@ import PostingCallsForm from './components/posting-calls-form.component';
 import MarketPlace from './components/market_place.component';
 import Trending from './components/trending.component';
 import Settings from './components/setting.component';
+import Search from './components/search.component';
 
 function Main(props) {
 
@@ -39,6 +40,7 @@ function Main(props) {
           <SecuredRoute path='/market_place' component={MarketPlace} />
           <SecuredRoute path='/trending' component={Trending} />
           <SecuredRoute path='/settings' component={Settings} />
+          <SecuredRoute path='/search' component={Search} />
         </Switch>
         
       </aside>

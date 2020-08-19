@@ -129,6 +129,13 @@ html, body, #root {
   text-align: right;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.scrolling-x {
+  overflow-x: scroll;
+}
 
 .signUp {
   clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
@@ -2193,6 +2200,10 @@ p.sdate {
   height: 85px;
 }
 
+.h80 {
+  height: 80px;
+}
+
 .pb30 {
   padding-bottom: 30px;
 }
@@ -2303,4 +2314,58 @@ p.sdate {
 
 .justify-content-end {
   justify-content: flex-end;
+}
+
+.w20 {
+  width: 20%;
+}
+
+.h70 {
+  height: 70px;
+}
+
+.fs35 {
+  font-size: 35px;
+}
+
+.searchField {
+  transition: all .4s;
+  transform: translateX(-100px);
+}
+
+.brdr-l-t-b {
+  border-top: none;
+  border-left: none;
+  border-bottom: none;
+  border-right-color: red;
+  font-weight: bolder;
+}
+
+.w-animation {
+  transition: all .4s;
+  width: 10%;
+}
+.w-animation:focus {
+  width: 40%
+}
+
+.searchField:focus-within {
+  transform: translateX(0px);
+}
+
+.fs40 {
+  font-size: 40px;
+}
+
+.ml100 {
+  margin-left: 100px;
+}
+
+.w160p {
+  width: 160% !important;
+}
+
+.mlr10 {
+  padding-right: 10px;
+  padding-left: 10px;
 }

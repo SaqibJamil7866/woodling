@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { ToastsStore } from 'react-toasts';
 import InputRange from 'react-input-range';
-import { SettingService } from '../../services/Setting'
+import { SettingService } from '../../services/Setting';
 import { showLoader, hideLoader } from '../../public/loader';
 import 'react-input-range/lib/css/index.css';
 

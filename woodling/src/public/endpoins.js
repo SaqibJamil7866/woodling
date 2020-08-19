@@ -102,6 +102,17 @@ export const postNotificationsUrl = `${baseUrl}/update-setting-notification.php`
 export const getPrivacyUrl = `${baseUrl}/fetch-setting-privacy.php`;
 export const postPrivacyUrl = `${baseUrl}/update-setting-privacy.php`;
 export const getBlockedUrl = `${baseUrl}/fetch-blocked-users.php`;
+export const postUnblockUrl = `${baseUrl}/unblock-user.php`
+
+//Search endpoints
+export const getEverythingUrl = `${baseUrl}/search-everything.php`;
+export const getPostUrl = `${baseUrl}/search-posts.php`;
+export const getPeopleUrl = `${baseUrl}/search-people.php`;
+//export const getCastingCalls = `${baseUrl}/`
+export const getEventsUrl = `${baseUrl}/search-events.php`;
+export const getProductUrl = `${baseUrl}/search-products.php`;
+export const getPlaceUrl = `${baseUrl}/search-places.php`;
+export const getTagsUrl = `${baseUrl}/search-tags.php`;
 
 // REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",

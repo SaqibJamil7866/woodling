@@ -1,12 +1,14 @@
 import axios from 'axios';
 import {AuthService} from './AuthService';
-import { getUserProfileUrl, postupdateProfileUrl, getSettingProfileUrl, getIndividualSkillsUrl, getGendersUrl, getEmailUrl, postUpdateUrl, getUsernameUrl, getNotificationsUrl, postNotificationsUrl, linkedSocialMediaUrl, getPrivacyUrl, postPrivacyUrl, getBlockedUrl } from '../public/endpoins';
-import { resolve } from 'joi-browser';
+import { getUserProfileUrl, postupdateProfileUrl, getSettingProfileUrl, getIndividualSkillsUrl, getGendersUrl,
+         getEmailUrl, postUpdateUrl, getUsernameUrl, getNotificationsUrl,
+         postNotificationsUrl, linkedSocialMediaUrl, getPrivacyUrl, postPrivacyUrl, getBlockedUrl, 
+         postUnblockUrl } from '../public/endpoins';
 
 export const SettingService = {
     myData, postCover, postProfile, getSkills, getGenders, addExperience, UpdateUserDetail, getSettingProfile,
     getEmail, postUpdate, getUsername, getNotifications, postNotifications, linkedSocialMedia, getPrivacy, postPrivacy,
-    getBlocked
+    getBlocked, postUnblocked
 }; 
 
 function myData() {
@@ -212,6 +214,18 @@ function getBlocked() {
     return new Promise((resolve, reject) => {
         const url = getBlockedUrl+'?user_id='+AuthService.getUserId();
         axios(url)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
+function postUnblocked(params) {
+    return new Promise((resolve, reject) => {
+        axios.post(postUnblockUrl, params)
         .then((res) => {
             resolve(res);
         })

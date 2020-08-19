@@ -10,19 +10,19 @@ import BlockedModal from '../../models/blocked-modal.component';
 import { FollowService } from '../../services/FollowService';
 
 class EditPrivacy extends Component {
-    state = { privacy: [], modal: false, blocked: [] }
+    state = { privacy: [], modal: false, blocked: [], status: '' }
 
     async componentDidMount() {
         showLoader()
 
         await SettingService.getPrivacy()
         .then((res) => {
-            this.setState({privacy: res.data.user_privacy_settings})
+            this.setState({privacy: res.data.user_privacy_settings, status: res.data.status})
         }).catch((e) => console.log(e))
 
-        await FollowService.getUSerFollowings()
+        await SettingService.getBlocked()
         .then((res) => {
-            this.setState({blocked: res.data.data}, () => {
+            this.setState({blocked: res.data.blocked_users}, () => {
                 console.log(res.data)
             })
         })
@@ -125,8 +125,22 @@ class EditPrivacy extends Component {
         this.setState({modal: false})
     }
 
+    handleUnblock = async(blockedID) => {
+        const data = {user_id: AuthService.getUserId(), blocked_id: blockedID.id}
+        await SettingService.postUnblocked(data)
+        .then((res) => {
+            if(res.data.status !== 'error'){
+                ToastsStore.success(res.data.message); 
+            }else{
+                console.log('error')
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=> console.error("error: "+ e))
+    }
+
     render() { 
-        const { modal } = this.state;
+        const { modal, blocked, status } = this.state;
         const { read_receipts, receive_messages, receive_voice_calls } = this.state.privacy
         return ( 
             <div className='d-flex flex-dir-col justify-content-center align-items-center'>
@@ -163,7 +177,10 @@ class EditPrivacy extends Component {
                 </div>
                 {modal ? <BlockedModal
                             openModal={modal}
-                            closeModal={this.closeOpenModal}
+                            closeModal={this.handleCloseModal}
+                            blocked={blocked}
+                            status={status}
+                            handleUnblock={this.handleUnblock}
                 /> : null}
             </div>
          );
