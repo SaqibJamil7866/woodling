@@ -2336,6 +2336,14 @@ p.sdate {
   transform: translateY(0px);
 }
 
+.right-arrow {
+  position: absolute;
+  top: 30%;
+  left: 93%;
+  font-size: 60px;
+  color: red;
+}
+
 .w150p {
   width: 150% !important;
 }
