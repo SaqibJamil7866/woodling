@@ -5,7 +5,7 @@ const SearchResult = (props) => {
     const { heading, goBack, latest, posts, products, services, castingCalls, people, events, hashtags, places,
         handleLatestLink, handlePostLink, handlePlacesLink, handleServiceLink, handleHashtagsLink, handleEventsLink,
         handlePeopleLink, handleProductLink, handleCastingCallLink, onCrash,
-        peoples
+        peoples, everything
     } = props;
     return ( 
         <div className='ml100 mt10 p20 w100p'>

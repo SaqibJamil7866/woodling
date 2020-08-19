@@ -37,7 +37,7 @@ class Search extends Component {
 
         await SearchService.getPeople(this.state.peoplePage, this.state.search)
         .then((res) => {
-            this.setState({peoples: res.data.people, peoplePage: this.state.page+1});
+            this.setState({peoples: res.data.people});
         }).catch((e) => console.log(e))
         
         .then(() => hideLoader());
@@ -98,7 +98,7 @@ class Search extends Component {
 
     render() { 
         const { search, result, latest, posts, products, services, castingCalls, people, events, hashtags, places,
-            peoples
+            peoples, everything
         } = this.state;
         return ( 
             <div className='h100p scrolling'>
@@ -127,6 +127,7 @@ class Search extends Component {
 
                         onCrash={this.onCrash}
                         peoples={peoples}
+                        everything={everything}
                     />
                     :
                     <div className='mt10 p20 ml20 w100p'>
