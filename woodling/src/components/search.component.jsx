@@ -6,6 +6,7 @@ import { showLoader, hideLoader } from '../public/loader';
 import { ToastsStore } from 'react-toasts';
 import SearchResult from './common/search-result.component';
 class Search extends Component {
+
     state = { 
         page: 1,
         peoplePage: 1,
@@ -23,14 +24,16 @@ class Search extends Component {
         everything: [],
         peoples: []
     }
+
     handleSearchInput = (e) => {
         this.setState({search: e.currentTarget.value});
     }
+
     handleSearch = async(e) => {
-        e.preventDefault();
-        console.log(e)
-        showLoader()
-        await SearchService.getEverything(this.state.page, this.state.search)
+        e.preventDefault();        
+        this.setState({page: 1});
+        showLoader();
+        await SearchService.getEverything('1', this.state.search)
         .then((res) => {
             this.setState({everything: res.data.data, page: this.state.page+1, result: true});
         }).catch((e) => {console.log(e)})
@@ -42,6 +45,7 @@ class Search extends Component {
         
         .then(() => hideLoader());
     }
+
     // loadMorePosts = () => {
     //     ActivityStreamService.getActivityStreams(page).then((res)=>{
     //         if(res.status !== 'error'){
@@ -57,6 +61,7 @@ class Search extends Component {
     //         }
     //     });
     // }
+
     handleBack = () => {
         showLoader()
         this.setState({result: false});
@@ -66,27 +71,35 @@ class Search extends Component {
     handleLatestLink = () => {
         this.setState({latest: true, posts: false, products: false, services: false, castingCalls: false, people: false, events: false, hashtags: false, places: false})
     }
+
     handlePostLink = () => {
         this.setState({latest: false, posts: true, products: false, services: false, castingCalls: false, people: false, events: false, hashtags: false, places: false})
     }
+
     handleProductLink = () => {
         this.setState({latest: false, posts: false, products: true, services: false, castingCalls: false, people: false, events: false, hashtags: false, places: false})
     }
+
     handleServiceLink = () => {
         this.setState({latest: false, posts: false, products: false, services: true, castingCalls: false, people: false, events: false, hashtags: false, places: false})
     }
+
     handleCastingCallLink = () => {
         this.setState({latest: false, posts: false, products: false, services: false, castingCalls: true, people: false, events: false, hashtags: false, places: false})
     }
+
     handlePeopleLink = () => {
         this.setState({latest: false, posts: false, products: false, services: false, castingCalls: false, people: true, events: false, hashtags: false, places: false})
     }
+    
     handleEventsLink = () => {
         this.setState({latest: false, posts: false, products: false, services: false, castingCalls: false, people: false, events: true, hashtags: false, places: false})
     }
+
     handleHashtagsLink = () => {
         this.setState({latest: false, posts: false, products: false, services: false, castingCalls: false, people: false, events: false, hashtags: true, places: false})
     }
+
     handlePlacesLink = () => {
         this.setState({latest: false, posts: false, products: false, services: false, castingCalls: false, people: false, events: false, hashtags: false, places: true})
     }

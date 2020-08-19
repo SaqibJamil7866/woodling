@@ -12,15 +12,17 @@ const LatestSearch = (props) => {
                 <div className='col-md-12'>
                     <div className='d-flex clr__white scrolling-x'>
                         {peoples.map((i, index) => {
-                            return <div className='d-flex flex-dir-col align-items-center justify-content-center p10 mlr10' style={{width: '200%'}}>  
+                            return (
+                                <div key={index} className='d-flex flex-dir-col align-items-center justify-content-center p5'>  
                                         <div className='d-flex justify-content-center'>
-                                            <img onError={onCrash} className='border-radius60 w70 h80' src={picUrl+""+i.profile_thumb}  alt='thumbnail pic' />
+                                            <img onError={onCrash} className='border-radius60 w110 h110' src={picUrl+""+i.profile_thumb}  alt='thumbnail pic' />
                                         </div>
-                                        <p style={{width: '125px'}} className='mb0 fs12 alignCenter'>{i.full_name}</p>
-                                        <div style={{width: '115px'}}>
-                                            <RatingStar  rating={convertToFloat(i.rating)} />
+                                        <p style={{width: '110px'}} className='mb0 fs12 alignCenter'>{i.full_name}</p>
+                                        <div style={{width: '110px'}}>
+                                            <RatingStar rating={convertToFloat(i.rating)} />
                                         </div>
-                                    </div>;
+                                </div>
+                            );
                         })}
                     </div>
                 </div>

@@ -228,11 +228,23 @@ html, body, #root {
 .w100p{
   width: 100%;
 }
+.w110{
+  width: 110px !important;
+}
+.w120{
+  width: 120px;
+}
 .w50{
   width: 50% !important;
 }
 .h100p{
   height: 100% !important;
+}
+.h110{
+  height: 110px !important;
+}
+.h120{
+  height: 120px !important;
 }
 .h90p{
   height: 90% !important;
@@ -1964,6 +1976,10 @@ p.sdate {
 
 .p10 {
   padding: 10px !important;
+}
+
+.p5 {
+  padding: 5px !important;
 }
 
 .profile-btn {
