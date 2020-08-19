@@ -3,10 +3,11 @@ import { picUrl } from '../../public/endpoins';
 import RatingStar from './rating-stars.component';
 import convertToFloat from '../../public/helperFunctions';
 import Post from './post.component';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const LatestSearch = (props) => {
-    const {peoples, onCrash, everything} = props;
-    console.log(peoples)
+    const {peoples, onCrash, everything, loadMorePosts} = props;
+    console.log(everything)
     return ( 
         <div className='container'>
             <div className='row'>
@@ -29,7 +30,20 @@ const LatestSearch = (props) => {
                     </div>
                 </div>
                 <div className='col-md-9'>
-                    <Post post={everything} />
+                    <InfiniteScroll
+                        pageStart={1}
+                        initialLoad={false}
+                        loadMore={loadMorePosts}
+                        hasMore={true || false}
+                        useWindow={false}
+                        threshold={10}
+                    >
+                        <Post posts={everything} />
+                    </InfiniteScroll>
+                    {everything.length!==0 ? <div className='d-flex justify-content-center w80'>
+                                                <button onClick={loadMorePosts} className='load-btn'>Load More</button>
+                                            </div> 
+                        : null}
                 </div>
             </div>
         </div>

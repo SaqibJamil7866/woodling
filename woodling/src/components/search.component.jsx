@@ -33,9 +33,11 @@ class Search extends Component {
         e.preventDefault();        
         this.setState({page: 1});
         showLoader();
-        await SearchService.getEverything('1', this.state.search)
+        await SearchService.getEverything(this.state.page, this.state.search)
         .then((res) => {
-            this.setState({everything: res.data.data, page: this.state.page+1, result: true});
+            this.setState({everything: res.data.data, page: this.state.page+1, result: true}, () => {
+                console.log('response', this.state.everything)
+            });
         }).catch((e) => {console.log(e)})
 
         await SearchService.getPeople(this.state.peoplePage, this.state.search)
@@ -46,21 +48,14 @@ class Search extends Component {
         .then(() => hideLoader());
     }
 
-    // loadMorePosts = () => {
-    //     ActivityStreamService.getActivityStreams(page).then((res)=>{
-    //         if(res.status !== 'error'){
-    //             if(res.data.data){
-    //                 dispatch({field: 'posts', value: [...posts, ...res.data.data]});
-    //                 dispatch({field: 'page', value: page+1});
-    //             }
-    //             else{
-    //                 ToastsStore.warning('No more records.');
-    //             }
-    //         }else { 
-    //             ToastsStore.error(res.message); 
-    //         }
-    //     });
-    // }
+    loadMorePosts = async() => {
+        await SearchService.getEverything(this.state.page, this.state.search)
+        .then((res) => {
+            this.setState({everything:[...this.state.everything, ...res.data.data], page: this.state.page+1, result: true}, () => {
+                console.log('response', this.state.everything)
+            });
+        }).catch((e) => {console.log(e)})
+    }
 
     handleBack = () => {
         showLoader()
@@ -141,6 +136,7 @@ class Search extends Component {
                         onCrash={this.onCrash}
                         peoples={peoples}
                         everything={everything}
+                        loadMorePosts={this.loadMorePosts}
                     />
                     :
                     <div className='mt10 p20 ml20 w100p'>
