@@ -1,7 +1,7 @@
   
 import axios from 'axios';
 import cookie from 'react-cookies';
-import { loginUrl, getIndividualSkillsUrl, picUrl } from '../public/endpoins';
+import { loginUrl, getIndividualSkillsUrl, getBusinessSkillsUrl, picUrl } from '../public/endpoins';
 
 export const AuthService = {
   login, getUserId, getUserName, getSkills,
@@ -26,15 +26,19 @@ function login(params) {
 }
 
 function getSkills(type) {
-  const url = getIndividualSkillsUrl;
+  let url = getIndividualSkillsUrl;
+
+  if(type === 'business'){
+    url = getBusinessSkillsUrl;
+  }
 
   return new Promise((resolve, reject) =>{
-      axios.post(getIndividualSkillsUrl, type)
-      .then(res => {
-          resolve(res);
-        }).catch(e => {
-          reject(e);        
-      });
+    axios.get(url)
+    .then(res => {
+        resolve(res);
+      }).catch(e => {
+        reject(e);
+    });
 });
 }
 

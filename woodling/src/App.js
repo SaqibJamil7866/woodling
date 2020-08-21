@@ -84,10 +84,10 @@ function App() {
         <Switch>
           <Route path={["/", "/login"]} exact component={LoginComponent} />
           {/* <Route path="/signup" exact component={Register} /> */}
-          <Route component={Main}/>
+          <Route component={Main} />
         </Switch>
       </Router>
-      <ToastsContainer store={ToastsStore}/>
+      <ToastsContainer store={ToastsStore} />
     </>
   );
 }

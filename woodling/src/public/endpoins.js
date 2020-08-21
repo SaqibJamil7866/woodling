@@ -62,7 +62,7 @@ export const getSearchTalentsUrl = `${baseUrl}/search-talents-with-filter.php`;
 
 // skills endpoints
 export const getIndividualSkillsUrl = `${baseUrl}/fetch-individual-skills.php`;
-export const addBusinessSkillsNoUrl = `${baseUrl}/fetch-business-skills.php`;
+export const getBusinessSkillsUrl = `${baseUrl}/fetch-business-skills.php`;
 export const getGendersUrl = `${baseUrl}/fetch_all_gender.php`;
 
 // casting calls endpoints
@@ -108,11 +108,11 @@ export const postPrivacyUrl = `${baseUrl}/update-setting-privacy.php`;
 export const getBlockedUrl = `${baseUrl}/fetch-blocked-users.php`;
 export const postUnblockUrl = `${baseUrl}/unblock-user.php`
 
-//Search endpoints
+// Search endpoints
 export const getEverythingUrl = `${baseUrl}/search-everything.php`;
 export const getPostUrl = `${baseUrl}/search-posts.php`;
 export const getPeopleUrl = `${baseUrl}/search-people.php`;
-//export const getCastingCalls = `${baseUrl}/`
+// export const getCastingCalls = `${baseUrl}/`
 export const getEventsUrl = `${baseUrl}/search-events.php`;
 export const getProductUrl = `${baseUrl}/search-products.php`;
 export const getPlaceUrl = `${baseUrl}/search-places.php`;

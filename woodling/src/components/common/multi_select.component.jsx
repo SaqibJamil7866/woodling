@@ -5,7 +5,7 @@ import '@progress/kendo-theme-default/dist/all.css';
 
 class MultiSelectDropdown extends React.Component {
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             data: props.data.slice()
         };
