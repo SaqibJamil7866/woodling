@@ -4,9 +4,9 @@ import convertToFloat from '../../public/helperFunctions';
 import { siteUrl } from '../../public/endpoins';
 
 const FollowersAndFollowingCard = (props) => {
-    const {onCrash, premium, profile_picture, rating, full_name, username, bio} = props;
+    const {onCrash, premium, profile_picture, rating, full_name, username, bio, people, scrollRef} = props;
     return ( 
-        <div className='clr__white w65 mt10'>
+        <div ref={scrollRef} className={people ? 'clr__white mt10' : 'clr__white w65 mt10'}>
             <div className='d-flex'>
                 <div className='d-flex flex-dir-col align-item w25'>
                     <img onError={onCrash} className={premium==='1'? 'premium-border following-img' : 'following-img'} src={profile_picture!=='' ? siteUrl+""+profile_picture : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} />

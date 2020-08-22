@@ -11,6 +11,7 @@ class Search extends Component {
         page: 1,
         peoplePage: 1,
         postPage: 1,
+        castingcallPage: 1,
         result: false,
         latest: true,
         posts: false,
@@ -25,6 +26,7 @@ class Search extends Component {
         everything: [],
         peoples: [],
         post: [],
+        castingCall: [],
         scrollRef: React.createRef()
     }
 
@@ -44,7 +46,7 @@ class Search extends Component {
             });
         }).catch((ex) => {console.log(ex)})
 
-        await SearchService.getPeople(1, this.state.search)
+        await SearchService.getPeople(this.state.peoplePage, this.state.search)
         .then((res) => {
             this.setState({peoples: res.data.people, peoplePage: peoplePage+1 });
         }).catch((ex) => console.log(ex))
@@ -78,6 +80,51 @@ class Search extends Component {
         }).catch((e) => {console.log(e)})
     }
 
+    loadMoreCastingCalls = async () => {
+        const tempRef = this.state.scrollRef.current;
+        const { castingcallPage, castingCall } = this.state;
+        showLoader();
+        await SearchService.getCastingCall(this.state.search, this.state.castingcallPage).then((res)=>{
+            if(res.data.status !== 'error'){
+                if(res.data.data){
+                    this.setState({castingCall: [...castingCall, ...res.data.casting_calls], castingcallPage: castingcallPage+1}, () => {
+                        tempRef.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                        });
+                    });
+                }
+                else{
+                    this.setState({showLoadMoreBtn: false});
+                    ToastsStore.warning('No more records.');
+                }
+            }else {
+                ToastsStore.error(res.message); 
+            }
+        })
+        .catch((e)=>console.error("error: "+ e))
+        .then(() => hideLoader());
+    }
+
+    loadMorePost = () => {
+        const tempRef = this.state.scrollRef.current;
+        const {post, search, postPage} = this.state;
+        SearchService.getPost(postPage, search)
+        .then((res) => {
+            if(res.data.data && res.data.data.length>0) {
+                this.setState({post: [...post, ...res.data.data], postPage: postPage+1}, () => {
+                    tempRef.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                    });
+                });
+            }
+            else{
+                ToastsStore.warning("No More Records");
+            }
+        }).catch((e) => {console.log(e)})
+    }
+
     handleBack = () => {
         showLoader()
         this.setState({result: false});
@@ -102,7 +149,12 @@ class Search extends Component {
     }
 
     handleProductLink = () => {
-        this.setState({latest: false, posts: false, products: true, services: false, castingCalls: false, people: false, events: false, hashtags: false, places: false})
+        this.setState({latest: false, posts: false, products: true, services: false, castingCalls: false, people: false, events: false, hashtags: false, places: false}, async() => {
+            await SearchService.getCastingCall(1, 'castingcall')
+            .then((res) => {
+                console.log(res.data)
+            })
+        })
     }
 
     handleServiceLink = () => {
@@ -110,7 +162,18 @@ class Search extends Component {
     }
 
     handleCastingCallLink = () => {
-        this.setState({latest: false, posts: false, products: false, services: false, castingCalls: true, people: false, events: false, hashtags: false, places: false})
+        const { castingcallPage } = this.state;
+        this.setState({latest: false, posts: false, products: false, services: false, castingCalls: true, people: false, events: false, hashtags: false, places: false}, async() => {
+            showLoader();
+            await SearchService.getCastingCall(this.state.search, this.state.castingcallPage)
+            .then((res) => {
+                this.setState({castingCall: res.data.casting_calls, castingcallPage: castingcallPage+1}, () => {
+                    console.log(res.data)
+                })
+            }).catch((e) => console.log(e))
+
+            .then(() => hideLoader());
+        })
     }
 
     handlePeopleLink = () => {
@@ -136,7 +199,7 @@ class Search extends Component {
 
     render() { 
         const { search, result, latest, posts, products, services, castingCalls, people, events, hashtags, places,
-            peoples, everything, post, scrollRef
+            peoples, everything, post, scrollRef, castingCall
         } = this.state;
         return ( 
             <div className='h100p scrolling'>
@@ -170,6 +233,10 @@ class Search extends Component {
                         loadMorePeople={this.loadMorePeople}
 
                         post={post}
+                        loadMorePost={this.loadMorePost}
+
+                        castingCall={castingCall}
+                        loadMoreCastingCalls={this.loadMoreCastingCalls}
                     />
                     :
                     <div className='mt10 p20 ml20 w100p'>
