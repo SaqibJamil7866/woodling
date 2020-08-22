@@ -5,7 +5,7 @@ import convertToFloat from '../../public/helperFunctions';
 import Post from './post.component';
 
 const LatestSearch = (props) => {
-    const {peoples, scrollRef, onCrash, everything, loadMorePeople, loadMorePosts} = props;
+    const {peoples, scrollRef, onCrash, everything, loadMorePeople, loadMoreLatest} = props;
     return ( 
         <div className='container p0'>
             <div className='row'>
@@ -31,7 +31,7 @@ const LatestSearch = (props) => {
                     <Post posts={everything} scrollRef={scrollRef} />
                     {everything && everything.length!==0 ? (
                         <div className='d-flex justify-content-center w80'>
-                            <button onClick={loadMorePosts} className='load-btn'>Load More</button>
+                            <button onClick={loadMoreLatest} className='load-btn'>Load More</button>
                         </div>
                     ): null}
                 </div>

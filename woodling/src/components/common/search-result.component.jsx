@@ -1,11 +1,14 @@
 import React from 'react';
 import LatestSearch from './latest-search.component';
+import SearchPost from './search-post.component';
+import SearchPeople from './search-people.component';
+import SearchCastingCalls from './search-castingCalls.component';
 
 const SearchResult = (props) => {
     const { heading, goBack, latest, posts, products, services, castingCalls, people, events, hashtags, places,
         handleLatestLink, handlePostLink, handlePlacesLink, handleServiceLink, handleHashtagsLink, handleEventsLink,
         handlePeopleLink, handleProductLink, handleCastingCallLink, onCrash,
-        peoples, everything, loadMorePosts, loadMorePeople, scrollRef
+        peoples, everything, loadMoreLatest, loadMorePeople, scrollRef, post, loadMorePost, castingCall, loadMoreCastingCalls
     } = props;
     return ( 
         <div className='ml100 mt10 p20 w100p'>
@@ -31,13 +34,39 @@ const SearchResult = (props) => {
                     {latest ? (
                         <LatestSearch
                             everything={everything}
-                            loadMorePosts={loadMorePosts}
+                            loadMoreLatest={loadMoreLatest}
                             loadMorePeople={loadMorePeople}
                             scrollRef={scrollRef}
                             peoples={peoples}
                             onCrash={onCrash}
                         />
                     )  : null}
+                    {posts ? (
+                        <SearchPost 
+                            post={post} 
+                            scrollRef={scrollRef}
+                            loadMorePost={loadMorePost}
+                        />
+                    ) : null}
+                    {people ? (
+                        <SearchPeople
+                            peoples={peoples}
+                            scrollRef={scrollRef}
+                            onCrash={onCrash}
+                            people={people}
+                            loadMorePeople={loadMorePeople}
+                            scrollRef={scrollRef}
+                        />
+                    ) : null}
+
+                    {castingCalls ? (
+                        <SearchCastingCalls 
+                            castingCall={castingCall}
+                            castingSwitch={castingCalls}
+                            loadMoreCastingCalls={loadMoreCastingCalls}
+                            scrollRef={scrollRef}
+                        />
+                    ) : null}
                 </div>
             </div>
         </div>

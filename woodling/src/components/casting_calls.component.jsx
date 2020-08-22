@@ -26,7 +26,8 @@ class CastingCalls extends Component {
         showModel: false,
         postingForm: false,
         popupData: "",
-        applyBtns: []
+        applyBtns: [],
+        scrollRef: React.createRef()
     }
 
     componentDidMount(){
@@ -86,11 +87,17 @@ class CastingCalls extends Component {
 
     loadMoreCastingCalls = () => {
         const {allCastingCalls, page} = this.state;
+        const tempRef = this.state.scrollRef.current;
         showLoader();
         CastingCallService.getAllCastingCalls(this.state.page).then((res)=>{
             if(res.data.status !== 'error'){
                 if(res.data.data){
-                    this.setState({allCastingCalls: [...allCastingCalls, ...res.data.data], page: page+1});
+                    this.setState({allCastingCalls: [...allCastingCalls, ...res.data.data], page: page+1}, () => {
+                        tempRef.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                        });
+                    });
                 }
                 else{
                     this.setState({showLoadMoreBtn: false});
@@ -202,6 +209,7 @@ class CastingCalls extends Component {
                                         noRecord='No Record found'
                                         handleShowModel={this.handleShowModel}
                                         postingCallForm={this.postingCallForm}
+                                        loadMoreCastingCalls={this.loadMoreCastingCalls}
                                     />
                                     {showLoadMoreBtn && <button className="btn btn-primary w76p mt10 mb20" onClick={this.loadMoreCastingCalls}>Load More...</button>}
 
