@@ -1,9 +1,9 @@
 import axios from 'axios';
 import {AuthService} from './AuthService';
-import { getEverythingUrl, getPostUrl, getPeopleUrl, getEventsUrl, getProductUrl, getTagUrl, getPlaceUrl } from '../public/endpoins';
+import { getEverythingUrl, getPostUrl, getPeopleUrl, getEventsUrl, getCastingCallUrl, getTagUrl, getPlaceUrl } from '../public/endpoins';
 
 export const SearchService = {
-    getEverything, getPost, getPeople, getEvent, getProducts, getTags, getPlaces
+    getEverything, getPost, getPeople, getEvent, getTags, getPlaces, getCastingCall
 }; 
 
 function getEverything(page, search) {
@@ -58,9 +58,13 @@ function getEvent(page, search) {
     })
 }
 
-function getProducts(page, search) {
+function getProduct(page, search) {
+
+}
+
+function getCastingCall(search, page) {
     return new Promise((resolve, reject) => {
-        const url = getProductUrl+"?page="+page+"&user_id="+AuthService.getUserId()+"&name="+search+"&category=products";
+        const url = getCastingCallUrl+"?user_id="+AuthService.getUserId()+"&casting_call="+search+"&page="+page;
         axios(url)
         .then((res) => {
             resolve(res);

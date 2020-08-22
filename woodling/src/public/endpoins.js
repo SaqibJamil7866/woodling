@@ -113,6 +113,7 @@ export const getEverythingUrl = `${baseUrl}/search-everything.php`;
 export const getPostUrl = `${baseUrl}/search-posts.php`;
 export const getPeopleUrl = `${baseUrl}/search-people.php`;
 // export const getCastingCalls = `${baseUrl}/`
+export const getCastingCallUrl = `${baseUrl}/fetch-casting-calls.php`;
 export const getEventsUrl = `${baseUrl}/search-events.php`;
 export const getProductUrl = `${baseUrl}/search-products.php`;
 export const getPlaceUrl = `${baseUrl}/search-places.php`;
