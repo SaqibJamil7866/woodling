@@ -114,7 +114,7 @@ function Home() {
                     <div className="img-div h230 mt30 mb10 ">
                         <img src={require('../assets/virtual-reality.png')} alt="virtual reality pic" />
                     </div>
-                    <OnlineStatusCard />
+                    {/* <OnlineStatusCard /> */}
                     <div className="mt10 mb10">
                         <ExploreCard followers={followers} />
                     </div>
