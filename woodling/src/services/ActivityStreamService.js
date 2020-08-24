@@ -1,10 +1,12 @@
   
 import axios from 'axios';
 import {AuthService} from './AuthService';
-import { activityStreamUrl, activityDetailsUrl, getExploreUsersUrl, getPostTaggedUsersUrl, searchPeopleUrl, geocodeUrl, addPostUrl } from '../public/endpoins';
+import { activityStreamUrl, activityDetailsUrl, getTagUrl, getExploreUsersUrl, getPremiunUsersUrl, 
+	getPostTaggedUsersUrl, searchPeopleUrl, geocodeUrl, addPostUrl } from '../public/endpoins';
 
 export const ActivityStreamService = {
-   getActivityStreams, getExploreUsers, getActivityDetails, getPostTaggedUsers, searchPeople, getLocationDetailByPlaceId, submitPost
+   getActivityStreams, getExploreUsers, getPremiumUsers, getActivityDetails, getPostTaggedUsers, searchPeople, 
+   getLocationDetailByPlaceId, submitPost, getTags
 };
 
 function getActivityStreams(page) { 
@@ -20,9 +22,35 @@ function getActivityStreams(page) {
 	});
 }
 
+function getTags() {
+    return new Promise((resolve, reject) => {
+        const url = getTagUrl+"?user_id="+AuthService.getUserId();
+        axios(url)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
 function getExploreUsers(){ 
 	return new Promise((resolve, reject) =>{
 		const url =  getExploreUsersUrl+"?user_id="+AuthService.getUserId();
+		axios.get(url)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		});
+	});
+}
+
+function getPremiumUsers(){ 
+	return new Promise((resolve, reject) =>{
+		const url =  getPremiunUsersUrl+"?user_id="+AuthService.getUserId();
 		axios.get(url)
 		.then((res) => {
 			resolve(res);

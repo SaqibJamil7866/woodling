@@ -231,6 +231,7 @@ html, body, #root {
 .w108{
   width: 108px !important;
 }
+
 .w110{
   width: 110px !important;
 }
@@ -263,6 +264,9 @@ html, body, #root {
 }
 .h50{
   height: 50px !important;
+}
+.h170{
+  height: 170px !important;
 }
 .h230{
   height: 230px;
@@ -647,6 +651,10 @@ html, body, #root {
   align-self: center;
 }
 
+.w55{
+  width: 55px !important;
+}
+
 .w60{
   width: 60px !important;
 }
@@ -961,8 +969,12 @@ button[name='searchSubmit'] {
   border: 1px solid #F2F2F2;
 }
 
+.h55 {
+  height: 55px !important;
+}
+
 .h60 {
-  height: 60px;
+  height: 60px !important;
 }
 
 .wh80 {
@@ -2004,6 +2016,18 @@ p.sdate {
   color: #ffffff;
 }
 
+.follow-sm-btn {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 7px;
+  padding-top: 0px;
+  background-color: #FB0201;
+  border: 3px solid #FB0201 !important;
+  font-size: 12px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
 .profile-btn:focus {
   outline: none;
 }
@@ -2019,6 +2043,10 @@ p.sdate {
 
 .w40 {
   width: 40% !important;
+}
+
+.h20 {
+  height: 20px !important;
 }
 
 .h200 {

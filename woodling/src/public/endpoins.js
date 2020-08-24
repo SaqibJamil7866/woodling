@@ -40,6 +40,8 @@ export const getUserTagPostUrl = `${baseUrl}/fetch-user-tagged-posts.php`;
 // follow endpoints
 export const getUserFollowingUrl = `${baseUrl}/fetch-user-following.php`;
 export const getUserFollowersUrl = `${baseUrl}/fetch-user-followers.php`;
+export const getPremiunUsersUrl = `${baseUrl}/fetch-explore-users-premium.php`;
+export const followUserUrl = `${baseUrl}/follow-user.php`;
 
 // Add review endpoints
 export const addReviewUrl = `${baseUrl}/add-review.php`

@@ -1,10 +1,9 @@
-  
-import { getUserFollowingUrl, getUserFollowersUrl } from '../public/endpoins';
+import axios from 'axios'; 
+import { getUserFollowingUrl, getUserFollowersUrl, followUserUrl  } from '../public/endpoins';
 import {AuthService} from './AuthService';
-import axios from 'axios';
 
 export const FollowService = {
-   getUSerFollowings,getUSerFollowiers 
+   getUSerFollowings, getUSerFollowiers, followUser
 }; 
 function getUSerFollowings(id) { 
     if(id){
@@ -31,6 +30,7 @@ function getUSerFollowings(id) {
         });
     }
 }
+
 function getUSerFollowiers(id) { 
     if(id){
         return new Promise((resolve, reject) =>{	 
@@ -55,5 +55,17 @@ function getUSerFollowiers(id) {
             });
         });
     }
-} 
+}
+
+function followUser(params) { 
+    return new Promise((resolve, reject) =>{	 
+        axios.post(followUserUrl, params)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        });
+    });
+}
  

@@ -6,26 +6,40 @@ import { picUrl } from '../public/endpoins';
 import RatingStar from './common/rating-stars.component';
 import convertToFloat from '../public/helperFunctions';
 import StatusUpload from '../models/status-update-modal.component';
+import HashTags from './common/hastags.component';
+import { FollowService } from '../services/FollowService';
+import { AuthService } from '../services/AuthService';
 import { ActivityStreamService } from '../services/ActivityStreamService';
 
 function ExploreHome(){
     const initialState ={
         explorePage: 1,
         exploreUsers:[],
+        explorePremiumUsers: [],
         followers: [],
+        tags: [],
         tagPeople: [],
+        
         showModal: false
     }
 
     function reducer(state, { field, value}){
-        return{
-            ...state,
-            [field] : value
+        switch (field) {
+            case 'update_explore_users':debugger
+            return{
+                ...state,
+                city: value.address[value.address.length-2]
+            };
+            default: 
+            return{
+                ...state,
+                [field] : value
+            }
         }
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { explorePage, exploreUsers, showModal, tagPeople } = state;
+    const { explorePage, exploreUsers, tags, explorePremiumUsers, showModal, tagPeople } = state;
 
     const openImageModal = () => {
         dispatch({field: 'showModal', value: true})
@@ -45,27 +59,38 @@ function ExploreHome(){
 
     useEffect(() => {
         showLoader();
-        Promise.all([ActivityStreamService.getExploreUsers()])
-        .then((res)=>{debugger
+        Promise.all([ActivityStreamService.getExploreUsers(), ActivityStreamService.getPremiumUsers(), ActivityStreamService.getTags()])
+        .then((res)=>{
             if(res[0].status !== 'error'){
                 dispatch({field: 'exploreUsers', value: res[0].data.data});
             }else { 
                 ToastsStore.error(res[0].message); 
             }
-            // if(res[1].status !== 'error'){
-            //     dispatch({field: 'followers', value: res[1].data.data});
-            // }else { 
-            //     ToastsStore.error(res[1].message); 
-            // }
-            // if(res[2].status !== 'error'){
-            //     dispatch({field: 'tagPeople', value: res[2].data.people});
-            // }else { 
-            //     ToastsStore.error(res[2].message); 
-            // }
+            if(res[1].status !== 'error'){
+                dispatch({field: 'explorePremiumUsers', value: res[1].data.data});
+            }else { 
+                ToastsStore.error(res[1].message); 
+            }
+            if(res[2].status !== 'error'){
+                dispatch({field: 'tags', value: res[2].data.people});
+            }else { 
+                ToastsStore.error(res[2].message); 
+            }
         })
         .catch((e)=>console.error("error: "+ e))
         .then(() => hideLoader());
     }, []);
+
+    const toggleFollowUser = (user) => {debugger
+        const data = { user_id: AuthService.getUserId(), follower_id: user.id}
+        showLoader();
+        FollowService.followUser(data).then((res)=>{
+            hideLoader();debugger
+            if(res.data.status !== 'error'){
+                dispatch({field: 'update_explore_users', value: user});
+            }
+        });
+    }
 
     // const loadMorePosts = () => {
     //     ActivityStreamService.getActivityStreams(explorePage).then((res)=>{
@@ -92,17 +117,43 @@ function ExploreHome(){
                         openStatusUploadModal={openStatusUploadModal}
                     />
                     <div className='col-md-12 p0 pt10'>
+                        <h3>Explore</h3>
+                        <p className="mb0">Lift your feed with interesting contents</p>
+                        <h5 className="alignCenter">For You</h5>
                         <div className='d-flex clr__white scrolling-x'>
                             {exploreUsers.map((i, index) => {
                                 return (
                                     <div key={index} className='d-flex flex-dir-col align-items-center justify-content-center p5'>  
                                         <div className='d-flex justify-content-center'>
-                                            <img onError={onCrash} className='border-radius60 w108 h108' src={picUrl+""+i.profile_thumb} alt='thumbnail pic' />
+                                            <img onError={onCrash} className='border-radius60 w55 h55' src={picUrl+""+i.profile_thumb} alt='thumbnail pic' />
                                         </div>
                                         <p style={{width: '108px', height: '30px'}} className='mb0 fs12 alignCenter'>{i.full_name}</p>
-                                        <div style={{width: '108px'}}>
+                                        <div style={{width: '108px', textAlign: 'center'}}>
                                             <RatingStar rating={convertToFloat(i.rating)} />
-                                            <button className="profile-btn p0 mt10">Following</button>
+                                            <button className="follow-sm-btn" onClick={()=>toggleFollowUser(i)}>{i.follow_status ? 'Following' : 'Follow'}</button>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                            {/* {exploreUsers.length>9 ? <i className='fa fa-arrow-right right-arrow pointer' /> : null} */}
+                        </div>
+                    </div>
+
+                    <div className='col-md-12 p0 pt10'>
+                        <h5 className="alignCenter">Get in touch with...</h5>
+                        <div className='d-flex clr__white scrolling-x'>
+                            {explorePremiumUsers.map((i, index) => {
+                                return (
+                                    <div key={index} className='d-flex flex-dir-col align-items-center justify-content-center p5'>  
+                                        <div className='d-flex justify-content-center'>
+                                            <img onError={onCrash} className='border-radius60 w55 h55' src={picUrl+""+i.profile_thumb} alt='thumbnail pic' />
+                                        </div>
+                                        <p style={{width: '108px', height: '30px'}} className='mb0 fs12 alignCenter'>
+                                            {i.full_name} {i.premium==='1' ? <img className='h20' src={require('../assets/Group 1977.svg')} alt="premium" /> : null}
+                                        </p>
+                                        <div style={{width: '108px', textAlign: 'center'}}>
+                                            <RatingStar rating={convertToFloat(i.rating)} />
+                                            <button className="follow-sm-btn" onClick={()=>toggleFollowUser(i)}>{i.follow_status ? 'Following' : 'Follow'}</button>
                                         </div>
                                     </div>
                                 );
@@ -124,12 +175,11 @@ function ExploreHome(){
                     </div>
                 </div>
                 <div className="col-md-4 scrolling h100p">
-                    <div className="img-div h230 mt30 mb10 ">
-                        <img src={require('../assets/virtual-reality.png')} alt="virtual reality pic" />
+                    <div className="img-div h170 mt30 mb10 ">
+                        <img src={require('../assets/map_network.png')} alt="network pic" />
                     </div>
-                    {/* <OnlineStatusCard /> */}
                     <div className="mt10 mb10">
-                        {/* <ExploreCard followers={followers} /> */}
+                        <HashTags />
                     </div>
                 </div>
             </div>
