@@ -1,9 +1,10 @@
 import axios from 'axios';
 import {AuthService} from './AuthService';
-import { getEverythingUrl, getPostUrl, getPeopleUrl, getEventsUrl, getCastingCallUrl, getTagUrl, getPlaceUrl } from '../public/endpoins';
+import { getEverythingUrl, getPostUrl, getPeopleUrl, getEventsUrl, getCastingCallUrl, getTagUrl, getPlaceUrl, getProductUrl, getTagPostUrl } from '../public/endpoins';
 
 export const SearchService = {
-    getEverything, getPost, getPeople, getEvent, getTags, getPlaces, getCastingCall
+    getEverything, getPost, getPeople, getEvent, getTags, getPlaces, getCastingCall, getProduct, getServices,
+    getTagPosts
 }; 
 
 function getEverything(page, search) {
@@ -59,7 +60,29 @@ function getEvent(page, search) {
 }
 
 function getProduct(page, search) {
+    return new Promise((resolve, reject) => {
+        const url  = getProductUrl+"?page="+page+"&user_id="+AuthService.getUserId()+"&name="+search+"&category=products";
+        axios(url)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
 
+function getServices(page, search) {
+    return new Promise((resolve, reject) => {
+        const url = getProductUrl+"?page="+page+"&user_id="+AuthService.getUserId()+"&name="+search+"&category=services";
+        axios(url)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
 }
 
 function getCastingCall(search, page) {
@@ -88,9 +111,22 @@ function getTags(search) {
     })
 }
 
+function getTagPosts(tag_id, page) {
+    return new Promise((resolve, reject) => {
+        const url = getTagPostUrl+"?tag_id="+tag_id+"&page="+page+"&user_id="+AuthService.getUserId();
+        axios(url)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
 function getPlaces(search) {
     return new Promise((resolve, reject) => {
-        const url = getPlaceUrl+"?place="+search;
+        const url = getPlaceUrl+"?place="+search+"&user_id="+AuthService.getUserId();
         axios(url)
         .then((res) => {
             resolve(res);

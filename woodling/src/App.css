@@ -2411,3 +2411,19 @@ p.sdate {
   padding-right: 10px;
   padding-left: 10px;
 }
+
+.hastag {
+  background-color: red;
+  width: 13%;
+  display: flex;
+  justify-content: center;
+  border-radius: 59px;
+}
+
+.ml50 {
+  margin-left: 50px;
+}
+
+.italic {
+  font-style: italic !important;
+}

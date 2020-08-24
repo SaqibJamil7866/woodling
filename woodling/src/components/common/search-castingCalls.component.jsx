@@ -77,7 +77,7 @@ class SearchCastingCalls extends Component {
         return ( 
             <div className="container">
                 <div className="row">
-                    <div className="col-md-10">
+                    <div className="col-md-12">
                         <LargeSubmissionCard
                             castingSwitch={castingSwitch}
                             data={castingCall}
