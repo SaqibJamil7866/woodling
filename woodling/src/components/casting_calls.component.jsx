@@ -31,9 +31,9 @@ class CastingCalls extends Component {
     }
 
     componentDidMount(){
-        getLocation().then((res)=>{
-
-        });
+        // getLocation().then((res)=>{
+            //this.setState({page: this.state.page+1})
+        //});
 
         showLoader();
         Promise.all([CastingCallService.getAllCastingCalls(this.state.page), CastingCallService.getUserPostedJobsCalls(), CastingCallService.getUserAppliedJobsCalls()])
@@ -89,7 +89,7 @@ class CastingCalls extends Component {
         const {allCastingCalls, page} = this.state;
         const tempRef = this.state.scrollRef.current;
         showLoader();
-        CastingCallService.getAllCastingCalls(this.state.page).then((res)=>{
+        CastingCallService.getAllCastingCalls(page).then((res)=>{
             if(res.data.status !== 'error'){
                 if(res.data.data){
                     this.setState({allCastingCalls: [...allCastingCalls, ...res.data.data], page: page+1}, () => {
@@ -166,7 +166,7 @@ class CastingCalls extends Component {
     
     render() {
 
-        const {allCastingCalls, showLoadMoreBtn, myJobs, mySubmissions, cardShown, showModel, popupData, applyBtns, postingForm} = this.state;
+        const {scrollRef, allCastingCalls, showLoadMoreBtn, myJobs, mySubmissions, cardShown, showModel, popupData, applyBtns, postingForm} = this.state;
         return ( 
             <>
                 <div className='h100p scrolling'>
@@ -209,9 +209,10 @@ class CastingCalls extends Component {
                                         noRecord='No Record found'
                                         handleShowModel={this.handleShowModel}
                                         postingCallForm={this.postingCallForm}
+                                        scrollRef={scrollRef}
                                         loadMoreCastingCalls={this.loadMoreCastingCalls}
                                     />
-                                    {showLoadMoreBtn && <button className="btn btn-primary w76p mt10 mb20" onClick={this.loadMoreCastingCalls}>Load More...</button>}
+                                    {/* {showLoadMoreBtn && <button className="btn btn-primary w76p mt10 mb20" onClick={this.loadMoreCastingCalls}>Load More...</button>} */}
 
                                 </div>
                             </div>
