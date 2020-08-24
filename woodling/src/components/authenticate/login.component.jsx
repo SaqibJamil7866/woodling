@@ -12,6 +12,7 @@ import ValidateContact from '../../public/contactValidator';
 import ValidateEmail from '../../public/emailValidator';
 import { loginUrl } from '../../public/endpoins';
 import history from '../../public/history';
+import { showLoader, hideLoader } from '../../public/loader';
 
 class LoginComponent extends Component {
   
@@ -21,33 +22,12 @@ class LoginComponent extends Component {
         field: "",
         password: ""
       },
-      signUp : {
-        fullname: "",
-        businessname: "",
-        username: "",
-        email: "",
-        gender: "",
-        contact: "",
-        address: "",
-        password: "",
-        confirmpassword: ""
-      },
       errors: {}
     }
 
     loginSchema = {
       field: Joi.string().required().label("Username/Email"),
       password: Joi.string().required().label("Password"),
-    }
-
-    schema = {
-      field: Joi.string().required().label("Username/Email"),
-      email: Joi.string().required().email().label("Email"),
-      password: Joi.string().required().label("Password"),
-      confirmpassword: Joi.string().required().label("Confirm Password"),
-      fullname: Joi.string().required().label("Name"),
-      businessname: Joi.string().required().label('Name'),
-      username: Joi.string().required().label("Username")
     }
 
     openSignUpComponent = () => {
@@ -61,13 +41,9 @@ class LoginComponent extends Component {
     }
 
     handleLoginChange = (e) => {
-       console.log(e.currentTarget.value);
       const errors = {...this.state.errors};
       const errorMessage = this.validateProperty(e.currentTarget);
-      console.log('Handle Change validation');
-      console.log(errorMessage);
       if(errorMessage) {
-        console.log(errorMessage)
         errors[e.currentTarget.name] = errorMessage;
       }else {
         delete errors[e.currentTarget.name];
@@ -76,37 +52,6 @@ class LoginComponent extends Component {
       login[e.currentTarget.name] = e.currentTarget.value;
       this.setState({login, errors})
     }
-
-    handleSignupChange = (e) => {
-      // console.log(e.currentTarget.name)
-      const errors = {...this.state.errors};
-      if(e.currentTarget.name!=='gender' && e.currentTarget.name!=='contact' && e.currentTarget.name!=='address'){
-        const errorMessage = this.validateProperty(e.currentTarget);
-        console.log(errorMessage);
-        if(errorMessage) {
-          console.log(errorMessage)
-          errors[e.currentTarget.name] = errorMessage;
-        }else {
-          delete errors[e.currentTarget.name];
-        }
-      }
-      const signUp = {...this.state.signUp};
-      if(e.currentTarget.name==='contact'){ 
-        const a = ValidateContact(e.currentTarget.value)
-        if(a===true){
-          // const signUp = {...this.state.signUp};
-          signUp[e.currentTarget.name] = e.currentTarget.value;
-          this.setState({signUp, errors})
-        }
-        else{
-          this.setState({errors: 'invalude'})
-        }
-      }else
-        
-        signUp[e.currentTarget.name] = e.currentTarget.value;
-        this.setState({signUp, errors})
-    }
-
 
     validateProperty = ({name, value}) => {
       const obj = {[name]: value};
@@ -117,7 +62,6 @@ class LoginComponent extends Component {
     }
 
     validation = () => {
-      console.log('Validation')
       const result = Joi.validate(this.state.login, this.loginSchema, {
         abortEarly: false
       });
@@ -137,33 +81,32 @@ class LoginComponent extends Component {
       this.setState({errors: errors || {}});
       if(errors) return;
       try {
-        const params = Object.assign({}, login);;
+        const params = Object.assign({}, login);
         params.type = ValidateEmail(login.field) ? 'email' : 'username';
+        showLoader();
         axios.post(loginUrl, params).then(res => {
-            if (res.data.token) {
-              cookie.save('token', res.data.token, { path: '/' });
-              cookie.save('currnt_user', res.data.details, { path: '/' });
+          hideLoader();
+          if(res.data.token){
+            cookie.save('token', res.data.token, { path: '/' });
+            cookie.save('currnt_user', res.data.details, { path: '/' });debugger
+            if(!res.data.ftl){
+              history.push('/explore_home')
+            }
+            else{
               history.push('/home');
             }
-            else if(res.data.status == 'error'){
-              ToastsStore.error(res.data.message);
-            }
-          }).catch(e => {
-            console.log('error after adding bu inventory', e);
+          }
+          else if(res.data.status === 'error'){
+            ToastsStore.error(res.data.message);
+          }
+        }).catch(e => {
+          console.log('error after login', e);
         });
-        console.log('Login Correct');
       } catch(ex) {
         const errors = {...this.state.errors};
-        
         errors.username = this.validation();
-        console.log(errors)
         this.setState({errors})
       }
-    }
-
-    handleSignUp = (event) => {
-      event.preventDefault();
-      console.log('handle signUp Button')
     }
 
     render() { 
@@ -191,22 +134,6 @@ class LoginComponent extends Component {
                 {this.state.changeComponent === true ? 
                   <SignUpFormComponent 
                     openLoginComponent={this.openLoginComponent}
-                    fullNameValue={this.state.signUp.fullname}
-                    businessNameValue={this.state.signUp.businessname}
-                    userNameValue={this.state.signUp.username}
-                    emailValue={this.state.signUp.email}
-                    genderValue={this.state.signUp.gender}
-                    contactValue={this.state.signUp.contact}
-                    addressValue={this.state.signUp.address}
-                    passwordValue={this.state.signUp.password}
-                    confirmPasswordValue={this.state.signUp.confirmpassword}
-                    handleChange={this.handleSignupChange}
-                    usernameError={this.state.errors.username}
-                    emailError={this.state.errors.email}
-                    fnameError={this.state.errors.fullname}
-                    bnameError={this.state.errors.businessname}
-                    passwordError={this.state.errors.password}
-                    confirmPasswordError={this.state.errors.confirmPassword}
                   /> 
                   : 
                   <LoginForm 
@@ -216,7 +143,7 @@ class LoginComponent extends Component {
                     handleChange={this.handleLoginChange}
                     usernameError={this.state.errors.email}
                     passwordError={this.state.errors.password}
-                    handleLogin ={this.handleLogin}
+                    handleLogin={this.handleLogin}
                   /> 
                 }
                 <div className='searchDiv'>

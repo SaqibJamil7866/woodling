@@ -1,10 +1,12 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-undef */
   
 import axios from 'axios';
 import cookie from 'react-cookies';
-import { loginUrl, getIndividualSkillsUrl, getBusinessSkillsUrl, picUrl } from '../public/endpoins';
+import { loginUrl, registerUrl, updateUserAccountDetailUrl, getIndividualSkillsUrl, getBusinessSkillsUrl, picUrl } from '../public/endpoins';
 
 export const AuthService = {
-  login, getUserId, getUserName, getSkills,
+  login, register, updateAccountDetails, getUserId, getUserName, getSkills,
   getUserProfileImage, getPassword
 //    , register, registerStep, 
 //    getUSerProfile,
@@ -42,68 +44,28 @@ function getSkills(type) {
 });
 }
 
-// function register(userData) { 
-//  return new Promise((resolve, reject) =>{
- 		 
-//  		var URL =  Config.API_BASEURL+"/"+ApiSlug.REGISTER;
- 		
-//  		//var newUrl = URL+"?type="+userData.type+"&username="+userData.username+"&field="+userData.field+"&password="+userData.password+"&password2="+userData.password2;
-// 		fetch(URL, {
-// 			method: 'POST',
-// 			headers: { 'Content-Type': 'text/plain'
-// 			}, 
-//        		body: JSON.stringify(userData) 
-// 		})
-// 		.then((response) => response.json())
-// 		.then((res) => {
-// 		 	resolve(res);
-// 		})
-// 		.catch((error) => {
-// 			 reject(error);
-// 		});
-// 	});
-// } 
+function register(params) {
+  return new Promise((resolve, reject) =>{
+    axios.post(registerUrl, params)
+    .then(res => {
+        resolve(res);
+      }).catch(e => {
+        reject(e);        
+    });
+  });
+}
 
-// function registerStep(userData) { 
-//  return new Promise((resolve, reject) =>{
- 
- 		 
-//  		var URL =  Config.API_BASEURL+"/"+ApiSlug.UPDATE_USER_SETUP_DETAILS;
-//  		//var newUrl = URL+"?user_id="+userData.user_id+"&account_type="+userData.account_type+"&lat="+userData.lat+"&lng="+userData.lng+"&formatted_address="+userData.formatted_address+"&city="+userData.city+"&country="+userData.country+"&gender="+userData.gender+"&full_name="+userData.full_name+"&skill_set="+userData.skill_set;
-
-// 	/*	fetch(URL, {
-// 			method: 'POST',
-// 			headers: {  
-// 			 'Content-type': 'multipart/form-data',
-// 			 'Authorization': 'Bearer '+getToken()
-// 			}, 
-// 			contentType: false,
-// 			cache: false,
-// 			processData:false,
-//        		body: userData 
-// 		})
-// 		.then((response) => response.json())
-// 		.then((res) => {
-// 		 	resolve(res);
-// 		})
-// 		.catch((error) => {
-// 			 reject(error);
-// 		});*/ 
-//         const config = {
-//             headers: {
-//                 'content-type': 'multipart/form-data',
-//                 'Authorization': 'Bearer '+getToken()
-//             }
-//         };
-//         axios.post(URL,userData,config)
-//             .then((response) => {
-//                console.log(response);
-//             }).catch((error) => {
-//             	console.log(error);
-//         });
-// 	});
-// } 
- 
+function updateAccountDetails(params) {
+//  	var newUrl = URL+"?user_id="+userData.user_id+"&account_type="+userData.account_type+"&lat="+userData.lat+"&lng="+userData.lng+"&formatted_address="+userData.formatted_address+"&city="+userData.city+"&country="+userData.country+"&gender="+userData.gender+"&full_name="+userData.full_name+"&skill_set="+userData.skill_set;
+  return new Promise((resolve, reject) =>{
+    axios.post(updateUserAccountDetailUrl, params)
+    .then(res => {
+        resolve(res);
+      }).catch(e => {
+        reject(e);        
+    });
+  });
+}
 
 // function getUSerProfile() { 
 //  return new Promise((resolve, reject) =>{

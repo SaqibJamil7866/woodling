@@ -32,8 +32,6 @@ function Home() {
 
     const openImageModal = () => {
         dispatch({field: 'showModal', value: true})
-            
-        console.log("Open image popup button clicked");
     }
 
     const openStatusUploadModal = () => {
@@ -120,12 +118,15 @@ function Home() {
                     </div>
                 </div>
             </div>
-            <div>{showModal ? <StatusUpload
-                                openStatusUploadModal={openStatusUploadModal}
-                                closeStatusUploadModal={closeStatusUploadModal}
-                                posts={posts}
-                                tagPeople={tagPeople}
-                            /> : null}</div>
+            <div>{showModal ? (
+                <StatusUpload
+                    openStatusUploadModal={openStatusUploadModal}
+                    closeStatusUploadModal={closeStatusUploadModal}
+                    posts={posts}
+                    tagPeople={tagPeople}
+                />
+                ) : null}
+            </div>
         </div>
     );
 }

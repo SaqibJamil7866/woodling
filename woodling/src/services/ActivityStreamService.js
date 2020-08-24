@@ -1,10 +1,10 @@
   
 import axios from 'axios';
 import {AuthService} from './AuthService';
-import { activityStreamUrl, activityDetailsUrl, getPostTaggedUsersUrl, searchPeopleUrl, geocodeUrl, addPostUrl } from '../public/endpoins';
+import { activityStreamUrl, activityDetailsUrl, getExploreUsersUrl, getPostTaggedUsersUrl, searchPeopleUrl, geocodeUrl, addPostUrl } from '../public/endpoins';
 
 export const ActivityStreamService = {
-   getActivityStreams, getActivityDetails, getPostTaggedUsers, searchPeople, getLocationDetailByPlaceId, submitPost
+   getActivityStreams, getExploreUsers, getActivityDetails, getPostTaggedUsers, searchPeople, getLocationDetailByPlaceId, submitPost
 };
 
 function getActivityStreams(page) { 
@@ -19,6 +19,20 @@ function getActivityStreams(page) {
 		});
 	});
 }
+
+function getExploreUsers(){ 
+	return new Promise((resolve, reject) =>{
+		const url =  getExploreUsersUrl+"?user_id="+AuthService.getUserId();
+		axios.get(url)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		});
+	});
+}
+
 function getActivityDetails(postId) { 
  return new Promise((resolve, reject) =>{		 
 		const url =  activityDetailsUrl+"?user_id="+AuthService.getUserId()+"&post_id="+postId;

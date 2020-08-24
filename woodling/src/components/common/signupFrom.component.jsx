@@ -1,38 +1,97 @@
-import React, { useState, useEffect, useReducer } from 'react';
+/* eslint-disable array-callback-return */
+/* eslint-disable camelcase */
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useReducer } from 'react';
+import  Joi from 'joi-browser';
 import { ToastsStore } from 'react-toasts';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { AuthService } from '../../services/AuthService';
+import { ActivityStreamService } from '../../services/ActivityStreamService';
 import { SettingService } from '../../services/Setting';
+import { CastingCallService } from '../../services/CastingCallsService';
 import { showLoader, hideLoader } from '../../public/loader';
-import SkillSelectComponent from './skill_select.component';
 import MultiSelectDropdown from './multi_select.component';
-import { getGendersUrl } from '../../public/endpoins';
+import 'react-input-range/lib/css/index.css';
 
 const SignUpFormComponent = (props) => {
     const initialState ={
         check: false,
+        account_type: '',
+        full_name: '',
+        username: '',
+        email: '',
+        password: '',
+        password2: '',
+        business_name: '',
+        business_phone: '',
         gender: '',
-        skill: '',
+        skillset: '',
+        location: '',
+        city: '',
+        country: '',
+        lat: '',
+        lng: '',
+        formatted_address: '',
         skills: [],
-        genders: []
+        genders: [],
+        locations: [],
+        errors: {}
     }
 
     function reducer(state, { field, value}){
-        return{
-            ...state,
-            [field] : value
+        switch (field) {
+            case 'add_address':
+            return{
+                ...state,
+                city: value.address[value.address.length-2],
+                country: value.address[value.address.length-1],
+                lat: value.res.geometry.location.lat,
+                lng: value.res.geometry.location.lng,
+                formatted_address: value.res.formatted_address
+            };
+            default: 
+            return{
+                ...state,
+                [field] : value
+            }
         }
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { check, gender, skill, skills, genders } = state;
-
-    // const [check, setCheck] = useState(false);
-    // const [skills, setSkills] = useState([]);
-    // const [genders, setGenders] = useState([]);
-    // const [ formData, setFormData ] = useState({gender:'', skill:''});
+    const { check, account_type, email, password, password2, full_name, username, business_name, gender, skillset,
+        skills, genders, city, country, lat, lng, formatted_address, business_phone, location, locations, errors } = state;
 
     const handleValueChange = (e) => {
-        dispatch({field: e.target.name, value: e.target.value})
+        const errs = errors;
+        if(e.currentTarget.name!=='gender' && e.currentTarget.name!=='business_phone'){
+          const errorMessage = validateProperty(e.currentTarget);
+          if(errorMessage) {
+            errs[e.currentTarget.name] = errorMessage;
+          }else {
+            delete errs[e.currentTarget.name];
+          }
+        }
+        dispatch({field: 'errors', value: errs});
+        dispatch({field: e.target.name, value: e.target.value});
+    }
+
+    const handleLocationSearch = (keyword) =>{
+        CastingCallService.getLocation(keyword)
+        .then((res) => {
+            dispatch({field: 'locations', value: res.data.predictions});
+        })
+    }
+
+    const handleLocation = (loc) => {
+        if(loc && loc.length > 0){
+            dispatch({field: 'location', value: loc[0].description});
+            ActivityStreamService.getLocationDetailByPlaceId(loc[0].place_id)
+            .then((response) => {
+                const res= response.data.results[0];
+                const address = loc[0].description.split(',');
+                dispatch({field: 'add_address', value: {address, res}});
+            })
+        }
     }
 
     useEffect(()=>{
@@ -43,8 +102,59 @@ const SignUpFormComponent = (props) => {
 
     }, [check]);
 
+    const registerIndividualSchema = {
+        // skillset: Joi.string().required().label("Skills"),
+        email: Joi.string().required().email().label("Email"),
+        password: Joi.string().min(6).required().label("Password"),
+        password2: Joi.string().min(6).required().valid([password]).label("Confirm Password"),
+        full_name: Joi.string().required().label("Full Name"),
+        // gender: Joi.string().required().label('Gender'),
+        username: Joi.string().required().label("Username")
+    }
+
+    const registerBusinessSchema = {
+        skillset: Joi.string().required().label("Skills"),
+        email: Joi.string().required().email().label("Email"),
+        password: Joi.string().min(6).required().label("Password"),
+        password2: Joi.string().min(6).required().valid([password]).label("Confirm Password"),
+        business_name: Joi.string().required().label("Business Name"),
+    }
+
+    const validation = () => {
+        let obj = {};
+        let schema = {};
+        if(account_type === 'individual'){
+            obj = {full_name, username, password, password2, skillset, email};
+            schema = registerIndividualSchema;
+        }
+        else{
+            obj = {business_name, username, password, password2, skillset, email};
+            schema = registerBusinessSchema;
+        }
+
+        const result = Joi.validate(obj, schema, {
+          abortEarly: false
+        });
+        if(!result.error) return null;
+  
+        const errs = {};
+        result.error.details.map((error)=>{
+            errs[error.path[0]] = error.message
+        });
+        return errs;
+    }
+
+    const validateProperty = ({name, value}) => {
+        const obj = {[name]: value};
+        const schemaType = account_type === 'individual' ? registerIndividualSchema : registerBusinessSchema;
+        const schema = {[name]: schemaType[name]};
+        const {error} = Joi.validate(obj, schema);
+        return error ? error.details[0].message : null;
+    }
+
     const getAllSkills = () => {
         const skillType= check ? 'business' : 'individual';
+        dispatch({field: 'account_type', value: skillType});
         dispatch({field: 'skills', value: []}); // to recreate the multiselect
         showLoader();
         AuthService.getSkills(skillType).then((res)=>{
@@ -70,8 +180,47 @@ const SignUpFormComponent = (props) => {
     }
 
     const handleSkills = (e) => {
-        if(skill && skill.length === 5) return;
-        dispatch({field: 'skill', value: e.target.value});
+        if(skillset && skillset.length === 5) return;
+        dispatch({field: 'skillset', value: e.target.value});
+    }
+
+    const registerUser = () => {
+        const errs = validation();
+        dispatch({field: 'errors', value: errs || {}});
+        if(errs) return;
+
+        const params = { type: 'email', username, password, password2, field: email};
+        showLoader();
+        AuthService.register(params).then((res)=>{
+            if(res.data.status !=='error'){
+                const skillIds = skillset.map((skill)=> skill.id).join(',');
+                const accountDetailsParams = { user_id: res.data.id, account_type, lat, lng, formatted_address,
+                    city, country, skillset: skillIds };
+                if(account_type === 'individual'){
+                    accountDetailsParams.full_name = full_name;
+                    accountDetailsParams.gender = gender;
+                }
+                else{
+                    accountDetailsParams.business_name = business_name;
+                    accountDetailsParams.business_phone = business_phone;
+                }
+                AuthService.updateAccountDetails(accountDetailsParams).then((response)=>{
+                    hideLoader();
+                    if(res.data.status !=='error'){
+                        props.openLoginComponent();
+                        ToastsStore.success('User registered successfully');
+                    }
+                    else{
+                        ToastsStore.error(response.data.message);
+                    }
+                })
+            }
+            else{
+                hideLoader();
+                ToastsStore.error(res.data.message);
+            }
+        })
+        .catch((ex)=>console.error("error: "+ ex)) 
     }
 
     return ( 
@@ -94,38 +243,41 @@ const SignUpFormComponent = (props) => {
                         <p className= 'mb0'><b>Business</b></p>
                     </div>
                 </div>
-                <hr style={{width: '100px', borderWidth: '3px', marginTop: '10px'}}></hr>
+                <hr style={{width: '100px', borderWidth: '3px', marginTop: '10px'}} />
                 <form className='forms'>
                     <div className="form-row">
                         <div className="form-group col-md-6 col-sm-12">
-                            {check===false ? 
+                            {check===false ? (
                                 <input 
                                     type="text"
-                                    name="fullname"
-                                    value={props.fullNameValue}
-                                    onChange={props.handleChange}
+                                    name="full_name"
+                                    value={full_name}
+                                    onChange={handleValueChange}
                                     className="form-control" 
-                                    placeholder="Full Name*" /> 
-                            : 
+                                    placeholder="Full Name*" 
+                                />
+                            ):(
                                 <input 
                                     type="text" 
-                                    name="businessname"
-                                    value={props.businessNameValue}
-                                    onChange={props.handleChange}
+                                    name="business_name"
+                                    value={business_name}
+                                    onChange={handleValueChange}
                                     className="form-control" 
-                                    placeholder="Business Name*" />
-                            }
-                            {check===false ? props.fnameError && <p className="alert alert-danger error">{props.fnameError}</p> : props.bnameError && <p className="alert alert-danger error">{props.bnameError}</p> }
+                                    placeholder="Business Name*" 
+                                />
+                            )}
+                            {check===false ? errors.full_name && <p className="alert alert-danger error">{errors.full_name}</p> : errors.business_name && <p className="alert alert-danger error">{errors.business_name}</p> }
                         </div>
                         <div className="form-group col-md-6 col-sm-12">
                             <input 
                                 type="text" 
                                 name="username"
-                                value={props.userNameValue}
-                                onChange={props.handleChange}
+                                value={username}
+                                onChange={handleValueChange}
                                 className="form-control" 
-                                placeholder="Username*" />
-                            {props.usernameError && <p className="alert alert-danger error">{props.usernameError}</p>}
+                                placeholder="Username*" 
+                            />
+                            {errors.username && <p className="alert alert-danger error">{errors.username}</p>}
                         </div>
                     </div>
                     <div className="form-row">
@@ -133,16 +285,17 @@ const SignUpFormComponent = (props) => {
                             <input 
                                 type="email"
                                 name="email" 
-                                value={props.emailValue}
-                                onChange={props.handleChange}
+                                value={email}
+                                onChange={handleValueChange}
                                 className="form-control" 
                                 id="inputEmail4" 
-                                placeholder="Email*" />
-                            {props.emailError && <p className="alert alert-danger error">{props.emailError}</p>}
+                                placeholder="Email*" 
+                            />
+                            {errors.email && <p className="alert alert-danger error">{errors.email}</p>}
                         </div>
                         <div className="form-group col-md-6 col-sm-12">
                         {check===false ? ( 
-                            <select name="gender" value={props.genderValue} onChange={props.handleChange} id="inputState" className="form-control" placeholder='Gender'>
+                            <select name="gender" value={gender} onChange={handleValueChange} id="inputState" className="form-control" placeholder='Gender'>
                                 <option value=''>Gender</option>
                                 {genders && genders.map((obj) => {
                                     return <option key={obj.id} value={obj.id}>{obj.sex}</option>
@@ -151,9 +304,9 @@ const SignUpFormComponent = (props) => {
                         ) : (
                             <input 
                                 type="text" 
-                                name="contact"
-                                value={props.contactValue}
-                                onChange={props.handleChange}
+                                name="business_phone"
+                                value={business_phone}
+                                onChange={handleValueChange}
                                 className="form-control" 
                                 placeholder="Contact Number" 
                             />
@@ -161,34 +314,39 @@ const SignUpFormComponent = (props) => {
                         </div>
                     </div>
                     <div className="form-group">
-                        <input 
-                            type="text" 
-                            name="address"
-                            value={props.addressValue}
-                            onChange={props.handleChange}
-                            className="form-control" 
-                            placeholder="Address" />
+                        <AsyncTypeahead
+                            id="location_typehead"
+                            labelKey="description"
+                            placeholder="Search for a Location"
+                            minLength={3}
+                            onSearch={handleLocationSearch}
+                            onChange={handleLocation}
+                            options={locations}
+                            className="form-control box-shadow-none border-none brder-l-r-t mb10"
+                        />
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-6 col-sm-12">
                             <input 
                                 type="password" 
                                 name="password"
-                                value={props.passwordValue}
-                                onChange={props.handleChange}
+                                value={password}
+                                onChange={handleValueChange}
                                 className="form-control" 
-                                placeholder="Password*" />
-                            {props.passwordError && <p className="alert alert-danger error">{props.passwordError}</p>}
+                                placeholder="Password*" 
+                            />
+                            {errors.password && <p className="alert alert-danger error">{errors.password}</p>}
                         </div>
                         <div className="form-group col-md-6 col-sm-12">
                             <input 
                                 type="password" 
-                                name="confirmpassword"
-                                value={props.confirmPasswordValue}
-                                onChange={props.handleChange}
+                                name="password2"
+                                value={password2}
+                                onChange={handleValueChange}
                                 className="form-control" 
-                                placeholder="Confirm Password*" />
-                            {props.confirmPasswordError && <p className="alert alert-danger error">{props.confirmPasswordError}</p>}
+                                placeholder="Confirm Password*"
+                            />
+                            {errors.password2 && <p className="alert alert-danger error">{errors.password2}</p>}
                         </div>
                     </div>
                     <p className='signup__account--text'><b>Choose Your Skills</b></p>
@@ -196,22 +354,21 @@ const SignUpFormComponent = (props) => {
                         {skills && skills[0] && (
                             <MultiSelectDropdown 
                                 data={skills}
-                                value={skill}
+                                value={skillset}
                                 handleChange={handleSkills}
                                 textField="name" 
                                 dataItemKey="id"
                             />
                         )}
-                        {/* <SkillSelectComponent skillType={check ? 'individual' : 'business'} />  */}
                     </div>
                     <div className='login__btn-div'>
-                        <button className='login__btn' type="submit"><img className='submit' src={require('../../assets/login_button.svg')} /></button>
+                        <button className='login__btn' type="button"><img onClick={registerUser} className='submit' src={require('../../assets/login_button.svg')} alt="Registeration Btn" /></button>
                     </div>
                 </form>
             </div>
             <div className="signUp w90 pd65__800 m-20">
                 <h5 className='signUp__heading m15'><b>Already have an account</b></h5>
-                <button className='login__btn'><img onClick={()=>props.openLoginComponent()} src={require('../../assets/login-btn.svg')} /></button>
+                <button className='login__btn'><img onClick={()=>props.openLoginComponent()} src={require('../../assets/login-btn.svg')} alt="Login Btn" /></button>
             </div>
         </>
      );

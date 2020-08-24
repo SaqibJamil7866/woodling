@@ -9,6 +9,8 @@ export const picUrl = 'http://18.220.228.143/'
 
 // auth endpoints
 export const loginUrl = `${baseUrl}/login.php`;
+export const registerUrl = `${baseUrl}/register.php`;
+export const updateUserAccountDetailUrl = `${baseUrl}/update-user-setup-details.php`;
 
 // home endpoints
 export const activityStreamUrl = `${baseUrl}/view-activity-stream.php`;
@@ -17,6 +19,7 @@ export const getPostTaggedUsersUrl = `${baseUrl}/fetch-post-tagged-users.php`;
 export const getTagUrl = `${baseUrl}/fetch-tags.php`;
 export const searchPeopleUrl = `${baseUrl}/search-people.php`;
 export const addPostUrl = `${baseUrl}/add-post.php`;
+export const getExploreUsersUrl = `${baseUrl}/fetch-explore-users.php`;
 
 // User endpoints
 export const getUserProfileUrl = `${baseUrl}/fetch-user-profile.php`;
@@ -119,7 +122,6 @@ export const getProductUrl = `${baseUrl}/search-products.php`;
 export const getPlaceUrl = `${baseUrl}/search-places.php`;
 export const getTagsUrl = `${baseUrl}/search-tags.php`;
 
-// REGISTER :"register.php",
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",
 // UPDATE_USER_SETUP_DETAILS :"update-user-setup-details.php",
 // FETCH_USER_BALANCE :"fetch-user-balance.php",
