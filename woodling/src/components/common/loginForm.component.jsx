@@ -37,7 +37,7 @@ const LoginForm = (props) => {
                         <Link to="forget_password">Forget Password</Link>
                     </div>
                     <div className='login__btn-div'>
-                        <button className='login__btn' type="submit" ><img  src={require('../../assets/login_button.svg')} /></button>
+                        <button className='login__btn' type="submit"><img  src={require('../../assets/login_button.svg')} /></button>
                     </div>
                 </form>
             </div>

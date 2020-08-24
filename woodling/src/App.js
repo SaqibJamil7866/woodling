@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import cookie from 'react-cookies';
-import {AuthService} from './services/AuthService';
 import { Router, Route, Switch } from 'react-router-dom';
 import { ToastsContainer, ToastsStore } from 'react-toasts';
 import Sidebar from './components/common/sidebar.component';
@@ -10,6 +9,7 @@ import './App.css';
 import LoginComponent from './components/authenticate/login.component';
 import SecuredRoute from './components/authenticate/secure.component';
 import Home from './components/home.component';
+import ExploreHome from './components/explore_home.component'
 import SearchTalent from './components/search_talent.component';
 import history from './public/history';
 import CastingCalls from './components/casting_calls.component';
@@ -31,6 +31,7 @@ function Main(props) {
       </aside>
       <aside className="right-side h90">
         <Switch>
+          <SecuredRoute path='/explore_home' component={ExploreHome} />
           <SecuredRoute path='/home' component={Home} />
           <SecuredRoute exact path='/casting_calls' component={CastingCalls} />
           <SecuredRoute exact path={['/casting_calls/posted_calls', '/casting_calls/my_submission']} component={PostedCallsAndSubmissions} />
