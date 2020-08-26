@@ -20,6 +20,7 @@ export const getTagUrl = `${baseUrl}/fetch-tags.php`;
 export const searchPeopleUrl = `${baseUrl}/search-people.php`;
 export const addPostUrl = `${baseUrl}/add-post.php`;
 export const getExploreUsersUrl = `${baseUrl}/fetch-explore-users.php`;
+export const getExploreEventUrl = `${baseUrl}/fetch-explore-event-type.php`;
 
 // User endpoints
 export const getUserProfileUrl = `${baseUrl}/fetch-user-profile.php`;

@@ -195,6 +195,14 @@ html, body, #root {
   display: inline-block !important;
 }
 
+.block {
+  display: block !important;
+}
+
+.inline{
+  display: inline !important;
+}
+
 .center__item {
   display: flex;
   justify-content: center;
@@ -219,6 +227,10 @@ html, body, #root {
   margin-top: -10px !important;
 }
 
+.mt15 {
+  margin-top: 15px !important;
+}
+
 .top-content-bar{
   background-color: #ffffff;
   box-shadow: 0px 3px 10px 1px #888888 !important;
@@ -232,6 +244,9 @@ html, body, #root {
   width: 108px !important;
 }
 
+.w12{
+  width: 12px !important;
+}
 .w110{
   width: 110px !important;
 }
@@ -240,6 +255,12 @@ html, body, #root {
 }
 .w50{
   width: 50% !important;
+}
+.w50px{
+  width: 50px !important;
+}
+.h88p{
+  height: 88% !important;
 }
 .h100p{
   height: 100% !important;
@@ -604,6 +625,10 @@ html, body, #root {
 
 .w40 {
   width: 40%;
+}
+
+.w40px {
+  width: 40px !important;
 }
 
 
@@ -1105,6 +1130,10 @@ button[name='searchSubmit'] {
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;
+}
+
+.h360 {
+  height: 360px !important;
 }
 
 .h480 {
@@ -1847,6 +1876,10 @@ p.sdate {
   overflow-y: scroll;
 }
 
+.h485-max{
+  max-height: 485px !important;
+}
+
 .select-location {
   width: 62%;
   display: block;
@@ -1956,6 +1989,14 @@ p.sdate {
 
 .w15 {
   width: 17%;
+}
+
+.w15px {
+  width: 15px !important;
+}
+
+.w17 {
+  width: 17px !important;
 }
 
 .justify-content-center {
@@ -2182,6 +2223,10 @@ p.sdate {
 
 .w30 {
   width: 30% !important;
+}
+
+.w30px {
+  width: 30px !important;
 }
 
 .space-around {

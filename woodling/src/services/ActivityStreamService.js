@@ -2,11 +2,11 @@
 import axios from 'axios';
 import {AuthService} from './AuthService';
 import { activityStreamUrl, activityDetailsUrl, getTagUrl, getExploreUsersUrl, getPremiunUsersUrl, 
-	getPostTaggedUsersUrl, searchPeopleUrl, geocodeUrl, addPostUrl } from '../public/endpoins';
+	getPostTaggedUsersUrl, searchPeopleUrl, geocodeUrl, addPostUrl, getExploreEventUrl } from '../public/endpoins';
 
 export const ActivityStreamService = {
    getActivityStreams, getExploreUsers, getPremiumUsers, getActivityDetails, getPostTaggedUsers, searchPeople, 
-   getLocationDetailByPlaceId, submitPost, getTags
+   getLocationDetailByPlaceId, submitPost, getTags, getExploreEvents
 };
 
 function getActivityStreams(page) { 
@@ -25,6 +25,19 @@ function getActivityStreams(page) {
 function getTags() {
     return new Promise((resolve, reject) => {
         const url = getTagUrl+"?user_id="+AuthService.getUserId();
+        axios(url)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
+function getExploreEvents(type) {
+    return new Promise((resolve, reject) => {
+        const url = getExploreEventUrl+"?user_id="+AuthService.getUserId()+"&event_type="+type;
         axios(url)
         .then((res) => {
             resolve(res);

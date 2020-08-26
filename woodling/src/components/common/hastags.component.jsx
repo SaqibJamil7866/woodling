@@ -6,14 +6,28 @@ import { showLoader, hideLoader } from '../../public/loader';
 const HashTags = (props) => {
 
     return(
-        <div className='clr__white wh80 h480 mt10'>
+        <div className='clr__white w90p h360 mt10'>
             <div className='liked-talent-title p5'>
                 <p className="oniline-status-title"><b>Follow Hashtags</b></p>
             </div>
-            <div className='p5 d-flex flex-dir-col'>
- 
-                <label className='fs20 muli mt25'>Gender</label>
-                {/* <button className="filter-btn mt20" onClick={()=>props.applyFilter(formData, sliderValue)}>Apply Filter</button> */}
+            <div className='p5 row col-md-12 scrolling h88p m0'>
+                {props.tags && props.tags.map((tag)=>{
+                    return(
+                        <>
+                            <div className="col-md-2">
+                                <img src={require('../../assets/trend-arrow.png')} alt="trend pic" />                
+                            </div>
+                            <div className="col-md-7">
+                                #{tag.title}
+                            </div>
+                            <div className="col-md-3 p0">
+                                <button className="follow-sm-btn" onClick={()=>props.applyFilter()}>Follow</button>
+                            </div>
+                        </>
+                    )
+                })}
+
+
             </div>
         </div>
     );

@@ -20,6 +20,7 @@ import MarketPlace from './components/market_place.component';
 import Trending from './components/trending.component';
 import Settings from './components/setting.component';
 import Search from './components/search.component';
+import Chat from './components/chat.component';
 
 function Main(props) {
 
@@ -42,6 +43,7 @@ function Main(props) {
           <SecuredRoute path='/trending' component={Trending} />
           <SecuredRoute path='/settings' component={Settings} />
           <SecuredRoute path='/search' component={Search} />
+          <SecuredRoute path='/chat' component={Chat} />
         </Switch>
         
       </aside>
