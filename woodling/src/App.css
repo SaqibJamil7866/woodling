@@ -1609,6 +1609,10 @@ p.sdate {
   background-color: #ee0202;
 }
 
+.bkgrnd-light-red {
+  background-color: #f36767;
+}
+
 .w70 {
   width: 70%;
 }
@@ -1708,8 +1712,8 @@ p.sdate {
 }
 
 .plr20 {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 .mt-15 {
@@ -2430,4 +2434,12 @@ p.sdate {
 
 .italic {
   font-style: italic !important;
+}
+
+.border-radius-15 {
+  border-radius: 15px;
+}
+
+.border-radius-30 {
+  border-radius: 30px !important;
 }

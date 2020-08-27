@@ -3,7 +3,7 @@
   
 import axios from 'axios';
 import cookie from 'react-cookies';
-import { loginUrl, registerUrl, updateUserAccountDetailUrl, getIndividualSkillsUrl, getBusinessSkillsUrl, picUrl } from '../public/endpoins';
+import { loginUrl, registerUrl, updateUserAccountDetailUrl, getIndividualSkillsUrl, getBusinessSkillsUrl, picUrl, siteUrl } from '../public/endpoins';
 
 export const AuthService = {
   login, register, updateAccountDetails, getUserId, getUserName, getSkills,
@@ -144,7 +144,7 @@ function getUserProfileImage(){
 	const user = cookie.load('currnt_user');
 	let profilePicture = '';
 	if(user){
-		profilePicture = picUrl+""+user.profile_picture; 
+		profilePicture = siteUrl+""+user.profile_picture; 
 	}
 	return profilePicture;
 }
