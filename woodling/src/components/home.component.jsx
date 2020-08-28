@@ -10,6 +10,11 @@ import ExploreCard from './common/explore_card.component';
 import { ActivityStreamService } from '../services/ActivityStreamService';
 import { FollowService } from '../services/FollowService';
 import StatusUpload from '../models/status-update-modal.component';
+import PictureModal from '../models/picture-upload-modal.component';
+import VideoModal from '../models/video-upload-modal.component';
+import ScriptModal from '../models/script-upload-modal.component';
+import EventModal from '../models/event-upload-modal.component';
+import PostProduct from '../models/post-product-modal.component';
 
 function Home() {
     const initialState ={
@@ -17,7 +22,12 @@ function Home() {
         posts:[],
         followers: [],
         tagPeople: [],
-        showModal: false
+        showModal: false,
+        showPictureModal: false,
+        showVideoModal: false,
+        showScriptModal: false,
+        showEventModal: false,
+        showProductModal: true
     }
 
     function reducer(state, { field, value}){
@@ -28,18 +38,55 @@ function Home() {
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { page, posts, followers, showModal, tagPeople } = state;
-
-    const openImageModal = () => {
-        dispatch({field: 'showModal', value: true})
-    }
+    const { page, posts, followers, showModal, tagPeople, showPictureModal, showVideoModal, 
+        showScriptModal, showEventModal, showProductModal } = state;
 
     const openStatusUploadModal = () => {
-        dispatch({field: 'showModal', value: true})
+        dispatch({field: 'showModal', value: true});
     }
 
     const closeStatusUploadModal = () => {
-        dispatch({field: 'showModal', value: false})
+        dispatch({field: 'showModal', value: false});
+    }
+
+    const openPictureUploadModal = () => {
+        dispatch({field: 'showPictureModal', value: true});
+    }
+
+    const closePictureUploadModal = () => {
+        dispatch({field: 'showPictureModal', value: false});
+    }
+
+    const openVideoUploadModal = () => {
+        dispatch({field: 'showVideoModal', value: true});
+    }
+
+    const closeVideoUploadModal = () => {
+        dispatch({field: 'showVideoModal', value: false});
+    }
+
+    const openScriptModal = () => {
+        dispatch({field: 'showScriptModal', value: true});
+    }
+    
+    const closeScriptModal = () => {
+        dispatch({field: 'showScriptModal', value: false});
+    }
+    
+    const openEventModal = () => {
+        dispatch({field: 'showEventModal', value: true});
+    }
+
+    const closeEventModal = () => {
+        dispatch({field: 'showEventModal', value: false});
+    }
+
+    const openProductModal = () => {
+        dispatch({field: 'showProductModal', value: true});
+    }
+    
+    const closeProductModal = () => {
+        dispatch({field: 'showProductModal', value: false});
     }
 
     useEffect(() => {
@@ -89,8 +136,12 @@ function Home() {
             <div className="row h100p">
                 <div className="col-md-8 h90p">
                     <TopContentBar
-                        openImagePopup={openImageModal}
                         openStatusUploadModal={openStatusUploadModal}
+                        openPictureUploadModal={openPictureUploadModal}
+                        openVideoUploadModal={openVideoUploadModal}
+                        openScriptModal={openScriptModal}
+                        openEventModal={openEventModal}
+                        openProductModal={openProductModal}
                     />
                     <div className="br-white scrolling h100p">
                         <InfiniteScroll
@@ -125,6 +176,42 @@ function Home() {
                     posts={posts}
                     tagPeople={tagPeople}
                 />
+                ) : null}
+                {showPictureModal ? (
+                    <PictureModal 
+                        openPictureUploadModal={openPictureUploadModal}
+                        closePictureUploadModal={closePictureUploadModal}
+                        posts={posts}
+                        tagPeople={tagPeople}
+                    />
+                ) : null}
+                {showVideoModal ? (
+                    <VideoModal 
+                        openVideoUploadModal={openVideoUploadModal}
+                        closeVideoUploadModal={closeVideoUploadModal}
+                        posts={posts}
+                        tagPeople={tagPeople}
+                    />
+                ) : null}
+
+                {showScriptModal ? (
+                    <ScriptModal 
+                        openScriptModal={openScriptModal}
+                        closeScriptModal={closeScriptModal}
+                    />
+                ) : null}
+
+                {showEventModal ? (
+                    <EventModal 
+                        openEventModal={openEventModal}
+                        closeEventModal={closeEventModal}
+                    />
+                ) : null}
+                {showProductModal ? (
+                    <PostProduct 
+                        openProductModal={openProductModal}
+                        closeProductModal={closeProductModal}
+                    />
                 ) : null}
             </div>
         </div>

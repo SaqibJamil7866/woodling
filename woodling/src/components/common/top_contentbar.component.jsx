@@ -6,18 +6,18 @@ import { ReactComponent as EventIcon } from '../../assets/event.svg';
 import { ReactComponent as CartIcon } from '../../assets/cart.svg';
 
 function TopContentBar(props) {
-    const { openImagePopup, openStatusUploadModal } = props;
+    const { openStatusUploadModal, openPictureUploadModal, openVideoUploadModal, openScriptModal, openEventModal, openProductModal } = props;
     // end 
     return (
         <div className="mt30 top-content-bar h40 col-md-10 ml18">
             <span>
-                <span className="inline-block wd-58p pt-6 ">What are you up to?</span>
+                <span onClick={() => openStatusUploadModal()} className="inline-block wd-58p pt-6 ">What are you up to?</span>
                 <span>
-                    <CircleImageIcon onClick={()=> openImagePopup()} height="35px" width="35px" className="mr10 mt3"/>
-                    <CircleVideoIcon height="35px" width="35px" className="mr10 mt3"/>
-                    <ScriptIcon onClick={() => openStatusUploadModal()} height="35px" width="35px" className="mr10 mt3 pointer"/>
-                    <EventIcon height="35px" width="35px" className="mr10 mt3" />
-                    <CartIcon height="35px" width="35px" className="mr10 mt3" />
+                    <CircleImageIcon onClick={()=> openPictureUploadModal()} height="35px" width="35px" className="mr10 mt3 pointer"/>
+                    <CircleVideoIcon onClick={() => openVideoUploadModal()} height="35px" width="35px" className="mr10 mt3 pointer"/>
+                    <ScriptIcon onClick={() => openScriptModal()} height="35px" width="35px" className="mr10 mt3 pointer"/>
+                    <EventIcon onClick={() => openEventModal()} height="35px" width="35px" className="mr10 mt3 pointer" />
+                    <CartIcon onClick={() =>openProductModal()} height="35px" width="35px" className="mr10 mt3 pointer" />
                 </span>
             </span>
         </div>

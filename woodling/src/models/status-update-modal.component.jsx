@@ -33,8 +33,8 @@ class StatusUpload extends React.Component {
     itemRender = (li, itemProps) => {
         const itemChildren = (
             <div style={{ color: "#00F" }}>
-                <div className="w50 inline-block">
-                    <img style={{marginTop:'-10px'}} src={itemProps.dataItem.profile_thumb ? picUrl+itemProps.dataItem.profile_thumb : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} className="brad-40 w50 h50" alt="profile pic" />
+                <div className="w20 inline-block">
+                    <img style={{marginTop:'-10px'}} src={itemProps.dataItem.profile_thumb ? picUrl+itemProps.dataItem.profile_thumb : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} className="brad-40 w100p h50" alt="profile pic" />
                 </div>
                 <div className="ml5 pt10  dark-gray  inline-block">
                     {itemProps.dataItem.full_name} <br />
@@ -117,7 +117,7 @@ class StatusUpload extends React.Component {
                 <Modal.Body>
                     <div>
                         <div className='d-flex align-item'>
-                            <img className='brad-40 w50 h50' src={AuthService.getUserProfileImage()} />
+                            <img className='brad-40 w10p h50' src={AuthService.getUserProfileImage()} />
                             <p className='p0 mb0 ml10'>@{AuthService.getUserName()}</p>
                         </div>
                         <form>

@@ -125,6 +125,13 @@ export const getPlaceUrl = `${baseUrl}/search-places.php`;
 export const getTagsUrl = `${baseUrl}/search-tags.php`;
 export const getTagPostUrl = `${baseUrl}//search-tag-posts.php`;
 
+//product type endpoints
+export const getProductTypeUrl = `${baseUrl}/fetch-product-type.php`;
+export const getServiceTypeUrl = `${baseUrl}/fetch-service-type.php`;
+
+//home Popups
+export const postimagesUrl = `${baseUrl}/add-post.php`;
+
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",
 // UPDATE_USER_SETUP_DETAILS :"update-user-setup-details.php",
 // FETCH_USER_BALANCE :"fetch-user-balance.php",

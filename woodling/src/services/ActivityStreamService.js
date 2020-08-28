@@ -2,11 +2,12 @@
 import axios from 'axios';
 import {AuthService} from './AuthService';
 import { activityStreamUrl, activityDetailsUrl, getTagUrl, getExploreUsersUrl, getPremiunUsersUrl, 
-	getPostTaggedUsersUrl, searchPeopleUrl, geocodeUrl, addPostUrl, getExploreEventUrl } from '../public/endpoins';
+	getPostTaggedUsersUrl, searchPeopleUrl, geocodeUrl, addPostUrl, getExploreEventUrl, getProductTypeUrl,
+	getServiceTypeUrl, postimagesUrl } from '../public/endpoins';
 
 export const ActivityStreamService = {
    getActivityStreams, getExploreUsers, getPremiumUsers, getActivityDetails, getPostTaggedUsers, searchPeople, 
-   getLocationDetailByPlaceId, submitPost, getTags, getExploreEvents
+   getLocationDetailByPlaceId, submitPost, getTags, getExploreEvents, getProductType, getServiceType, submitPicture, submitVideo, submitScript
 };
 
 function getActivityStreams(page) { 
@@ -128,6 +129,66 @@ function getLocationDetailByPlaceId(placeId = ''){
 function submitPost(data){
 	return new Promise((resolve, reject) => {
 		axios.post(addPostUrl, data)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}
+
+function getProductType() {
+	return new Promise((resolve, reject) => {
+		axios.get(getProductTypeUrl)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}
+
+function getServiceType() {
+	return new Promise((resolve, reject) => {
+		axios.get(getServiceTypeUrl)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}
+
+function submitPicture(data) {
+	return new Promise((resolve, reject) => {
+		axios.post(postimagesUrl, data)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}
+
+function submitVideo(data) {
+	return new Promise((resolve, reject) => {
+		axios.post(postimagesUrl, data)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}
+
+function submitScript(data) {
+	return new Promise((resolve, reject) => {
+		axios.post(postimagesUrl, data)
 		.then((res) => {
 			resolve(res);
 		})
