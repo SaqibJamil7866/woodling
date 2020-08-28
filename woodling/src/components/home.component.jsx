@@ -27,7 +27,7 @@ function Home() {
         showVideoModal: false,
         showScriptModal: false,
         showEventModal: false,
-        showProductModal: true
+        showProductModal: false
     }
 
     function reducer(state, { field, value}){

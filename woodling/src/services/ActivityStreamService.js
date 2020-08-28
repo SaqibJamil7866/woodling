@@ -4,20 +4,21 @@ import {AuthService} from './AuthService';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { activityStreamUrl, activityDetailsUrl, getTagUrl, getExploreUsersUrl, getPremiunUsersUrl, 
 	getPostTaggedUsersUrl, searchPeopleUrl, geocodeUrl, addPostUrl, getExploreEventUrl, getProductTypeUrl,
-	getServiceTypeUrl, postimagesUrl } from '../public/endpoins';
+	getServiceTypeUrl, postimagesUrl, postProductUrl } from '../public/endpoins';
 
 export const ActivityStreamService = {
    getActivityStreams, getExploreUsers, getPremiumUsers, getActivityDetails, getPostTaggedUsers, searchPeople, 
    getLocationDetailByPlaceId, submitPost, getTags, getExploreEvents, getProductType, getServiceType, 
-   submitPicture, submitVideo, submitScript, getCurrencySymbols
+   submitPicture, submitVideo, submitScript, getCurrencySymbols, submitProduct
 };
 
 function getCurrencySymbols() { 
 	return new Promise((resolve, reject) =>{
 		const symbols = [];
+		symbols.push(getSymbolFromCurrency('USD')); // => '$'
+		symbols.push(getSymbolFromCurrency('NGN'));
 		symbols.push(getSymbolFromCurrency('GBP')); // => '£'
 		symbols.push(getSymbolFromCurrency('EUR')); // => '€'
-		symbols.push(getSymbolFromCurrency('USD')); // => '$'
 		symbols.push(getSymbolFromCurrency('AFN'));
 		symbols.push(getSymbolFromCurrency('ALL'));
 		symbols.push(getSymbolFromCurrency('DZD'));
@@ -232,6 +233,18 @@ function submitVideo(data) {
 function submitScript(data) {
 	return new Promise((resolve, reject) => {
 		axios.post(postimagesUrl, data)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}
+
+function submitProduct(data) {
+	return new Promise((resolve, reject) => {
+		axios.post(postProductUrl, data)
 		.then((res) => {
 			resolve(res);
 		})

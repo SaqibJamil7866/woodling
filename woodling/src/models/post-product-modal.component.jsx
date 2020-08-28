@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 import { AuthService } from '../services/AuthService';
 import { ActivityStreamService } from '../services/ActivityStreamService';
-import currencyToSymbolMap from 'currency-symbol-map/map'
+import priceValidator from '../public/priceValidator';
+import { CastingCallService } from '../services/CastingCallsService';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
+import { showLoader, hideLoader } from '../public/loader';
+import { ToastsStore } from 'react-toasts';
 
 class PostProduct extends Component {
     state = { 
@@ -13,12 +17,24 @@ class PostProduct extends Component {
         uploadImages: [],
         nameOfProduct: '',
         titleOfService: '',
-        productTypeId: '',
-        serviceTypeId: '',
+        productTypeId: '34',
+        serviceTypeId: '6',
         productType: [],
         serviceType: [],
         lookingTo: 'sell',
-        currency: []
+        currency: [],
+        currencySign: '$',
+        price: '',
+        costOfService: '',
+        locations: [],
+        isLocationLoading: false,
+        selectedLocation: '',
+        lat: '',
+        lng: '',
+        formatted_address:'',
+        city:'',
+        country: '',
+        description: ''
     }
 
     async componentDidMount() {
@@ -29,12 +45,13 @@ class PostProduct extends Component {
 
         await ActivityStreamService.getServiceType()
         .then((res) => {
-            this.setState({serviceType: res.data.data}, () => {
-                console.log(res.data.data)
-            })
+            this.setState({serviceType: res.data.data})
         }).catch((e) => console.log(e))
-        this.state.currency.push(currencyToSymbolMap)
-        console.log('currency', this.state.currency)
+        
+        await ActivityStreamService.getCurrencySymbols()
+        .then((res) => {
+            this.setState({currency: res})
+        })
     }
 
     handleMultipleImages = (event) => {
@@ -72,11 +89,124 @@ class PostProduct extends Component {
         else if(e.currentTarget.name === 'serviceType') {
             this.setState({serviceTypeId: e.currentTarget.value})
         }
+        else if(e.currentTarget.name === 'currency') {
+            this.setState({currencySign:e.currentTarget.value})
+        }
+        else if(e.currentTarget.name === 'price') {
+            const a = priceValidator(e.currentTarget.value)
+            if(a === true) {
+                this.setState({price: e.currentTarget.value})
+            }
+        }
+        else if(e.currentTarget.name === 'cost') {
+            const a = priceValidator(e.currentTarget.value)
+            if(a === true) {
+                this.setState({price: e.currentTarget.value})
+            }
+        }
+    }
+
+    handleLocationSearch = (keyword) =>{
+        this.setState({isLocationLoading: true});
+        CastingCallService.getLocation(keyword)
+        .then((res) => {
+            this.setState({isLocationLoading: false, locations: res.data.predictions});
+        })
+    }
+
+    handleLocation = (location) => {
+        if(location && location.length > 0){
+            this.setState({selectedLocation: location[0]}, () => {
+                const {selectedLocation}= this.state;
+                ActivityStreamService.getLocationDetailByPlaceId(selectedLocation.place_id)
+                .then((response) => {
+                    const res= response.data.results[0];
+                    const address = selectedLocation.description.split(',');
+                    this.setState({city: address[address.length-2],country: address[address.length-1],lat: res.geometry.location.lat, lng: res.geometry.location.lng, formatted_address: res.formatted_address})
+                })
+            })
+        }
+    }
+
+    handleSubmit = async () => {
+        const fd = new FormData();
+        const { product, service, description,lat, lng, formatted_address, city, country, uploadImages, sell, titleOfService, nameOfProduct, price, productTypeId, serviceTypeId, lookingTo, currencySign,  } = this.state;
+        if(product) {
+            if(!uploadImages, !formatted_address, !nameOfProduct, !price) {
+                ToastsStore.error("Please select all fields");
+                return false;
+            }else {
+                fd.append('name', nameOfProduct);
+                fd.append('category', 'product');
+                fd.append('product_type_id', productTypeId);
+                fd.append('purpose', lookingTo);
+                fd.append('price', price);
+                fd.append('currency', currencySign);
+                fd.append('description', description);
+                fd.append('formatted_address', formatted_address);
+                fd.append('lat', lat);
+                fd.append('lng', lng);
+                fd.append('country', country);
+                fd.append('city', city);
+                fd.append('user_id', AuthService.getUserId());
+                for(let i=0; i<=uploadImages.length; i++) {
+                    fd.append('photo', uploadImages[i])
+                }
+                showLoader()
+                await ActivityStreamService.submitProduct(fd)
+                .then((res) => {
+                    if(res.data.status !== 'error'){
+                        ToastsStore.success(res.data.message); 
+                        this.props.closeProductModal();
+                    }
+                    else{
+                        console.log('error')
+                        ToastsStore.error(res.message); 
+                    }
+                }).catch(e => console.log(e))
+                .then(() => hideLoader());
+            }
+        }else {
+            if(!uploadImages, !formatted_address, !titleOfService, price) {
+                ToastsStore.error("Please select all fields");
+                return false;
+            }else {
+                fd.append('name', titleOfService);
+                fd.append('category', 'service');
+                fd.append('product_type_id', serviceTypeId);
+                fd.append('price', price);
+                fd.append('currency', currencySign);
+                fd.append('description', description);
+                fd.append('formatted_address', formatted_address);
+                fd.append('lat', lat);
+                fd.append('lng', lng);
+                fd.append('country', country);
+                fd.append('city', city);
+                fd.append('user_id', AuthService.getUserId());
+                for(let i=0; i<=uploadImages.length; i++) {
+                    fd.append('photo', uploadImages[i])
+                }
+                showLoader()
+                await ActivityStreamService.submitProduct(fd)
+                .then((res) => {
+                    if(res.data.status !== 'error'){
+                        ToastsStore.success(res.data.message); 
+                        this.props.closeProductModal();
+                    }
+                    else{
+                        console.log('error')
+                        ToastsStore.error(res.message); 
+                    }
+                }).catch(e => console.log(e))
+                .then(() => hideLoader());
+            }
+        }
     }
 
     render() { 
         const { openProductModal, closeProductModal } = this.props;
-        const { product, service, images, nameOfProduct, titleOfService, productType, serviceType, lookingTo, currency } = this.state;
+        const { product, service, images, nameOfProduct, titleOfService, productType, serviceType, lookingTo, currency,
+            productTypeId, serviceTypeId, currencySign, price, costOfService, isLocationLoading, locations, description } = this.state;
         return ( 
             <Modal
                 size="lg"
@@ -155,11 +285,11 @@ class PostProduct extends Component {
                             </div>
                             <div className="form-group p20 w50p d-flex flex-dir-col mb0">
                                 <label className='ml10 fs25' for="inputState">{product ? 'Production Type' : 'Type of Services'}</label>
-                                <select value={product ? productType : serviceType} onChange={this.handleChange} name={product ? 'productType' : 'serviceType'} id="inputState" className="form-control bold box-shadow-none border-radius-30 w65" placeholder='ProductType'>
+                                <select value={product ? productTypeId : serviceTypeId} onChange={this.handleChange} name={product ? 'productType' : 'serviceType'} id="inputState" className="form-control bold box-shadow-none border-radius-30 w65" placeholder='ProductType'>
                                   {product ? productType.map((i, index) => {
-                                      return <option value={i.id}>{i.name}</option>
+                                      return <option key={index} value={i.id}>{i.name}</option>
                                   }) : serviceType.map((i, index) => {
-                                    return <option value={i.id}>{i.name}</option>
+                                    return <option key={index} value={i.id}>{i.name}</option>
                                 })}
                               </select> 
                             </div>
@@ -178,15 +308,41 @@ class PostProduct extends Component {
                                     </label>
                                 </div>
                             </div> : null}
-                            <div className="form-group p20 w35 d-flex flex-dir-col mb0">
+                            <div className={product ? "form-group p20 w35 d-flex flex-dir-col mb0" : 'form-group p20 w50p d-flex flex-dir-col mb0'}>
                                 <label className='ml10 fs25'>Choose Currency</label>
-                                <select  id="inputState" className="form-control bold box-shadow-none border-radius-30 w65" placeholder='ProductType'>
-                                    {/* <option>{currencyToSymbolMap}</option> */}
+                                <select value={currencySign} onChange={this.handleChange} name='currency'  id="inputState" className="form-control bold box-shadow-none border-radius-30 w65" placeholder='ProductType'>
                                     {currency.map((i, index) => {
-                                        return <option key={index} value={JSON.stringify(i)}>{i.AED}</option>
+                                        return <option key={index} value={i}>{i}</option>
                                     })}
                                 </select>
                             </div>
+                            <div className={product ? "form-group p20 w35 d-flex flex-dir-col mb0" : "form-group p20 w50p d-flex flex-dir-col mb0"}>
+                                <label className='ml10 fs25' for="cost">{product ? 'Price' : 'Cost of Service'}</label>
+                                <input value={product ? price : costOfService} onChange={this.handleChange} type="text" placeholder='0' className="form-control brder-l-r-t mt-10" id="cost" name={product ? 'price' : 'cost'} />
+                            </div>
+                        </div>
+                        <div className='form-group w100p p20 d-flex justify-content-center'>
+                            <i className='fa fa-map-marker tag-icon padding-right-40'>  Location</i>
+                            <div style={{width:'70%', display:'inline-block'}}>
+                                <AsyncTypeahead
+                                    id="location_typehead"
+                                    labelKey="description"
+                                    isLoading={isLocationLoading}
+                                    placeholder="Search for a Location (type min 3 char)"
+                                    minLength={3}
+                                    onSearch={this.handleLocationSearch}
+                                    onChange={this.handleLocation}
+                                    options={locations}
+                                    className="form-control border-none bckgrnd-grey h45px box-shadow-none"
+                                />
+                            </div>
+                        </div>
+                        <div className="form-group w100p d-flex flex-dir-col align-item p20">
+                            <label className='ml10 fs25' for="cost">Description</label>
+                            <textarea className="form-control" value={description} onChange={(e)=>this.setState({description: e.target.value})} placeholder='Write Description here' rows="5" />
+                        </div>
+                        <div className='form-group d-flex justify-content-center'>
+                            <button onClick={this.handleSubmit} type="button" className="profile-btn">Post</button>
                         </div>
                     </div>
                 </Modal.Body>

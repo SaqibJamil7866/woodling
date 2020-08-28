@@ -60,7 +60,7 @@ class SideNav extends React.Component {
                     name: 'Market Place',
                     imgsrc: (<MarketplaceIcon alt="Market icon" title="Marketplace" height="30px" />),
                     key: 5
-                },
+                }
             ],
             bottomIcons: [
                 {
@@ -88,8 +88,8 @@ class SideNav extends React.Component {
                   key: 14
                 },
                 {
-                  path: '/mainprofile',
-                  name: 'Main Profile',
+                  path: '/my_profile',
+                  name: 'My Profile',
                   imgsrc: (<DotsIcon alt="Dots icon" title="Profile" height="30px" />),
                   key: 15
                 }

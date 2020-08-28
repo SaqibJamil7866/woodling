@@ -64,7 +64,7 @@ const UserAbout = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-md-6'>
+                    {marital_status ? <div className='col-md-6'>
                         <div className='clr__white h150 mt20'>
                             <div className='about-icon'>
                                 <i className='fa fa-heart  fs20' />
@@ -73,8 +73,8 @@ const UserAbout = (props) => {
                                 <p><b>{marital_status}</b></p>
                             </div>
                         </div>
-                    </div>
-                    <div className='col-md-6'>
+                    </div> : null}
+                    {email ? <div className='col-md-6'>
                         <div className='clr__white h150 mt20'>
                             <div className='about-icon'>
                                 <i className='fa fa-envelope fs20' />
@@ -83,8 +83,8 @@ const UserAbout = (props) => {
                                 <p><b>{email}</b></p>
                             </div>
                         </div>
-                    </div>
-                    <div className='col-md-6'>
+                    </div> : null}
+                    {phone_1 ? <div className='col-md-6'>
                         <div className='clr__white h150 mt20'>
                             <div className='about-icon'>
                                 <i className='fa fa-mobile fs20' />
@@ -93,7 +93,7 @@ const UserAbout = (props) => {
                                 <p><b>{phone_1}</b></p>
                             </div>
                         </div>
-                    </div>
+                    </div> : null}
                 </div>
             </div>
         </div> 

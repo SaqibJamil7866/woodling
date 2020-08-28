@@ -131,6 +131,7 @@ export const getServiceTypeUrl = `${baseUrl}/fetch-service-type.php`;
 
 //home Popups
 export const postimagesUrl = `${baseUrl}/add-post.php`;
+export const postProductUrl = `${baseUrl}/add-product.php`;
 
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",
 // UPDATE_USER_SETUP_DETAILS :"update-user-setup-details.php",
