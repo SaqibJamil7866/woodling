@@ -1,14 +1,57 @@
   
 import axios from 'axios';
 import {AuthService} from './AuthService';
+import getSymbolFromCurrency from 'currency-symbol-map';
 import { activityStreamUrl, activityDetailsUrl, getTagUrl, getExploreUsersUrl, getPremiunUsersUrl, 
 	getPostTaggedUsersUrl, searchPeopleUrl, geocodeUrl, addPostUrl, getExploreEventUrl, getProductTypeUrl,
 	getServiceTypeUrl, postimagesUrl } from '../public/endpoins';
 
 export const ActivityStreamService = {
    getActivityStreams, getExploreUsers, getPremiumUsers, getActivityDetails, getPostTaggedUsers, searchPeople, 
-   getLocationDetailByPlaceId, submitPost, getTags, getExploreEvents, getProductType, getServiceType, submitPicture, submitVideo, submitScript
+   getLocationDetailByPlaceId, submitPost, getTags, getExploreEvents, getProductType, getServiceType, 
+   submitPicture, submitVideo, submitScript, getCurrencySymbols
 };
+
+function getCurrencySymbols() { 
+	return new Promise((resolve, reject) =>{
+		const symbols = [];
+		symbols.push(getSymbolFromCurrency('GBP')); // => '£'
+		symbols.push(getSymbolFromCurrency('EUR')); // => '€'
+		symbols.push(getSymbolFromCurrency('USD')); // => '$'
+		symbols.push(getSymbolFromCurrency('AFN'));
+		symbols.push(getSymbolFromCurrency('ALL'));
+		symbols.push(getSymbolFromCurrency('DZD'));
+		symbols.push(getSymbolFromCurrency('AFN'));
+		symbols.push(getSymbolFromCurrency('AOA'));
+		symbols.push(getSymbolFromCurrency('XCD'));
+		symbols.push(getSymbolFromCurrency('ARS'));
+		symbols.push(getSymbolFromCurrency('AMD'));
+		symbols.push(getSymbolFromCurrency('AWG'));
+		symbols.push(getSymbolFromCurrency('AUD'));
+		symbols.push(getSymbolFromCurrency('AZN'));
+		symbols.push(getSymbolFromCurrency('BSD'));
+		symbols.push(getSymbolFromCurrency('BHD'));
+		symbols.push(getSymbolFromCurrency('BDT'));
+		symbols.push(getSymbolFromCurrency('BBD'));
+		symbols.push(getSymbolFromCurrency('BYN'));
+		symbols.push(getSymbolFromCurrency('EUR'));
+		symbols.push(getSymbolFromCurrency('BZD'));
+		symbols.push(getSymbolFromCurrency('XOF'));
+		symbols.push(getSymbolFromCurrency('BMD'));
+		symbols.push(getSymbolFromCurrency('BTN'));
+		symbols.push(getSymbolFromCurrency('INR'));
+		symbols.push(getSymbolFromCurrency('BOB'));
+		symbols.push(getSymbolFromCurrency('BOV'));
+		symbols.push(getSymbolFromCurrency('BAM'));
+		symbols.push(getSymbolFromCurrency('BWP'));
+		symbols.push(getSymbolFromCurrency('NOK'));
+		symbols.push(getSymbolFromCurrency('BRL'));
+		symbols.push(getSymbolFromCurrency('BND'));
+		symbols.push(getSymbolFromCurrency('BGN'));
+		symbols.push(getSymbolFromCurrency('BIF'));
+		resolve(symbols);
+	});
+}
 
 function getActivityStreams(page) { 
  return new Promise((resolve, reject) =>{
