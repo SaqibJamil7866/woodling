@@ -1,6 +1,9 @@
+/* eslint-disable react/prefer-stateless-function */
+/* eslint-disable max-classes-per-file */
 import React from 'react';
 import styled from 'styled-components';
 import 'font-awesome/css/font-awesome.min.css';
+import AlertModal from '../../models/alert.modal.component';
 import { ReactComponent as HomeIcon } from '../../assets/home-alt.svg';
 import { ReactComponent as TrendingIcon } from '../../assets/discovery-unselected.svg';
 import { ReactComponent as CallsIcon } from '../../assets/casting-calls-icon.svg';
@@ -167,19 +170,42 @@ const StyledNavItem = styled.div`
 `;
 
 class NavItem extends React.Component {
-    handleClick = () => {
+    constructor(props){
+        super(props);
+        this.state = {
+            showAlert: false
+        }
+    }
+    handleClick = (e) => {
         const { path, onItemClick } = this.props;
+        if(path === '/alerts'){ // Don't navigate on alert's icon click
+            e.preventDefault();
+            this.setState({showAlert: true})
+        }
         onItemClick(path);
+    }
+
+    closeAlertModal = () => {
+        this.setState({ showAlert: false});
     }
 
     render() {
         const { active } = this.props;
+        const { showAlert } = this.state;
         return(
-            <StyledNavItem active={active}>
-                <Link to={this.props.path} onClick={this.handleClick}>
-                    {this.props.imgsrc}
-                </Link>
-            </StyledNavItem>
+            <>
+                <StyledNavItem active={active}>
+                    <Link to={this.props.path} onClick={this.handleClick}>
+                        {this.props.imgsrc}
+                    </Link>
+                </StyledNavItem>
+                {showAlert ? (
+                    <AlertModal
+                        showModal={showAlert}
+                        closeAlertModal={this.closeAlertModal}
+                    />
+                ) : null}
+            </>
         );
     }
 }
@@ -188,7 +214,7 @@ class NavItem extends React.Component {
 export default class Sidebar extends React.Component {
     render() {
         return (
-            <RouterSideNav></RouterSideNav>
+            <RouterSideNav />
         );
     }
 }
