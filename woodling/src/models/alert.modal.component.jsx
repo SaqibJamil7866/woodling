@@ -25,7 +25,7 @@ const AlertModal = (props) => {
                 </div>
                 <div>
                     {notificationData.map((i, index) => {
-                        return <div className='p10 border-bottom d-flex'>
+                        return <div key={index} className='p10 border-bottom d-flex'>
                             <div className='d-flex flex-dir-col align-item w20'>
                                 <img onError={onCrash} className={i.premium_user==='1'? 'premium-border following-img' : 'following-img'} src={i.profile_picture!=='' ? picUrl+""+i.profile_picture : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} />
                             </div>

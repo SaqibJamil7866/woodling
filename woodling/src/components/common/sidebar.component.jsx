@@ -181,9 +181,7 @@ class NavItem extends React.Component {
     componentDidMount() {
         UserService.getNotifications()
         .then((res) => {
-            this.setState({notificationData: res.data.notifications}, () => {
-                console.log('notification', this.state.notificationData)
-            })
+            this.setState({notificationData: res.data.notifications})
         }).catch(e => console.log(e))
     }
     onCrash = (e) => {
