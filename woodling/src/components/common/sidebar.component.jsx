@@ -15,6 +15,7 @@ import { ReactComponent as CogIcon } from '../../assets/cog.svg';
 import { ReactComponent as MainSearchIcon } from '../../assets/search.svg';
 import { ReactComponent as DotsIcon } from '../../assets/dots.svg';
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
+import { UserService } from '../../services/UserService';
 
 const StyledSideNav = styled.div`   
     // position: fixed;     /* Fixed Sidebar (stay in place on scroll and position relative to viewport) */
@@ -173,8 +174,20 @@ class NavItem extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            showAlert: false
+            showAlert: false,
+            notificationData: []
         }
+    }
+    componentDidMount() {
+        UserService.getNotifications()
+        .then((res) => {
+            this.setState({notificationData: res.data.notifications}, () => {
+                console.log('notification', this.state.notificationData)
+            })
+        }).catch(e => console.log(e))
+    }
+    onCrash = (e) => {
+        e.currentTarget.src='https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'
     }
     handleClick = (e) => {
         const { path, onItemClick } = this.props;
@@ -191,7 +204,7 @@ class NavItem extends React.Component {
 
     render() {
         const { active } = this.props;
-        const { showAlert } = this.state;
+        const { showAlert, notificationData } = this.state;
         return(
             <>
                 <StyledNavItem active={active}>
@@ -203,6 +216,7 @@ class NavItem extends React.Component {
                     <AlertModal
                         showModal={showAlert}
                         closeAlertModal={this.closeAlertModal}
+                        notificationData={notificationData}
                     />
                 ) : null}
             </>
