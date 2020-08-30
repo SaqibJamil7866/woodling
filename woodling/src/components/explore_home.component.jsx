@@ -27,15 +27,20 @@ function ExploreHome(){
     function reducer(state, { field, value}){
         switch (field) {
             case 'update_explore_users':
-                state.exploreUsers.map((user)=>{
-                if(user.id === value.id){
-                    user.follow_status = true;
-                }
-                return user;
-                });
+                // state.exploreUsers.map((user)=>{
+                // if(user.id === value.id){
+                //     user.follow_status = true;
+                // }
+                // return user;
+                // });
                 return{
                     ...state,
                     exploreUsers: [...state.exploreUsers]
+                };
+            case 'update_premium_users':
+                return{
+                    ...state,
+                    exploreUsers: [...state.explorePremiumUsers]
                 };
             default: 
                 return{
@@ -94,16 +99,51 @@ function ExploreHome(){
         .then(() => hideLoader());
     }, []);
 
-    const toggleFollowUser = (user, index) => {
-        const data = { user_id: AuthService.getUserId(), follower_id: user.id}
-        showLoader();
+    const followHashTag = (id, index) => {
+        const data = { user_id: AuthService.getUserId(), follower_id: id};
         FollowService.followUser(data).then((res)=>{
             hideLoader();
             if(res.data.status !== 'error'){
-                exploreUsers[index].follow_status = true;
-                dispatch({field: 'update_explore_users', value: user});
+                tags[index].follow = true;
+                dispatch({field: 'tags', value: tags});
+                ToastsStore.success(res.data.message);
             }
         });
+    }
+
+    const toggleFollowUser = (user, index, from) => {
+        const data = { user_id: AuthService.getUserId(), follower_id: user.id};
+        if(user.follow_status){
+            FollowService.unfollowUser(data).then((res)=>{
+                hideLoader();
+                if(res.data.status !== 'error'){
+                    if(from === 'explore_user'){
+                        exploreUsers[index].follow_status = false;
+                        dispatch({field: 'update_explore_users', value: user});
+                    }
+                    else if(from === 'premium_user'){
+                        explorePremiumUsers[index].follow_status = false;
+                        dispatch({field: 'update_premium_users', value: user});
+                    }
+                }
+            });
+        }
+        else{
+            showLoader();
+            FollowService.followUser(data).then((res)=>{
+                hideLoader();
+                if(res.data.status !== 'error'){
+                    if(from === 'explore_user'){
+                        exploreUsers[index].follow_status = true;
+                        dispatch({field: 'update_explore_users', value: user});
+                    }
+                    else if(from === 'premium_user'){
+                        explorePremiumUsers[index].follow_status = true;
+                        dispatch({field: 'update_premium_users', value: user});
+                    }
+                }
+            });
+        }
     }
 
     // const loadMorePosts = () => {
@@ -123,7 +163,7 @@ function ExploreHome(){
     // }
 
     return(
-        <div className="container h100p">
+        <div className="container h100p scrolling">
             <div className="row h100p">
                 <div className="col-md-8 h90p">
                     <TopContentBar
@@ -147,7 +187,7 @@ function ExploreHome(){
                                         </p>
                                         <div style={{width: '108px', textAlign: 'center'}}>
                                             <RatingStar rating={convertToFloat(i.rating)} />
-                                            <button className="follow-sm-btn" onClick={()=>toggleFollowUser(i, index)}>{i.follow_status ? 'Following' : 'Follow'}</button>
+                                            <button className="follow-sm-btn" onClick={()=>toggleFollowUser(i, index, 'explore_user')}>{i.follow_status ? 'Following' : 'Follow'}</button>
                                         </div>
                                     </div>
                                 );
@@ -172,7 +212,7 @@ function ExploreHome(){
                                         </p>
                                         <div style={{width: '108px', textAlign: 'center'}}>
                                             <RatingStar rating={convertToFloat(i.rating)} />
-                                            <button className="follow-sm-btn" onClick={()=>toggleFollowUser(i)}>{i.follow_status ? 'Following' : 'Follow'}</button>
+                                            <button className="follow-sm-btn" onClick={()=>toggleFollowUser(i, index, 'premium_user')}>{i.follow_status ? 'Following' : 'Follow'}</button>
                                         </div>
                                     </div>
                                 );
@@ -198,7 +238,7 @@ function ExploreHome(){
                         <img src={require('../assets/map_network.png')} alt="network pic" />
                     </div>
                     <div className="mb10">
-                        <HashTags tags={tags} />
+                        <HashTags tags={tags} followHashTag={followHashTag} />
                     </div>
                 </div>
             </div>
