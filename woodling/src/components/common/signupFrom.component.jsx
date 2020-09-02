@@ -113,22 +113,22 @@ const SignUpFormComponent = (props) => {
     }
 
     const registerBusinessSchema = {
-        skillset: Joi.string().required().label("Skills"),
         email: Joi.string().required().email().label("Email"),
         password: Joi.string().min(6).required().label("Password"),
         password2: Joi.string().min(6).required().valid([password]).label("Confirm Password"),
         business_name: Joi.string().required().label("Business Name"),
+        username: Joi.string().required().label("Username")
     }
 
     const validation = () => {
         let obj = {};
         let schema = {};
         if(account_type === 'individual'){
-            obj = {full_name, username, password, password2, skillset, email};
+            obj = {full_name, username, password, password2, email};
             schema = registerIndividualSchema;
         }
         else{
-            obj = {business_name, username, password, password2, skillset, email};
+            obj = {business_name, username, password, password2, email};
             schema = registerBusinessSchema;
         }
 
@@ -362,7 +362,7 @@ const SignUpFormComponent = (props) => {
                         )}
                     </div>
                     <div className='login__btn-div'>
-                        <button className='login__btn' type="button"><img onClick={registerUser} className='submit' src={require('../../assets/login_button.svg')} alt="Registeration Btn" /></button>
+                        <button onClick={registerUser} className='login__btn' type="button"><img className='submit' src={require('../../assets/login_button.svg')} alt="Registeration Btn" /></button>
                     </div>
                 </form>
             </div>

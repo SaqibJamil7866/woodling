@@ -56,6 +56,17 @@ class PostImageDetailsModelContent extends React.Component {
             hideLoader();
         })
     }
+
+    sharePost = () => {
+        const {activity: { post_id }} = this.state;
+        showLoader();
+        PostCommentsService.sharePost(post_id).then((res)=>{
+            hideLoader();
+            if(res.status !== 'error'){
+                ToastsStore.success(res.data.message);
+            }
+        })
+    }
      
     render() {  
         const {activity, activityMedia,dotPosition,postTaggedUsers, likes} = this.state;
@@ -80,14 +91,14 @@ class PostImageDetailsModelContent extends React.Component {
                         </button>
                     </div>
                     <div className='post-like-btn'>
-                        <a onClick={this.addPostReaction} className="post-like-top" ><i className={`fa ${activity.like_status ? 'fa-heart-o' : 'fa-heart'}`} /></a>
+                        <a onClick={this.addPostReaction} className="post-like-top" ><i className={`fa ${ (activity.like_status && activity.like_status !== '0') ? 'fa-heart' : 'fa-heart-o'}`} /></a>
                     </div>
                     <div className="attachment-share">
                         <div className="more-icon">
-                            <a href="" className="more-optinon"><i className="fa fa-ellipsis-h" /></a>
+                            <a className="more-optinon"><i className="fa fa-ellipsis-h" /></a>
                         </div>
                         <div className="share-icon">
-                            <a href="" className="share-optinon"><i className="fa fa-share-alt" /></a>
+                            <a onClick={this.sharePost} className="share-optinon"><i className="fa fa-share-alt" /></a>
                         </div>
                         <div className="link-icon">
                             <a href="" className="link-optinon"><i className="fa fa-link" /></a>

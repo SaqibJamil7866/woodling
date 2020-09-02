@@ -7,6 +7,7 @@ import RatingStar from './common/rating-stars.component';
 import convertToFloat from '../public/helperFunctions';
 import StatusUpload from '../models/status-update-modal.component';
 import HashTags from './common/hastags.component';
+import Post from './common/post.component';
 import { FollowService } from '../services/FollowService';
 import { AuthService } from '../services/AuthService';
 import { ActivityStreamService } from '../services/ActivityStreamService';
@@ -220,17 +221,8 @@ function ExploreHome(){
                             {/* {exploreUsers.length>9 ? <i className='fa fa-arrow-right right-arrow pointer' /> : null} */}
                         </div>
                     </div>
-                    <div className="br-white scrolling h100p">
-                        {/* <InfiniteScroll
-                            pageStart={1}
-                            initialLoad={false}
-                            loadMore={loadMorePosts}
-                            hasMore={true || false}
-                            useWindow={false}
-                            threshold={10}
-                        >
-                            <Post posts={posts} />
-                        </InfiniteScroll> */}
+                    <div className="br-white">
+                        <Post posts={events} />
                     </div>
                 </div>
                 <div className="col-md-4">

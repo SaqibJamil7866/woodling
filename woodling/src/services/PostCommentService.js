@@ -1,10 +1,12 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
-import { getCommentsUrl, getCommentRpliesUrl, addCommentsUrl, addPostReactionUrl, addCommentReactionUrl, addCommentReplyUrl } from '../public/endpoins';
+import { getCommentsUrl, getCommentRpliesUrl, addCommentsUrl, addPostReactionUrl, addCommentReactionUrl, 
+    addCommentReplyUrl, sharePostUrl } from '../public/endpoins';
 import {AuthService} from './AuthService';
 
 export const PostCommentsService = {
-   getPostComments, getPostCommentReplies, addPostReaction, addPostComments, addCommentReaction, addCommentReply   
+   getPostComments, getPostCommentReplies, addPostReaction, addPostComments, addCommentReaction, 
+   addCommentReply, sharePost
 }; 
 
 function getPostComments(postId) { 
@@ -18,6 +20,18 @@ function getPostComments(postId) {
             reject(e);
         });
 	});
+}
+
+function sharePost(postId) { 
+    return new Promise((resolve, reject) =>{
+        const url =  sharePostUrl+"?user_id="+AuthService.getUserId()+"&post_id="+postId;
+        axios.get(url)
+        .then(res => {
+            resolve(res);
+        }).catch(e => {
+            reject(e);
+        });
+    });
 }
 
 function getPostCommentReplies(postId, commentId) { 
