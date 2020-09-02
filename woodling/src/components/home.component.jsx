@@ -31,7 +31,7 @@ function Home() {
     }
 
     function reducer(state, { field, value}){
-        return{
+        return {
             ...state,
             [field] : value
         }
