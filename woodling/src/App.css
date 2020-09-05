@@ -668,6 +668,10 @@ html, body, #root {
   min-height: 300px !important;
 }
 
+.min-h100 {
+  min-height: 100px !important;
+}
+
 .h300 {
   height: 300px;
 }
@@ -2515,4 +2519,8 @@ p.sdate {
 
 .border-radius-30 {
   border-radius: 30px !important;
+}
+
+.border-radius-100 {
+  border-radius: 100px;
 }
