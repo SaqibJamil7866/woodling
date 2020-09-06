@@ -133,7 +133,7 @@ const Chat = () => {
             </div>
 
             <div className="col-md-7">
-
+                
             </div>
             <div className="col-md-2">
 
