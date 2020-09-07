@@ -172,7 +172,7 @@ html, body, #root {
 }
 
 .bg-red {
-  background-color: #ff0000;
+  background-color: #ff0000 !important;
 }
 
 .dark-gray {
@@ -367,6 +367,10 @@ html, body, #root {
   margin: 0 !important;
 }
 
+.pl0{
+  padding-left: 0px !important;
+}
+
 .mt3{
   margin-top: 3px !important;
 }
@@ -376,7 +380,7 @@ html, body, #root {
 }
 
 .ml10{
-  margin-left: 10px;
+  margin-left: 10px !important;
 }
 
 .ml18{
@@ -666,6 +670,10 @@ html, body, #root {
 }
 .min-h300{
   min-height: 300px !important;
+}
+
+.min-h100 {
+  min-height: 100px !important;
 }
 
 .h300 {
@@ -2515,4 +2523,8 @@ p.sdate {
 
 .border-radius-30 {
   border-radius: 30px !important;
+}
+
+.border-radius-100 {
+  border-radius: 100px;
 }

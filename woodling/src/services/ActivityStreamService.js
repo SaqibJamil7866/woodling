@@ -9,7 +9,7 @@ import { activityStreamUrl, activityDetailsUrl, getTagUrl, getExploreUsersUrl, g
 export const ActivityStreamService = {
    getActivityStreams, getExploreUsers, getPremiumUsers, getActivityDetails, getPostTaggedUsers, searchPeople, 
    getLocationDetailByPlaceId, submitPost, getTags, getExploreEvents, getProductType, getServiceType, 
-   submitPicture, submitVideo, submitScript, getCurrencySymbols, submitProduct
+   submitPicture, submitVideo, submitScript, getCurrencySymbols, submitProduct, searchAllPeople
 };
 
 function getCurrencySymbols() { 
@@ -147,6 +147,19 @@ function getPostTaggedUsers(postId) {
 function searchPeople(name = '') {
 	return new Promise((resolve, reject) => {
 		const url = searchPeopleUrl+"?user_id="+AuthService.getUserId()+"&name="+name+"&page=1";
+		axios.get(url)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}
+
+function searchAllPeople() {
+	return new Promise((resolve, reject) => {
+		const url = searchPeopleUrl+"?user_id="+AuthService.getUserId();
 		axios.get(url)
 		.then((res) => {
 			resolve(res);
