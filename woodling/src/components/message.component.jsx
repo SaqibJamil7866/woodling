@@ -7,9 +7,23 @@ const Messaging = (props) => {
     const [messages, setMessages] = useState([]);
     const db = firestore();
 
-    const onSend = (message) => {
-        const ref = db.collection('circles').doc(props.circle.groupkey).collection('messages');
-        const chats = message[0];
+    const onSend = (messages = []) => {
+
+        const { selectedUser, selectedUser: { user_id, theirid } } = props;
+    
+        const ref = db.collection('users')
+          .doc(user_id)
+          .collection('chats')
+          .doc(theirid)
+          .collection('messages');
+    
+        const theirref = db.collection('users')
+          .doc(theirid)
+          .collection('chats')
+          .doc(user_id)
+          .collection('messages');
+    
+        const chats = messages[0];
         const newMessage = {
           createdAt: Date.now(),
           text: chats.text,
@@ -17,12 +31,13 @@ const Messaging = (props) => {
           _id: chats.id
         };
         ref.add(newMessage);
+        theirref.add(newMessage);
     }
 
     useEffect(()=>{
         
         const { selectedUser, selectedUser: { user_id, theirid } } = props;
-        const ref = firestore().collection('users')
+        const ref = db.collection('users')
         .doc(user_id)
         .collection('chats')
         .doc(theirid)
@@ -41,11 +56,15 @@ const Messaging = (props) => {
                 querySnapshot.forEach(element => {
                     console.log(element.data());
                     msgs.push(element.data());
-                });debugger
+                });
+                console.log("msgs: ", msgs);
                 setMessages(msgs);
                 const listings = msgs.filter(e => e.user._id !== user_id);
                 if(msgs[0] !== undefined){
-                    const { text, createdAt } = msgs[0];
+                    const { text, createdAt } = msgs[0];debugger
+                    if(!selectedUser.statue){
+                        selectedUser.statue = '';
+                    }
                     const datum = { text, createdAt, selectedUser };
                     chatlistref.set(datum);
                 }
@@ -61,7 +80,7 @@ const Messaging = (props) => {
                 querySnapshot.forEach(element => {
                     msg.push(element.data());
                 });
-                setMessages(msg);debugger
+                setMessages(msg);
                 const listings = msg.filter(e => e.user._id !== user_id);
                 if (msg[0] !== undefined){
                     const { text, createdAt } = msg[0];

@@ -62,30 +62,46 @@ const Chat = () => {
         allMembers, selectedMembers, uploadImage, showImage, privacy, circle_name, user_id,
         create_new, openGroupChat, openSingleChat, selectedCircle, selectedChat, tagPeople, selectedPeople } = state;
 
-    const openChats = () => {
+    async function openChats(){
         dispatch({field: 'activeSection', value: 'chat'});
         const chatListref = db.collection('users').doc(AuthService.getUserId()).collection('chatlist');
+        const data = [];
         showLoader();
-        chatListref.onSnapshot(docSnapshot => {
-            hideLoader();
-            const data = [];
-            docSnapshot.forEach(element => {
-                const chat = element.data();
-                if(chat && chat.user){
-                    const ref = db.collection('users').doc(chat.user.user_id );
-                    ref.onSnapshot(res=>{
-                        if(res.data()){
-                            chat.status = res.data().user_status;
+        await new Promise((resolve, reject) => {
+            chatListref.onSnapshot(docSnapshot => {
+                hideLoader();
+                if(!docSnapshot.empty){
+                    docSnapshot.docs.forEach((element, index, array) => {
+                        const chat = element.data();debugger
+                        if(chat && chat.user){
+                            isUserOnline(chat.user.user_id).then((status)=>{
+                                chat.status = status;debugger
+                                data.push(chat);
+                                if(array && index === array.length - 1){
+                                    resolve();
+                                }
+                            });
                         }
-                        data.push(chat);
                     });
                 }
-                else{
-                    data.push(chat);
-                }
             });
-            dispatch({field: 'chatlist', value: data});
         });
+        
+        hideLoader();debugger
+        dispatch({field: 'chatlist', value: data});
+    }
+
+    async function isUserOnline(userId){
+        return new Promise((resolve, reject)=>{
+            const ref = db.collection('users').doc(userId);
+            ref.onSnapshot(res=>{
+                let result = '';
+                if(res.data()){
+                    result = res.data().user_status;
+                }
+                resolve(result);
+            });
+        })
     }
 
     const openCircles = () => {
@@ -222,14 +238,26 @@ const Chat = () => {
     const openGroupMessaging = (circle) =>{
         dispatch({field:'create_new', value: ''});
         dispatch({field:'openGroupChat', value: true});
+        dispatch({field:'openSingleChat', value: false});
         dispatch({field:'selectedCircle', value: circle});
     }
 
-    const openChatMessaging = (chat) =>{debugger
+    const openChatMessaging = (chat) =>{
+        const user = {
+            user_id: AuthService.getUserId(),
+            theirid: chat.user.user_id,
+            picture: chat.user.picture === ''
+                ? 'https://www.sccpre.cat/mypng/detail/214-2144186_alpesh-m-avatar-thumbnail.png'
+                : `${chat.user.picture}`,
+            name: chat.user.name,
+            text: chat.text,
+            statue: chat.statue,
+            createdAt: chat.createdAt
+        };
+        dispatch({field:'selectedChat', value: user});
         dispatch({field:'create_new', value: ''});
         dispatch({field:'openGroupChat', value: false});
         dispatch({field:'openSingleChat', value: true});
-        dispatch({field:'selectedChat', value: chat});
     }
 
     const createNewChat = () => {
@@ -259,15 +287,12 @@ const Chat = () => {
 
     const filterChange = (event) => {
         dispatch({field:'tagPeople', value: filterBy(tagPeople.slice(), event.filter)})
-        // this.setState({
-        //     data: filterBy(this.state.data.slice(), event.filter)
-        // });
     }
 
     const handlePeopleChange = (event) => {
-        if(event.target.value){
+        dispatch({field:'selectedPeople', value: event.target.value});debugger
+        if(event.target.value && event.target.value.length > 0){
             const tempUser = event.target.value[0];
-            dispatch({field:'selectedPeople', value: event.target.value});
             const user = {
                 user_id: tempUser.id,
                 theirid: tempUser.id,
@@ -381,8 +406,9 @@ const Chat = () => {
                             <div key={index} onClick={()=>openChatMessaging(chat)} className="pointer h60 row ml10">
                                 <div className="col-md-2">
                                     {chat.status === 'online' ?
-                                        <img className='w12 mt15' title="online" src={require('../assets/red-online.png')} alt='online' />
-                                    : null }
+                                        <img className='w12 mt15' title="online" src={require('../assets/green_online.png')} alt='online' />
+                                    : <img className='w12 mt15' title="offline" src={require('../assets/green_offline.png')} alt='offline' />
+                                    }
                                 </div>
                                 <div className="col-md-9 flex">
                                     <div>
