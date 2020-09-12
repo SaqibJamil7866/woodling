@@ -11,6 +11,7 @@ export const picUrl = 'http://18.220.228.143/'
 export const loginUrl = `${baseUrl}/login.php`;
 export const registerUrl = `${baseUrl}/register.php`;
 export const updateUserAccountDetailUrl = `${baseUrl}/update-user-setup-details.php`;
+export const getMessageUserProfileUrl = `${baseUrl}/fetch-message-user-profile.php`;
 
 // home endpoints
 export const activityStreamUrl = `${baseUrl}/view-activity-stream.php`;

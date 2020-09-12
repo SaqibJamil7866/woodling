@@ -172,7 +172,7 @@ html, body, #root {
 }
 
 .bg-red {
-  background-color: #ff0000;
+  background-color: #ff0000 !important;
 }
 
 .dark-gray {
@@ -252,6 +252,9 @@ html, body, #root {
 }
 .w120{
   width: 120px;
+}
+.w140{
+  width: 140px;
 }
 .w50{
   width: 50% !important;
@@ -367,6 +370,10 @@ html, body, #root {
   margin: 0 !important;
 }
 
+.pl0{
+  padding-left: 0px !important;
+}
+
 .mt3{
   margin-top: 3px !important;
 }
@@ -376,7 +383,7 @@ html, body, #root {
 }
 
 .ml10{
-  margin-left: 10px;
+  margin-left: 10px !important;
 }
 
 .ml18{
@@ -395,8 +402,16 @@ html, body, #root {
   margin-right: 20px;
 }
 
+.mr30{
+  margin-right: 30px !important;
+}
+
 .ml15{
   margin-left: 15px !important;
+}
+
+._ml115{
+  margin-left: -115px !important;
 }
 
 .mt10{
@@ -817,6 +832,9 @@ p.explore-user-name {
   margin-bottom: -8px;
 }
 
+.margin-auto {
+  margin: auto !important;
+}
 button.explore-follow-btn {
   margin: auto;
   padding: 1px 12px;

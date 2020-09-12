@@ -3,11 +3,12 @@
   
 import axios from 'axios';
 import cookie from 'react-cookies';
-import { loginUrl, registerUrl, updateUserAccountDetailUrl, getIndividualSkillsUrl, getBusinessSkillsUrl, picUrl, siteUrl } from '../public/endpoins';
+import { loginUrl, registerUrl, updateUserAccountDetailUrl, getIndividualSkillsUrl, getBusinessSkillsUrl, 
+  picUrl, siteUrl, getMessageUserProfileUrl } from '../public/endpoins';
 
 export const AuthService = {
   login, register, updateAccountDetails, getUserId, getUserName, getSkills,
-  getUserProfileImage, getPassword
+  getUserProfileImage, getPassword, getMessageUserProfile
 //    , register, registerStep, 
 //    getUSerProfile,
 //     getUSerFollowings,
@@ -25,6 +26,17 @@ function login(params) {
             reject(e);        
         });
 	});
+}
+
+function getMessageUserProfile(user_id, their_id) { 
+  return new Promise((resolve, reject) =>{
+      axios.get(getMessageUserProfileUrl+`?user_id=${user_id}&user_profile_id=${their_id}`)
+      .then(res => {
+          resolve(res);
+        }).catch(e => {
+          reject(e);        
+      });
+});
 }
 
 function getSkills(type) {

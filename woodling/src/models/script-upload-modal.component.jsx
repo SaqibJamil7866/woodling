@@ -15,7 +15,7 @@ class ScriptModal extends Component {
         const { script_title, script_synopsis, detail } = this.state;
         showLoader()
         await ActivityStreamService.submitScript({user_id: AuthService.getUserId(), type: 'script', privacy: 'public', title: script_title, synopsis_author: script_synopsis, synopsis: detail})
-        .then((response) => {debugger
+        .then((response) => {
             if(response.data.status !== 'error') {
                 // const res= response.data;
                 ToastsStore.success(response.data.message); 

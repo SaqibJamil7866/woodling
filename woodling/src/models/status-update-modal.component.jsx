@@ -91,7 +91,7 @@ class StatusUpload extends React.Component {
         }).join(',');
         const User_id = AuthService.getUserId();
         ActivityStreamService.submitPost({User_id, description, lat, lng, formatted_address, people, city, country, type: "Text", privacy: "public"})
-        .then((response) => {debugger
+        .then((response) => {
             const res= response.data;
             this.props.closeStatusUploadModal();
         })
