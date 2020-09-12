@@ -2,96 +2,162 @@ import React, { useState, useEffect } from 'react';
 import { firestore } from 'firebase';
 import { GiftedChat } from 'react-web-gifted-chat';
 import { AuthService } from '../services/AuthService';
+import { picUrl } from '../public/endpoins';
 
 const Messaging = (props) => {
     const [messages, setMessages] = useState([]);
+    const [theirData, setTheirData] = useState();
+    const [ownData, setOwnData] = useState([]);
+    const [userStatus, setUserStatus] = useState();
     const db = firestore();
 
-    const onSend = (messages = []) => {
-
+    const onSend = (messages = []) =>{
         const { selectedUser, selectedUser: { user_id, theirid } } = props;
-    
-        const ref = db.collection('users')
-          .doc(user_id)
-          .collection('chats')
-          .doc(theirid)
-          .collection('messages');
+
+        const chatNotification = db.collection('users').doc(theirid).collection('unreadMsg');
+        chatNotification.get().then(querySnapshot => {
+          const count = querySnapshot.data();
+          chatNotification.set(count + 1);
+        });
+        
+        const ref = db.collection('users').doc(user_id)
+        .collection('chats')
+        .doc(theirid)
+        .collection('messages');
     
         const theirref = db.collection('users')
-          .doc(theirid)
-          .collection('chats')
-          .doc(user_id)
-          .collection('messages');
+        .doc(theirid)
+        .collection('chats')
+        .doc(user_id)
+        .collection('messages');
     
         const chats = messages[0];
         const newMessage = {
           createdAt: Date.now(),
           text: chats.text,
           user: chats.user,
-          _id: chats.id
+          _id: Date.now(),
         };
+        console.log(newMessage);
         ref.add(newMessage);
         theirref.add(newMessage);
+        // this.ref.add(chats);
+        // this.chatlistref.set(messages[0]);
+    }
+
+    const getFireStoreData = () => {
+        try {
+            const { selectedUser, selectedUser: { user_id, theirid } } = props;
+            const user = selectedUser;
+            // Update Message Indicator
+            const theirr = db.collection('users').doc(user_id)
+            .collection('messageIndicator')
+            .doc(theirid);
+
+            theirr.set({ read: true });
+            const refStatus = db.collection('users').doc(theirid);
+            debugger;
+            refStatus.get().then(result => {
+                setUserStatus(result._data.user_status);
+            });
+        
+            refStatus.onSnapshot(
+                docSnapshot => {
+                console.log('Received doc snapshot: ', docSnapshot);
+                console.log(
+                    'Firestore User id : ',
+                    docSnapshot._ref._documentPath._parts[1],
+                );
+                try {
+                    setUserStatus(docSnapshot._data.user_status)
+                } catch (err) {
+                    setUserStatus('offline')
+                }
+                },
+                err => {
+                console.log(`Encountered error: ${err}`);
+                },
+            );
+        
+            const ref = db.collection('users').doc(user_id)
+                .collection('chats')
+                .doc(theirid)
+                .collection('messages');
+        
+            const chatlistref = db.collection('users')
+                .doc(user_id)
+                .collection('chatlist')
+                .doc(theirid);
+        
+            const theirchatlistref = db.collection('users')
+                .doc(theirid)
+                .collection('chatlist')
+                .doc(user_id);
+        
+            ref.orderBy('createdAt', 'desc').onSnapshot(
+                querySnapshot => {
+                    const msgs = [];
+                    querySnapshot.forEach(element => {
+                    msgs.push(element.data());
+                    });
+                    setMessages(msgs);
+
+                    const listings = messages.filter(e => e.user._id !== user_id);
+                    if(messages[0] !== undefined){
+                        const { text, createdAt } = messages[0];
+                        user.user_id = theirid;
+
+                        if(theirData){
+                            user.name = theirData.full_name;
+                            user.picture = picUrl + '/' + theirData.profile_picture;
+                        }
+                        const datum = { text, createdAt, user };
+                        chatlistref.set(datum);
+                    }
+                },
+                err => {
+                    console.log(`Encountered error: ${err}`);
+                },
+            );
+        
+            ref.orderBy('createdAt', 'desc').onSnapshot(
+                querySnapshot => {
+                    const mesgs = [];
+                    querySnapshot.forEach(element => {
+                        mesgs.push(element.data());
+                    });
+                    setMessages(mesgs);
+                    const listings = messages.filter(e => e.user._id !== user_id);
+                    if(messages[0] !== undefined){
+                        const { text, createdAt } = messages[0];
+                        user.user_id = user_id;
+                        if(ownData){
+                            user.name = ownData.full_name;
+                            user.picture = picUrl + '/' + ownData.profile_picture;
+                        }
+
+                        const datum = { text, createdAt, user };
+                        theirchatlistref.set(datum);
+                    }
+                },
+                err => {
+                console.log(`Encountered error: ${err}`);
+                },
+            );
+        } catch (err) {
+          console.log('Error in firestore : ', err);
+        }
     }
 
     useEffect(()=>{
-        
         const { selectedUser, selectedUser: { user_id, theirid } } = props;
-        const ref = db.collection('users')
-        .doc(user_id)
-        .collection('chats')
-        .doc(theirid)
-        .collection('messages');
-
-        const chatlistref = db.collection('users').doc(user_id)
-        .collection('chatlist')
-        .doc(theirid);
-
-        const theirchatlistref = db.collection('users').doc(theirid)
-        .collection('chatlist')
-        .doc(user_id);
-        ref.orderBy('createdAt', 'desc').onSnapshot(
-            querySnapshot => {
-                const msgs = [];
-                querySnapshot.forEach(element => {
-                    console.log(element.data());
-                    msgs.push(element.data());
-                });
-                console.log("msgs: ", msgs);
-                setMessages(msgs);
-                const listings = msgs.filter(e => e.user._id !== user_id);
-                if(msgs[0] !== undefined){
-                    const { text, createdAt } = msgs[0];debugger
-                    if(!selectedUser.statue){
-                        selectedUser.statue = '';
-                    }
-                    const datum = { text, createdAt, selectedUser };
-                    chatlistref.set(datum);
-                }
-            },
-            err => {
-                console.log(`Encountered error: ${err}`);
-            }
-        );
-
-        ref.orderBy('createdAt', 'desc').onSnapshot(
-            querySnapshot => {
-                const msg = [];
-                querySnapshot.forEach(element => {
-                    msg.push(element.data());
-                });
-                setMessages(msg);
-                const listings = msg.filter(e => e.user._id !== user_id);
-                if (msg[0] !== undefined){
-                    const { text, createdAt } = msg[0];
-                    const datum = { text, createdAt, selectedUser };
-                    theirchatlistref.set(datum);
-                }
-            },
-            err => {
-                console.log(`Encountered error: ${err}`);
-            }
-        );
+        AuthService.getMessageUserProfile(user_id, theirid).then((response)=>{
+            setTheirData(response.data.data);
+        });
+        AuthService.getMessageUserProfile(user_id, user_id).then((response)=>{
+            setOwnData(response.data.data);
+            getFireStoreData();
+        })
     }, [props.selectedUser]);
 
     return(

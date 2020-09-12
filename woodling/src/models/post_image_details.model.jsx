@@ -48,9 +48,9 @@ class PostImageDetailsModelContent extends React.Component {
     handlePositionChange = ({ target: { value: dotPosition } }) => this.setState({ dotPosition });
 
     addPostReaction = () =>{
-        const {activity: { post_id, like_status }} = this.state;debugger
+        const {activity: { post_id, like_status }} = this.state;
         const reaction = (like_status ? like_status : 0);
-        const data = { user_id: AuthService.getUserId(), post_id , reaction: (reaction === '1' ? 'like':'dislike') };debugger
+        const data = { user_id: AuthService.getUserId(), post_id , reaction: (reaction === '1' ? 'like':'dislike') };
         showLoader();
         PostCommentsService.addPostReaction(data).then(()=>{
             hideLoader();

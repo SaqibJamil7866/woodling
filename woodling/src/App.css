@@ -253,6 +253,9 @@ html, body, #root {
 .w120{
   width: 120px;
 }
+.w140{
+  width: 140px;
+}
 .w50{
   width: 50% !important;
 }
@@ -399,8 +402,16 @@ html, body, #root {
   margin-right: 20px;
 }
 
+.mr30{
+  margin-right: 30px !important;
+}
+
 .ml15{
   margin-left: 15px !important;
+}
+
+._ml115{
+  margin-left: -115px !important;
 }
 
 .mt10{
@@ -809,6 +820,9 @@ p.explore-user-name {
   margin-bottom: -8px;
 }
 
+.margin-auto {
+  margin: auto !important;
+}
 button.explore-follow-btn {
   margin: auto;
   padding: 1px 12px;

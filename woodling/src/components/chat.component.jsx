@@ -72,10 +72,10 @@ const Chat = () => {
                 hideLoader();
                 if(!docSnapshot.empty){
                     docSnapshot.docs.forEach((element, index, array) => {
-                        const chat = element.data();debugger
+                        const chat = element.data();
                         if(chat && chat.user){
                             isUserOnline(chat.user.user_id).then((status)=>{
-                                chat.status = status;debugger
+                                chat.status = status;
                                 data.push(chat);
                                 if(array && index === array.length - 1){
                                     resolve();
@@ -87,7 +87,7 @@ const Chat = () => {
             });
         });
         
-        hideLoader();debugger
+        hideLoader();
         dispatch({field: 'chatlist', value: data});
     }
 
@@ -290,11 +290,11 @@ const Chat = () => {
     }
 
     const handlePeopleChange = (event) => {
-        dispatch({field:'selectedPeople', value: event.target.value});debugger
+        dispatch({field:'selectedPeople', value: event.target.value});
         if(event.target.value && event.target.value.length > 0){
             const tempUser = event.target.value[0];
             const user = {
-                user_id: tempUser.id,
+                user_id: AuthService.getUserId(),
                 theirid: tempUser.id,
                 picture: tempUser.profile_thumb === ''
                     ? 'https://www.sccpre.cat/mypng/detail/214-2144186_alpesh-m-avatar-thumbnail.png'
@@ -327,21 +327,6 @@ const Chat = () => {
             }
         });
         openChats();
-        // db.collection("circles").get().then(function(querySnapshot) {
-        //     const data = querySnapshot.docs.map(doc => doc.data());
-        //     console.log("Circles: ", data); // array of circles objects
-        // });
-        db.collection("users")
-        .onSnapshot(function(querySnapshot) {
-            const data = querySnapshot.docs.map(doc => doc.data());
-            console.log("users: ", data); // array of users objects
-        });
-
-        // db.collection("users").doc('101').doc('chatlist').get().then(function(querySnapshot) {debugger
-        //     const data = querySnapshot.docs.map(doc => doc.data());
-        //     console.log("Circles: ", data); // array of circles objects
-        // });
-
     }, []);
 
     

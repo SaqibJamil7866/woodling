@@ -19,6 +19,7 @@ import PostingCallsForm from './components/posting-calls-form.component';
 import MarketPlace from './components/market_place.component';
 import Trending from './components/trending.component';
 import Settings from './components/setting.component';
+import Wallet from './components/wallet.component';
 import Search from './components/search.component';
 import Chat from './components/chat.component';
 import MyProfile from './components/my-profile.component';
@@ -43,6 +44,7 @@ function Main(props) {
           <SecuredRoute path='/market_place' component={MarketPlace} />
           <SecuredRoute path='/trending' component={Trending} />
           <SecuredRoute path='/settings' component={Settings} />
+          <SecuredRoute path='/wallet' component={Wallet} />
           <SecuredRoute path='/search' component={Search} />
           <SecuredRoute path='/chat' component={Chat} />
           <SecuredRoute path='/my_profile' component={MyProfile} />

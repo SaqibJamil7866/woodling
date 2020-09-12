@@ -117,7 +117,7 @@ class EventModal extends Component {
 
         showLoader()
         await ActivityStreamService.submitScript(fd)
-        .then((response) => {debugger
+        .then((response) => {
             if(response.data.status !== 'error') {
                 // const res= response.data;
                 ToastsStore.success(response.data.message); 

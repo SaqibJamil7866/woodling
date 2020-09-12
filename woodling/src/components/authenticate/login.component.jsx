@@ -88,7 +88,7 @@ class LoginComponent extends Component {
           hideLoader();
           if(res.data.token){
             cookie.save('token', res.data.token, { path: '/' });
-            cookie.save('currnt_user', res.data.details, { path: '/' });debugger
+            cookie.save('currnt_user', res.data.details, { path: '/' });
             if(!res.data.ftl){
               history.push('/explore_home')
             }
