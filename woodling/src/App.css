@@ -455,6 +455,18 @@ html, body, #root {
   border-top: 1px solid #eeeaea;
 }
 
+.border-red {
+  border: 2px solid #ff0000
+}
+
+.border-bottom-red {
+  border: 2px solid #ff0000
+}
+
+.mt5 {
+  margin-top: 5px;
+}
+
 .gray{
   color: #707070;
 }
@@ -1801,6 +1813,10 @@ p.sdate {
 
 .h165px {
   height: 165px;
+}
+
+.w44 {
+  width: 44%;
 }
 
 .w45 {

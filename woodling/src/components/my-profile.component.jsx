@@ -40,6 +40,7 @@ class MyProfile extends Component {
             follower: false,
             userModal: false,
             ratingModal: false,
+            accountModal: true,
             userModalData: {},
             status: '',
             MyProfile: true
@@ -161,8 +162,15 @@ class MyProfile extends Component {
     closeModal = () => {
         this.setState({userModal: false});
     }
+
+    openAccountModal = () => {
+        this.setState({accountModal: true});
+    }
+    closeAccountModal = () => {
+        this.setState({accountModal: false});
+    }
     render() { 
-        const {status, MyProfile, albums, post, tag, reviews, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts, ratingModal, userTags, userReviews} = this.state;
+        const {status, MyProfile, albums, post, tag, reviews, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts, ratingModal, userTags, userReviews, accountModal} = this.state;
         const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
         return ( 
             <div className='h100p scrolling'>
@@ -181,6 +189,9 @@ class MyProfile extends Component {
                                 openModal={this.openRatingModal}
                                 closeModal={this.closeRatingModal}
                                 id={AuthService.getUserId()}
+                                accountModal={accountModal}
+                                openAccountModal={this.openAccountModal}
+                                closeAccountModal={this.closeAccountModal}
                                 myProfile={MyProfile}
                             />
                         </div>

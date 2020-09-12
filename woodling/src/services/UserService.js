@@ -2,7 +2,7 @@
   
 import axios from 'axios';
 import {AuthService} from './AuthService';
-import { getUserProfileUrl, getUserProfileAlbumUrl, getUserProfileReviewUrl, getUserPostsUrl, getUserTagPostUrl, addReviewUrl, allNotificationUrl} from '../public/endpoins';
+import { getUserProfileUrl, getUserProfileAlbumUrl, getUserProfileReviewUrl, getUserPostsUrl, getUserTagPostUrl, addReviewUrl, allNotificationUrl, getPremiumRateUrl} from '../public/endpoins';
 
 export const UserService = {
 	getUserProfileData,
@@ -11,7 +11,8 @@ export const UserService = {
 	getUserPost,
 	getUserTagPost,
 	addReview,
-	getNotifications
+	getNotifications,
+	getPremiumRate
 };
 
 function getUserProfileData(id) { 
@@ -94,6 +95,19 @@ function addReview(params) {
 function getNotifications() {
 	return new Promise((resolve, reject) => {
 		const url = allNotificationUrl+'?user_id='+AuthService.getUserId();
+		axios.get(url)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((error) => {
+			reject(error);
+		})
+	})
+}
+
+function getPremiumRate() {
+	return new Promise((resolve, reject) => {
+		const url = getPremiumRateUrl+'?user_id='+AuthService.getUserId();
 		axios.get(url)
 		.then((res) => {
 			resolve(res);

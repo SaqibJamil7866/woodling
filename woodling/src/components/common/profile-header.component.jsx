@@ -4,9 +4,10 @@ import RatingStar from './rating-stars.component';
 import convertToFloat from '../../public/helperFunctions';
 import { siteUrl } from '../../public/endpoins';
 import ProfileRating from '../../models/profile-rating.modal.component';
+import AccountModal from '../../models/profile-account-modal.component';
 
 const ProfilePicHeader = (props) => {
-    const {rating, profile_picture, username, full_name,  bio, openModal, closeModal, userModal, id, myProfile} = props;
+    const {rating, profile_picture, username, full_name,  bio, openModal, closeModal, userModal, id, myProfile, openAccountModal, closeAccountModal, accountModal} = props;
     return ( 
         <>
             <div className='d-flex space-between w50p'>
@@ -25,8 +26,8 @@ const ProfilePicHeader = (props) => {
             {myProfile ?             
             <div className='d-flex space-evenly w40 mb10'>
                 <button className="profile-btn"><i className='fa fa-credit-card mr10' />Wallet</button>
-                <button onClick={() => openModal()} className="profile-btn"><i className='fa fa-pencil mr10' />Edit Profile</button>
-                <button className="profile-btn"><i className='fa fa-envelope mr10' />Account</button>
+                <button className="profile-btn"><i className='fa fa-pencil mr10' />Edit Profile</button>
+                <button onClick={openAccountModal} className="profile-btn"><i className='fa fa-envelope mr10' />Account</button>
             </div> 
             :             
             <div className='d-flex space-evenly w40 mb10'>
@@ -39,6 +40,11 @@ const ProfilePicHeader = (props) => {
                             closeModal={closeModal}
                             username={username}
                             id={id}
+                        /> 
+                    : null}
+            {accountModal ? <AccountModal 
+                                openAccountModal={openAccountModal}
+                                closeAccountModal={closeAccountModal}
                         /> 
                     : null}
         </>
