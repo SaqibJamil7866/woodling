@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import RatingStar from './rating-stars.component';
+import history from '../../public/history';
 import convertToFloat from '../../public/helperFunctions';
 import { siteUrl } from '../../public/endpoins';
 import ProfileRating from '../../models/profile-rating.modal.component';
@@ -25,7 +26,7 @@ const ProfilePicHeader = (props) => {
             </div>
             {myProfile ?             
             <div className='d-flex space-evenly w40 mb10'>
-                <button className="profile-btn"><i className='fa fa-credit-card mr10' />Wallet</button>
+                <button className="profile-btn" onClick={()=> history.push('/wallet')}><i className='fa fa-credit-card mr10' />Wallet</button>
                 <button className="profile-btn"><i className='fa fa-pencil mr10' />Edit Profile</button>
                 <button onClick={openAccountModal} className="profile-btn"><i className='fa fa-envelope mr10' />Account</button>
             </div> 
