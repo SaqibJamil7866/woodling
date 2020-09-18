@@ -61,34 +61,32 @@ const Chat = () => {
     const { activeSection, circles, chatlist, circleForModal, allSkills, selectedSkills, circleMemberModal, 
         allMembers, selectedMembers, uploadImage, showImage, privacy, circle_name, user_id,
         create_new, openGroupChat, openSingleChat, selectedCircle, selectedChat, tagPeople, selectedPeople } = state;
-
-    async function openChats(){
+    
+    const chatListref = db.collection('users').doc(AuthService.getUserId()).collection('chatlist');
+    
+    function openChats(){
         dispatch({field: 'activeSection', value: 'chat'});
-        const chatListref = db.collection('users').doc(AuthService.getUserId()).collection('chatlist');
+        dispatch({field:'create_new', value: ''});
         const data = [];
         showLoader();
-        await new Promise((resolve, reject) => {
-            chatListref.onSnapshot(docSnapshot => {
-                hideLoader();
-                if(!docSnapshot.empty){
-                    docSnapshot.docs.forEach((element, index, array) => {
-                        const chat = element.data();
-                        if(chat && chat.user){
-                            isUserOnline(chat.user.user_id).then((status)=>{
-                                chat.status = status;
-                                data.push(chat);
-                                if(array && index === array.length - 1){
-                                    resolve();
-                                }
-                            });
-                        }
-                    });
-                }
-            });
+        chatListref.get().then(docSnapshot => {
+            hideLoader();
+            if(!docSnapshot.empty){
+                docSnapshot.docs.forEach((element, index, array) => {
+                    const chat = element.data();
+                    if(chat && chat.user){
+                        isUserOnline(chat.user.user_id).then((status)=>{
+                            chat.status = status;
+                            data.push(chat);
+                            if(array && index === array.length - 1){
+                                hideLoader();
+                                dispatch({field: 'chatlist', value: data});
+                            }
+                        });
+                    }
+                });
+            }
         });
-        
-        hideLoader();
-        dispatch({field: 'chatlist', value: data});
     }
 
     async function isUserOnline(userId){
@@ -106,6 +104,7 @@ const Chat = () => {
 
     const openCircles = () => {
         dispatch({field: 'activeSection', value: 'circle'});
+        dispatch({field:'create_new', value: ''});
         showLoader();
         db.collection("circles").get().then(function(querySnapshot) {
             hideLoader();
@@ -167,6 +166,7 @@ const Chat = () => {
 
     const createCircle = (event) => {
         const path = 'https://image.flaticon.com/icons/png/512/69/69589.png';
+        // const path = uploadImage === '' ? 'https://image.flaticon.com/icons/png/512/69/69589.png' : `${picUrl}${uploadImage.name}`;
         const date_created = Date.now();
         const groupkey = uuid();
         let members = [];
@@ -251,7 +251,7 @@ const Chat = () => {
                 : `${chat.user.picture}`,
             name: chat.user.name,
             text: chat.text,
-            statue: chat.statue,
+            statue: chat.statue ? chat.statue : '',
             createdAt: chat.createdAt
         };
         dispatch({field:'selectedChat', value: user});
@@ -290,20 +290,25 @@ const Chat = () => {
     }
 
     const handlePeopleChange = (event) => {
-        dispatch({field:'selectedPeople', value: event.target.value});
+        // dispatch({field:'selectedPeople', value: event.target.value});
+        dispatch({field:'create_new', value: ''});
         if(event.target.value && event.target.value.length > 0){
             const tempUser = event.target.value[0];
-            const user = {
-                user_id: AuthService.getUserId(),
-                theirid: tempUser.id,
-                picture: tempUser.profile_thumb === ''
+            const chatObj = {
+                createdAt: Date.now(),
+                text: '',
+                user: {
+                    name: tempUser.full_name,
+                    picture: tempUser.profile_thumb === ''
                     ? 'https://www.sccpre.cat/mypng/detail/214-2144186_alpesh-m-avatar-thumbnail.png'
                     : `${picUrl}/${tempUser.profile_thumb}`,
-                name: tempUser.full_name
-            };
-            dispatch({field:'selectedChat', value: user});
-            dispatch({field:'openGroupChat', value: false});
-            dispatch({field:'openSingleChat', value: true});
+                    user_id: tempUser.id
+                }
+            }
+            chatListref.doc(tempUser.id).set(chatObj).then((res)=>{
+                openChats(); // update the chatlist
+                openChatMessaging(chatObj);
+            });
         }
     }
 
@@ -365,7 +370,7 @@ const Chat = () => {
                                 </div>
                                 <div className="col-md-8 flex h60">
                                     <div>
-                                        <img className='mt5 w50px brad-40' src={circle.path} alt='circle img' />
+                                        <img className='mt5 w50px brad-40' onError={onCrash} src={circle.path} alt='circle img' />
                                     </div>
                                     <div className="h30">
                                         <b title={circle.circle_name}>{circle.circle_name && circle.circle_name.length > 13 ? 
@@ -397,9 +402,9 @@ const Chat = () => {
                                 </div>
                                 <div className="col-md-9 flex">
                                     <div>
-                                        <img className='mt5 w50px brad-40' src={chat.user.picture} alt='profile' />
+                                        <img className='mt5 w50px h50 brad-40' onError={onCrash} src={chat.user.picture} alt='profile' />
                                     </div>
-                                    <div className="h30">
+                                    <div className="h30 w50">
                                         <b title={chat.user.name}>{chat.user.name && chat.user.name.length > 13 ? 
                                             (((chat.user.name).substring(0, 10)) + '...') : chat.user.name}
                                         </b>
