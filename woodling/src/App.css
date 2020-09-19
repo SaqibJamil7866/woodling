@@ -478,6 +478,10 @@ html, body, #root {
   border: 2px solid #ff0000
 }
 
+.border-bottom-gray {
+  border-bottom: 1px solid gray;
+}
+
 .mt5 {
   margin-top: 5px;
 }
@@ -1805,6 +1809,31 @@ p.sdate {
 
 .noDisplay {
   display: none;
+}
+
+.addFundsBtn {
+  background-color: #ff0000;
+  border-radius: 10px;
+  border: 3px solid #fff;
+  position: absolute;
+  right: 70px;
+  bottom: 25px;
+}
+
+.paypalBtn{
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #bcb3b3;
+  position: absolute;
+  right: 44%;
+  bottom: 15%;
+}
+
+.addPopupFundsBtn {
+  background-color: #ff0000;
+  border-radius: 10px;
+  border: 3px solid #fff;
+  position: absolute;
 }
 
 .load-btn {
