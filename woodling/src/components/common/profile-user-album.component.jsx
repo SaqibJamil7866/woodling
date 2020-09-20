@@ -7,7 +7,7 @@ const UserAlbum = (props) => {
         <div className="container">
             <div className="row">
                 {userAlbum && userAlbum.map((i, index) => {
-                    return <div className="col-md-4 mt20 border-radius-20">
+                    return <div key={index} className="col-md-4 mt20 border-radius-20">
                         {i.type==='video' ? <div>
                                                 <i className='fa fa-video-camera video-camera-icon p-absolute' />
 
