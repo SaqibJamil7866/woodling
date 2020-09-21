@@ -48,6 +48,7 @@ class Profile extends Component {
     async componentDidMount(){
         showLoader();
         const data = history.location.state.data;
+        const people = history.location.state.people;
         await UserService.getUserProfileData(data.id)
         .then((res)=>{
             this.setState({userData: res.data.data, userExperience: res.data.user_experience, rolesData: res.data.user_roles, status: res.data.status});
@@ -162,7 +163,7 @@ class Profile extends Component {
     }
 
     render(){
-        const {status, albums, post, tag, reviews, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts, ratingModal, userTags, userReviews} = this.state;
+        const {people, status, albums, post, tag, reviews, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts, ratingModal, userTags, userReviews} = this.state;
         const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count, following_status} = this.state.userData;
         return(
             <div className='h100p scrolling'>
@@ -176,7 +177,7 @@ class Profile extends Component {
                                 profile_picture={profile_picture}
                                 username={username}
                                 full_name={full_name}
-                                bio={bio}
+                                bio={people ? 'No Bio Found' : bio}
                                 userModal={ratingModal}
                                 openModal={this.openRatingModal}
                                 closeModal={this.closeRatingModal}

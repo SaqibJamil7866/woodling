@@ -43,7 +43,7 @@ const ProfilePicHeader = (props) => {
     return ( 
         <>
             <div className='d-flex space-between w50p'>
-                <div className='w100p'>
+                <div className='w55p'>
                     <RatingStar rating={convertToFloat(rating)} />
                 </div>
                 <div className='d-flex align-item flex-dir-col'>

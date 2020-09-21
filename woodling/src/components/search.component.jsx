@@ -265,7 +265,12 @@ class Search extends Component {
     }
 
     handlePeopleLink = () => {
+        console.log('people', this.state.peoples)
         this.setState({latest: false, posts: false, products: false, services: false, castingCalls: false, people: true, events: false, hashtags: false, places: false})
+    }
+
+    openProfile = (data) => {
+        console.log(data);
     }
     
     handleEventsLink = () => {
@@ -361,6 +366,7 @@ class Search extends Component {
                         handleCastingCallLink={this.handleCastingCallLink}
                         onCrash={this.onCrash}
                         peoples={peoples}
+                        profile={this.openProfile}
                         everything={everything}
                         loadMoreLatest={this.loadMoreLatest}
                         scrollRef={scrollRef}

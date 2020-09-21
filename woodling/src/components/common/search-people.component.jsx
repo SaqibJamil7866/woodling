@@ -1,8 +1,16 @@
 import React from 'react';
 import FollowersAndFollowingCard from './followers_and_following-card.component';
+import history from '../../public/history';
 
 const SearchPeople = (props) => {
-    const { onCrash, peoples, people, scrollRef, loadMorePeople } = props;
+    const { onCrash, peoples, people, scrollRef, loadMorePeople, profile } = props;
+    const openProfile = (data) => {
+        console.log(data)
+        history.push({
+            pathname: '/user_profile',
+            state: { data, people }
+        })
+    }
     return ( 
         <div className="container">
             <div className="row">
@@ -18,6 +26,7 @@ const SearchPeople = (props) => {
                                 username={i.username}
                                 bio={i.bio}
                                 people={people}
+                                profile={() => openProfile(i)}
                             />;
                 })}
                 {peoples && peoples.length!==0 ? (

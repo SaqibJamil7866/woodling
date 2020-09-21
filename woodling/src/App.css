@@ -711,6 +711,10 @@ html, body, #root {
   align-self: center;
 }
 
+.w55p {
+  width: 55% !important;
+}
+
 .w55{
   width: 55px !important;
 }
