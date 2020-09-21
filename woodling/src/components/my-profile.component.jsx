@@ -40,7 +40,7 @@ class MyProfile extends Component {
             follower: false,
             userModal: false,
             ratingModal: false,
-            accountModal: true,
+            accountModal: false,
             userModalData: {},
             status: '',
             MyProfile: true
