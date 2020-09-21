@@ -16,8 +16,13 @@ const Messaging = (props) => {
 
         const chatNotification = db.collection('users').doc(theirid).collection('unreadMsg');
         chatNotification.get().then(querySnapshot => {
-          const count = querySnapshot.data();
-          chatNotification.set(count + 1);
+            let count = 0 ;
+            querySnapshot.forEach(element => {
+                if(element.data() && typeof element.data().count === 'number'){
+                    count = element.data().count;
+                }
+            });
+            chatNotification.doc("chatMsgCount").set({count: count + 1});
         });
         
         const ref = db.collection('users').doc(user_id)
@@ -25,8 +30,7 @@ const Messaging = (props) => {
         .doc(theirid)
         .collection('messages');
     
-        const theirref = db.collection('users')
-        .doc(theirid)
+        const theirref = db.collection('users').doc(theirid)
         .collection('chats')
         .doc(user_id)
         .collection('messages');
@@ -41,8 +45,6 @@ const Messaging = (props) => {
         console.log(newMessage);
         ref.add(newMessage);
         theirref.add(newMessage);
-        // this.ref.add(chats);
-        // this.chatlistref.set(messages[0]);
     }
 
     const getFireStoreData = () => {
@@ -56,28 +58,14 @@ const Messaging = (props) => {
 
             theirr.set({ read: true });
             const refStatus = db.collection('users').doc(theirid);
-            debugger;
-            refStatus.get().then(result => {
-                setUserStatus(result._data.user_status);
-            });
-        
-            refStatus.onSnapshot(
-                docSnapshot => {
-                console.log('Received doc snapshot: ', docSnapshot);
-                console.log(
-                    'Firestore User id : ',
-                    docSnapshot._ref._documentPath._parts[1],
-                );
-                try {
-                    setUserStatus(docSnapshot._data.user_status)
-                } catch (err) {
-                    setUserStatus('offline')
+            refStatus.onSnapshot(res=>{
+                if(res.data()){
+                    setUserStatus(res.data().user_status);
                 }
-                },
-                err => {
-                console.log(`Encountered error: ${err}`);
-                },
-            );
+                else{
+                    setUserStatus('offline');
+                }
+            });
         
             const ref = db.collection('users').doc(user_id)
                 .collection('chats')
@@ -110,6 +98,9 @@ const Messaging = (props) => {
                         if(theirData){
                             user.name = theirData.full_name;
                             user.picture = picUrl + '/' + theirData.profile_picture;
+                        }
+                        if(!user.statue){
+                            user.statue = '';
                         }
                         const datum = { text, createdAt, user };
                         chatlistref.set(datum);

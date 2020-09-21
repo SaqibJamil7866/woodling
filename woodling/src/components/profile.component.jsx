@@ -163,7 +163,7 @@ class Profile extends Component {
 
     render(){
         const {status, albums, post, tag, reviews, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts, ratingModal, userTags, userReviews} = this.state;
-        const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
+        const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count, following_status} = this.state.userData;
         return(
             <div className='h100p scrolling'>
                 <div className="row m0">
@@ -181,6 +181,7 @@ class Profile extends Component {
                                 openModal={this.openRatingModal}
                                 closeModal={this.closeRatingModal}
                                 id={history.location.state.data.id}
+                                following_status={following_status}
                             />
                         </div>
                         <div className='border-bottom'>

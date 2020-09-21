@@ -7,7 +7,6 @@ import { SettingService } from '../../services/Setting';
 import { AuthService } from '../../services/AuthService';
 import convertToFloat from '../../public/helperFunctions';
 import BlockedModal from '../../models/blocked-modal.component';
-import { FollowService } from '../../services/FollowService';
 
 class EditPrivacy extends Component {
     state = { privacy: [], modal: false, blocked: [], status: '' }

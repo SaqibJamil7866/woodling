@@ -16,8 +16,8 @@ const AccountModal = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const { price, data } = state;
 
-    useEffect(async() => {
-        await UserService.getPremiumRate()
+    useEffect(() => {
+        UserService.getPremiumRate()
         .then((res) => {
             dispatch({field: 'price', value: res.data.premium_pricing})
         }).catch((e)=>console.error("error: "+ e));
@@ -29,13 +29,13 @@ const AccountModal = (props) => {
         console.log('Yearly', data.price)
     }
     
-    const { openAccountModal, closeAccountModal } = props;
+    const { accountModal, openAccountModal, closeAccountModal } = props;
     return ( 
         <Modal
             size="md"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            show={openAccountModal}
+            show={accountModal}
             onHide={closeAccountModal}
         >
             <Modal.Body>

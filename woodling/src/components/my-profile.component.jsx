@@ -159,6 +159,7 @@ class MyProfile extends Component {
     openModal = (data) => {
         this.setState({userModal: true, userModalData: data});
     }
+
     closeModal = () => {
         this.setState({userModal: false});
     }
@@ -166,9 +167,11 @@ class MyProfile extends Component {
     openAccountModal = () => {
         this.setState({accountModal: true});
     }
+
     closeAccountModal = () => {
         this.setState({accountModal: false});
     }
+
     render() { 
         const {status, MyProfile, albums, post, tag, reviews, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts, ratingModal, userTags, userReviews, accountModal} = this.state;
         const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
