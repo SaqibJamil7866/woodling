@@ -21,7 +21,7 @@ class Wallet extends Component {
         if(funds){
             history.push({
                 pathname: '/paymentoptions',
-                val: {funds}
+                val: funds
             })
         }
         else{
