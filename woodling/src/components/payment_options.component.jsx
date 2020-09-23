@@ -13,7 +13,7 @@ class PaymentOptions extends Component {
         this.state = {
             config: {
                 reference: (new Date()).getTime(),
-                email: "user@example.com",
+                email: "Woodlighub@gmail.com",
                 amount: 20000,
                 publicKey: 'pk_live_e5cf7c70710f65e70bad88bbced413bcbc0b300b',
             }

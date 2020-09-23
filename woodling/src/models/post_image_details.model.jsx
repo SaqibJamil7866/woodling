@@ -47,16 +47,6 @@ class PostImageDetailsModelContent extends React.Component {
 
     handlePositionChange = ({ target: { value: dotPosition } }) => this.setState({ dotPosition });
 
-    addPostReaction = () =>{
-        const {activity: { post_id, like_status }} = this.state;
-        const reaction = (like_status ? like_status : 0);
-        const data = { user_id: AuthService.getUserId(), post_id , reaction: (reaction === '1' ? 'like':'dislike') };
-        showLoader();
-        PostCommentsService.addPostReaction(data).then(()=>{
-            hideLoader();
-        })
-    }
-
     sharePost = () => {
         const {activity: { post_id }} = this.state;
         showLoader();
@@ -91,7 +81,7 @@ class PostImageDetailsModelContent extends React.Component {
                         </button>
                     </div>
                     <div className='post-like-btn'>
-                        <a onClick={this.addPostReaction} className="post-like-top" ><i className={`fa ${ (activity.like_status && activity.like_status !== '0') ? 'fa-heart' : 'fa-heart-o'}`} /></a>
+                        <a onClick={()=>this.props.addPostReaction(this.props.postData)} className="post-like-top" ><i className={`fa ${ (activity.like_status && activity.like_status !== '1' && activity.like_status !== 1) ? 'fa-heart-o' : 'fa-heart'}`} /></a>
                     </div>
                     <div className="attachment-share">
                         <div className="more-icon">
