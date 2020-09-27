@@ -192,8 +192,8 @@ html, body, #root {
 }
 
 .forced_center {
-  display:grid;
-  place-items:center;
+  display:grid !important;
+  place-items:center !important;
 }
 
 .inline-block{
@@ -794,7 +794,9 @@ html, body, #root {
 .p-absolute {
   position: absolute;
 }
-
+.w48p{
+  width: 48% !important;
+}
 .w50p {
   width: 50% !important;
 }
@@ -1804,6 +1806,12 @@ p.sdate {
   padding-right: 20px !important;
 }
 
+.m5{
+  margin: 5px !important;
+}
+.m10{
+  margin: 10px !important;
+}
 .mt-15 {
   margin-top: -15px !important;
 }
@@ -2200,7 +2208,7 @@ p.sdate {
 }
 
 .h200 {
-  height: 200px ;
+  height: 200px;
 }
 
 .w5 {
@@ -2228,6 +2236,9 @@ p.sdate {
   margin-top: -45px;
 }
 
+.min-h150{
+  min-height: 150px !important;
+}
 .h150 {
   height: 150px;
 }

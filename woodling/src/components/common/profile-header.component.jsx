@@ -39,6 +39,10 @@ const ProfilePicHeader = (props) => {
             });
         }
     }
+
+    const onCrash = (e) =>{
+        e.currentTarget.src='https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png';
+    }
     
     return ( 
         <>
@@ -48,7 +52,7 @@ const ProfilePicHeader = (props) => {
                 </div>
                 <div className='d-flex align-item flex-dir-col'>
                     <div className='m-50 border-radius60 w30'>
-                        <img className='border-radius60 h100 w100p' src={siteUrl+""+profile_picture} alt="profile img" />
+                        <img className='border-radius60 h100 w100p' onError={onCrash} src={siteUrl+""+profile_picture} alt="profile img" />
                     </div>
                     <h1 className='fs30 poppins'>{full_name}</h1>
                     <p>{bio}</p>

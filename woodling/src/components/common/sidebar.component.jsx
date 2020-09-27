@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import 'font-awesome/css/font-awesome.min.css';
+import cookie from 'react-cookies';
 import AlertModal from '../../models/alert.modal.component';
 import { ReactComponent as HomeIcon } from '../../assets/home-alt.svg';
 import { ReactComponent as TrendingIcon } from '../../assets/discovery-unselected.svg';
@@ -14,6 +15,7 @@ import { ReactComponent as BellIcon } from '../../assets/bell.svg';
 import { ReactComponent as CogIcon } from '../../assets/cog.svg';
 import { ReactComponent as MainSearchIcon } from '../../assets/search.svg';
 import { ReactComponent as DotsIcon } from '../../assets/dots.svg';
+import { ReactComponent as PoweroffIcon } from '../../assets/power-off-solid.svg';
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 import { UserService } from '../../services/UserService';
 
@@ -36,34 +38,40 @@ class SideNav extends React.Component {
             activePath: props.location.pathname,
             topIcons: [
                 {
+                    path: '/login', /* path is used as id to check which NavItem is active basically */
+                    name: 'Logout',
+                    imgsrc: (<PoweroffIcon alt="Logout icon" title="Logout" height="30px" />),
+                    key: 1 /* Key is required, else console throws error. Does this please you Mr. Browser?! */
+                },
+                {
                   path: '/home', /* path is used as id to check which NavItem is active basically */
                   name: 'Home',
                   imgsrc: (<HomeIcon alt="Home icon" title="Home" height="30px" />),
-                  key: 1 /* Key is required, else console throws error. Does this please you Mr. Browser?! */
+                  key: 2 /* Key is required, else console throws error. Does this please you Mr. Browser?! */
                 },
                 {
                   path: '/trending',
                   name: 'Trending',
                   imgsrc: (<TrendingIcon alt="Trending icon" title="Trending" height="30px" width="30px" />),
-                  key: 2
+                  key: 3
                 },
                 {
                   path: '/casting_calls',
                   name: 'Casting Calls',
                   imgsrc: (<CallsIcon alt="Calls icon" title="Calls" height="35px" />),
-                  key: 3
+                  key: 4
                 },
                 {
                   path: '/search_talent',
                   name: 'Talent Search',
                   imgsrc: (<SearchIcon alt="Search icon" title="Search" height="30px" />),
-                  key: 4
+                  key: 5
                 },
                 {
                     path: '/market_place',
                     name: 'Market Place',
                     imgsrc: (<MarketplaceIcon alt="Market icon" title="Marketplace" height="30px" />),
-                    key: 5
+                    key: 6
                 }
             ],
             bottomIcons: [
@@ -178,21 +186,29 @@ class NavItem extends React.Component {
             notificationData: []
         }
     }
+
     componentDidMount() {
         UserService.getNotifications()
         .then((res) => {
             this.setState({notificationData: res.data.notifications})
         }).catch(e => console.log(e))
     }
+
     onCrash = (e) => {
         e.currentTarget.src='https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'
     }
+
     handleClick = (e) => {
         const { path, onItemClick } = this.props;
         if(path === '/alerts'){ // Don't navigate on alert's icon click
             e.preventDefault();
             this.setState({showAlert: true})
         }
+        else if(path ==='/login'){
+            cookie.save('token', '');
+            cookie.save('current_user', '');
+        }
+
         onItemClick(path);
     }
 

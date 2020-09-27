@@ -82,12 +82,14 @@ class Profile extends Component {
         await FollowService.getUSerFollowiers(data.id)
         .then((res) => {
             this.setState({userFollowers: res.data.data, status: res.data.status}, () => {
-                this.state.userFollowers.map((i, index) => {
-                    UserService.getUserProfileData(i.id)
-                    .then((res) => {
-                        this.state.followerId.push(res.data.data)
+                if(this.state.userFollowers){
+                    this.state.userFollowers.map((i, index) => {
+                        UserService.getUserProfileData(i.id)
+                        .then((res) => {
+                            this.state.followerId.push(res.data.data)
+                        })
                     })
-                })
+                }
             })
         }).catch((e)=>console.error("error: "+ e))
 

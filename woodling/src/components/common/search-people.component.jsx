@@ -5,7 +5,6 @@ import history from '../../public/history';
 const SearchPeople = (props) => {
     const { onCrash, peoples, people, scrollRef, loadMorePeople, profile } = props;
     const openProfile = (data) => {
-        console.log(data)
         history.push({
             pathname: '/user_profile',
             state: { data, people }

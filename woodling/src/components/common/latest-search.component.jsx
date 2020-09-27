@@ -5,7 +5,7 @@ import convertToFloat from '../../public/helperFunctions';
 import Post from './post.component';
 
 const LatestSearch = (props) => {
-    const {peoples, scrollRef, onCrash, everything, loadMorePeople, loadMoreLatest} = props;
+    const {peoples, scrollRef, onCrash, everything, loadMorePeople, loadMoreLatest, openProfile} = props;
     return ( 
         <div className='container p0'>
             <div className='row'>
@@ -13,7 +13,7 @@ const LatestSearch = (props) => {
                     <div className='d-flex clr__white scrolling-x'>
                         {peoples.map((i, index) => {
                             return (
-                                <div key={index} className='d-flex flex-dir-col align-items-center justify-content-center p5'>  
+                                <div key={index} onClick={()=>openProfile(i)} className='d-flex flex-dir-col align-items-center justify-content-center p5'>  
                                     <div className='d-flex justify-content-center'>
                                         <img onError={onCrash} className='border-radius60 w108 h108' src={picUrl+""+i.profile_thumb} alt='thumbnail pic' />
                                     </div>

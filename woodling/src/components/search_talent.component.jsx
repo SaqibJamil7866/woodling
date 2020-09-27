@@ -138,12 +138,11 @@ class SearchTalent extends React.Component {
     }
 
     openProfile(data){
-        console.log("open Profile: ", data);
+        console.log("old Profile: ", data);
         history.push({
             pathname: '/user_profile',
             state: { data }
         })
-
     }
 
     applySearchFilterTalent(data, age){
@@ -181,7 +180,7 @@ class SearchTalent extends React.Component {
 
                 <div className="row d-flex m0">
                     <div className="col-md-8 br-white pl100">
-                        <TalentBar title="Featured Talents of the week" featuredTalents={featuredTalents} />
+                        <TalentBar title="Featured Talents of the week" featuredTalents={featuredTalents} openProfile={this.openProfile} />
                         <div className='mt20'>
                             {allTalents && allTalents.map((talent)=>{
                                 return <TalentCard key={talent.id} talent={talent} openProfile={this.openProfile} />

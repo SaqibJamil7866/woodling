@@ -16,7 +16,7 @@ const SearchResult = (props) => {
         handlePeopleLink, handleProductLink, handleCastingCallLink, onCrash,
         peoples, everything, loadMoreLatest, loadMorePeople, scrollRef, post, loadMorePost, castingCall, loadMoreCastingCalls,
         allProducts, loadMoreProducts, allServices, loadMoreServices, allTags, handleHastagPost, tagName, handleHastagBack, tagPosts,
-        allEvents, loadMoreEvents, allPlace
+        allEvents, loadMoreEvents, allPlace, openProfile
     } = props;
     return ( 
         <div className='ml100 mt10 p20 w100p'>
@@ -52,6 +52,7 @@ const SearchResult = (props) => {
                             scrollRef={scrollRef}
                             peoples={peoples}
                             onCrash={onCrash}
+                            openProfile={openProfile}
                         />
                     )  : null}
                     {posts ? (
