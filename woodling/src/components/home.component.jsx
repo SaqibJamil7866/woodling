@@ -6,6 +6,7 @@ import Post from './common/post.component';
 import { showLoader, hideLoader } from '../public/loader';
 import { ReactComponent as AddButtonIcon } from '../assets/add-button.svg';
 import OnlineStatusCard from './common/online_status_card.component';
+import { AuthService } from '../services/AuthService'; 
 import ExploreCard from './common/explore_card.component';
 import { ActivityStreamService } from '../services/ActivityStreamService';
 import { FollowService } from '../services/FollowService';
@@ -89,6 +90,31 @@ function Home() {
         dispatch({field: 'showProductModal', value: false});
     }
 
+    const followUnfollowUser = (index) => {
+        const data = { user_id: AuthService.getUserId(), follower_id: followers[index].id};
+        showLoader();
+        if(followers[index].follow_status){
+            FollowService.unfollowUser(data).then((res)=>{
+                hideLoader();
+                if(res.data.status !== 'error'){
+                    followers[index].follow_status = false;
+                    dispatch({field: 'followers', value: followers});
+                    ToastsStore.success(res.data.message);
+                }
+            });
+        }
+        else{
+            FollowService.followUser(data).then((res)=>{
+                hideLoader();
+                if(res.data.status !== 'error'){
+                    followers[index].follow_status = true;
+                    dispatch({field: 'followers', value: followers});
+                    ToastsStore.success(res.data.message);
+                }
+            });
+        }
+    }
+
     useEffect(() => {
         showLoader();
         Promise.all([ActivityStreamService.getActivityStreams(1), FollowService.getUSerFollowiers(), ActivityStreamService.searchPeople()])
@@ -113,6 +139,15 @@ function Home() {
         .catch((e)=>console.error("error: "+ e))
         .then(() => hideLoader());
     }, []);
+
+    const updatePosts = () => {
+        ActivityStreamService.getActivityStreams(1).then((res)=>{
+            if(res.status !== 'error'){
+                dispatch({field: 'posts', value: res.data.data});
+                dispatch({field: 'page', value: 2});
+            }
+        })
+    }
 
     const loadMorePosts = () => {
         ActivityStreamService.getActivityStreams(page).then((res)=>{
@@ -152,7 +187,7 @@ function Home() {
                             useWindow={false}
                             threshold={10}
                         >
-                            <Post posts={posts} />
+                            <Post posts={posts} updatePosts={updatePosts} />
                         </InfiniteScroll>
                         <div className="fixedbutton">
                             <AddButtonIcon height="50px" width="50px" />
@@ -165,7 +200,7 @@ function Home() {
                     </div>
                     {/* <OnlineStatusCard /> */}
                     <div className="mt10 mb10">
-                        <ExploreCard followers={followers} />
+                        <ExploreCard followers={followers} followUnfollowUser={followUnfollowUser} />
                     </div>
                 </div>
             </div>

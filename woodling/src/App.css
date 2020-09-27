@@ -191,6 +191,11 @@ html, body, #root {
   margin-right: auto;
 }
 
+.forced_center {
+  display:grid;
+  place-items:center;
+}
+
 .inline-block{
   display: inline-block !important;
 }
@@ -1824,6 +1829,31 @@ p.sdate {
   bottom: 25px;
 }
 
+.post_options_btn{
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #f1f1f1;
+}
+.Demo__some-network {
+  vertical-align: top;
+  display: inline-block;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.Demo__some-network__share-button {
+  cursor: pointer;
+}
+
+.Demo__some-network__share-button:hover:not(:active) {
+  opacity: 0.75;
+}
+
+.Demo__some-network__custom-icon {
+  width:32px;
+  height:32px;
+}
+
 .paypalBtn{
   background-color: #fff;
   border-radius: 10px;
@@ -2092,6 +2122,10 @@ p.sdate {
   padding-bottom: 17px !important;
 }
 
+.pb5 {
+  padding-bottom: 5px !important;
+}
+
 .pb10 {
   padding-bottom: 20px !important;
 }
@@ -2314,6 +2348,9 @@ p.sdate {
 
 .fw600 {
   font-weight: 600;
+}
+.fw700 {
+  font-weight: 700;
 }
 
 .position-fixed {

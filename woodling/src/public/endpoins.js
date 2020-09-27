@@ -36,6 +36,8 @@ export const getUserProfileReviewUrl = `${baseUrl}/fetch-user-review.php`;
 export const getUserPostsUrl = `${baseUrl}/fetch-user-posts.php`;
 export const addPostReactionUrl = `${baseUrl}/add-post-reaction.php`;
 export const sharePostUrl = `${baseUrl}/share-post.php`;
+export const deletePostUrl = `${baseUrl}/delete-post.php`;
+export const reportPostUrl = `${baseUrl}/report-post.php`;
 
 // User Tag Post endpoints
 export const getUserTagPostUrl = `${baseUrl}/fetch-user-tagged-posts.php`;

@@ -37,6 +37,7 @@
     "react-paystack": "^3.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-share": "^4.3.0",
     "react-star-ratings": "^2.3.0",
     "react-toasts": "^3.0.6",
     "react-uuid": "^1.0.2",

@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-indent */
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import Moment from 'react-moment';
 import { picUrl } from '../../public/endpoins';
 import { AuthService } from '../../services/AuthService';
 import { PostCommentsService } from '../../services/PostCommentService';
@@ -9,18 +10,43 @@ import { showLoader, hideLoader } from '../../public/loader';
 import { ReactComponent as DotCircleIcon } from '../../assets/dot-circle.svg';
 import { ReactComponent as ShareIcon } from '../../assets/share-alt.svg';
 import { ReactComponent as LinkIcon } from '../../assets/link.svg';
+import SharePostModal from '../../models/share-post-modal';
+import { copyToClipboard } from '../../public/helperFunctions';
+import PostOptionModal from '../../models/post-option-modal';
 import PostImageDetailsModelContent from '../../models/post_image_details.model';
 
 function Post(props) {
 
     const [postDetailData, setPostDetailData] = useState({showModal:false, postData: 'love', postType: ''});
+    const [showSharePostModel, setShowSharePostModel] = useState(false);
+    const [showPostOptonsModel, setShowPostOptonsModel] = useState(false);
 
     function openDetailsModal(postData, type){
         setPostDetailData({...postDetailData, showModal:true, postData, postType:type });
     }
 
+    function openPostOptonsModel(post){
+        postDetailData.selectedPost = post;
+        setPostDetailData({...postDetailData});
+        setShowPostOptonsModel(true);
+    }
+
     function closeModal(){
         setPostDetailData({showModal:false, postData: '', postType: '' });
+    }
+
+    function updateOnDeletePost(){
+        props.updatePosts();
+        if(postDetailData?.showModal){
+            closeModal();
+        }
+    }
+
+    const sharePost = () => {
+        setShowSharePostModel(true);
+    }
+    const copy_to_clipboard = (text) =>{
+        copyToClipboard(text);
     }
 
     const addPostReaction = (postData) =>{
@@ -66,6 +92,9 @@ function Post(props) {
                                         <i className="fa fa-comment-o" title="Comment" />
                                         <span className="badge  mr20">{prop.comments}</span>
                                     </span>
+                                    <span className="mr20 gray">
+                                        <Moment fromNow>{new Date(prop.date_created * 1000)}</Moment>
+                                    </span>
                                 </div>
                             </div>
                             <div className={prop.path ? "col-md-6 p0" : 'col-md-2'}>
@@ -73,9 +102,9 @@ function Post(props) {
                                     {prop.path!==null ? <img onError={props.onCrash} className="brad-10 post-image absolute" src={picUrl+prop.path} alt="authore pic" /> : null}
                                 </div>
                                 <div className="float-right">
-                                    <DotCircleIcon className="profile-icons" />
-                                    <ShareIcon className="profile-icons" />
-                                    <LinkIcon className="profile-icons" />
+                                    <DotCircleIcon onClick={()=>openPostOptonsModel(prop)} className="profile-icons" />
+                                    <ShareIcon onClick={sharePost} className="profile-icons" />
+                                    <LinkIcon onClick={()=>{copy_to_clipboard(prop.caption+' '+prop.body)}} className="profile-icons" />
                                 </div>
                             </div>
                         </div>
@@ -99,6 +128,9 @@ function Post(props) {
                                         <i className="fa fa-comment-o" title="Comment" />
                                         <span className="badge  mr20">{prop.comments}</span>
                                     </span>
+                                    <span className="mr20 gray">
+                                        <Moment fromNow>{new Date(prop.date_created * 1000)}</Moment>
+                                    </span>
                                 </div>
                             </div>
                             <div className={prop.path ? "col-md-6 p0" : 'col-md-2'}>
@@ -106,9 +138,9 @@ function Post(props) {
                                     {prop.path!==null ? <img onError={props.onCrash} className="brad-10 post-image absolute" src={picUrl+prop.path} alt="authore pic" /> : null}
                                 </div>
                                 <div className="float-right">
-                                    <DotCircleIcon className="profile-icons" />
-                                    <ShareIcon className="profile-icons" />
-                                    <LinkIcon className="profile-icons" />
+                                    <DotCircleIcon onClick={()=>openPostOptonsModel(prop)} className="profile-icons" />
+                                    <ShareIcon onClick={sharePost} className="profile-icons" />
+                                    <LinkIcon onClick={()=>{copy_to_clipboard(prop.caption+' '+prop.body)}} className="profile-icons" />
                                 </div>
                             </div>
                         </div>
@@ -126,13 +158,27 @@ function Post(props) {
                 onHide={closeModal}
             >
                 <Modal.Body>
-                    <PostImageDetailsModelContent postData={postDetailData.postData} addPostReaction={addPostReaction} closeModal={closeModal} />
+                    <PostImageDetailsModelContent 
+                        postData={postDetailData.postData} 
+                        addPostReaction={addPostReaction} 
+                        closeModal={closeModal} 
+                        sharePost={sharePost}
+                        copy_to_clipboard={copy_to_clipboard}
+                        openPostOptonsModel={openPostOptonsModel}
+                    />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={closeModal}>Close</Button>
                 </Modal.Footer>
             </Modal>
 
+            <SharePostModal title="Share Post" sharedUrl={window.location.href} showModel={showSharePostModel} hideShareModel={()=> setShowSharePostModel(false)} />
+            <PostOptionModal
+                showModal={showPostOptonsModel}
+                hideModel={()=>setShowPostOptonsModel(false)}
+                post={postDetailData?.selectedPost}
+                updatePosts={updateOnDeletePost}
+            />
         </div>
     );
 }

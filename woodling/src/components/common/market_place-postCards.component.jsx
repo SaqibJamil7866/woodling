@@ -5,9 +5,9 @@ import { ReactComponent as ShareIcon } from '../../assets/share-alt.svg';
 import { ReactComponent as LinkIcon } from '../../assets/link.svg';
 
 const MarketPlacePost = (props) => {
-    const { posts, handleOpenModal } = props;
+    const { posts, handleOpenModal, copy_to_clipboard, sharePost, openPostOptionsModel, addPostReaction } = props;
     return ( 
-        posts.map((i, index, arr) => {
+        posts && posts.map((i, index, arr) => {
             return arr.length-1 === index ? (
                     <div key={index+1} className={`mt30 top-content-bar container row ${ "mb100"}`} style={{width: '700px'}}>
                                 <div className={i.path ? "col-md-6" : 'col-md-10'}>
@@ -29,8 +29,8 @@ const MarketPlacePost = (props) => {
                                     </div>
                                     <div className="border-top">
                                         <span className="mr20 red d-flex align-item">
-                                            <i className={i.likes?"fa fa-heart-o fs25":"fa fa-heart fs25"} title="Like" />
-                                            <span className="badge fs15">{i.likes ? i.likes : i.like_status}</span>
+                                            <i onClick={()=>{addPostReaction(i)}} className={i.like_status !== '1' ? "fa fa-heart-o fs25":"fa fa-heart fs25"} title="Like" />
+                                            <span className="badge fs15">{i.likes}</span>
                                         </span>
                                         {/* <span className="mr20 navy">
                                             <i className="fa fa-comment-o" title="Comment" />
@@ -38,14 +38,14 @@ const MarketPlacePost = (props) => {
                                         </span> */}
                                     </div>
                                 </div>
-                                <div onClick={() => handleOpenModal(i)} className={i.path ? "col-md-6 p0" : 'col-md-2'}>
-                                    <div className="">
+                                <div className={i.path ? "col-md-6 p0" : 'col-md-2'}>
+                                    <div onClick={() => handleOpenModal(i)} >
                                         {i.path!==null ? <img className="brad-10 post-image absolute h270" src={picUrl+i.path} alt="authore pic" /> : null}
                                     </div>
                                     <div className="float-right">
-                                        <DotCircleIcon className="profile-icons" />
-                                        <ShareIcon className="profile-icons" />
-                                        <LinkIcon className="profile-icons" />
+                                        <DotCircleIcon onClick={()=>openPostOptionsModel(i)} className="profile-icons" />
+                                        <ShareIcon onClick={sharePost} className="profile-icons" />
+                                        <LinkIcon onClick={()=>copy_to_clipboard(i.username+' '+i.currency+' '+i.price+' '+i.name+' '+i.product_type+' '+i.formatted_address)} className="profile-icons" />
                                     </div>
                                 </div>
                             </div>) 
@@ -69,8 +69,8 @@ const MarketPlacePost = (props) => {
                                         </div>
                                         <div className="border-top">
                                             <span className="mr20 red d-flex align-item">
-                                                <i className={i.likes?"fa fa-heart-o fs25":"fa fa-heart fs25"} title="Like" />
-                                                <span className="badge fs15">{i.likes ? i.likes : i.like_status}</span>
+                                            <i onClick={()=>{addPostReaction(i)}} className={i.like_status !== '1' ? "fa fa-heart-o fs25":"fa fa-heart fs25"} title="Like" />
+                                                <span className="badge fs15">{i.likes}</span>
                                             </span>
                                             {/* <span className="mr20 navy">
                                                 <i className="fa fa-comment-o" title="Comment" />
@@ -78,14 +78,14 @@ const MarketPlacePost = (props) => {
                                             </span> */}
                                         </div>
                                     </div>
-                                    <div onClick={() => handleOpenModal(i)} className={i.path ? "col-md-6 p0" : 'col-md-2'}>
-                                        <div className="">
+                                    <div className={i.path ? "col-md-6 p0" : 'col-md-2'}>
+                                        <div onClick={() => handleOpenModal(i)}>
                                             {i.path!==null ? <img className="brad-10 post-image absolute h270" src={picUrl+i.path} alt="authore pic" /> : null}
                                         </div>
                                         <div className="float-right">
-                                            <DotCircleIcon className="profile-icons" />
-                                            <ShareIcon className="profile-icons" />
-                                            <LinkIcon className="profile-icons" />
+                                            <DotCircleIcon onClick={()=>openPostOptionsModel(i)} className="profile-icons" />
+                                            <ShareIcon onClick={sharePost} className="profile-icons" />
+                                            <LinkIcon onClick={()=>copy_to_clipboard(i.username+' '+i.currency+' '+i.price+' '+i.name+' '+i.product_type+' '+i.formatted_address)} className="profile-icons" />
                                         </div>
                                     </div>
                                 </div>) 
