@@ -30,9 +30,15 @@ class VideoModal extends Component {
     
     handleVideoUpload = (event) => {
         const video = event.target.files[0];
-        this.setState({uploadedVideo: video}, () => {
-            console.log(this.state.uploadedVideo.name)
-        })
+        const sizeInMB = video.size/1024/1024;
+        if(sizeInMB >= 25){
+            ToastsStore.error("Please select video of size less than 25 MB.")
+        }
+        else{
+            this.setState({uploadedVideo: video}, () => {
+                console.log('selected video: ', this.state.uploadedVideo)
+            })
+        }
     }
 
     filterChange = (event) => {
@@ -87,9 +93,10 @@ class VideoModal extends Component {
 
     handleSubmit = async() => {
         const fd = new FormData();
-        const { lat, lng, formatted_address, city, country, selectedPeople, uploadedVideo, caption } = this.state;
-        if(!uploadedVideo, !formatted_address, !selectedPeople) {
-            ToastsStore.error("Please select all fields");
+        const { lat, lng, formatted_address, city, country, selectedPeople, uploadedVideo, title } = this.state;
+        
+        if(!uploadedVideo || uploadedVideo.length === 0 || !title ) {
+            ToastsStore.error("Please select title, description and video.");
             return false;
         }
         const people = selectedPeople.map((obj)=>{
@@ -104,9 +111,9 @@ class VideoModal extends Component {
         fd.append('formatted_address', formatted_address);
         fd.append('city', city);
         fd.append('country', country);
-        fd.append('caption', caption);
+        fd.append('caption', title);
         fd.append('post_tagged_users', people);
-        fd.append('video', uploadedVideo)
+        fd.append('file', uploadedVideo);
         showLoader()
         await ActivityStreamService.submitPicture(fd)
         .then((response) => {
@@ -115,8 +122,7 @@ class VideoModal extends Component {
                 ToastsStore.success(response.data.message); 
                 this.props.closeVideoUploadModal();
             }else{
-                console.log('error')
-                ToastsStore.error(response.message); 
+                ToastsStore.error(response.data.message); 
             }
         }).catch(e => console.log(e))
         .then(() => hideLoader());
@@ -124,7 +130,7 @@ class VideoModal extends Component {
      
     render() { 
         const { openVideoUploadModal, closeVideoUploadModal } = this.props;
-        const { uploadedVideo, title, description, data, selectedPeople, locations } = this.state;
+        const { uploadedVideo, title, description, data, selectedPeople, locations} = this.state;
         return ( 
             <Modal
                 size="lg"
