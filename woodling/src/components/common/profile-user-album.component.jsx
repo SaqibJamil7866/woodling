@@ -24,7 +24,7 @@ const UserAlbum = (props) => {
                         {i.type==='video' ? <div>
                                                 <i className='fa fa-video-camera video-camera-icon p-absolute' />
 
-                                                <video onClick={()=>openSelectedMedia(i)} className='p-relative' style={{width: '100%', height: '100%', borderRadius:'20px'}} controls > 
+                                                <video onClick={()=>openSelectedMedia(i)} className='p-relative' style={{width: '100%', height: '100%', borderRadius:'20px'}} > 
                                                     <source src={siteUrl+""+i.path} type="video/mp4" /> 
                                                     <source src={siteUrl+""+i.path} type="video/ogg" />
                                                 </video>
