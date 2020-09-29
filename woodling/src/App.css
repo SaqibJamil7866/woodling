@@ -2404,6 +2404,10 @@ p.sdate {
   align-items: center;
 }
 
+.cover {
+  background-size: cover !important;
+}
+
 .fs50 {
   font-size: 50px;
 }

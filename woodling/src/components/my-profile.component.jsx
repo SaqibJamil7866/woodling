@@ -172,6 +172,13 @@ class MyProfile extends Component {
         this.setState({accountModal: false});
     }
 
+    returnCoverPhotoObject= ()=>{
+        return {
+            position: 'initial',
+            background: `url(${this.state.userData.cover_picture ? siteUrl+this.state.userData.cover_picture : '../assets/cover.svg'}) no-repeat center center fixed`
+        };
+    }
+
     render() { 
         const {status, MyProfile, albums, post, tag, reviews, experience, about, following, userExperience, userModal, userModalData, userAlbum, rolesData, userFollowing, followingId, myFollowing, follower, followerId, userFollowers, website, userPosts, ratingModal, userTags, userReviews, accountModal} = this.state;
         const {email, address, date_of_birth, gender, marital_status, phone_1, rating, profile_picture, username, cover_picture, full_name, bio, post_count, tag_count, rating_count, followers_count, following_count} = this.state.userData;
@@ -179,7 +186,8 @@ class MyProfile extends Component {
             <div className='h100p scrolling'>
                 <div className="row m0">
                     <div className="col-md-12 p0">
-                        <img style={{width:'100%', height:'300px'}} src={cover_picture ? siteUrl+""+cover_picture : require('../assets/cover.svg')} />
+                        <div className="col-md-12 h300 cover" style={this.returnCoverPhotoObject()} />
+                        {/* <img style={{width:'100%', height:'300px'}} src={cover_picture ? siteUrl+""+cover_picture : require('../assets/cover.svg')} /> */}
                         <div className='center__item clr__white flex-dir-col align-item'>
                             <div />
                             <ProfilePicHeader
