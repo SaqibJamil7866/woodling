@@ -6,7 +6,7 @@ import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
 
 const AddExperience = (props) => {
-    const { experienceModal, closeExperienceModal, allSkills, allRoleType, disablePastDt, disableDeadlineDt, handleChange, isLocationLoading, handleLocationSearch, handleLocation, locations, errors, handleDate, handleAddExperienceButton, updateExperience, handleUpdateExperience } = props;
+    const { experienceModal, closeExperienceModal, allSkills, allRoleType, disableDeadlineDt, handleChange, isLocationLoading, handleLocationSearch, handleLocation, locations, errors, handleDate, handleAddExperienceButton, updateExperience, handleUpdateExperience } = props;
     const { project, skill_id, role_type, company, location, start_date, end_date, description } = props.addExperience;
     return ( 
         <Modal
@@ -76,7 +76,6 @@ const AddExperience = (props) => {
                                 <DatePicker
                                     value={start_date}
                                     onChange={handleDate('start_date')}
-                                    isValidDate={disablePastDt}
                                     className="form-control dates border-none "
                                 />
                                 {errors.title && <p className="alert alert-danger error">{errors.title}</p>}
@@ -86,7 +85,7 @@ const AddExperience = (props) => {
                                 <DatePicker
                                     value={end_date}
                                     onChange={handleDate('end_date')}
-                                    isValidDate={disableDeadlineDt}
+                                    isValidDate={()=>disableDeadlineDt(start_date, end_date)}
                                     className="form-control dates border-none "
                                 />
                                 {errors.title && <p className="alert alert-danger error">{errors.title}</p>}

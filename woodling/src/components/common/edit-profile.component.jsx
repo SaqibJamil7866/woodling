@@ -230,9 +230,14 @@ class EditProfile extends React.Component {
         return current.isAfter(yesterday);
     }
 
-    disableDeadlineDt = current => {
-    const yesterday = moment().subtract(0, 'day');
-    return current.isAfter(yesterday);
+    disableDeadlineDt = (startDate, endDate) => {
+        // if(startDate && endDate){
+        //     const temp = moment(endDate).isSameOrAfter(moment(startDate));
+        //     return temp;
+        // }
+        // else if(startDate){
+            return true;
+        // }
     }
 
     handleLocation = (location) => { 

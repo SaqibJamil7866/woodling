@@ -3,12 +3,12 @@ import {AuthService} from './AuthService';
 import { getUserProfileUrl, postupdateProfileUrl, getSettingProfileUrl, getIndividualSkillsUrl, getGendersUrl,
          getEmailUrl, postUpdateUrl, getUsernameUrl, getNotificationsUrl,
          postNotificationsUrl, linkedSocialMediaUrl, getPrivacyUrl, postPrivacyUrl, getBlockedUrl, 
-         postUnblockUrl } from '../public/endpoins';
+         postUnblockUrl, getTransactionHistoryUrl, getUserBalanceUrl } from '../public/endpoins';
 
 export const SettingService = {
     myData, postCover, postProfile, getSkills, getGenders, addExperience, UpdateUserDetail, getSettingProfile,
     getEmail, postUpdate, getUsername, getNotifications, postNotifications, linkedSocialMedia, getPrivacy, postPrivacy,
-    getBlocked, postUnblocked
+    getBlocked, postUnblocked, getTransactionHistory, getUserBalance
 }; 
 
 function myData() {
@@ -51,6 +51,32 @@ function postProfile(params) {
 function getSkills() {
     return new Promise((resolve, reject) => {
         axios.get(getIndividualSkillsUrl)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+function getTransactionHistory() {
+    return new Promise((resolve, reject) => {
+        const url = getTransactionHistoryUrl+"?user_id="+AuthService.getUserId();
+        axios.get(url)
+        .then((res) => {
+            resolve(res);
+        })
+        .catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+function getUserBalance() {
+    return new Promise((resolve, reject) => {
+        const url = getUserBalanceUrl+"?user_id="+AuthService.getUserId();
+        axios.get(url)
         .then((res) => {
             resolve(res);
         })
