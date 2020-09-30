@@ -24,6 +24,7 @@ import paymentoptions from './components/payment_options.component';
 import Search from './components/search.component';
 import Chat from './components/chat.component';
 import MyProfile from './components/my-profile.component';
+import Terms from './components/terms.component';
 
 function Main(props) {
 
@@ -94,6 +95,7 @@ function App() {
           <Route path={["/", "/login"]} exact component={LoginComponent} />
           {/* <Route path="/signup" exact component={Register} /> */}
           <Route component={Main} />
+          <Route path='/terms' exact component={Terms} />
         </Switch>
       </Router>
       <ToastsContainer store={ToastsStore} />

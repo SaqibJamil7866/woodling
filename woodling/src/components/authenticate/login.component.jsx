@@ -158,9 +158,9 @@ class LoginComponent extends Component {
                   <div className='center__item'>
                     <ul className='list'>
                       <li className='list__items'><Link to="terms" className='list__items--link'>Terms</Link></li>
-                      <li className='list__items'><Link to="terms" className='list__items--link'>Privacy</Link></li>
-                      <li className='list__items'><Link to="terms" className='list__items--link'>FAQ</Link></li>
-                      <li className='list__items'><Link to="terms" className='list__items--link'>Support</Link></li>
+                      <li className='list__items'><Link to="privacy" className='list__items--link'>Privacy</Link></li>
+                      <li className='list__items'><Link to="FAQ" className='list__items--link'>FAQ</Link></li>
+                      <li className='list__items'><Link to="support" className='list__items--link'>Support</Link></li>
                     </ul>
                   </div>
                   <img style={{marginTop: '-10px'}} src={require('../../assets/logoTitle.svg')} alt="logo title" />
@@ -171,9 +171,9 @@ class LoginComponent extends Component {
                     <div className='center__item'>
                       <ul className='list'>
                         <li className='list__items'><Link to="terms" className='list__items--link'>Terms</Link></li>
-                        <li className='list__items'><Link to="terms" className='list__items--link'>Privacy</Link></li>
-                        <li className='list__items'><Link to="terms" className='list__items--link'>FAQ</Link></li>
-                        <li className='list__items'><Link to="terms" className='list__items--link'>Support</Link></li>
+                        <li className='list__items'><Link to="privacy" className='list__items--link'>Privacy</Link></li>
+                        <li className='list__items'><Link to="FAQ" className='list__items--link'>FAQ</Link></li>
+                        <li className='list__items'><Link to="support" className='list__items--link'>Support</Link></li>
                       </ul>
                     </div>
                     <img src={require('../../assets/logoTitle.svg')} />
