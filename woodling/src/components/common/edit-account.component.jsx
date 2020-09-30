@@ -83,6 +83,18 @@ class EditAccount extends Component {
     handleOpenModal = () => {
         this.setState({openModal: true});
     }
+
+    linkSocialMedia = (media) => {
+        if(media === 'facebook'){
+            window.open('https://www.facebook.com/', "_blank");   
+        }
+        else if(media === 'google'){
+            window.open('https://www.google.com/', "_blank");
+        }
+        else if(media === 'twitter'){
+            window.open('https://www.twitter.com/', "_blank");
+        }
+    }
     
     handleCloseModal = () => {
         this.setState({openModal: false});
@@ -144,21 +156,21 @@ class EditAccount extends Component {
                             </div>
                             <div className="d-flex space-between mb30 p20 align-items">
                                 <div>
-                                    <img style={{width: '40%'}} src={require('../../assets/fb-icon.svg')} alt="fb-icon"/>
+                                    <img style={{width: '40%'}} src={require('../../assets/fb-icon.svg')} alt="fb-icon" />
                                 </div>
-                                <p onClick={this.handleOpenModal} className='update-btn outline align-self-center  pointer'>Change</p>
+                                <p onClick={()=>this.linkSocialMedia('facebook')} className='update-btn outline align-self-center  pointer'>Link</p>
                             </div>
                             <div className="d-flex space-between mb30 p20 align-items">
                                 <div>
-                                    <img style={{width: '50%'}} src={require('../../assets/google-icon.svg')} alt="fb-icon"/>
+                                    <img style={{width: '50%'}} src={require('../../assets/google-icon.svg')} alt="fb-icon" />
                                 </div>
-                                <p onClick={this.handleOpenModal} className='update-btn outline align-self-center  pointer'>Change</p>
+                                <p onClick={()=>this.linkSocialMedia('google')} className='update-btn outline align-self-center  pointer'>Link</p>
                             </div>
                             <div className="d-flex space-between mb30 p20 align-items">
                                 <div>
-                                    <img style={{width: '50%'}} src={require('../../assets/twitter-icon.svg')} alt="fb-icon"/>
+                                    <img style={{width: '50%'}} src={require('../../assets/twitter-icon.svg')} alt="fb-icon" />
                                 </div>
-                                <p onClick={this.handleOpenModal} className='update-btn outline align-self-center  pointer'>Change</p>
+                                <p onClick={()=>this.linkSocialMedia('twitter')} className='update-btn outline align-self-center  pointer'>Link</p>
                             </div>
                         </form>
                     </div>
