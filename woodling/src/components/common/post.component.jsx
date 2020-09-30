@@ -67,6 +67,14 @@ function Post(props) {
         })
     }
 
+    const ownPost = (post) =>{
+        return (post.post_user_id === AuthService.getUserId());
+    }
+
+    const openPromoteORInsigts = (post) => {
+
+    }
+
     return(
         <div>
             {props.posts && 
@@ -78,6 +86,11 @@ function Post(props) {
                                 <div className="p-3-0">
                                     <img style={{width: '15%'}} className="brad-40 h45" src={prop.profile_thumb ? picUrl+prop.profile_thumb : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} alt="authore pic" />
                                     <span>@{prop.username}</span>
+                                    { ownPost(prop) ? (
+                                        <button onClick={()=>openPromoteORInsigts(prop)} className="follow-sm-btn ml5">
+                                            <span>{ prop.promotion_status ? 'Insights' : 'Promote'}</span>
+                                        </button>
+                                    ) : null }
                                 </div>
                                 <div className="min-h80">
                                     <p><b>{prop.caption}</b></p>
@@ -114,6 +127,11 @@ function Post(props) {
                                 <div className="p-3-0">
                                     <img style={{width: '15%'}} className="brad-40 h45" src={prop.profile_thumb ? picUrl+prop.profile_thumb : 'https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'} alt="authore pic" />
                                     <span>@{prop.username}</span>
+                                    { ownPost(prop) ? (
+                                        <button onClick={()=>openPromoteORInsigts(prop)} className="follow-sm-btn ml5">
+                                            <span>{ prop.promotion_status ? 'Insights' : 'Promote'}</span>
+                                        </button> 
+                                    ): null }
                                 </div>
                                 <div className="min-h80">
                                     <p><b>{prop.caption}</b></p>
