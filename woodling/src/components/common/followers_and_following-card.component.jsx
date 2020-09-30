@@ -4,7 +4,8 @@ import convertToFloat from '../../public/helperFunctions';
 import { siteUrl } from '../../public/endpoins';
 
 const FollowersAndFollowingCard = (props) => {
-    const {onCrash, premium, profile_picture, rating, full_name, username, bio, people, scrollRef, profile, peoples} = props;
+    const {onCrash, premium, profile_picture, rating, full_name, username, bio, people, scrollRef,
+        profile, following_status, index, followUnfollowUser, peoples} = props;
     return ( 
         <div ref={scrollRef} className={people ? 'clr__white mt10' : 'clr__white w65 mt10'}>
             <div className='d-flex'>
@@ -22,7 +23,7 @@ const FollowersAndFollowingCard = (props) => {
                             <p className='clr-grey'>@{username}</p>
                         </div>
                         <div>
-                            <button className="skills-btn">Following</button>
+                            <button onClick={()=>followUnfollowUser(index)} className="skills-btn">{following_status ? 'Following' : 'Follow'}</button>
                         </div>
                     </div>
                     <p className='fs12 clr-grey'>{bio}</p>
