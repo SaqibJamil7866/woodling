@@ -230,9 +230,14 @@ class EditProfile extends React.Component {
         return current.isAfter(yesterday);
     }
 
-    disableDeadlineDt = current => {
-    const yesterday = moment().subtract(0, 'day');
-    return current.isAfter(yesterday);
+    disableDeadlineDt = (startDate, endDate) => {
+        // if(startDate && endDate){
+        //     const temp = moment(endDate).isSameOrAfter(moment(startDate));
+        //     return temp;
+        // }
+        // else if(startDate){
+            return true;
+        // }
     }
 
     handleLocation = (location) => { 
@@ -454,14 +459,20 @@ class EditProfile extends React.Component {
         }
     }
 
+    returnCoverPhotoObject= ()=>{
+        return {
+            background: `url(${siteUrl+this.state.myData.cover_picture}) no-repeat center center fixed`
+        };
+    }
+
     render() {
         const { cover_picture, profile_picture, full_name, date_of_birth, address, gender, marital_status, email, phone_1, website, bio } = this.state.myData;
         const { mySkills, skillModal, data, allSkills, experienceCount, locations, errors, experienceModal, allRoleType, addExperience, isLocationLoading, myExperience, experienceStyle, updateExperience } = this.state;
         const { birthday_display, location_display, gender_display, marital_status_display, email_display, phone_display, website_display } = this.state.profileSwitches;
         return ( 
             <div>
-                <div className='cover-photo position-relative'>
-                    {cover_picture ? <img src={siteUrl+""+cover_picture} style={{width: '100%', height: '230px', position: 'absolute'}} /> : null}
+                <div className='cover-photo cover position-relative' style={this.returnCoverPhotoObject()}>
+                    {/* {cover_picture ? <img src={siteUrl+""+cover_picture} style={{width: '100%', height: '230px', position: 'absolute'}} /> : null} */}
                     <SelectImage 
                         name='cover_picture' 
                         id='selectCover' 

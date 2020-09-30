@@ -36,6 +36,8 @@ export const getUserProfileReviewUrl = `${baseUrl}/fetch-user-review.php`;
 export const getUserPostsUrl = `${baseUrl}/fetch-user-posts.php`;
 export const addPostReactionUrl = `${baseUrl}/add-post-reaction.php`;
 export const sharePostUrl = `${baseUrl}/share-post.php`;
+export const deletePostUrl = `${baseUrl}/delete-post.php`;
+export const reportPostUrl = `${baseUrl}/report-post.php`;
 
 // User Tag Post endpoints
 export const getUserTagPostUrl = `${baseUrl}/fetch-user-tagged-posts.php`;
@@ -139,8 +141,10 @@ export const postProductUrl = `${baseUrl}/add-product.php`;
 //Notifications
 export const allNotificationUrl = `${baseUrl}/fetch-notifications.php`;
 
-//Premium
+// Premium
 export const getPremiumRateUrl = `${baseUrl}/fetch-premium-pricing.php`;
+export const getTransactionHistoryUrl = `${baseUrl}/fetch-transaction-history.php`;
+export const getUserBalanceUrl = `${baseUrl}/fetch-user-balance.php`;
 
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",
 // UPDATE_USER_SETUP_DETAILS :"update-user-setup-details.php",

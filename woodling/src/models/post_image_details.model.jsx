@@ -8,9 +8,7 @@ import PostCommentComponent from '../components/common/post_comment.component';
 import { AuthService } from '../services/AuthService';
 import { ActivityStreamService } from '../services/ActivityStreamService';
 import { PostCommentsService } from '../services/PostCommentService';
-import { MarketPlaceService } from '../services/MarketPlace';
-import { showLoader, hideLoader } from '../public/loader';
- 
+import { MarketPlaceService } from '../services/MarketPlace'; 
 class PostImageDetailsModelContent extends React.Component {
 
     constructor(props){
@@ -47,26 +45,6 @@ class PostImageDetailsModelContent extends React.Component {
 
     handlePositionChange = ({ target: { value: dotPosition } }) => this.setState({ dotPosition });
 
-    addPostReaction = () =>{
-        const {activity: { post_id, like_status }} = this.state;
-        const reaction = (like_status ? like_status : 0);
-        const data = { user_id: AuthService.getUserId(), post_id , reaction: (reaction === '1' ? 'like':'dislike') };
-        showLoader();
-        PostCommentsService.addPostReaction(data).then(()=>{
-            hideLoader();
-        })
-    }
-
-    sharePost = () => {
-        const {activity: { post_id }} = this.state;
-        showLoader();
-        PostCommentsService.sharePost(post_id).then((res)=>{
-            hideLoader();
-            if(res.status !== 'error'){
-                ToastsStore.success(res.data.message);
-            }
-        })
-    }
      
     render() {  
         const {activity, activityMedia,dotPosition,postTaggedUsers, likes} = this.state;
@@ -91,17 +69,17 @@ class PostImageDetailsModelContent extends React.Component {
                         </button>
                     </div>
                     <div className='post-like-btn'>
-                        <a onClick={this.addPostReaction} className="post-like-top" ><i className={`fa ${ (activity.like_status && activity.like_status !== '0') ? 'fa-heart' : 'fa-heart-o'}`} /></a>
+                        <a onClick={()=>this.props.addPostReaction(this.props.postData)} className="post-like-top" ><i className={`fa ${ (activity.like_status && activity.like_status !== '1' && activity.like_status !== 1) ? 'fa-heart-o' : 'fa-heart'}`} /></a>
                     </div>
                     <div className="attachment-share">
                         <div className="more-icon">
-                            <a className="more-optinon"><i className="fa fa-ellipsis-h" /></a>
+                            <a onClick={()=>this.props.openPostOptonsModel(this.props.postData)} className="more-optinon"><i className="fa fa-ellipsis-h" /></a>
                         </div>
                         <div className="share-icon">
-                            <a onClick={this.sharePost} className="share-optinon"><i className="fa fa-share-alt" /></a>
+                            <a onClick={this.props.sharePost} className="share-optinon"><i className="fa fa-share-alt" /></a>
                         </div>
                         <div className="link-icon">
-                            <a href="" className="link-optinon"><i className="fa fa-link" /></a>
+                            <a onClick={()=>this.props.copy_to_clipboard(activity && activity.caption+' '+activity.body)} className="link-optinon"><i className="fa fa-link" /></a>
                         </div>
                     </div>
                 </div>
@@ -138,7 +116,7 @@ class PostImageDetailsModelContent extends React.Component {
                     </div>    
                     </div>
                     <PostCommentComponent postData={activity} />
-                </div> 
+                </div>
             </div> 
         );
     }

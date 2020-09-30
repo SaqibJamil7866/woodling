@@ -34,7 +34,7 @@ const CircleMemberModal = (props) => {
                                         <p className='clr-grey'>@{i.username}</p>
                                     </div>
                                     <div>
-                                        <button onClick={() => handleMember(i)} className="skills-btn">ADD</button>
+                                        <button onClick={() => handleMember(i, index)} className="skills-btn">{i.added ? 'Added' : 'Add' }</button>
                                     </div>
                                 </div>
                             </div>

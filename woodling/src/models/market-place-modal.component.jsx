@@ -29,7 +29,7 @@ class MarketPlaceModal extends Component {
         hideLoader();
     }
     render() { 
-        const {postModal, handleCloseModal} = this.props;
+        const {postModal, handleCloseModal, copy_to_clipboard, sharePost, openPostOptionsModel, addPostReaction} = this.props;
         const {name, product_type, path, purpose, currency, price, full_name, username, profile_thumb, profile_picture, rating, formatted_address} = this.props.modalData;
         const {likes, status, relatedProd} = this.state;
         return ( 
@@ -55,17 +55,17 @@ class MarketPlaceModal extends Component {
                             </button>
                         </div>
                         <div className='post-like-btn'>
-                            <a href="" className="post-like-top"><i className="fa fa-heart-o"></i></a>
+                            <a className="post-like-top" onClick={()=>{addPostReaction(this.props.modalData)}}><i className={this.props.modalData.like_status !== '1' ? "fa fa-heart-o fs25":"fa fa-heart fs25"}></i></a>
                         </div>
                         <div className="attachment-share">
                             <div className="more-icon">
-                                <a href="" className="more-optinon"><i className="fa fa-ellipsis-h" /></a>
+                                <a onClick={()=>openPostOptionsModel(this.props.modalData)} className="more-optinon"><i className="fa fa-ellipsis-h" /></a>
                             </div>
                             <div className="share-icon">
-                                <a href="" className="share-optinon"><i className="fa fa-share-alt" /></a>
+                                <a onClick={sharePost} className="share-optinon"><i className="fa fa-share-alt" /></a>
                             </div>
                             <div className="link-icon">
-                                <a href="" className="link-optinon"><i className="fa fa-link" /></a>
+                                <a onClick={()=>copy_to_clipboard(username+' '+currency+' '+price+' '+name+' '+product_type+' '+formatted_address)} className="link-optinon"><i className="fa fa-link" /></a>
                             </div>
                         </div>
                     </div>

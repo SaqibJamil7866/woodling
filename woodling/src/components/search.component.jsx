@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { ToastsStore } from 'react-toasts';
 import { SearchService } from '../services/SearchService';
+import history from '../public/history';
 import InfiniteScroll from 'react-infinite-scroller';
 import { showLoader, hideLoader } from '../public/loader';
 import SearchResult from './common/search-result.component';
-import { Toast } from 'react-bootstrap';
 
 class Search extends Component {
 
@@ -270,7 +270,12 @@ class Search extends Component {
     }
 
     openProfile = (data) => {
-        console.log(data);
+        data.profile_picture = data.profile_thumb;
+        console.log("new Profile", data);
+        history.push({
+            pathname: '/user_profile',
+            state: { data }
+        })
     }
     
     handleEventsLink = () => {
@@ -347,6 +352,7 @@ class Search extends Component {
                         heading={search}
                         goBack={this.handleBack}
                         latest={latest}
+                        openProfile={this.openProfile}
                         posts={posts}
                         services={services}
                         products={products}
@@ -366,7 +372,6 @@ class Search extends Component {
                         handleCastingCallLink={this.handleCastingCallLink}
                         onCrash={this.onCrash}
                         peoples={peoples}
-                        profile={this.openProfile}
                         everything={everything}
                         loadMoreLatest={this.loadMoreLatest}
                         scrollRef={scrollRef}

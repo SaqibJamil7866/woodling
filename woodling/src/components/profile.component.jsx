@@ -1,5 +1,6 @@
 /* eslint-disable prefer-destructuring */
 import React, {Component} from 'react';
+import { ToastsStore } from 'react-toasts';
 import { showLoader, hideLoader } from '../public/loader';
 import history from '../public/history';
 import { UserService } from '../services/UserService';
@@ -9,6 +10,7 @@ import ProfilePicHeader from './common/profile-header.component';
 import UserExperience from './common/profile-user-experience.component';
 import UserAlbum from './common/profile-user-album.component';
 import Post from './common/post.component';
+import { AuthService } from '../services/AuthService';
 import UserAbout from './common/profile-user-about.component';
 import UserFollowing from './common/profile-user-following.component';
 import UserFollowers from './common/profile-user-followers.component';
@@ -82,12 +84,15 @@ class Profile extends Component {
         await FollowService.getUSerFollowiers(data.id)
         .then((res) => {
             this.setState({userFollowers: res.data.data, status: res.data.status}, () => {
-                this.state.userFollowers.map((i, index) => {
-                    UserService.getUserProfileData(i.id)
-                    .then((res) => {
-                        this.state.followerId.push(res.data.data)
+                if(this.state.userFollowers){
+                    this.state.userFollowers.map((i, index) => {
+                        UserService.getUserProfileData(i.id)
+                        .then((res) => {
+                            res.data.data.id = i.id;
+                            this.state.followerId.push(res.data.data)
+                        })
                     })
-                })
+                }
             })
         }).catch((e)=>console.error("error: "+ e))
 
@@ -158,8 +163,35 @@ class Profile extends Component {
     openModal = (data) => {
         this.setState({userModal: true, userModalData: data});
     }
+
     closeModal = () => {
         this.setState({userModal: false});
+    }
+
+    followUnfollowUser = (index) => {
+        const { followerId } = this.state;
+        const data = { user_id: AuthService.getUserId(), follower_id: followerId[index].id};
+        showLoader();
+        if(followerId[index].following_status){
+            FollowService.unfollowUser(data).then((res)=>{
+                hideLoader();
+                if(res.data.status !== 'error'){
+                    followerId[index].following_status = false;
+                    this.setState({followerId});
+                    ToastsStore.success(res.data.message);
+                }
+            });
+        }
+        else{
+            FollowService.followUser(data).then((res)=>{
+                hideLoader();
+                if(res.data.status !== 'error'){
+                    followerId[index].following_status = true;
+                    this.setState({followerId});
+                    ToastsStore.success(res.data.message);
+                }
+            });
+        }
     }
 
     render(){
@@ -254,12 +286,14 @@ class Profile extends Component {
                                             userFollowing={userFollowing}
                                             myFollowing={myFollowing}
                                             onCrash={this.onCrash}
+                                            followUnfollowUser={this.followUnfollowUser}
                                         /> : null}
 
                             {follower ? status==='empty' ? <p>No Followers Found</p> : <UserFollowers 
                                             followerId={followerId}
                                             userFollowers={userFollowers}
                                             onCrash={this.onCrash}
+                                            followUnfollowUser={this.followUnfollowUser}
                                         />:null}
                         </div>
                     </div>

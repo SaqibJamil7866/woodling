@@ -153,7 +153,7 @@ class EventModal extends Component {
                     </div>
                     <div className='w100p d-flex flex-dir-col align-item'>
                         <div className="form-group p20 w70 d-flex flex-dir-col align-item mb0">
-                            <label className='ml10 fs25' for="event_name">Script Title</label>
+                            <label className='ml10 fs25' for="event_name">Event Name</label>
                             <input value={event_name} onChange={(e)=>this.setState({event_name: e.target.value})} type="text" placeholder='Write event name here' className="form-control brder-l-r-t mt-10" id="script_title" name='script_title' />
                         </div>
                         <div className="form-group p20 w70 d-flex flex-dir-col align-item">
