@@ -66,10 +66,13 @@ const Chat = () => {
     
     function openChats(){
         dispatch({field: 'activeSection', value: 'chat'});
+        dispatch({field:'openSingleChat', value: false});
+        dispatch({field:'openGroupChat', value: false});
         dispatch({field:'create_new', value: ''});
         const data = [];
         showLoader();
-        chatListref.get().then(docSnapshot => {
+        const temp = chatListref.orderBy('createdAt', 'desc');
+        temp.get().then(docSnapshot => {
             hideLoader();
             if(!docSnapshot.empty){
                 docSnapshot.docs.forEach((element, index, array) => {
@@ -104,6 +107,8 @@ const Chat = () => {
 
     const openCircles = () => {
         dispatch({field: 'activeSection', value: 'circle'});
+        dispatch({field:'openSingleChat', value: false});
+        dispatch({field:'openGroupChat', value: false});
         dispatch({field:'create_new', value: ''});
         showLoader();
         db.collection("circles").get().then(function(querySnapshot) {
@@ -138,7 +143,9 @@ const Chat = () => {
         e.currentTarget.src='https://www.worldfuturecouncil.org/wp-content/uploads/2020/02/dummy-profile-pic-300x300-1.png'
     }
 
-    const handleMember = (data) => {
+    const handleMember = (data, index) => {
+        allMembers[index].added = true;
+        dispatch({field:'allMembers', value: allMembers });
         selectedMembers.push(data)
     }
 
@@ -304,7 +311,7 @@ const Chat = () => {
                     : `${picUrl}/${tempUser.profile_thumb}`,
                     user_id: tempUser.id
                 }
-            }
+            };
             chatListref.doc(tempUser.id).set(chatObj).then((res)=>{
                 openChats(); // update the chatlist
                 openChatMessaging(chatObj);

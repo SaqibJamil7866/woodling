@@ -2,7 +2,7 @@ import React from 'react';
 import FollowersAndFollowingCard from './followers_and_following-card.component';
 
 const UserFollowers = (props) => {
-    const {followerId, userFollowers, onCrash} = props;
+    const {followerId, followUnfollowUser, userFollowers, onCrash} = props;
     return ( 
         <div className='container'>
             <div className='row flex-dir-col align-item'>
@@ -15,6 +15,9 @@ const UserFollowers = (props) => {
                                 full_name={i.full_name}
                                 username={i.username}
                                 bio={i.bio}
+                                following_status={i.following_status}
+                                followUnfollowUser={followUnfollowUser}
+                                index={index}
                             />;
                 })}
             </div>
