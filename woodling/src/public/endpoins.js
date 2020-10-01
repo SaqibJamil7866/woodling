@@ -1,11 +1,13 @@
-const baseUrl = 'http://18.220.228.143/woodlig_jwt/controllers/mobile';
-
+// const baseUrl = 'http://18.220.228.143/woodlig_jwt/controllers/mobile';
+const baseUrl = 'https://woodlig.com/woodlig_jwt/controllers/mobile';
 // location endpoints
 const locationUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
 export const geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
 
-export const siteUrl = 'http://18.220.228.143/woodlig_jwt/';
-export const picUrl = 'http://18.220.228.143/'
+// export const siteUrl = 'http://18.220.228.143/woodlig_jwt/';
+// export const picUrl = 'http://18.220.228.143/'
+export const siteUrl = 'https://woodlig.com/woodlig_jwt/';
+export const picUrl = 'https://woodlig.com/'
 
 // auth endpoints
 export const loginUrl = `${baseUrl}/login.php`;
