@@ -40,7 +40,7 @@ const Messaging = (props) => {
           createdAt: Date.now(),
           text: chats.text,
           user: chats.user,
-          _id: Date.now(),
+          id: Date.now(),
         };
         console.log(newMessage);
         ref.add(newMessage);
@@ -86,7 +86,15 @@ const Messaging = (props) => {
                 querySnapshot => {
                     const msgs = [];
                     querySnapshot.forEach(element => {
-                    msgs.push(element.data());
+                        const tempMsg = element.data();
+                        if(tempMsg.user._id !== AuthService.getUserId()+""){
+                            tempMsg.user.id = tempMsg.user._id;
+                            delete tempMsg.user._id;  // if message from other guy then delete '_id' and add 'id' to differenciate between msgs
+                            msgs.push(tempMsg);
+                        }
+                        else{
+                            msgs.push(tempMsg);
+                        }
                     });
                     setMessages(msgs);
 
@@ -132,7 +140,7 @@ const Messaging = (props) => {
                     }
                 },
                 err => {
-                console.log(`Encountered error: ${err}`);
+                    console.log(`Encountered error: ${err}`);
                 },
             );
         } catch (err) {
