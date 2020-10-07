@@ -36,9 +36,17 @@ function getFavProduct() {
     })
 }
 
-function getMyPostedPost() {
+function getMyPostedPost(data) {
+    const param = [
+        `name=${data.name}`,
+        `category=${data.category}`,
+        `min_price=${data.min_price}`,
+        `max_price=${data.max_price}`,
+        `sort=${data.sort}`,
+        `location=${data.location}`
+    ]
     return new Promise((resolve, reject) => {
-        const url = getMyPostedPostUrl+"?user_id="+AuthService.getUserId();
+        const url = getMyPostedPostUrl+"?user_id="+AuthService.getUserId()+'&'+param.join('&');
         axios.get(url)
         .then((res) => {
             resolve(res);
