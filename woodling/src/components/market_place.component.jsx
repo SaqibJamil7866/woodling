@@ -107,6 +107,33 @@ class MarketPlace extends Component {
         })
     }
 
+    searchMarketPlace = (data) =>{
+        if(data.sub_category === 'popular'){
+            this.setState({postedProd: false, fav: false, latest: false, feature: false, popular: true});
+        }
+        else if(data.sub_category === 'feature'){
+            this.setState({postedProd: false, fav: false, latest: false, feature: true, popular: false});
+        }
+        else if(data.sub_category === 'latest'){
+            this.setState({postedProd: false, fav: false, latest: true, feature: false, popular: false});
+        }
+
+        const param = {
+            name: data.type,
+            category: data.category, 
+            min_price: data.min_price,
+            max_price: data.max_price,
+            sort: data.sub_category,
+            location: data.location
+        }
+        showLoader();
+        MarketPlaceService.getMyPostedPost(param)
+        .then((res) => {
+            this.setState({posts: res.data.posted_adverts, status: res.data.status})
+        }).catch((e) => console.log(e))
+        .then(() => hideLoader());
+    }
+
     handleOpenModal = (data) => {
         this.setState({postModal: true, modalData: data});
     }
@@ -272,7 +299,7 @@ class MarketPlace extends Component {
                         </div>
 
                         <div className='col-md-4 br-white'>
-                            <MarketPlaceFilter />
+                            <MarketPlaceFilter searchMarketPlace={this.searchMarketPlace} />
                         </div>
                     </div>
                 </div>

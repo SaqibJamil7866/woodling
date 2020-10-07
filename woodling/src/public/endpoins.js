@@ -132,7 +132,7 @@ export const getPlaceUrl = `${baseUrl}/search-places.php`;
 export const getTagsUrl = `${baseUrl}/search-tags.php`;
 export const getTagPostUrl = `${baseUrl}//search-tag-posts.php`;
 
-//product type endpoints
+// product type endpoints
 export const getProductTypeUrl = `${baseUrl}/fetch-product-type.php`;
 export const getServiceTypeUrl = `${baseUrl}/fetch-service-type.php`;
 
