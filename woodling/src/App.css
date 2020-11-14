@@ -2794,3 +2794,11 @@ p.sdate {
 .border-radius-100 {
   border-radius: 100px;
 }
+
+.bottom-red {
+  border-bottom: 2px solid red;
+}
+
+.h-100vh {
+  height: 100vh;
+}

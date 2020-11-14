@@ -7,6 +7,7 @@ import { FollowService } from '../services/FollowService';
 import { siteUrl, picUrl } from '../public/endpoins';
 import UserExperience from './common/profile-user-experience.component';
 import UserAlbum from './common/profile-user-album.component';
+import InsightPost from './common/insightPosts.component';
 import Post from './common/post.component';
 import Reviews from './common/profile-user-rating.component';
 import UserFollowers from './common/profile-user-followers.component';
@@ -96,11 +97,12 @@ class MyProfile extends Component {
         this.setState(
           { userFollowers: res.data.data, status: res.data.status },
           () => {
-            this.state.userFollowers.map((i, index) => {
-              UserService.getUserProfileData(i.id).then((res) => {
-                this.state.followerId.push(res.data.data);
+            this.state.userFollowers &&
+              this.state.userFollowers.map((i, index) => {
+                UserService.getUserProfileData(i.id).then((res) => {
+                  this.state.followerId.push(res.data.data);
+                });
               });
-            });
           }
         );
       })
@@ -571,7 +573,7 @@ class MyProfile extends Component {
                 userPosts === 'empty' ? (
                   <p>No Post Found</p>
                 ) : (
-                  <Post
+                  <InsightPost
                     posts={userPosts}
                     profile_picture={profile_picture}
                     onCrash={this.onCrash}
