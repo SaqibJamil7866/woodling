@@ -1,13 +1,14 @@
 // const baseUrl = 'http://18.220.228.143/woodlig_jwt/controllers/mobile';
 const baseUrl = 'https://woodlig.com/woodlig_jwt/controllers/mobile';
 // location endpoints
-const locationUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+const locationUrl =
+  'https://maps.googleapis.com/maps/api/place/autocomplete/json';
 export const geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
 
 // export const siteUrl = 'http://18.220.228.143/woodlig_jwt/';
 // export const picUrl = 'http://18.220.228.143/'
 export const siteUrl = 'https://woodlig.com/woodlig_jwt/';
-export const picUrl = 'https://woodlig.com/'
+export const picUrl = 'https://woodlig.com/';
 
 // auth endpoints
 export const loginUrl = `${baseUrl}/login.php`;
@@ -52,7 +53,7 @@ export const followUserUrl = `${baseUrl}/follow-user.php`;
 export const unfollowUserUrl = `${baseUrl}/unfollow-user.php`;
 
 // Add review endpoints
-export const addReviewUrl = `${baseUrl}/add-review.php`
+export const addReviewUrl = `${baseUrl}/add-review.php`;
 
 // Comments endpoints
 export const getCommentsUrl = `${baseUrl}/fetch-post-comments.php`;
@@ -94,7 +95,7 @@ export const editCastingCallUrl = `${baseUrl}/edit-casting-call.php`;
 export const getUserCastingCallsUrl = `${baseUrl}/fetch-user-casting-calls.php`;
 export const roleTypeUrl = `${baseUrl}/fetch-role-type.php`;
 export const getProductionTypeUrl = `${baseUrl}/fetch-production-type.php`;
-export const getLocationUrl = `${locationUrl}`
+export const getLocationUrl = `${locationUrl}`;
 
 // market place endpoints
 export const getPopularProductUrl = `${baseUrl}/search-products.php`;
@@ -119,7 +120,7 @@ export const postNotificationsUrl = `${baseUrl}/update-setting-notification.php`
 export const getPrivacyUrl = `${baseUrl}/fetch-setting-privacy.php`;
 export const postPrivacyUrl = `${baseUrl}/update-setting-privacy.php`;
 export const getBlockedUrl = `${baseUrl}/fetch-blocked-users.php`;
-export const postUnblockUrl = `${baseUrl}/unblock-user.php`
+export const postUnblockUrl = `${baseUrl}/unblock-user.php`;
 
 // Search endpoints
 export const getEverythingUrl = `${baseUrl}/search-everything.php`;
@@ -148,11 +149,16 @@ export const getPremiumRateUrl = `${baseUrl}/fetch-premium-pricing.php`;
 export const getTransactionHistoryUrl = `${baseUrl}/fetch-transaction-history.php`;
 export const getUserBalanceUrl = `${baseUrl}/fetch-user-balance.php`;
 
+//Promotion
+export const addPromotion = `${baseUrl}/add-promotion.php`;
+export const getAllSkills = `${baseUrl}/fetch-individual-skills.php`;
+export const getInsight = `${baseUrl}//fetch-promotion-insights.php`;
+//http://18.220.228.143/woodlig_jwt/controllers/mobile
 // FEATCH_USER_PROFILE :"fetch-user-profile.php",
 // UPDATE_USER_SETUP_DETAILS :"update-user-setup-details.php",
 // FETCH_USER_BALANCE :"fetch-user-balance.php",
 // FETCH_WALLET_HISTORY :"fetch-wallet-payment-history.php",
 // ADD_AMOUNT_WALLET:"add-amount-in-wallet.php",
 // PROMOTION_INSIGHTS:"fetch-promotion-insights.php",
-// PROMOTION_STATUS_UPDATE:"update-promotion-status.php", 
-// SEARCH_PEOPLE:"search-people.php", 
+// PROMOTION_STATUS_UPDATE:"update-promotion-status.php",
+// SEARCH_PEOPLE:"search-people.php",

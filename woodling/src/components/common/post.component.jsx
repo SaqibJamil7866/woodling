@@ -82,10 +82,9 @@ function Post(props) {
     return post.post_user_id === AuthService.getUserId();
   };
 
-  const openPromoteORInsigts = (post) => {};
-
   return (
     <div>
+      {console.log('prosts', props.posts)}
       {props.posts &&
         props.posts.map((prop, index, arr) => {
           return arr.length - 1 === index ? (
@@ -111,7 +110,7 @@ function Post(props) {
                   <span>@{prop.username}</span>
                   {ownPost(prop) ? (
                     <button
-                      onClick={() => openPromoteORInsigts(prop)}
+                      onClick={() => props.openPromoteORInsigts(prop)}
                       className="follow-sm-btn ml5"
                     >
                       <span>
@@ -206,7 +205,7 @@ function Post(props) {
                   <span>@{prop.username}</span>
                   {ownPost(prop) ? (
                     <button
-                      onClick={() => openPromoteORInsigts(prop)}
+                      onClick={() => props.openPromoteORInsigts(prop)}
                       className="follow-sm-btn ml5"
                     >
                       <span>
